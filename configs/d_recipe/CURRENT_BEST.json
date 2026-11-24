@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_TRAINING_L2_A1_UNRESOLVED_G1_COMPLETE",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-24T08:17:01Z",
+  "updated_at_utc": "2026-11-24T20:25:50Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -3317,8 +3317,16 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ORIGINAL_L1_GPU20_RESUMED_AFTER_USER_APPROVED_CLOSED_CACHE_CLEANUP",
-  "blocking_condition": null,
+  "automation_state": "ACTIVE_FULL_TASKBOOK_NATIVE_WAIT_AND_INDEPENDENT_DELIVERABLES",
+  "blocking_condition": {
+    "kind": "NATIVE_QUOTA_WAIT",
+    "goal_status": "ACTIVE",
+    "handling_owner": "USER_EXTERNAL",
+    "user_directive": "先继续工作，暂时忽略限额问题，我会在别的地方单独解决这个问题",
+    "do_not_repeat_quota_troubleshooting": true,
+    "native_guard_and_existing_process_retained": true,
+    "independent_deliverables_continue": true
+  },
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
     "scope": "Future start/safe continuation; frozen active training source unchanged",
@@ -3688,7 +3696,7 @@
     "model_process_preserved": true,
     "full_goal_unchanged": true
   },
-  "latest_daily": "docs/d_recipe/daily/2026-11-24.md",
+  "latest_daily": "docs/d_recipe/daily/2026-11-25.md",
   "development_H_policy": {
     "status": "COMPLETE_ORIGINAL_DEVELOPMENT_D3_POPULATION_MERGED",
     "policy": "B6_fixed_native_H",
@@ -4646,7 +4654,7 @@
       }
     },
     "L1": {
-      "status": "RUNNING_ORIGINAL_1M_INFRASTRUCTURE_CONTINUATION",
+      "status": "ORIGINAL_PROCESS_PRESERVED_NATIVE_CAPACITY_WAIT",
       "configuration": "configs/d_recipe/screening/D-L1_seed0_resume1M_gpu20_20261124.json",
       "resident": "configs/d_recipe/launches/D-L1_seed0_resume1M_gpu20_20261124_resident.sbatch",
       "CPU_node": "compute-0-12",
@@ -4693,13 +4701,12 @@
       },
       "latest_original_progress": {
         "kind": "original_L1_progress",
-        "observed_at_UTC": "2026-11-24T08:17:01Z",
+        "observed_at_UTC": "2026-11-24T20:19:20Z",
         "job_id": 4539402,
         "node": "compute-0-20",
-        "samples": 1077344,
-        "training_loop_seconds": 33824.80896643351,
-        "source": "Original continuation losses.csv after native quota guard auto-resume; cumulative time includes old1M prefix and quota pause",
-        "independent_metrics_recomputed": false
+        "samples": 1742368,
+        "training_loop_seconds": 46407.724043155555,
+        "source": "Original continuation losses.csv native scalar; no metric recomputation"
       },
       "live_joint_NFS_forecast_bytes": 34244105455,
       "active_frozen_configuration_share_upper_bound_bytes": 42074762973,
@@ -4755,6 +4762,15 @@
           "original_units_csv": "results/d_recipe/D-L1_seed0_VAL_original_units_1500000_failed_prefix_20261124.csv",
           "failed_attempt_prefix": true,
           "reported_field_rows": 198,
+          "decision_input": false
+        },
+        {
+          "samples": 1500000,
+          "source": "results/d_recipe/D-L1_seed0_continuation_fixed_VAL_1500000_20261125.json",
+          "original_units_csv": "results/d_recipe/D-L1_seed0_continuation_VAL_original_units_1500000_20261125.csv",
+          "reported_field_rows": 198,
+          "infrastructure_continuation": true,
+          "failed_attempt_prefix": false,
           "decision_input": false
         }
       ],
@@ -5078,6 +5094,21 @@
         "static_config_bytes": 42074762973,
         "full_peak": 27288051602,
         "joint_peak": 34244105455
+      },
+      "current_runtime_state": {
+        "observed_at_UTC": "2026-11-24T20:19:20Z",
+        "Slurm_state": "RUNNING",
+        "actual_worker": 281103,
+        "start_ticks": 67356059,
+        "UID": 1278,
+        "process_state": "T",
+        "native_event": "DISK_TRANSPORT_PAUSED",
+        "native_reason": "Insufficient actual UID quota after registered peer reservations",
+        "process_restarted": false,
+        "manual_signals": false,
+        "quota_handling_owner": "USER_EXTERNAL",
+        "end_time_CST": "2026-11-26T12:27:55",
+        "cleanup_seconds": 900
       }
     },
     "next_L1_progress_check_UTC": "2026-11-24T04:58:16Z",

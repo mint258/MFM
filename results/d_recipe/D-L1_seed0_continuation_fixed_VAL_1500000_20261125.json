@@ -1,0 +1,61 @@
+{
+  "schema": "D_L1_ORIGINAL_CONTINUATION_FIXED_VAL_REPORT_V1",
+  "status": "NATIVE_FIXED_VAL_1500000_PRODUCER_RECORDED",
+  "recorded_at_UTC": "2026-11-24T20:25:50Z",
+  "run": "d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124",
+  "arm": "D-L1",
+  "seed": 0,
+  "logical_budget": 3000000,
+  "samples": 1500000,
+  "updates": 46875,
+  "GPU_job": 4539402,
+  "node": "compute-0-20",
+  "GPU_model": "RTX4090",
+  "origin_checkpoint_samples": 1000000,
+  "original_1M_full_state_restored": true,
+  "original_unsaved_failed_attempt_samples_replayed": 501088,
+  "fixed_VAL_population": 2000,
+  "reported_field_rows": 198,
+  "original_units_csv": "results/d_recipe/D-L1_seed0_continuation_VAL_original_units_1500000_20261125.csv",
+  "native_csv_source": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/results/d_recipe/training/d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124/VAL_original_units_1500000.csv",
+  "native_family_source": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/results/d_recipe/training/d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124/family_losses.csv",
+  "native_family_rows": [
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124",
+      "kind": "VAL_fixed2000",
+      "samples": "1500000",
+      "updates": "46875",
+      "family": "atom_sasa",
+      "loss": "0.008825855903327465",
+      "clipped_fraction": "0.004458666666666666",
+      "seconds": "41810.30461523251"
+    },
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124",
+      "kind": "VAL_fixed2000",
+      "samples": "1500000",
+      "updates": "46875",
+      "family": "graph_2d",
+      "loss": "0.028860151082277297",
+      "clipped_fraction": "0.004458666666666666",
+      "seconds": "41810.30462368752"
+    },
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124",
+      "kind": "VAL_fixed2000",
+      "samples": "1500000",
+      "updates": "46875",
+      "family": "molecule_3d",
+      "loss": "0.02036574450135231",
+      "clipped_fraction": "0.004458666666666666",
+      "seconds": "41810.304624871584"
+    }
+  ],
+  "native_numbers_preserved_as_original_CSV_strings": true,
+  "original_calibrated_p99_source": "results/d_recipe/D-L1_seed0_original_clip_calibration_20261124.json",
+  "old_failed_attempt_VAL_preserved": "results/d_recipe/D-L1_seed0_original_fixed_VAL_1500000_failed_prefix_20261124.json",
+  "scope": "Original continuation fixed validation. Distinct from the failed GPU4539360 1.5M prefix. No additional forward, refit, resampling, independent validation or recomputed metric. Native cumulative seconds include restored prefix and the actual quota pause; they are not pure RTX4090 training time.",
+  "decision_input": false,
+  "R3_comparison_available": false,
+  "clipped_fraction_scope": "Original cumulative gradient-clipped optimizer-update fraction; not TRAIN target ±6 clipping fraction"
+}

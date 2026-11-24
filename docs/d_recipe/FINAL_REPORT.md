@@ -330,3 +330,10 @@ Data plan的Stage2池3221225472→2471225472B、full峰值35118709120→34368709
 原configuration明确resume原samples_1000000.pt；原clip_calibration已fitted=true、13.768829002380377/2813更新，未重拟合。原losses.csv首行1000032样本/31251更新、原累计秒20189.967980438494，后续已1005280样本/原累计20304.017527490505秒，证实恢复同一clock；原TRAIN1194228/PM7。实际CUDA worker PID281103、UID1278、start_ticks67356059、真实job4539402/step_batch；其它400MiB上下文保留。原preflight root281022的reap0只代表预检，不是GPU训练退出。
 
 原未保存501088样本及GPU4准入0样本失败均保留成本。RTX3090旧正式首1000窗口只归原冷启动；新RTX4090的native timer含旧1M prior，最终成本一次汇总须按原父/卡和实际计时点区间报告，不能把累计3M/累计秒标成4090整段速度；整卡功耗含共存上下文，不报归因功耗或积分能耗。此前原1.5M失败前VAL保留，续接自然重放的窗口另存，均不作配方门。后续仍原3M/R3配对、条件seed1、全部关卡后冻结、冷9M及最终A-B-C/基准/成本/一次完整回归/两未合并PR，不缩减范围。
+
+
+## 2026-11-25 · 续接固定验证与当前执行范围
+
+用户已明确批准12个已完成R0特征缓存清理，实际3081236480B，其余checkpoint/预测/读出/原统计与bootstrap保留；先实删后结算full27288051602B、joint34244105455B，原GPU20 worker281103由守卫自行恢复。[实际执行](../../results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json)。
+
+续接后的原1.5M固定VAL已生成198字段，保留[原窗口](../../results/d_recipe/D-L1_seed0_continuation_fixed_VAL_1500000_20261125.json)与[逐字段CSV](../../results/d_recipe/D-L1_seed0_continuation_VAL_original_units_1500000_20261125.csv)。本窗口是原训练恢复后的固定观测，旧失败前窗口保留；未做额外计算，不作3M/R3、seed1或配方选择依据。最新原进度1742368样本；用户现另行处理配额，完整研究继续，最终配方、冷9M、最终A/B/C与两个PR仍未完成。
