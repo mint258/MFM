@@ -1538,3 +1538,8 @@ GPU4539402已RUNNING，CPU12单核统计4539403 afterok402→配对4539404 after
 ## 2026-11-24 · D Root：GPU20原守卫配额暂停，R0已完成缓存清理仅提案
 
 13:48 CST：L1原1M完整状态续接4539402在GPU20，原守卫暂停在1076288样本；实际原worker281103/UID1278/start_ticks67356059/原cgroup仍在、状态T。CPU4539403/404等待依赖。原100GB/额外8GiB/fresh5秒及全部其它owner预算保持，未重启/未手工SIGCONT。当前UID余量308075278336B，静态要求309136036573B。Lustre UID余量1067335680B不足原守卫最小116589934592B，未传输。拟仅清理已完成R0 seed0/3M开发层缓存12个.pt、3081236480B；完整checkpoint/预测/读出/统计/原输入保留。**仅提案，尚无删除批准，实际删除0B**。精确清单与依赖闭合见[d-recipe提案](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/R0_CACHE_CLEANUP_PROPOSAL_20261124.md)。如获批，先实删再同字节结算已闭合R0/full/joint，保持所有缓冲/活动槽/peer预算，原进程由原守卫自行恢复。完整任务及冷9M/最终A-B-C仍待完成，最终配方未冻结。
+
+
+## 2026-11-24 · D Root：已批精确12缓存清理完成，同一GPU20原进程自行恢复
+
+16:17 CST：用户已明确批准原7697bbcf提案。仅完成D-R0 seed0/3M已闭合12个开发层特征.pt逐个unlink，实际3081236480B；所有checkpoint/预测/读出/统计/bootstrap/输入及3个manifest保留，无递归清理、无其它owner文件操作。先实际删除，再原闭合R0组件3139026944→57790464B、full30369288082→27288051602B、joint37325341935→34244105455B（plan prepare/produce/finalize的joint peak全部同步）。原缓冲、活动槽、other-owner预算、100GB/fresh5秒/额外8GiB和冻结42074762973B运行配置不变。原守卫自行DISK_TRANSPORT_RESUMED，仍4539402/GPU20/worker281103/start_ticks67356059/原cgroup，1076288→1077344样本；未人工SIGCONT、未重启/重载/新job。CPU4539403/404原afterok链保持。当前available310322528256B、direct required309136036573B、peer required308396853274B均通过。整卡/累计timer含原prefix和配额暂停，成本不剔除；完整任务与全部后续关卡/冷9M/最终A-B-C继续，配方未冻结。[实际记录](https://github.com/mint258/MFM/blob/d-recipe/results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json)。
