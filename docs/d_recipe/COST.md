@@ -54,3 +54,9 @@ Data plan的Stage2池3221225472→2471225472B、full峰值35118709120→34368709
 仅给后续监督器补上进程/线程刚退出时的ESRCH处理，权限等无关错误继续抛出；旧冻结resident/配置/产物保留。CPU12/4539397已通过13项相关测试、0跳过、原测试0.300秒，原Slurm C0/ElapsedRaw0×1CPU；root1812247 reap0、resident children=[]、实际/proc缺失。完整默认回归仍留PR前一次。
 
 按TASKBOOK3.4，准备从原205549589B、1M完整checkpoint恢复同一D-L1/seed0，原模型、优化器、clock、采样器/torch/CUDA随机状态和已冻结p99随原载荷恢复，逻辑预算仍3M。原未保存的501088样本需重放，全部实际失败成本保留，不从头训练或加新臂/seed。拟用GPU4/RTX3090/5CPU/3workers及CPU12单核统计→原R1 seed0配对；节点实际盘/inode/GPU/Slurm健康已核实，原900秒退出窗口、48h/8h/4h时限、NFS/根盘/UID/其它owner future保持。原1M不复制，后续仅2M/3M两个断点仍在原Stage2九槽池内。[具体原记录和续接绑定](../../results/d_recipe/L1_exit_proc_race_and_1M_continuation_prelaunch_20261124.json)。此刻只完成准备，尚未提交新训练。
+
+## 2026-11-24 · 续接前原配额准入与已闭合物理资源结算
+
+没有在准入不足时提交续跑。对原已闭合R1 seed0、Stage1 seed1、G1的12个checkpoint只读stat.st_blocks×512资源元信息，撤回806413184B未使用预测；全部12文件保留，活动L1两次剩余断点/三个通用备用槽及原checkpoint上界250MB、读出/序列化缓冲均保持。[闭合checkpoint结算](../../results/d_recipe/closed_checkpoint_pool_physical_settlement_20261124.json)。另以原h_resources.allocated同一物理方法按整个已闭合structures目录、native A1 reference目录、原R0四层cache目录保守结算，撤回2729007854B原未用预测；所有数组/统计/缓存原封保留，role索引预测、原200MB metadata/360138915B序列化、Stage1的291483648B及Stage2的221225472B缓冲都不减。[闭合源目录结算](../../results/d_recipe/closed_source_components_physical_settlement_20261124.json)。
+
+现full峰值30369288082B、live联合NFS37325341935B；活跃前续接配置仍保留原42074762973B更保守声明。物理释放0B、不改其它owner future/100GB/fresh5秒/原native额外8GiB或根盘底线；只是剔除已无writer的本线未用future。原native完整准入已重新通过，所需308397102081B。新训练仍待实际sbatch；科学条件与原1M完整状态/501088样本重放记录不变。[续接记录](../../results/d_recipe/L1_exit_proc_race_and_1M_continuation_prelaunch_20261124.json)。

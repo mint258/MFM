@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_TRAINING_L2_A1_UNRESOLVED_G1_COMPLETE",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-24T04:07:39Z",
+  "updated_at_utc": "2026-11-24T04:17:41Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -3936,10 +3936,10 @@
     "remaining_block_weights_rescaled": false,
     "models_started": true,
     "GPU_admission_status": "All G1 main, layer and geometry forward GPU writers are closed; original geometry CPU statistics is live; wide original A1 still collecting, no new model ready",
-    "proposed_joint_NFS_bytes": 40860762973,
+    "proposed_joint_NFS_bytes": 37325341935,
     "capacity_registration_pending": false,
-    "joint_NFS_forecast_bytes": 40860762973,
-    "additional_NFS_checkpoint_pool_bytes": 2471225472,
+    "joint_NFS_forecast_bytes": 37325341935,
+    "additional_NFS_checkpoint_pool_bytes": 2331771136,
     "capacity_plan": "data-d-descriptors-20261120:configs/data_d_descriptors/full_20261120/plan.json",
     "reference_root_joint_future_bytes": 38788923392,
     "reference_root_future_scope": "Actual CPU11: new L1 4GiB + new L2 16GiB + existing16GiB peer/cache future +128MiB joint managed logs; system reserve separate",
@@ -4752,7 +4752,7 @@
         "source": "Last original closed losses.csv row",
         "independent_metrics_recomputed": false
       },
-      "live_joint_NFS_forecast_bytes": 40860762973,
+      "live_joint_NFS_forecast_bytes": 37325341935,
       "active_frozen_configuration_share_upper_bound_bytes": 42074762973,
       "native_quota_pause_and_resume": {
         "pid": 1491773,
@@ -4928,7 +4928,7 @@
         "actual_CPU_root_inodes": 36532186,
         "actual_CPU_available_allocation": 88,
         "actual_GPU_available_allocation": 32,
-        "live_D_joint_forecast": 40860762973,
+        "live_D_joint_forecast": 37325341935,
         "conservative_original_resource_configuration_bound_retained": 42074762973,
         "new_NFS_checkpoint_slots": 0,
         "all_existing_outputs_retained": true,
@@ -4937,7 +4937,7 @@
         "GPU_TimeLimit": "2-00:00:00",
         "statistics_TimeLimit": "08:00:00",
         "comparison_TimeLimit": "04:00:00",
-        "status": "PREPARED_NOT_SUBMITTED"
+        "status": "READY_AFTER_ORIGINAL_NATIVE_ADMISSION_NOT_SUBMITTED"
       }
     },
     "next_L1_progress_check_UTC": "2026-11-24T01:28:16Z",
@@ -5218,6 +5218,252 @@
         "source": "Original losses.csv after native guard resumed same process",
         "independent_metrics_recomputed": false
       }
+    },
+    "closed_checkpoint_pool_settlement": {
+      "schema": "D_CLOSED_CHECKPOINT_PHYSICAL_SETTLEMENT_V1",
+      "status": "CLOSED_PRODUCERS_ONLY_UNUSED_FUTURE_RETIRED",
+      "updated_at_UTC": "2026-11-24T04:13:13Z",
+      "scope": "Original R1 seed0 three checkpoints; original Stage1 seed1 six checkpoints; original G1 three checkpoints. No model tensor or scientific array read.",
+      "measurement": "Actual original filesystem stat.st_blocks*512; owner UID1278 and original logical sizes checked",
+      "original_file_metadata": [
+        {
+          "pool": "G1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/samples_1000000.pt",
+          "logical_bytes": 203510835,
+          "allocated_physical_bytes": 203513856,
+          "UID": 1278
+        },
+        {
+          "pool": "G1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/samples_2000000.pt",
+          "logical_bytes": 203513139,
+          "allocated_physical_bytes": 203513856,
+          "UID": 1278
+        },
+        {
+          "pool": "G1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/samples_3000000.pt",
+          "logical_bytes": 203515379,
+          "allocated_physical_bytes": 203517952,
+          "UID": 1278
+        },
+        {
+          "pool": "R1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/training/samples_1000000.pt",
+          "logical_bytes": 203776923,
+          "allocated_physical_bytes": 203780096,
+          "UID": 1278
+        },
+        {
+          "pool": "R1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/training/samples_2000000.pt",
+          "logical_bytes": 203779163,
+          "allocated_physical_bytes": 203780096,
+          "UID": 1278
+        },
+        {
+          "pool": "R1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/training/samples_3000000.pt",
+          "logical_bytes": 203781403,
+          "allocated_physical_bytes": 203784192,
+          "UID": 1278
+        },
+        {
+          "pool": "seed1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/samples_1000000.pt",
+          "logical_bytes": 192027443,
+          "allocated_physical_bytes": 192028672,
+          "UID": 1278
+        },
+        {
+          "pool": "seed1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/samples_2000000.pt",
+          "logical_bytes": 192029683,
+          "allocated_physical_bytes": 192032768,
+          "UID": 1278
+        },
+        {
+          "pool": "seed1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/samples_3000000.pt",
+          "logical_bytes": 192031923,
+          "allocated_physical_bytes": 192032768,
+          "UID": 1278
+        },
+        {
+          "pool": "seed1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/samples_1000000.pt",
+          "logical_bytes": 203777051,
+          "allocated_physical_bytes": 203780096,
+          "UID": 1278
+        },
+        {
+          "pool": "seed1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/samples_2000000.pt",
+          "logical_bytes": 203779291,
+          "allocated_physical_bytes": 203780096,
+          "UID": 1278
+        },
+        {
+          "pool": "seed1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/samples_3000000.pt",
+          "logical_bytes": 203781531,
+          "allocated_physical_bytes": 203784192,
+          "UID": 1278
+        }
+      ],
+      "closed_producer_evidence": {
+        "R1_seed0": "configs/d_recipe/CURRENT_BEST.json Stage1 original closed GPU/readout/CPU/pair result; results/d_recipe/stage1_transfer_decision_20261123.json",
+        "Stage1_seed1": "configs/d_recipe/CURRENT_BEST.json#/conditional_seed1 original C0/GPU4538566/67/CPU4538568/69/70, all actual owned trees reaped",
+        "G1": "configs/d_recipe/CURRENT_BEST.json#/stage2/G1 original GPU4539204 and CPU4539205/06 closed, all diagnostics closed"
+      },
+      "pools": {
+        "R1_seed0": {
+          "old": 1073741824,
+          "new": 611344384,
+          "retired": 462397440
+        },
+        "Stage1_seed1": {
+          "old": 1683483648,
+          "new": 1478922240,
+          "closed_checkpoint_physical_bytes": 1187438592,
+          "retired": 204561408,
+          "logs_readout_bytes_preserved": 134217728,
+          "other_buffer_preserved": 157265920
+        },
+        "Stage2": {
+          "old": 2471225472,
+          "new": 2331771136,
+          "retired": 139454336,
+          "closed_G1_physical_bytes": 610545664,
+          "conservative_open_slots_preserved": 6,
+          "conservative_open_slot_bound": 250000000,
+          "logs_readout_serialization_buffer_preserved": 221225472
+        }
+      },
+      "retired_bytes": 806413184,
+      "old_full_peak": 33904709120,
+      "new_full_peak": 33098295936,
+      "old_joint_peak": 40860762973,
+      "new_joint_peak": 40054349789,
+      "original_native_quota_admission_before": {
+        "available": 311421587456,
+        "required": 311932523119,
+        "headroom": -510935663
+      },
+      "fresh_native_quota_admission_still_required": true,
+      "all_actual_checkpoint_files_preserved": true,
+      "physical_files_deleted": false,
+      "all_source_arrays_and_closed_statistics_unchanged": true,
+      "old_resident_and_running_sources_unchanged": true,
+      "all_other_owner_forecasts_unchanged": true,
+      "native_8GiB_extra_and_100GB_floor_and_5s_freshness_unchanged": true,
+      "native_stage1_serialization_buffer_preserved": 360138915,
+      "L1_original_3M_scientific_budget_and_seed_unchanged": true,
+      "conservative_new_L1_configuration_bound_unchanged": 42074762973
+    },
+    "closed_source_components_settlement": {
+      "schema": "D_CLOSED_SOURCE_COMPONENTS_PHYSICAL_SETTLEMENT_V1",
+      "status": "CLOSED_WRITERS_ONLY_UNUSED_FUTURE_RETIRED",
+      "observed_at_UTC": "2026-11-24T04:16:20Z",
+      "retired_components": [
+        {
+          "component": "structures_jsonl_new",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures",
+          "old_forecast": 1838746350,
+          "new_conservative_bound_entire_closed_directory": 1000214528,
+          "retired_unused_future": 838531822
+        },
+        {
+          "component": "native_A1_collection",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/reference",
+          "old_forecast": 2147483648,
+          "new_conservative_bound_entire_closed_directory": 1412947968,
+          "retired_unused_future": 734535680
+        },
+        {
+          "component": "D_R0_development_four_layer_cache",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R0_seed0_3M",
+          "old_forecast": 4294967296,
+          "new_conservative_bound_entire_closed_directory": 3139026944,
+          "retired_unused_future": 1155940352
+        }
+      ],
+      "total_retired_bytes": 2729007854,
+      "old_full_peak": 33098295936,
+      "new_full_peak": 30369288082,
+      "old_joint_peak": 40054349789,
+      "new_joint_peak": 37325341935,
+      "physical_measurement": "Same native h_resources.allocated metadata method; all original arrays/models retained, no numerical data read",
+      "resource_metadata": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1",
+          "allocated_physical_bytes": 6566240256,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R0_seed0_3M",
+          "allocated_physical_bytes": 3139026944,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M",
+          "allocated_physical_bytes": 770588672,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/clip_reports",
+          "allocated_physical_bytes": 192512,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/reference",
+          "allocated_physical_bytes": 1412947968,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1",
+          "allocated_physical_bytes": 1243484160,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2",
+          "allocated_physical_bytes": 906457088,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores",
+          "allocated_physical_bytes": 19796029440,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures",
+          "allocated_physical_bytes": 1000214528,
+          "directory": true
+        }
+      ],
+      "closure_evidence": {
+        "structures": "Original Stage0 full inputs/structure production complete and accepted loader/64-head reception; no future structure writer",
+        "native_A1_reference": "Original native D20 fullTRAIN A1 frozen before Stage1 seed0; no old D4 refit or new collection",
+        "R0_cache": "Original R0 seed0 complete plus original registered four-layer/geometry diagnostics complete; no new R0 forward before separately frozen cold9M"
+      },
+      "scope_bound_is_entire_closed_directory_not_just_selected_files": true,
+      "physical_bytes_freed": 0,
+      "files_deleted": false,
+      "all_other_owner_forecasts_and_native_safety_floors_and_8GiB_extra_unchanged": true,
+      "checkpoint_pool_settlement_preserved": "results/d_recipe/closed_checkpoint_pool_physical_settlement_20261124.json",
+      "all_open_L1_slots_and_three_general_spares_and_buffers_preserved": true,
+      "preserved_native_stage1_metadata": 200000000,
+      "preserved_native_stage1_serialization_buffer": 360138915,
+      "preserved_stage1_seed1_logs_readout_and_other_buffers": 291483648,
+      "preserved_stage2_readout_serialization_buffer": 221225472,
+      "preserved_role_index_forecast": 19228720,
+      "preserved_stage0_workspace_and_atomic_buffers": {
+        "statistics_atomic_json_temporary": 5631709,
+        "preparation_checkpoint_atomic_temporary": 1048576,
+        "production_writer_workspace_reserve": 9529856
+      },
+      "same_arm_L1_from_original1M_checkpoint_still_required": true,
+      "all_future_new_arms_and_cold9M_require_later_explicit_resource_registration": true
     }
   },
   "telemetry_scope_clarification": {

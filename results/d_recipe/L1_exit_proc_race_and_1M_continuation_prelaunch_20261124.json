@@ -1,5 +1,5 @@
 {
-  "status": "INFRASTRUCTURE_CONTINUATION_PREPARED_NOT_SUBMITTED",
+  "status": "READY_AFTER_ORIGINAL_NATIVE_ADMISSION_NOT_SUBMITTED",
   "authority": "docs/d_recipe/TASKBOOK.md:3.4",
   "observed_at_UTC": "2026-11-24T04:07:39Z",
   "original_parent": {
@@ -85,7 +85,7 @@
     "actual_CPU_root_inodes": 36532186,
     "actual_CPU_available_allocation": 88,
     "actual_GPU_available_allocation": 32,
-    "live_D_joint_forecast": 40860762973,
+    "live_D_joint_forecast": 37325341935,
     "conservative_original_resource_configuration_bound_retained": 42074762973,
     "new_NFS_checkpoint_slots": 0,
     "all_existing_outputs_retained": true,
@@ -98,13 +98,27 @@
   "replaced_unstarted_CPU_dependencies": [
     {
       "job": 4539361,
-      "request": "One cancel after failed parent; never started, elapsed0"
+      "state": "CANCELLED by1278",
+      "elapsed_seconds": 0
     },
     {
       "job": 4539362,
-      "request": "One cancel after failed parent; accounting reconciliation pending, never started"
+      "state": "CANCELLED by1278",
+      "elapsed_seconds": 0
     }
   ],
   "L2_A1_UNRESOLVED_unchanged": true,
-  "full_TASKBOOK_goal_still_active": true
+  "full_TASKBOOK_goal_still_active": true,
+  "resource_forecast_settlements": {
+    "checkpoint_pools": "results/d_recipe/closed_checkpoint_pool_physical_settlement_20261124.json",
+    "closed_source_directories": "results/d_recipe/closed_source_components_physical_settlement_20261124.json",
+    "total_unused_future_retired_bytes": 3535421038,
+    "all_files_and_buffers_and_other_owners_and_native_margins_unchanged": true
+  },
+  "original_native_admission_after_settlement": {
+    "required_bytes": 308397102081,
+    "joint_peak": 37325341935,
+    "scope": "Original quota guard plus native8GiB extra, floor100GB/fresh5sec and all peers unchanged",
+    "passed_at_UTC": "2026-11-24T04:17:41Z"
+  }
 }
