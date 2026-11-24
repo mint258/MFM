@@ -1248,3 +1248,12 @@ L2 A1两次实际失败后已依TASKBOOK3.5未解决，D-L2从未启动且不再
 同一本线full峰值35118709120→34368709120B、D live联合NFS峰值42074762973→41324762973B。活跃L1配置保留原42074762973B更保守声明；没有修改运行源码、模型、3M样本预算/随机状态/原D4或其它owner任何预留，100GB/fresh5秒、原quota额外缓冲和根盘max10GiB10%全部不变。只撤回已经确定不会再有writer的本线future，不把物理占用当释放空间。
 
 原L1 Guardian确曾DISK_TRANSPORT_PAUSED：PID1491773，available313209810944B/required313356249146B、样本71488。它在自行读取新live计划并完整通过原准入后自动记录DISK_TRANSPORT_RESUMED，同PID1491773；后续原losses.csv已75456样本/2624.544632997364循环秒，未发人工信号、未重启/重新初始化或加载checkpoint，也未重试L2。原暂停与分配时长全留成本，不伪造正常TIMEOUT。源见d-recipe/results/d_recipe/unused_L2_slots_retired_and_L1_native_resume_20261124.json；真实L1 GPU4539360/原CPU依赖4539361→4539362继续，CPU11/13原root future仍保守保留。最终配方未冻结，所有后续既定关卡/冷9M/最终A-B-C/基准/成本/一次完整回归及两个未合并PR全范围保持。不声称其它窗口已读/部署。
+
+
+## 2026-11-24 · D Root：1M原断点与阶段1已闭合空槽退役，原L1守卫恢复
+
+L1原GPU5/4539360在1M正常保存samples_1000000.pt（205549589B，00:48:53 UTC），原固定2000 VAL/198字段已生成。随后在1007360样本因原quota守卫暂停，同PID1491773；available312291291136B/required312397987623B，不把它写作磁盘满或节点故障。只撤回本线已闭合Stage1 seed1注册中的两个从未使用额外模型槽：2×232000000=464000000B。GPU4538566/67、CPU4538568/69及配对4538570早已正常闭合且原实际自有树reap/children=[]；两条各1M/2M/3M的六个现存断点（无partial）全保留，不重复训练共享控制。
+
+Data live plan的stage1池2147483648→1683483648B、槽8→6；134217728B读出/日志和157265920B其余原缓冲均不变，Stage2九槽/2471225472B及221225472B缓冲不变。全D full峰值34368709120→33904709120B、联合NFS live峰值41324762973→40860762973B。活跃L1配置保留原42074762973B保守声明，原guard源码/额外8GiB/100GB/fresh5秒/系统底线及其它owner任何future均不改，所有已存文件不删除。若未来L1 seed0胜出才另登记该臂seed1资源，不借已闭合Stage1控制池启动新臂。
+
+同一原守卫自行读取新计划、通过原准入后已DISK_TRANSPORT_RESUMED，仍PID1491773；无人工信号、无重启/重新初始化/加载checkpoint。暂停和分配时长保留成本。原1M报告与预算证据见d-recipe/results/d_recipe/D-L1_seed0_original_1M_milestone_20261124.json及closed_stage1_unused_slots_and_L1_resume_20261124.json。L2 A1仍按两次失败UNRESOLVED、不重试。完整任务继续、配方尚未冻结；不声称其它窗口已读/部署。
