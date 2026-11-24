@@ -1713,3 +1713,10 @@ L1原GPU5/4539360在1M正常保存samples_1000000.pt（205549589B，00:48:53 UTC
 Data live plan的stage1池2147483648→1683483648B、槽8→6；134217728B读出/日志和157265920B其余原缓冲均不变，Stage2九槽/2471225472B及221225472B缓冲不变。全D full峰值34368709120→33904709120B、联合NFS live峰值41324762973→40860762973B。活跃L1配置保留原42074762973B保守声明，原guard源码/额外8GiB/100GB/fresh5秒/系统底线及其它owner任何future均不改，所有已存文件不删除。若未来L1 seed0胜出才另登记该臂seed1资源，不借已闭合Stage1控制池启动新臂。
 
 同一原守卫自行读取新计划、通过原准入后已DISK_TRANSPORT_RESUMED，仍PID1491773；无人工信号、无重启/重新初始化/加载checkpoint。暂停和分配时长保留成本。原1M报告与预算证据见d-recipe/results/d_recipe/D-L1_seed0_original_1M_milestone_20261124.json及closed_stage1_unused_slots_and_L1_resume_20261124.json。L2 A1仍按两次失败UNRESOLVED、不重试。完整任务继续、配方尚未冻结；不声称其它窗口已读/部署。
+
+
+## 2026-11-24 · P：E1新指示接入与默认关闭构象上限测试通过
+
+已接入USER_DIRECTIVE_20261123：原冻结配方、全量分子，k1/2/5各自3M/B32/FP32，k10只复用round4F2自身3M。新增conformer_cap默认None，关闭时仍原k10；启用时复用既有M7固定随机秩及D5先排除再first-k，无重排/补足。固定VAL保持原设置。只测新逻辑一次：CPU12/4539372 C0/5秒，4项通过及3PythonAST检查；原resident root1811163已reap0/children=[]、实际/proc不存在。未重跑旧回归/旧科学结果。
+
+三份原配方native配置已准备，configs/p_recipe/E1_k_star.json仅预注册状态，k_star=null，未宣称E1结论；新3M训练尚未提交。k10尚无准确对应的full12，按授权需要补做；不拿I1或9M中点替代。下一步为guarded运行入口、原全量实际平均k、真实并发字节/inode/UID与同行预留准入，再接入空闲24GiB卡。原A4仍外部等待，但E1是独立可推进工作，全部27项保留，最终REPORT未生成；不停止任何在跑任务。

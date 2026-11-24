@@ -1,0 +1,67 @@
+{
+  "schema": "P_E1_CONFORMER_K_STAR_V1",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261123.md",
+  "status": "IMPLEMENTING_GUARDED_EXECUTION",
+  "k_star": null,
+  "frozen_recipe": [
+    "A1",
+    "B3",
+    "B4",
+    "F2"
+  ],
+  "samples": 3000000,
+  "batch_size": 32,
+  "pretraining_seed": 0,
+  "precision": "FP32",
+  "TF32": false,
+  "normalization": "window2_TRAIN_normalization_parameters_20261107_v1",
+  "selection": "published PM7 fixed_random ranks after original D5 exclusion; no padding",
+  "validation": "original fixed VAL unchanged; cap applies only to TRAIN",
+  "decision": "minimum k for which frozen seven-task R3 and full four-task three-seed scratch improvement both are not LOSS under original tau/CI",
+  "conditional_seed1": "only k<10 WIN if adoption is intended",
+  "feature_test": {
+    "job": 4539372,
+    "status": "PASS",
+    "tests": 4
+  },
+  "cells": [
+    {
+      "k": 1,
+      "training": "CONFIGURED_NOT_SUBMITTED",
+      "configuration": "configs/p_recipe/E1_20261124/k1_native_seed0.json",
+      "frozen": "PENDING",
+      "full_finetuning": "PENDING_ORIGINAL_FULL4_TASKS_X3_SEEDS",
+      "actual_mean_k": null
+    },
+    {
+      "k": 2,
+      "training": "CONFIGURED_NOT_SUBMITTED",
+      "configuration": "configs/p_recipe/E1_20261124/k2_native_seed0.json",
+      "frozen": "PENDING",
+      "full_finetuning": "PENDING_ORIGINAL_FULL4_TASKS_X3_SEEDS",
+      "actual_mean_k": null
+    },
+    {
+      "k": 5,
+      "training": "CONFIGURED_NOT_SUBMITTED",
+      "configuration": "configs/p_recipe/E1_20261124/k5_native_seed0.json",
+      "frozen": "PENDING",
+      "full_finetuning": "PENDING_ORIGINAL_FULL4_TASKS_X3_SEEDS",
+      "actual_mean_k": null
+    },
+    {
+      "k": 10,
+      "training": "REUSE_ROUND4_F2_OWN_3M_SEED0",
+      "configuration": "configs/p_recipe/fixed_20261115/round4/F2.json",
+      "frozen": "REUSE_ORIGINAL_COMPLETE_R1_R3",
+      "full_finetuning": "PENDING_ORIGINAL_FULL4_TASKS_X3_SEEDS",
+      "actual_mean_k": null
+    }
+  ],
+  "full_fit_budget": 48,
+  "full_reference_reason": "Existing I1 lacks B4 and T2_3M belongs to a 9M schedule; neither substitutes for round4_F2 own-budget3M full baseline",
+  "new_training_budget": 3,
+  "existing_P_results_retained": true,
+  "final_REPORT_generated": false,
+  "shared_P_S_k_star_requires_user_confirmation": true
+}

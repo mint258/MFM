@@ -5,6 +5,7 @@ from pathlib import Path
 import numpy as np
 from .v31_loader import MFM4Dataset,normalize_values
 from .v31_training import element_offset
+from .p_recipe_conformers import training_conformer_cap
 
 def read_json(path):return json.loads(Path(path).read_text())
 
@@ -59,7 +60,7 @@ class PRecipeDataset(MFM4Dataset):
 
 def dataset_configuration(c,*,validation=False):
  return dict(root=c['root'],split='FULL' if validation else 'TRAIN',training_view=c['training_view'],
-  normalizations=read_json(c['normalizations']),source=c['source'],order=c.get('order','fixed_random'),k=10,
+  normalizations=read_json(c['normalizations']),source=c['source'],order=c.get('order','fixed_random'),k=training_conformer_cap(c,validation=validation),
   pprime=c['source']=='UFF',molecule_indices=validation_indices(c) if validation else train_indices(c),
   label_parameters=c.get('label_parameters'))
 
