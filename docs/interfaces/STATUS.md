@@ -1771,3 +1771,8 @@ k10 reuses original round4 F2 own-budget3M seed0. All12 registered full50epoch f
 Closed own full12 allocations3464949760B settle against original32GiB E1 total peak; remaining NFS future now30894788608B. P_E1_GPU4_RAM and P_E1_GPU4_tmp future=0; all data/logs/checkpoints retained, no peer/reserve/live atomic peak changed. First metadata4539411 committed scope/claim then failed writing missing receipt directory; directory creation corrected and receipt-only recovery4539412 COMPLETE0/5s, without rescanning or another deduction. Both actual roots exited. This is P's own unused future only.
 
 Half-hour observer cycle161 no errors; k1/2/5 original3M still Slurm-running on5/6/7, latest native samples426560/426016/426048. Remaining36full and three frozen readouts await their actual3M. kstar remainsnull; E1+external Dsection5 A4 still block finalREPORT/finalweightsSHA/PR7merge. Node4 is no longer reserved by P's E1 full reference; actual GPU occupancy must still be checked by the next owner.
+
+
+## 2026-11-24 · D Root：GPU20原守卫配额暂停，R0已完成缓存清理仅提案
+
+13:48 CST：L1原1M完整状态续接4539402在GPU20，原守卫暂停在1076288样本；实际原worker281103/UID1278/start_ticks67356059/原cgroup仍在、状态T。CPU4539403/404等待依赖。原100GB/额外8GiB/fresh5秒及全部其它owner预算保持，未重启/未手工SIGCONT。当前UID余量308075278336B，静态要求309136036573B。Lustre UID余量1067335680B不足原守卫最小116589934592B，未传输。拟仅清理已完成R0 seed0/3M开发层缓存12个.pt、3081236480B；完整checkpoint/预测/读出/统计/原输入保留。**仅提案，尚无删除批准，实际删除0B**。精确清单与依赖闭合见[d-recipe提案](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/R0_CACHE_CLEANUP_PROPOSAL_20261124.md)。如获批，先实删再同字节结算已闭合R0/full/joint，保持所有缓冲/活动槽/peer预算，原进程由原守卫自行恢复。完整任务及冷9M/最终A-B-C仍待完成，最终配方未冻结。
