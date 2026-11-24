@@ -27,13 +27,13 @@
       "production_writer_workspace_reserve": 9529856,
       "native_A1_collection": 2147483648,
       "D_R0_development_four_layer_cache": 4294967296,
-      "D_R1_checkpoint_pool": 1073741824,
+      "D_R1_checkpoint_pool": 611344384,
       "native_stage1_metadata": 200000000,
       "native_stage1_serialization_buffer": 360138915,
-      "registered_stage1_conditional_seed1_checkpoints_and_readouts": 1683483648,
-      "registered_stage2_seed0_checkpoints_and_readouts": 2471225472
+      "registered_stage1_conditional_seed1_checkpoints_and_readouts": 1478922240,
+      "registered_stage2_seed0_checkpoints_and_readouts": 2331771136
     },
-    "peak_new_bytes": 33904709120,
+    "peak_new_bytes": 33098295936,
     "structure_forecast_bytes": 1838746350,
     "structures_existing_bytes": null,
     "ram_working_forecast_bytes": 103576304,
@@ -64,7 +64,7 @@
         "D-R0 seed1",
         "D-R1 seed1"
       ],
-      "additional_bytes": 1683483648,
+      "additional_bytes": 1478922240,
       "checkpoint_slots": 6,
       "checkpoint_upper_bound_bytes": 232000000,
       "logs_and_readouts_bytes": 134217728,
@@ -107,17 +107,73 @@
         "all_actual_files_retained": true,
         "active_L1_configuration_and_all_guards_unchanged": true,
         "updated_at_UTC": "2026-11-24T01:00:33Z"
-      }
+      },
+      "previous_registration_before_closed_checkpoint_settlement": {
+        "trigger": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/results/d_recipe/comparisons/D-R1_vs_D-R0_seed0_3M.json",
+        "source_commit": "dba26d70fffa0a10201f44d900782ac71d12da08",
+        "runs": [
+          "D-R0 seed1",
+          "D-R1 seed1"
+        ],
+        "additional_bytes": 1683483648,
+        "checkpoint_slots": 6,
+        "checkpoint_upper_bound_bytes": 232000000,
+        "logs_and_readouts_bytes": 134217728,
+        "all_existing_outputs_retained": true,
+        "diagnostic_feature_cache_bytes": 0,
+        "global_Lustre_registry_changed": false,
+        "original_registration": {
+          "trigger": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/results/d_recipe/comparisons/D-R1_vs_D-R0_seed0_3M.json",
+          "source_commit": "dba26d70fffa0a10201f44d900782ac71d12da08",
+          "runs": [
+            "D-R0 seed1",
+            "D-R1 seed1"
+          ],
+          "additional_bytes": 2147483648,
+          "checkpoint_slots": 8,
+          "checkpoint_upper_bound_bytes": 232000000,
+          "logs_and_readouts_bytes": 134217728,
+          "all_existing_outputs_retained": true,
+          "diagnostic_feature_cache_bytes": 0,
+          "global_Lustre_registry_changed": false
+        },
+        "retired_closed_stage1_unused_safety_slots": {
+          "slots": 2,
+          "bytes": 464000000,
+          "reason": "Both original Stage1 seed1 arms finished 3M/readout/CPU/pairing; no repeat shared control or further writer registered. Only six required 1M/2M/3M checkpoints exist, no partial checkpoint.",
+          "closed_GPU_jobs": [
+            4538566,
+            4538567
+          ],
+          "closed_CPU_jobs": [
+            4538568,
+            4538569,
+            4538570
+          ],
+          "native_completion_record": "d-recipe:configs/d_recipe/CURRENT_BEST.json#/conditional_seed1",
+          "six_existing_checkpoint_files_retained": true,
+          "logs_and_readouts_buffer_retained_bytes": 134217728,
+          "other_unitemized_buffer_retained_bytes": 157265920,
+          "no_future_L1_seed1_taken_from_this_closed_pool": true,
+          "all_actual_files_retained": true,
+          "active_L1_configuration_and_all_guards_unchanged": true,
+          "updated_at_UTC": "2026-11-24T01:00:33Z"
+        }
+      },
+      "closed_checkpoint_actual_allocated_physical_bytes": 1187438592,
+      "model_checkpoint_bytes": 1187438592,
+      "future_checkpoint_slots": 0,
+      "model_size_basis": "All six fixed original checkpoint writers are closed; use original stat.st_blocks*512 physical allocation, all six files retained. Historical232MB bound and all buffers retained separately."
     },
     "stage2_seed0_storage_registration": {
       "arms": [
         "D-L1",
         "D-G1"
       ],
-      "additional_NFS_bytes": 2471225472,
+      "additional_NFS_bytes": 2331771136,
       "checkpoint_slots": 9,
       "checkpoint_upper_bound_bytes": 250000000,
-      "model_checkpoint_bytes": 2250000000,
+      "model_checkpoint_bytes": 2110545664,
       "logs_readouts_serialization_metadata_bytes": 221225472,
       "reference_collections_NFS_bytes": 0,
       "reference_collections": "CPU node_local 4GiB L1 and16GiB L2, original generic full-TRAIN A1 entry, separate actual root/peer protection",
@@ -148,7 +204,194 @@
         "active_L1_configuration_unchanged": true,
         "other_owner_forecasts_and_floors_unchanged": true,
         "updated_at_UTC": "2026-11-23T19:55:25Z"
-      }
+      },
+      "previous_registration_before_closed_checkpoint_settlement": {
+        "arms": [
+          "D-L1",
+          "D-G1"
+        ],
+        "additional_NFS_bytes": 2471225472,
+        "checkpoint_slots": 9,
+        "checkpoint_upper_bound_bytes": 250000000,
+        "model_checkpoint_bytes": 2250000000,
+        "logs_readouts_serialization_metadata_bytes": 221225472,
+        "reference_collections_NFS_bytes": 0,
+        "reference_collections": "CPU node_local 4GiB L1 and16GiB L2, original generic full-TRAIN A1 entry, separate actual root/peer protection",
+        "source_arrays_and_existing_outputs_retained": true,
+        "source_decision": "results/d_recipe/stage1_transfer_decision_20261123.json",
+        "scientific_budget_unchanged": true,
+        "original_registration": {
+          "arms": [
+            "D-L1",
+            "D-L2",
+            "D-G1"
+          ],
+          "additional_NFS_bytes": 3221225472,
+          "checkpoint_slots": 12,
+          "checkpoint_upper_bound_bytes": 250000000,
+          "model_checkpoint_bytes": 3000000000,
+          "logs_readouts_serialization_metadata_bytes": 221225472
+        },
+        "retired_unstarted_L2_checkpoint_slots": {
+          "slots": 3,
+          "bytes": 750000000,
+          "arm": "D-L2",
+          "reason": "TASKBOOK3.5: original L2 A1 two actual failures =>UNRESOLVED, D-L2 never started and no GPU checkpoints exist/are scheduled for it",
+          "evidence": "d-recipe:results/d_recipe/L2_A1_unresolved_20261124.json",
+          "all_original_physical_files_retained": true,
+          "three_remaining_general_spares_retained": true,
+          "logs_readouts_serialization_metadata_buffer_retained_bytes": 221225472,
+          "active_L1_configuration_unchanged": true,
+          "other_owner_forecasts_and_floors_unchanged": true,
+          "updated_at_UTC": "2026-11-23T19:55:25Z"
+        }
+      },
+      "closed_checkpoint_slots": 3,
+      "closed_G1_actual_allocated_physical_bytes": 610545664,
+      "remaining_conservative_slots": 6,
+      "remaining_conservative_checkpoint_bytes": 1500000000
+    },
+    "closed_checkpoint_pool_physical_settlement": {
+      "schema": "D_CLOSED_CHECKPOINT_PHYSICAL_SETTLEMENT_V1",
+      "status": "CLOSED_PRODUCERS_ONLY_UNUSED_FUTURE_RETIRED",
+      "updated_at_UTC": "2026-11-24T04:13:13Z",
+      "scope": "Original R1 seed0 three checkpoints; original Stage1 seed1 six checkpoints; original G1 three checkpoints. No model tensor or scientific array read.",
+      "measurement": "Actual original filesystem stat.st_blocks*512; owner UID1278 and original logical sizes checked",
+      "original_file_metadata": [
+        {
+          "pool": "G1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/samples_1000000.pt",
+          "logical_bytes": 203510835,
+          "allocated_physical_bytes": 203513856,
+          "UID": 1278
+        },
+        {
+          "pool": "G1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/samples_2000000.pt",
+          "logical_bytes": 203513139,
+          "allocated_physical_bytes": 203513856,
+          "UID": 1278
+        },
+        {
+          "pool": "G1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-G1_seed0_3M/training/samples_3000000.pt",
+          "logical_bytes": 203515379,
+          "allocated_physical_bytes": 203517952,
+          "UID": 1278
+        },
+        {
+          "pool": "R1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/training/samples_1000000.pt",
+          "logical_bytes": 203776923,
+          "allocated_physical_bytes": 203780096,
+          "UID": 1278
+        },
+        {
+          "pool": "R1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/training/samples_2000000.pt",
+          "logical_bytes": 203779163,
+          "allocated_physical_bytes": 203780096,
+          "UID": 1278
+        },
+        {
+          "pool": "R1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M/training/samples_3000000.pt",
+          "logical_bytes": 203781403,
+          "allocated_physical_bytes": 203784192,
+          "UID": 1278
+        },
+        {
+          "pool": "seed1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/samples_1000000.pt",
+          "logical_bytes": 192027443,
+          "allocated_physical_bytes": 192028672,
+          "UID": 1278
+        },
+        {
+          "pool": "seed1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/samples_2000000.pt",
+          "logical_bytes": 192029683,
+          "allocated_physical_bytes": 192032768,
+          "UID": 1278
+        },
+        {
+          "pool": "seed1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1/samples_3000000.pt",
+          "logical_bytes": 192031923,
+          "allocated_physical_bytes": 192032768,
+          "UID": 1278
+        },
+        {
+          "pool": "seed1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/samples_1000000.pt",
+          "logical_bytes": 203777051,
+          "allocated_physical_bytes": 203780096,
+          "UID": 1278
+        },
+        {
+          "pool": "seed1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/samples_2000000.pt",
+          "logical_bytes": 203779291,
+          "allocated_physical_bytes": 203780096,
+          "UID": 1278
+        },
+        {
+          "pool": "seed1",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1/samples_3000000.pt",
+          "logical_bytes": 203781531,
+          "allocated_physical_bytes": 203784192,
+          "UID": 1278
+        }
+      ],
+      "closed_producer_evidence": {
+        "R1_seed0": "configs/d_recipe/CURRENT_BEST.json Stage1 original closed GPU/readout/CPU/pair result; results/d_recipe/stage1_transfer_decision_20261123.json",
+        "Stage1_seed1": "configs/d_recipe/CURRENT_BEST.json#/conditional_seed1 original C0/GPU4538566/67/CPU4538568/69/70, all actual owned trees reaped",
+        "G1": "configs/d_recipe/CURRENT_BEST.json#/stage2/G1 original GPU4539204 and CPU4539205/06 closed, all diagnostics closed"
+      },
+      "pools": {
+        "R1_seed0": {
+          "old": 1073741824,
+          "new": 611344384,
+          "retired": 462397440
+        },
+        "Stage1_seed1": {
+          "old": 1683483648,
+          "new": 1478922240,
+          "closed_checkpoint_physical_bytes": 1187438592,
+          "retired": 204561408,
+          "logs_readout_bytes_preserved": 134217728,
+          "other_buffer_preserved": 157265920
+        },
+        "Stage2": {
+          "old": 2471225472,
+          "new": 2331771136,
+          "retired": 139454336,
+          "closed_G1_physical_bytes": 610545664,
+          "conservative_open_slots_preserved": 6,
+          "conservative_open_slot_bound": 250000000,
+          "logs_readout_serialization_buffer_preserved": 221225472
+        }
+      },
+      "retired_bytes": 806413184,
+      "old_full_peak": 33904709120,
+      "new_full_peak": 33098295936,
+      "old_joint_peak": 40860762973,
+      "new_joint_peak": 40054349789,
+      "original_native_quota_admission_before": {
+        "available": 311421587456,
+        "required": 311932523119,
+        "headroom": -510935663
+      },
+      "fresh_native_quota_admission_still_required": true,
+      "all_actual_checkpoint_files_preserved": true,
+      "physical_files_deleted": false,
+      "all_source_arrays_and_closed_statistics_unchanged": true,
+      "old_resident_and_running_sources_unchanged": true,
+      "all_other_owner_forecasts_unchanged": true,
+      "native_8GiB_extra_and_100GB_floor_and_5s_freshness_unchanged": true,
+      "native_stage1_serialization_buffer_preserved": 360138915,
+      "L1_original_3M_scientific_budget_and_seed_unchanged": true,
+      "conservative_new_L1_configuration_bound_unchanged": 42074762973
     }
   },
   "configs": {
@@ -158,14 +401,14 @@
       "source_smiles_index": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
       "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures",
-      "peak_bytes": 40860762973,
+      "peak_bytes": 40054349789,
       "chunk_rows": 1024
     },
     "produce": {
       "input_rows": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures/structures.jsonl",
       "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores",
-      "peak_bytes": 40860762973,
+      "peak_bytes": 40054349789,
       "workers": 3,
       "chunk_rows": 256,
       "existing_parameters_json": {
@@ -176,7 +419,7 @@
       "input_rows": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures/structures.jsonl",
       "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores",
-      "peak_bytes": 40860762973,
+      "peak_bytes": 40054349789,
       "workers": 1,
       "chunk_rows": 256,
       "existing_parameters_json": {
