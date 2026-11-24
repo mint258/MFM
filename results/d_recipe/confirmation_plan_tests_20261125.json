@@ -1,0 +1,32 @@
+{
+  "schema": "D_COLD_CONFIRMATION_PLANNER_FOCUSED_TESTS_V1",
+  "status": "PENDING_CPU_PRIORITY",
+  "job": 4539987,
+  "node": null,
+  "requested_CPUs": 1,
+  "TimeLimit_seconds": 600,
+  "cleanup_seconds": 180,
+  "expected_new_tests": 10,
+  "tests_executed": false,
+  "source_commit": "78f115890a8eae016f9235d953f546b71d24a3cc",
+  "resident": "configs/d_recipe/launches/confirmation_plan_tests_20261125_resident.sbatch",
+  "log": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/D_cold9M_tests_4539987.out",
+  "native_scientific_training_or_array_work": false,
+  "new_9M_model_jobs_submitted": 0,
+  "full_default_regression_executed": false,
+  "previous_unstarted_test": {
+    "job": 4539986,
+    "state": "CANCELLED by 1278",
+    "elapsed_seconds": 0,
+    "CPU": 1,
+    "node": null,
+    "reason": "Queued obsolete test snapshot retired once before native work; current snapshot additionally clears actual local-resource keys and covers frozen combined decisions.",
+    "no_model_jobs_touched": true
+  },
+  "preallocation_rejection": {
+    "job_id": null,
+    "reason": "Explicit twelve-node nodelist conflicted with --nodes=1; sbatch rejected before allocation. Replaced with exclusions of disallowed nodes; source/config provenance retained in prior commit.",
+    "first_source_commit": "35ffa00366587178ce302fa1805fc3f23f158827",
+    "actual_native_work": 0
+  }
+}
