@@ -82,8 +82,12 @@ def validate_bundle(b):
 def require_closed(repo):
  repo=Path(repo)
  e1=repo/'configs/p_recipe/E1_k_star.json'
- if e1.is_file() and json.loads(e1.read_text()).get('status')!='COMPLETE':
+ if not e1.is_file() or json.loads(e1.read_text()).get('status')!='COMPLETE':
   raise ReportNotReady('Final REPORT waits for: E1 original registered conformer-count study closure')
+ from e1_report import validate_closed
+ value=json.loads(e1.read_text())
+ try:validate_closed(value)
+ except ValueError as error:raise ReportNotReady('Final REPORT waits for: '+str(error)) from error
  d=repo/'results/p_recipe/fixed_20261115/analysis_20261122';k=repo/'results/p_recipe/fixed_20261115/confirmation'
  def read(path):
   return json.loads(path.read_text()) if path.is_file() else None
@@ -97,6 +101,7 @@ def require_closed(repo):
   A5=read(d/'A5_primary.json') or read(d/'A5_unresolved.json'),A4=read(d/'A4_descriptor_upper_controls.json'))
  for arm in ['I1','I2']:
   b[arm]=read(d/(arm+'_decision.json'));b[arm+'_F']=read(d/(arm+'_F_primary.json'));b[arm+'_composition']=read(d/(arm+'_composition_primary.json'))
+ b['E1']=value
  return validate_bundle(b)
 
 def number(value):
@@ -153,4 +158,7 @@ def render_sections(repo,b):
  '以下仅转录D线已闭合交付，P侧不重拟合；覆盖与不可比较任务按原交付标识。','',
  f'[逐任务上限参照与R3落后标记]({d}A4_descriptor_upper_controls.json)。来源：'+str(b['A4']['source_delivery'])+'。','',
  '新增章节消费已闭合主统计；不重跑旧读出、不另生成bootstrap、也不重算P归一化。','']
+ if b.get('E1') is not None:
+  from e1_report import render as render_e1
+  text+=['',render_e1(b['E1'])]
  return '\n'.join(text)
