@@ -1366,3 +1366,8 @@ GPU4539402已RUNNING，CPU12单核统计4539403 afterok402→配对4539404 after
 ## 2026-11-25 · D Root：续接1.5M原固定VAL已转录，完整任务继续
 
 04:25 CST：用户恢复完整D目标，并明确配额问题由其另行处理；本线不再重复排查配额，推进独立结果与原定后续实验。原GPU20/4539402仍RUNNING，worker281103/start_ticks67356059/原cgroup保留，末1742368样本/累计native46407.724043155555秒；原守卫容量等待，CPU4539403→4539404原afterok链保持，不发恢复信号/改冻结运行配置。原续接1.5M/46875更新固定2000 VAL的198字段与3块loss已直接转录，保留旧GPU5失败前1.5M窗口，不新增前向/数值QA或提前R3判定。[原续接报告](https://github.com/mint258/MFM/blob/d-recipe/results/d_recipe/D-L1_seed0_continuation_fixed_VAL_1500000_20261125.json)。昨日已批12缓存清理/3081236480B事实与full27288051602B/joint34244105455B保持，其它文件/owner预算不动。L2 A1UR不补跑、G1TIE保留D3；完整L1关卡/条件seed1/K1/规定诊断、冻结后冷9M、最终A-B-C与基准/成本/一次完整回归和两PR均继续，不缩减目标。
+
+
+## 2026-11-25 · D Root：例行Slurm发现GPU20/5 drain，现有训练保持
+
+04:50–04:51 CST例行分区元信息及一次scontrol：compute-0-20=MIXED+DRAIN，Reason原文Kill task failed [root@2026-11-24T19:21:42]；compute-0-5=IDLE+DRAIN，Reason原文Kill task failed [root@2026-11-24T19:56:36]。触发job/账户归属未确认，不据同节点有本账号任务作因果结论。原D-L1 GPU4539402仍RUNNING/20，末1742368样本，原CPU4539403→404依赖保持；CPU新逻辑测试4539987在cpu分区Priority等待。保留现有训练，不因新状态停训/迁移；5/20不接新任务、不SSH绕过、不重复故障节点诊断，不操作RESUME/服务/spool或其它任务。配额问题按用户指令另处处理，本线完整目标继续。[原状态](https://github.com/mint258/MFM/blob/d-recipe/results/d_recipe/partition_state_20261125.json)。

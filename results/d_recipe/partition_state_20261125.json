@@ -1,0 +1,51 @@
+{
+  "schema": "D_PARTITION_STATE_NOTICE_V1",
+  "observed_at_UTC": "2026-11-24T20:51:17Z",
+  "source": "Single ordinary scontrol node query after routine partition metadata",
+  "nodes": [
+    {
+      "node": "compute-0-20",
+      "state": "MIXED+DRAIN",
+      "CPUAlloc": 58,
+      "CPUTot": 104,
+      "reason_raw": "Kill task failed [root@2026-11-24T19:21:42]"
+    },
+    {
+      "node": "compute-0-5",
+      "state": "IDLE+DRAIN",
+      "CPUAlloc": 0,
+      "CPUTot": 48,
+      "reason_raw": "Kill task failed [root@2026-11-24T19:56:36]"
+    }
+  ],
+  "triggering_job_or_account_attribution": "NOT_ESTABLISHED",
+  "current_D_job": {
+    "job": 4539402,
+    "Slurm_state": "RUNNING",
+    "node": "compute-0-20",
+    "last_native_progress_observed_UTC": "2026-11-24T20:50:04Z",
+    "samples": 1742368,
+    "native_seconds": 46407.724043155555
+  },
+  "CPU_dependencies": [
+    4539403,
+    4539404
+  ],
+  "focused_test": {
+    "job": 4539987,
+    "state": "PENDING",
+    "reason": "Priority",
+    "node": null
+  },
+  "actions": {
+    "existing_training_stopped": false,
+    "existing_training_migrated": false,
+    "node_RESUME_or_admin_mutation": false,
+    "other_jobs_signaled": false,
+    "new_jobs_on_5_or_20": false,
+    "further_fault_node_diagnostics": false
+  },
+  "policy": "Preserve existing training. No new work on DRAIN/DRAINING/DOWN nodes and no bypass through SSH. Trigger attribution unknown; do not infer this D job or this account caused it.",
+  "quota_work_owner": "USER_EXTERNAL",
+  "full_goal_still_active": true
+}
