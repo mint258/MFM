@@ -1806,3 +1806,7 @@ k=1/2/5三组（4539379/4539380/4539381，node5/6/7）已在07:47 UTC各自原�
 k=1/2/5原预训练4539379/4539380/4539381均完成3000000样本/93750更新，最终文件231769441/231769377/231769377B；原生树reap0、children=[]且实际root不存在。B32/FP32、原配方、11-07归一化和各自p99保持，三组原CSV的6个固定VAL点各10类齐全，所有中间输出保留。[3M原始完成证明](../../results/p_recipe/E1/native_completion_20261124.json)。
 
 后续原3个冻结读出与36项full已普通sbatch同卡afterok串行，使用健康node4/6/7和原16CPU；node4最终核实可分配CPU已增至24，未采用早前8核候选。CPU统计/主表/原配对判定在已核实恢复的node8单核提交；旧node12硬件汇总9409仅在PENDING0秒时hold后取消，替换9977。[GPU链](../../results/p_recipe/E1/GPU_pipeline_20261125.json)、[CPU链](../../results/p_recipe/E1/CPU_pipeline_20261125.json)。首批mtime类型/F基协议字段错误在模型计算前退出，已修正并保留失败成本，仅重提3个头任务和修复依赖；F22B基协议字段保留，E1授权在source_validation。当前无新失败/坏依赖，原配对判定未提前执行。详见[日报](../p_recipe/daily/2026-11-25.md)。k*仍未定，最终REPORT及PR7仍待E1和外部A4。node5/20当前drain不提交新任务，不据同节点归因，不停止其它在跑任务。
+
+## 2026-11-25 P：已关闭文件从未来预算结算6534041600B，原文件不删
+
+三组原生3M、6项已核实退出的full及3个已闭合GPU读出的只读feature/R3张量，共12组件/228常规文件，实际stat_blocks分配6534041600B已在UID实际用量中。只从P未来写入同字节扣除一次：28747304960→22213263360B；scope与canonical claim已一致，后续原observer续租保持。E1总峰值30GiB不变，全部CPU R1/统计未来写入、临时峰值/控制缓冲、目录占用和其它owner预留保持，文件删除0B；没有操作peer进程或其它窗口文件。详细228文件stat清单保留在服务器控制目录。[结算摘要](../../results/p_recipe/E1/closed_file_future_settlement_summary_20261125.json)、[存储依据](../p_recipe/E1_STORAGE_20261124.md)。
