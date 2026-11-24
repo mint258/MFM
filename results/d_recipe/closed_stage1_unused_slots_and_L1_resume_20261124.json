@@ -1,0 +1,206 @@
+{
+  "schema": "D_CLOSED_STAGE1_UNUSED_SLOTS_RETIREMENT_V1",
+  "retired_bytes": 464000000,
+  "old_stage1_pool": 2147483648,
+  "new_stage1_pool": 1683483648,
+  "old_full_peak": 34368709120,
+  "new_full_peak": 33904709120,
+  "old_joint_peak": 41324762973,
+  "new_joint_peak": 40860762973,
+  "remaining_stage1_checkpoint_slots": 6,
+  "checkpoint_upper_bound_bytes": 232000000,
+  "remaining_logs_readout_buffer": 134217728,
+  "remaining_unitemized_buffer": 157265920,
+  "remaining_stage2_slots": 9,
+  "stage2_pool_unchanged": true,
+  "physical_files_removed": false,
+  "other_owner_budgets_and_floors_and_guards_unchanged": true,
+  "active_L1_frozen_configuration_upper_bound": 42074762973,
+  "original_pause": {
+    "phase": "DISK_TRANSPORT_PAUSED",
+    "pid": 1491773,
+    "available": 312291291136,
+    "required": 312397987623,
+    "samples": 1007360
+  },
+  "checkpoint_resource_metadata": [
+    {
+      "directory": "X:/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R0_seed0_3M_seed1",
+      "checkpoint_file_metadata": [
+        {
+          "Name": "samples_1000000.pt",
+          "Length": 192027443,
+          "LastWriteTimeUTC": "2026-11-22T12:55:22.0000000Z"
+        },
+        {
+          "Name": "samples_2000000.pt",
+          "Length": 192029683,
+          "LastWriteTimeUTC": "2026-11-22T16:45:07.0000000Z"
+        },
+        {
+          "Name": "samples_3000000.pt",
+          "Length": 192031923,
+          "LastWriteTimeUTC": "2026-11-22T20:18:28.0000000Z"
+        }
+      ],
+      "partial_checkpoint_file_metadata": []
+    },
+    {
+      "directory": "X:/runs/d_recipe_20261120/full/native_stage1/seed1/d_recipe_20261120_D_R1_seed0_3M_seed1",
+      "checkpoint_file_metadata": [
+        {
+          "Name": "samples_1000000.pt",
+          "Length": 203777051,
+          "LastWriteTimeUTC": "2026-11-22T12:55:27.0000000Z"
+        },
+        {
+          "Name": "samples_2000000.pt",
+          "Length": 203779291,
+          "LastWriteTimeUTC": "2026-11-22T16:45:10.0000000Z"
+        },
+        {
+          "Name": "samples_3000000.pt",
+          "Length": 203781531,
+          "LastWriteTimeUTC": "2026-11-22T20:18:31.0000000Z"
+        }
+      ],
+      "partial_checkpoint_file_metadata": []
+    }
+  ],
+  "closed_parent_exit_evidence": {
+    "D-R0": {
+      "GPU": {
+        "job": 4538566,
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 39014,
+        "allocated_CPUs": 5,
+        "node": "compute-0-4",
+        "start_CST": "2026-11-22T17:42:02",
+        "end_CST": "2026-11-23T04:32:16",
+        "TimeLimit": "2-00:00:00",
+        "actual_hard_EndTime": "2026-11-24T17:42:02",
+        "actual_owned_roots_reaped": [
+          3562706,
+          3562735,
+          3562702
+        ],
+        "actual_root_returncodes": [
+          0,
+          0,
+          0
+        ],
+        "actual_terminal_returncode": 0,
+        "actual_remaining_children": [],
+        "healthy_state_at_exit_observation": "MIXED"
+      },
+      "CPU": {
+        "job": 4538568,
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 60,
+        "allocated_CPUs": 1,
+        "node": "compute-0-13",
+        "start_CST": "2026-11-23T04:32:16",
+        "end_CST": "2026-11-23T04:33:16",
+        "TimeLimit": "08:00:00",
+        "actual_hard_EndTime": "2026-11-23T12:32:16",
+        "actual_owned_roots_reaped": [
+          853027,
+          856235,
+          853023
+        ],
+        "actual_root_returncodes": [
+          0,
+          0,
+          0
+        ],
+        "actual_terminal_returncode": 0,
+        "actual_remaining_children": [],
+        "healthy_state_at_exit_observation": "MIXED"
+      },
+      "new_signals_sent": false,
+      "checkpoint_tensors_independently_read": false
+    },
+    "D-R1": {
+      "GPU": {
+        "job": 4538567,
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 38604,
+        "allocated_CPUs": 5,
+        "node": "compute-0-5",
+        "start_CST": "2026-11-22T17:42:02",
+        "end_CST": "2026-11-23T04:25:26",
+        "TimeLimit": "2-00:00:00",
+        "original_actual_hard_EndTime": "2026-11-24T17:42:02",
+        "actual_resident_log": "/tmp/d_recipe_managed_D-R1-seed1-resident-3M_4538567.log",
+        "actual_owned_roots_reaped": [
+          1439224,
+          1439252,
+          1439221
+        ],
+        "actual_root_returncodes": [
+          0,
+          0,
+          0
+        ],
+        "actual_terminal_returncode": 0,
+        "actual_remaining_children": [],
+        "healthy_state_at_exit_observation": "IDLE"
+      },
+      "CPU": {
+        "job": 4538569,
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "elapsed_seconds": 72,
+        "allocated_CPUs": 1,
+        "node": "compute-0-13",
+        "start_CST": "2026-11-23T04:25:26",
+        "end_CST": "2026-11-23T04:26:38",
+        "TimeLimit": "08:00:00",
+        "original_actual_hard_EndTime": "2026-11-23T12:25:26",
+        "actual_resident_log": "/tmp/d_recipe_managed_D-R1-seed1-resident-statistics_4538569.log",
+        "actual_owned_roots_reaped": [
+          799368,
+          801219,
+          799353
+        ],
+        "actual_root_returncodes": [
+          0,
+          0,
+          0
+        ],
+        "actual_terminal_returncode": 0,
+        "actual_remaining_children": [],
+        "healthy_state_at_exit_observation": "MIXED"
+      },
+      "actual_exit_observation_UTC": [
+        "2026-11-22T20:28:30Z",
+        "2026-11-22T20:29:12Z"
+      ],
+      "new_signals_sent": false,
+      "checkpoint_tensors_independently_read": false
+    }
+  },
+  "no_manual_signals": true,
+  "model_process_restarted": false,
+  "updated_at_UTC": "2026-11-24T01:00:33Z",
+  "status": "OWN_CLOSED_STAGE1_UNUSED_FUTURE_RETIRED_NATIVE_GUARD_RESUMED",
+  "native_guard_after_retirement": {
+    "phase": "DISK_TRANSPORT_RESUMED",
+    "pid": 1491773,
+    "observed_at_UTC": "2026-11-24T01:01:40Z"
+  },
+  "native_guard_automatically_resumed_same_PID": true,
+  "latest_native_progress_after_resume": {
+    "kind": "original_L1_progress",
+    "observed_at_UTC": "2026-11-24T01:02:15Z",
+    "job_id": 4539360,
+    "node": "compute-0-5",
+    "samples": 1010912,
+    "training_loop_seconds": 20969.7940208707,
+    "source": "Original losses.csv after native guard resumed same process",
+    "independent_metrics_recomputed": false
+  }
+}

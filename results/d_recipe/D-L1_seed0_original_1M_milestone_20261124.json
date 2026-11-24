@@ -1,0 +1,101 @@
+{
+  "status": "ORIGINAL_1M_MILESTONE_REPORTED",
+  "job_id": 4539360,
+  "node": "compute-0-5",
+  "run": "d_recipe_20261120_D_L1_seed0_3M",
+  "samples": 1000000,
+  "updates": 31250,
+  "original_checkpoint_metadata": {
+    "checkpoint_path": "X:\\runs\\d_recipe_20261120\\full\\stage2\\D-L1_seed0_3M\\training\\samples_1000000.pt",
+    "bytes": 205549589,
+    "last_write_time_UTC": "2026-11-24T00:48:53.0000000Z",
+    "original_run": "d_recipe_20261120_D_L1_seed0_3M",
+    "original_seed": 0,
+    "original_budget": 3000000,
+    "original_checkpoint_samples": [
+      1000000,
+      2000000,
+      3000000
+    ],
+    "original_scientific_binding": {
+      "preregistration": "configs/d_recipe/preregistration.json",
+      "native_field_policy": "Original D20/D3 and 2026-11-07 D4; source-disabled fields unchanged",
+      "target_clip_sigma": 6,
+      "arm": "D-L1",
+      "seed": 0,
+      "samples": 3000000,
+      "source": "PM7",
+      "normalizations": "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json",
+      "corpus": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/corpus/corpus.json",
+      "training_view": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json",
+      "distance_bias": "C1-0",
+      "components": [
+        "A1",
+        "B3",
+        "B4"
+      ],
+      "library": "L1",
+      "wide_manifest": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/final_manifest_zero_scale_amendment_20261122.json",
+      "label_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L1/label_parameters.json",
+      "transferred_recipe": {
+        "element_residual": true,
+        "pma_pooling": true,
+        "anti_collapse": true,
+        "gamma": 0.1597693323500406
+      }
+    },
+    "tensors_loaded": false,
+    "checkpoint_contents_independently_inspected": false
+  },
+  "original_full_checkpoint_producer": "current/phychem_mfm/phase1/p_recipe_training.py:168-169",
+  "original_checkpoint_scope": "Exact native file metadata and source configuration binding; model/optimizer tensors not loaded or independently numerically verified",
+  "original_units_csv": "results/d_recipe/D-L1_seed0_VAL_original_units_1000000_20261124.csv",
+  "original_units_csv_source": "results/d_recipe/training/d_recipe_20261120_D_L1_seed0_3M/VAL_original_units_1000000.csv",
+  "original_family_rows": [
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M",
+      "kind": "VAL_fixed2000",
+      "samples": "1000000",
+      "updates": "31250",
+      "family": "atom_sasa",
+      "loss": "0.01316781784594059",
+      "clipped_fraction": "0.006656",
+      "seconds": "20155.932327600196"
+    },
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M",
+      "kind": "VAL_fixed2000",
+      "samples": "1000000",
+      "updates": "31250",
+      "family": "graph_2d",
+      "loss": "0.045788690209388735",
+      "clipped_fraction": "0.006656",
+      "seconds": "20155.93233665079"
+    },
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M",
+      "kind": "VAL_fixed2000",
+      "samples": "1000000",
+      "updates": "31250",
+      "family": "molecule_3d",
+      "loss": "0.04451841747760773",
+      "clipped_fraction": "0.006656",
+      "seconds": "20155.93233755231"
+    }
+  ],
+  "reported_field_rows": 198,
+  "validation_scope": "Original fixed2000",
+  "gradient_clipping_fraction_scope": "Cumulative optimizer update gradient clipping, not target ±6 clipping",
+  "latest_original_progress": {
+    "kind": "original_L1_progress",
+    "observed_at_UTC": "2026-11-24T00:58:18.000Z",
+    "job_id": 4539360,
+    "node": "compute-0-5",
+    "samples": 1007360,
+    "training_loop_seconds": 20294.14556885138,
+    "source": "Original running losses.csv last complete row",
+    "independent_metrics_recomputed": false
+  },
+  "independent_forward_or_refit": false,
+  "decision_input": false
+}

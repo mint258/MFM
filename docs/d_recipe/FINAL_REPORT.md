@@ -292,3 +292,11 @@ Data plan的Stage2池3221225472→2471225472B、full峰值35118709120→34368709
 ## 2026-11-24 06:28 CST · L1原首次固定VAL
 
 原GPU5/4539360继续至556864样本、11720.747254431248循环秒。原500000样本/15625更新固定2000 VAL已报告198逐字段原单位误差（197分子目标+原子SASA）：[原CSV转录](../../results/d_recipe/D-L1_seed0_VAL_original_units_500000_20261124.csv)；原三块loss为atom_sasa=0.020334925562143325、graph_2d=0.07028213769197464、molecule_3d=0.11615822297334671，原累计梯度裁剪fraction=0.005696（不是目标±6截断率）。[原窗口记录](../../results/d_recipe/D-L1_seed0_original_fixed_VAL_500000_20261124.json)。未新增前向/重采样/拟合，不按VAL改变预算或配方；L1 R3仍待原3M及依赖CPU作业闭合，后续1M完整断点仅接收原元信息。
+
+## 2026-11-24 09:02 CST · L1原1M断点、固定VAL与原守卫恢复
+
+原1M完整断点samples_1000000.pt已于00:48:53 UTC发布，205549589B；只接收文件元信息与原configuration科学绑定，不加载张量。原1000000样本/31250更新固定2000 VAL有198字段原单位误差，三块loss原值atom_sasa=0.01316781784594059、graph_2d=0.045788690209388735、molecule_3d=0.04451841747760773，累计梯度裁剪fraction=0.006656（不是目标±6截断率）。[原1M记录](../../results/d_recipe/D-L1_seed0_original_1M_milestone_20261124.json)、[原CSV](../../results/d_recipe/D-L1_seed0_VAL_original_units_1000000_20261124.csv)；无另一次验证、重采样或拟合，不用VAL选配方。
+
+原quota守卫随后在1007360样本暂停，PID1491773，available312291291136B/required312397987623B。只退役已闭合Stage1 seed1两个未使用额外checkpoint槽464000000B：原GPU4538566/67、CPU4538568/69/70已原C0并reap、无未来writer；原六个1M/2M/3M文件及全部缓冲保留，Stage2九槽/原221225472B缓冲也不变。Stage1池2147483648→1683483648B，全D full峰值34368709120→33904709120B、live联合41324762973→40860762973B。所有实际文件、其它owner future、100GB/fresh5秒、原quota额外8GiB/根盘底线及活跃L1配置42074762973B上界保持。
+
+同一原guard自行通过新计划准入后DISK_TRANSPORT_RESUMED，仍PID1491773；原losses.csv随后1010912样本/20969.7940208707循环秒。无人工信号/新job/重启/重新初始化或checkpoint重载，原分配及暂停全部计成本。[本线未用future与原事件](../../results/d_recipe/closed_stage1_unused_slots_and_L1_resume_20261124.json)。若后续L1 seed0 WIN才另登记该臂seed1，不复用此已闭合Stage1控制池启动新工作。L2仍UR不重试，最终配方未冻结，全部后续关卡/冷9M/最终A-B-C与基准/成本/一次全回归及两PR范围保持。

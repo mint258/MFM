@@ -38,3 +38,11 @@ GPU5/4539360、RTX3090/UUID GPU-dac07d74-6269-c7db-8832-340dd3c0b377、5CPU/3wor
 L1原日志实际出现DISK_TRANSPORT_PAUSED，PID1491773，available313209810944B/required313356249146B；样本停在71488。保留原live配置和guard源码，不手动信号或重启。L2已按TASKBOOK3.5未解决且从未启动神经臂，原12槽×250000000B的Stage2池中其三个1M/2M/3M槽位不再有未来writer。只撤回这750000000B未使用本线future：模型槽12→9、模型字节3000000000→2250000000，221225472B日志/读出/序列化缓冲及三个额外槽均保留；旧所有实际checkpoint/partial数组保留，无删除。
 
 Data plan的Stage2池3221225472→2471225472B、full峰值35118709120→34368709120B、全D NFS联合峰值声明42074762973→41324762973B。原在跑L1配置仍保留42074762973B更保守的配置声明，所有其它owner预留、100GB/fresh5秒、原quota额外缓冲和各根盘系统底线不变；这不是降低需要的安全余量。原h_peer_storage每次读取本线live plan，原guard自行通过准入并记录DISK_TRANSPORT_RESUMED、同PID1491773；随后原losses.csv已75456样本/2624.544632997364循环秒。没有新job、没有L1重新初始化/检查点重载，也没有重试L2。原分配与暂停时间全部留在成本中，不从计时剔除。[预算/原事件](../../results/d_recipe/unused_L2_slots_retired_and_L1_native_resume_20261124.json)。
+
+## 2026-11-24 09:02 CST · L1原1M断点、固定VAL与原守卫恢复
+
+原1M完整断点samples_1000000.pt已于00:48:53 UTC发布，205549589B；只接收文件元信息与原configuration科学绑定，不加载张量。原1000000样本/31250更新固定2000 VAL有198字段原单位误差，三块loss原值atom_sasa=0.01316781784594059、graph_2d=0.045788690209388735、molecule_3d=0.04451841747760773，累计梯度裁剪fraction=0.006656（不是目标±6截断率）。[原1M记录](../../results/d_recipe/D-L1_seed0_original_1M_milestone_20261124.json)、[原CSV](../../results/d_recipe/D-L1_seed0_VAL_original_units_1000000_20261124.csv)；无另一次验证、重采样或拟合，不用VAL选配方。
+
+原quota守卫随后在1007360样本暂停，PID1491773，available312291291136B/required312397987623B。只退役已闭合Stage1 seed1两个未使用额外checkpoint槽464000000B：原GPU4538566/67、CPU4538568/69/70已原C0并reap、无未来writer；原六个1M/2M/3M文件及全部缓冲保留，Stage2九槽/原221225472B缓冲也不变。Stage1池2147483648→1683483648B，全D full峰值34368709120→33904709120B、live联合41324762973→40860762973B。所有实际文件、其它owner future、100GB/fresh5秒、原quota额外8GiB/根盘底线及活跃L1配置42074762973B上界保持。
+
+同一原guard自行通过新计划准入后DISK_TRANSPORT_RESUMED，仍PID1491773；原losses.csv随后1010912样本/20969.7940208707循环秒。无人工信号/新job/重启/重新初始化或checkpoint重载，原分配及暂停全部计成本。[本线未用future与原事件](../../results/d_recipe/closed_stage1_unused_slots_and_L1_resume_20261124.json)。若后续L1 seed0 WIN才另登记该臂seed1，不复用此已闭合Stage1控制池启动新工作。L2仍UR不重试，最终配方未冻结，全部后续关卡/冷9M/最终A-B-C与基准/成本/一次全回归及两PR范围保持。
