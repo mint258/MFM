@@ -15,7 +15,8 @@ _EXECUTION_KEYS = (
     "source_last_samples", "rollback_samples", "infrastructure_continuation",
     "seed0_run", "diagnostic_feature_root", "checkpoint", "features",
     "persist_features", "recipe_preparation_only", "node", "local_node",
-    "gpu_uuid", "execution", "local_storage", "storage_peak_bytes",
+    "gpu_uuid", "execution", "local_storage", "local_output_root",
+    "local_storage_peak_bytes", "local_concurrent_bytes", "storage_peak_bytes",
     "share_storage_peak_bytes", "root_joint_future_bytes", "lustre_other_future_bytes",
     "output_filesystem", "model_budget_root", "storage_forecast_basis",
     "minimum_free_gpu_mib", "cleanup_seconds", "speed_calibration",
@@ -28,7 +29,7 @@ def _screening(parent):
             or parent["arm"].startswith("9M-") or parent.get("seed") != 0
             or parent.get("samples") != 3_000_000):
         raise ValueError("Confirmation uses a registered seed0 3M D condition")
-    return prepare_runtime(parent)
+    return deepcopy(parent)
 
 
 def _cold(parent, arm, *, output_root, run_prefix, retain_h0):

@@ -72,12 +72,14 @@ class ConfirmationPlanTests(unittest.TestCase):
         selected.update(resume="/old.pt", resume_samples=1000000,
             resume_from_output="/old", handoff_ack="/ack", diagnostic_feature_root="/3M/cache",
             checkpoint="/3M.pt", features="/old_features", infrastructure_continuation={},
-            storage_peak_bytes=1, share_storage_peak_bytes=2, node="old_node", gpu_uuid="old_gpu")
+            storage_peak_bytes=1, share_storage_peak_bytes=2, node="old_node", gpu_uuid="old_gpu",
+            local_output_root="/old_node/cache", local_storage_peak_bytes=3, local_concurrent_bytes=4)
         selected["clip_calibration"].update(threshold=123., fitted=True, observed_updates=2813)
         c = plan(frozen("D-L1"), selected=selected)["configurations"][1]
         for key in ("resume", "resume_samples", "resume_from_output", "handoff_ack",
                 "diagnostic_feature_root", "checkpoint", "features", "infrastructure_continuation",
-                "storage_peak_bytes", "share_storage_peak_bytes", "node", "gpu_uuid"):
+                "storage_peak_bytes", "share_storage_peak_bytes", "node", "gpu_uuid",
+                "local_output_root", "local_storage_peak_bytes", "local_concurrent_bytes"):
             self.assertNotIn(key, c)
         self.assertTrue(c["resource_admission_pending"])
         self.assertNotIn("fitted", c["clip_calibration"])
@@ -105,6 +107,25 @@ class ConfirmationPlanTests(unittest.TestCase):
             best.update(changes)
             with self.assertRaisesRegex(ValueError, "frozen D recipe"):
                 plan(best, selected=screening("D-L1"))
+
+    def test_adopted_mask_seed_is_preserved_for_a_fresh_confirmation(self):
+        selected = screening("D-K1")
+        selected["d_recipe"].update(library="L1", adopted_wide=True,
+            graph_mask_enabled=True, mask_seed=20261119)
+        best = frozen("D-K1")
+        best["library"] = "L1"
+        c = plan(best, selected=selected)["configurations"][1]
+        self.assertTrue(c["d_recipe"]["graph_mask_enabled"])
+        self.assertEqual(c["d_recipe"]["mask_seed"], 20261119)
+        self.assertTrue(c["d_recipe"]["include_3d"])
+
+    def test_frozen_wide_and_geometry_decisions_can_be_composed_only_in_final(self):
+        selected = screening("D-L1")
+        selected["d_recipe"]["include_3d"] = False
+        a, b = plan(frozen("D-L1"), selected=selected)["configurations"]
+        self.assertTrue(a["d_recipe"]["include_3d"])
+        self.assertFalse(b["d_recipe"]["include_3d"])
+        self.assertEqual(b["d_recipe"]["block_weights"], selected["d_recipe"]["block_weights"])
 
     def test_native_baseline_cannot_be_replaced_by_a_transferred_condition(self):
         with self.assertRaisesRegex(ValueError, "original D-R0"):
