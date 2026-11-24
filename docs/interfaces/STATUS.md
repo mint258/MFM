@@ -953,3 +953,8 @@ Data live plan的stage1池2147483648→1683483648B、槽8→6；134217728B读出
 GPU4539402已RUNNING，CPU12单核统计4539403 afterok402→配对4539404 afterok403，原R1 seed0复用。源b308e5fe6859d25b1ea7564a7d259f22c5a5c95e先于提交封存，实际Start24日12:27:55 CST/End26日12:27:55，900s收尾。原clip13.768829002380377/2813更新已从checkpoint恢复，first1000032/31251，现1005280样本；实际CUDA PID281103/UID1278/start_ticks67356059/job4539402。501088未保存样本重放与全部失败成本保留，未加新臂/seed或重算A1/D4；新native累计timer含旧1M prior，不把它当4090整段FPS，功耗仍整卡点均值含共存上下文。
 
 仅对本线已无writer的12个checkpoint和原structures/native A1/R0 cache整目录按原物理stat计量结算，撤回3535421038B未用future，所有现存文件与全部工作/日志/序列化缓冲及开放槽位保留；释放物理0B。Data full峰值30369288082B、联合live37325341935B，续接配置仍42074762973B保守声明；其它owner任何future、100GB/fresh5秒/额外8GiB/系统max10GiB10%不变。GPU20实际根余924034265088B/inode465749656，另留root17.314GB future与实际954GB盘10%系统底线；CPU12原36GiB+128MiB future保持。源见d-recipe/results/d_recipe/L1_GPU20_continuation_started_20261124.json及两个closed_*physical_settlement_20261124.json。L2 A1仍UR不重试，配方未冻结；完整TASKBOOK的后续关卡/冷9M/最终A-B-C+基准/成本/一次完整检查/两未合并PR全范围继续。不声称其它窗口已读/部署。
+
+
+## 2026-11-24 · D Root：GPU20原守卫配额暂停，R0已完成缓存清理仅提案
+
+13:48 CST：L1原1M完整状态续接4539402在GPU20，原守卫暂停在1076288样本；实际原worker281103/UID1278/start_ticks67356059/原cgroup仍在、状态T。CPU4539403/404等待依赖。原100GB/额外8GiB/fresh5秒及全部其它owner预算保持，未重启/未手工SIGCONT。当前UID余量308075278336B，静态要求309136036573B。Lustre UID余量1067335680B不足原守卫最小116589934592B，未传输。拟仅清理已完成R0 seed0/3M开发层缓存12个.pt、3081236480B；完整checkpoint/预测/读出/统计/原输入保留。**仅提案，尚无删除批准，实际删除0B**。精确清单与依赖闭合见[d-recipe提案](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/R0_CACHE_CLEANUP_PROPOSAL_20261124.md)。如获批，先实删再同字节结算已闭合R0/full/joint，保持所有缓冲/活动槽/peer预算，原进程由原守卫自行恢复。完整任务及冷9M/最终A-B-C仍待完成，最终配方未冻结。
