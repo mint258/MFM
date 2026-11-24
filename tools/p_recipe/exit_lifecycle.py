@@ -77,12 +77,12 @@ def children(pid):
     result = set()
     try:
         tasks = list(Path("/proc/%d/task" % pid).iterdir())
-    except FileNotFoundError:
+    except (FileNotFoundError, ProcessLookupError):
         return result
     for task in tasks:
         try:
             result.update(int(v) for v in (task / "children").read_text().split())
-        except FileNotFoundError:
+        except (FileNotFoundError, ProcessLookupError):
             continue
     return result
 
