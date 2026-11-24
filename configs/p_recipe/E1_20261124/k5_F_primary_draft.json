@@ -110,20 +110,7 @@
                                    ]
                   },
     "frozen":  {
-                   "frozen_E1_k5_3M":  {
-                                           "exp.LogD":  [
-                                                            "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_frozen_seed0/readout/exp_LogD__R3.pt"
-                                                        ],
-                                           "qm9.homo":  [
-                                                            "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_frozen_seed0/readout/qm9_homo__R3.pt"
-                                                        ],
-                                           "exp.LogS":  [
-                                                            "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_frozen_seed0/readout/exp_LogS__R3.pt"
-                                                        ],
-                                           "qm9.U0_atom":  [
-                                                               "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_frozen_seed0/readout/qm9_U0_atom__R3.pt"
-                                                           ]
-                                       }
+
                },
     "frozen_head_refit":  false,
     "new_GPU_computation":  false,
@@ -139,6 +126,6 @@
                               "pretraining_seed":  0
                           },
     "source_training_budget":  3000000,
-    "activation_basis":  "DRAFT: activate only after actual12 full50epoch fits and exact source frozen readout closure",
+    "activation_basis":  "DRAFT: exact E1 new full4tasks x3seeds only. Original frozen seven-task scores are reused in decision; no second frozen bootstrap.",
     "E1_seed_mean_draws":  true
 }

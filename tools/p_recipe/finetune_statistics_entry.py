@@ -132,7 +132,7 @@ def run(c):
                 node=c["node"],cpu_seconds_this_attempt=time.time()-started,
                 rows=len(result["rows"]),bootstrap_draws=1000,bootstrap_seed=20261025,
                 estimator="E1_three_seed_point_mean_and_matched_seed_mean_CI" if c.get("E1_seed_mean_draws",False) else "three_seed_point_mean_and_mean_prediction_molecular_CI_separate",
-                frozen_reused_seed0=True,new_frozen_fits=0,input_identity=identity)
+                frozen_reused_seed0=bool(c["frozen"]),new_frozen_fits=0,input_identity=identity)
             atomic_json(output/"primary_complete.json",summary)
             print(json.dumps({k:v for k,v in summary.items() if k!="input_identity"}),flush=True)
             return 0

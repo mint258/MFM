@@ -14,3 +14,5 @@ k10 full主统计4539401在CPU12等待afterok4539396，启动时要求原12份�
 四格最终判定入口e1_decision_entry.py已准备，配置decision_seed0_draft.json保持ready=false。其输入须为真实自身3M、原L6/H0、全部48项full的原来源与闭合主统计；只对原1000个保留draw做配对代数，不重抽。新来源路由测试4539407 CPU12/1核/4秒C0，原3M接受、9M中点/改层拒绝；3份AST通过，root1813547 reap0/children=[]/实际不存在。若最小合格k有WIN且拟采用，输出WAITING_CONDITIONAL_SEED1，k_star不提前定稿。
 
 最终训练硬件使用e1_hardware_entry.py在三条native实际3M完成后仅读原训练遥测，沿I1同一梯形积分整卡时间加权均功耗、3M/native秒吞吐，含原VAL/断点而不含之后读出/FT；按实际卡型合并三条运行，不新增GPU采样。原成本writer新增E1训练/读出和E1 full两个阶段，不改物理句柄去重、CPU排除和旧历史下界。2项新增检查及4份AST由4539408 CPU12/1核/1秒C0通过；原root1813818 reap0、children=[]、实际不存在。最终硬件尚待三条训练完成；旧710.658479GPUh只作E1启动前历史快照。
+
+在k10 CPU4539401仍为PENDING/Dependency、首次主统计尚未启动时，已从全部E1 full主统计配置移除继承的可选四任务frozen汇总（frozen={}）。E1只对新full结果进行首次三种子均值及ensemble描述统计；原七任务frozen R1/R3主分与原draw直接在最终判定入口复用，不再生成四任务frozen bootstrap。原F/I1配置和正在训练的模型均保持原设置。原新逻辑检查4539400已覆盖空frozen的full主统计；本次只有配置范围与完成摘要中的frozen_reused_seed0标记修正，未重复旧测试/结果。

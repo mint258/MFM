@@ -110,20 +110,7 @@
                                    ]
                   },
     "frozen":  {
-                   "frozen_E1_k10_3M":  {
-                                            "exp.LogD":  [
-                                                             "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/readout/exp_LogD__R3.pt"
-                                                         ],
-                                            "qm9.homo":  [
-                                                             "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/readout/qm9_homo__R3.pt"
-                                                         ],
-                                            "exp.LogS":  [
-                                                             "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/readout/exp_LogS__R3.pt"
-                                                         ],
-                                            "qm9.U0_atom":  [
-                                                                "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/readout/qm9_U0_atom__R3.pt"
-                                                            ]
-                                        }
+
                },
     "frozen_head_refit":  false,
     "new_GPU_computation":  false,
@@ -154,6 +141,6 @@
                               "new_evaluation_logic_test":  4539400
                           },
     "source_training_budget":  3000000,
-    "activation_basis":  "Afterok4539396: original k10 full12 chain; CPU worker requires all12 COMPLETE summaries before first primary. Source round4F2 own3M and original frozen R3 reused, no pretraining.",
+    "activation_basis":  "Afterok4539396: exact round4F2 own3M new full12 only, no second frozen bootstrap. Original seven-task frozen scores reused by final E1 paired decision.",
     "E1_seed_mean_draws":  true
 }
