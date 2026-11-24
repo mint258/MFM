@@ -31,7 +31,7 @@
                       "configuration":  "configs/p_recipe/E1_20261124/k1_managed_seed0_attempt2.json",
                       "frozen":  "PENDING",
                       "full_finetuning":  "PENDING_ORIGINAL_FULL4_TASKS_X3_SEEDS",
-                      "actual_mean_k":  null,
+                      "actual_mean_k":  1.0,
                       "job_id":  4539379,
                       "node":  "compute-0-5",
                       "first_positive_samples":  4288
@@ -42,7 +42,7 @@
                       "configuration":  "configs/p_recipe/E1_20261124/k2_managed_seed0_attempt2.json",
                       "frozen":  "PENDING",
                       "full_finetuning":  "PENDING_ORIGINAL_FULL4_TASKS_X3_SEEDS",
-                      "actual_mean_k":  null,
+                      "actual_mean_k":  1.9959890406187093,
                       "job_id":  4539380,
                       "node":  "compute-0-6",
                       "first_positive_samples":  3712
@@ -53,7 +53,7 @@
                       "configuration":  "configs/p_recipe/E1_20261124/k5_managed_seed0_attempt2.json",
                       "frozen":  "PENDING",
                       "full_finetuning":  "PENDING_ORIGINAL_FULL4_TASKS_X3_SEEDS",
-                      "actual_mean_k":  null,
+                      "actual_mean_k":  4.965858278318713,
                       "job_id":  4539381,
                       "node":  "compute-0-7",
                       "first_positive_samples":  4064
@@ -63,8 +63,22 @@
                       "training":  "REUSE_ROUND4_F2_OWN_3M_SEED0",
                       "configuration":  "configs/p_recipe/fixed_20261115/round4/F2.json",
                       "frozen":  "REUSE_ORIGINAL_COMPLETE_R1_R3",
-                      "full_finetuning":  "PENDING_ORIGINAL_FULL4_TASKS_X3_SEEDS",
-                      "actual_mean_k":  null
+                      "full_finetuning":  "RUNNING_OR_QUEUED_FULL12_NODE4",
+                      "actual_mean_k":  9.211332341897862,
+                      "full_job_ids":  [
+                                           4539385,
+                                           4539386,
+                                           4539387,
+                                           4539388,
+                                           4539389,
+                                           4539390,
+                                           4539391,
+                                           4539392,
+                                           4539393,
+                                           4539394,
+                                           4539395,
+                                           4539396
+                                       ]
                   }
               ],
     "full_fit_budget":  48,
@@ -83,5 +97,6 @@
                                      4539375,
                                      4539376,
                                      4539377
-                                 ]
+                                 ],
+    "conformer_inventory":  "results/p_recipe/E1_actual_conformer_counts.json"
 }

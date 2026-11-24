@@ -80,7 +80,11 @@ def validate_bundle(b):
  return b
 
 def require_closed(repo):
- repo=Path(repo);d=repo/'results/p_recipe/fixed_20261115/analysis_20261122';k=repo/'results/p_recipe/fixed_20261115/confirmation'
+ repo=Path(repo)
+ e1=repo/'configs/p_recipe/E1_k_star.json'
+ if e1.is_file() and json.loads(e1.read_text()).get('status')!='COMPLETE':
+  raise ReportNotReady('Final REPORT waits for: E1 original registered conformer-count study closure')
+ d=repo/'results/p_recipe/fixed_20261115/analysis_20261122';k=repo/'results/p_recipe/fixed_20261115/confirmation'
  def read(path):
   return json.loads(path.read_text()) if path.is_file() else None
  def rows(path):

@@ -1731,3 +1731,8 @@ k1/node5/4539379，k2/node6/4539380，k5/node7/4539381；原losses首个快照42
 实际启动前：三个GPU无CUDA上下文、5/24576MiB；root约57.21/52.33/42.35GB及inode/RAM核过，系统和同行future保留。NFS真实UID available312020856832B，E1未来32GiB、额外已发布D未来40860762973B、S37598547968B及原100GB+8GiB余量同时计入，准入通过。每卡P未来64GiB RAM/64MiB日志、NFS32GiB已登记；只用原地库，不向/tmp复制。其它线预算/进程不改，不声称其它窗口已读或卡始终空闲。
 
 configs/p_recipe/E1_k_star.json仍k_star=null、训练RUNNING，实际全量平均k及原R1/R3、48次full（含k10补12）后续继续；不拿I1或9M中点替代。全部27项保留，A4仍待外部，最终REPORT未生成。
+
+
+## P E1 actual full-cohort counts and exact k10 reference (2026-11-24 04:12 UTC)
+
+P E1 original registered study remains active. Full TRAIN 1,194,228 molecules, D5-before-fixed-rank selection, actual mean k for requested1/2/5/10 =1.0 /1.9959890406187093 /4.965858278318713 /9.211332341897862. First stream inventory4539383 CPU12 COMPLETE0,111s; no geometry forwards or normalization fits. New pending-E1 final-report gate targeted test4539382 COMPLETE0,1s. Existing final REPORT remains withheld for E1 and external D section5 A4. Exact round4 F2 own-budget3M k10 reference full4tasks x3seeds submitted on genuinely idle RTX3090 node4,4539385–4539396; first two full50epoch fits complete and third running at04:12. No k10 pretraining; I1/9M midpoint not substituted. k1/2/5 original3M4539379/380/381 continue on5/6/7 unchanged. Baseline full profiles checked4539384 COMPLETE0,1s. 32GiB aggregate E1 NFS future unchanged, node4 RAM/log claims added, actual GPU/bytes/inode/RAM checked and other CUDA owner onnode1 left untouched. kstar remains null;48 original full fits and new frozen readouts still pending; PR7 stays draft.
