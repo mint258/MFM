@@ -1787,3 +1787,8 @@ D's GitHub7697bbcf reports its original quota guard pause and separate R0 cache-
 ## 2026-11-24 P：E1 首个1M断点和固定VAL
 
 k=1/2/5三组（4539379/4539380/4539381，node5/6/7）已在07:47 UTC各自原子保存1M完整状态文件，每份231764897字节；每组固定VAL的10个family均已记录，原训练继续超过1M，未停止/重启或改配方。原始family CSV同步到本分支；[保存及VAL记录](../../results/p_recipe/E1/first1M_progress_20261124.json)。候选R1/R3和full微调仍待自身3M完成，k*未定。E1当前总峰值以已发布[E1存储测量](../p_recipe/E1_STORAGE_20261124.md)的30GiB为准；外部A4未有新交付。
+
+
+## 2026-11-24 · D Root：已批精确12缓存清理完成，同一GPU20原进程自行恢复
+
+16:17 CST：用户已明确批准原7697bbcf提案。仅完成D-R0 seed0/3M已闭合12个开发层特征.pt逐个unlink，实际3081236480B；所有checkpoint/预测/读出/统计/bootstrap/输入及3个manifest保留，无递归清理、无其它owner文件操作。先实际删除，再原闭合R0组件3139026944→57790464B、full30369288082→27288051602B、joint37325341935→34244105455B（plan prepare/produce/finalize的joint peak全部同步）。原缓冲、活动槽、other-owner预算、100GB/fresh5秒/额外8GiB和冻结42074762973B运行配置不变。原守卫自行DISK_TRANSPORT_RESUMED，仍4539402/GPU20/worker281103/start_ticks67356059/原cgroup，1076288→1077344样本；未人工SIGCONT、未重启/重载/新job。CPU4539403/404原afterok链保持。当前available310322528256B、direct required309136036573B、peer required308396853274B均通过。整卡/累计timer含原prefix和配额暂停，成本不剔除；完整任务与全部后续关卡/冷9M/最终A-B-C继续，配方未冻结。[实际记录](https://github.com/mint258/MFM/blob/d-recipe/results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json)。
