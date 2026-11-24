@@ -34,7 +34,7 @@ def validate(c):
     return dict(native)
 
 
-def run(c):
+def run(c, *, validate_configuration=validate, science_change="p_recipe.anti_collapse=false"):
     if c.get("ready") is not True:raise ValueError("I1 must be activated")
     with CooperativeStop() as stop:
         def guard():
@@ -50,7 +50,7 @@ def run(c):
         os.environ["CUDA_VISIBLE_DEVICES"]=c["gpu_uuid"]
         done=threading.Event();thread=None
         try:
-            native=validate(c)
+            native=validate_configuration(c)
             import torch
             from phychem_mfm.phase1.p_recipe_training import train
             torch.set_float32_matmul_precision("highest")
@@ -87,7 +87,7 @@ def run(c):
             result=train(native)
             done.set();thread.join()
             receipt=dict(status=result["status"],job_id=job,node=c["node"],card=card,
-                result=result,source_validation=c["source_validation"],only_science_change="p_recipe.anti_collapse=false",
+                result=result,source_validation=c["source_validation"],only_science_change=science_change,
                 baseline_checkpoint=c["baseline_checkpoint"],new_baseline_training=False,
                 FP32=True,TF32=False,normalization_unchanged=True,
                 request=native["handoff_request"],ack=native["handoff_ack"],

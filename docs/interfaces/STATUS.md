@@ -1720,3 +1720,14 @@ Data live plan的stage1池2147483648→1683483648B、槽8→6；134217728B读出
 已接入USER_DIRECTIVE_20261123：原冻结配方、全量分子，k1/2/5各自3M/B32/FP32，k10只复用round4F2自身3M。新增conformer_cap默认None，关闭时仍原k10；启用时复用既有M7固定随机秩及D5先排除再first-k，无重排/补足。固定VAL保持原设置。只测新逻辑一次：CPU12/4539372 C0/5秒，4项通过及3PythonAST检查；原resident root1811163已reap0/children=[]、实际/proc不存在。未重跑旧回归/旧科学结果。
 
 三份原配方native配置已准备，configs/p_recipe/E1_k_star.json仅预注册状态，k_star=null，未宣称E1结论；新3M训练尚未提交。k10尚无准确对应的full12，按授权需要补做；不拿I1或9M中点替代。下一步为guarded运行入口、原全量实际平均k、真实并发字节/inode/UID与同行预留准入，再接入空闲24GiB卡。原A4仍外部等待，但E1是独立可推进工作，全部27项保留，最终REPORT未生成；不停止任何在跑任务。
+
+
+## 2026-11-24 · P：E1三条原3M已真实启动
+
+k1/node5/4539379，k2/node6/4539380，k5/node7/4539381；原losses首个快照4288/3712/4064样本。RTX3090/B32/FP32/TF32关闭、16CPU/14读进程，普通sbatch，无exclusive，真实14h时限提前900秒完整状态收尾。固定配方、原VAL、11-07归一化、每条自身3M退火/p99不变，k10不重训。原半小时Slurm/ownclaim观察PID354632/start8413032111仍活跃，新句柄已登记。
+
+原4项cap新逻辑测试4539372 PASS，原配方/入口AST4539374 PASS。首次4539375/376/377均在训练前因我生成的资源ID数组格式错误被准入拒绝；旧配置/输出/分配成本保留。独立attempt2修正数组后，经CPU4539378 C0检查ID已登记、真实物理NFS路径及原配方不变，再重提，未舍弃科学进度。新入口复用原P完整状态、runtime watcher和resident退出保护，无新科学训练实现。
+
+实际启动前：三个GPU无CUDA上下文、5/24576MiB；root约57.21/52.33/42.35GB及inode/RAM核过，系统和同行future保留。NFS真实UID available312020856832B，E1未来32GiB、额外已发布D未来40860762973B、S37598547968B及原100GB+8GiB余量同时计入，准入通过。每卡P未来64GiB RAM/64MiB日志、NFS32GiB已登记；只用原地库，不向/tmp复制。其它线预算/进程不改，不声称其它窗口已读或卡始终空闲。
+
+configs/p_recipe/E1_k_star.json仍k_star=null、训练RUNNING，实际全量平均k及原R1/R3、48次full（含k10补12）后续继续；不拿I1或9M中点替代。全部27项保留，A4仍待外部，最终REPORT未生成。
