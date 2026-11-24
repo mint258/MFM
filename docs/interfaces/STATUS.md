@@ -1800,3 +1800,9 @@ k=1/2/5三组（4539379/4539380/4539381，node5/6/7）已在07:47 UTC各自原�
 ## 2026-11-24 P：后续提交避开当前drain节点5/20
 
 23:29–23:35 CST实查：node5、node20均MIXED+DRAIN，Reason=Kill task failed；ReasonTime分别19:56:36和19:21:42 CST。原因和归属未查明，不能按同节点有本账号作业归因。现有P三组训练正常推进，保留运行；当前drain不提交新任务、不改用SSH绕过，不做节点管理或他人进程操作。后续冻结读出候选node6/7；node4空闲3090只有8个可分配CPU，原full入口支持按实际分配设置线程，可按8CPU提交full（科学配方不变）。1/3有GPU上下文，22显存26932/32607MiB，不据此启动。已核实真实autofs目标、字节/inode、新鲜UID配额和全部peer预留。36份尚未启用的full草案仅纠正authority/batch/start_after：各自等待本k自身3M及实际退出，不能误写复用k10。最终提交前重查实际资源并嵌入当前退出保护。[当前观测与计划](../../results/p_recipe/E1/post_training_resource_plan_20261124.json)。
+
+## 2026-11-25 P：三组自身3M完成，原冻结/full与CPU判定链已接续
+
+k=1/2/5原预训练4539379/4539380/4539381均完成3000000样本/93750更新，最终文件231769441/231769377/231769377B；原生树reap0、children=[]且实际root不存在。B32/FP32、原配方、11-07归一化和各自p99保持，三组原CSV的6个固定VAL点各10类齐全，所有中间输出保留。[3M原始完成证明](../../results/p_recipe/E1/native_completion_20261124.json)。
+
+后续原3个冻结读出与36项full已普通sbatch同卡afterok串行，使用健康node4/6/7和原16CPU；node4最终核实可分配CPU已增至24，未采用早前8核候选。CPU统计/主表/原配对判定在已核实恢复的node8单核提交；旧node12硬件汇总9409仅在PENDING0秒时hold后取消，替换9977。[GPU链](../../results/p_recipe/E1/GPU_pipeline_20261125.json)、[CPU链](../../results/p_recipe/E1/CPU_pipeline_20261125.json)。首批mtime类型/F基协议字段错误在模型计算前退出，已修正并保留失败成本，仅重提3个头任务和修复依赖；F22B基协议字段保留，E1授权在source_validation。当前无新失败/坏依赖，原配对判定未提前执行。详见[日报](../p_recipe/daily/2026-11-25.md)。k*仍未定，最终REPORT及PR7仍待E1和外部A4。node5/20当前drain不提交新任务，不据同节点归因，不停止其它在跑任务。

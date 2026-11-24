@@ -1,0 +1,303 @@
+{
+  "observed_at": 1795535356.6134992,
+  "status": "THREE_NATIVE_3M_COMPLETE_AND_ACTUAL_OWN_TREES_CLOSED",
+  "rows": [
+    {
+      "k": 1,
+      "job_id": 4539379,
+      "summary": {
+        "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+        "run": "fixed_20261115_E1_k1_seed0",
+        "samples": 3000000,
+        "updates": 93750,
+        "actual_samples": 3000000,
+        "seconds": 43127.035861328244,
+        "clipped_fraction": 0.040618666666666664,
+        "clip": 33.4630209350586,
+        "batch_size": 32,
+        "microbatch_size": 32,
+        "GPU_peak_bytes": 10384626688
+      },
+      "managed_receipt": {
+        "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+        "job_id": "4539379",
+        "node": "compute-0-5",
+        "card": {
+          "uuid": "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+          "name": "NVIDIA GeForce RTX 3090",
+          "memory_used_mib": 8.0,
+          "memory_total_mib": 24576.0
+        },
+        "result": {
+          "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+          "run": "fixed_20261115_E1_k1_seed0",
+          "samples": 3000000,
+          "updates": 93750,
+          "actual_samples": 3000000,
+          "seconds": 43127.035861328244,
+          "clipped_fraction": 0.040618666666666664,
+          "clip": 33.4630209350586,
+          "batch_size": 32,
+          "microbatch_size": 32,
+          "GPU_peak_bytes": 10384626688
+        },
+        "source_validation": {
+          "native_training_math_unchanged": true,
+          "new_logic_tests": 4,
+          "new_logic_tests_job": 4539372,
+          "authority": "docs/p_recipe/USER_DIRECTIVE_20261123.md",
+          "only_science_change": "TRAIN conformer_cap",
+          "normalization": "window2_TRAIN_normalization_parameters_20261107_v1"
+        },
+        "only_science_change": "TRAIN conformer_cap; published fixed_random after D5",
+        "baseline_checkpoint": {
+          "label": "round4_F2",
+          "arm": "F2",
+          "samples": 3000000,
+          "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
+          "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/samples_3000000.pt",
+          "bytes": 231769313,
+          "run": "fixed_20261115_round4_F2",
+          "components": [
+            "A1",
+            "B3",
+            "B4",
+            "F2"
+          ],
+          "pretraining_seed": 0,
+          "source_training_budget": 3000000
+        },
+        "new_baseline_training": false,
+        "FP32": true,
+        "TF32": false,
+        "normalization_unchanged": true,
+        "request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/fixed_20261115_E1_k1_seed0_4539379_handoff_request.json",
+        "ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/fixed_20261115_E1_k1_seed0_4539379_handoff_ack.json",
+        "monitor_thread_joined": true
+      },
+      "exit": {
+        "root": 1511871,
+        "actual_root_exists": false,
+        "reaped": {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 1511871,
+          "root_returncode": 0
+        },
+        "terminal": {
+          "phase": "RESIDENT_TERMINAL",
+          "job_id": "4539379",
+          "returncode": 0,
+          "remaining_children": []
+        },
+        "owner_uid": 1278,
+        "k": 1,
+        "job_id": 4539379,
+        "node": "compute-0-5",
+        "observed_at": 1795535269.590935
+      },
+      "checkpoint_identity": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k1_seed0/samples_3000000.pt",
+        "bytes": 231769441,
+        "mtime_ns_string": "1795535180159531363"
+      }
+    },
+    {
+      "k": 2,
+      "job_id": 4539380,
+      "summary": {
+        "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+        "run": "fixed_20261115_E1_k2_seed0",
+        "samples": 3000000,
+        "updates": 93750,
+        "actual_samples": 3000000,
+        "seconds": 43075.21032816917,
+        "clipped_fraction": 0.043808,
+        "clip": 32.82066253662109,
+        "batch_size": 32,
+        "microbatch_size": 32,
+        "GPU_peak_bytes": 10101226496
+      },
+      "managed_receipt": {
+        "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+        "job_id": "4539380",
+        "node": "compute-0-6",
+        "card": {
+          "uuid": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+          "name": "NVIDIA GeForce RTX 3090",
+          "memory_used_mib": 8.0,
+          "memory_total_mib": 24576.0
+        },
+        "result": {
+          "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+          "run": "fixed_20261115_E1_k2_seed0",
+          "samples": 3000000,
+          "updates": 93750,
+          "actual_samples": 3000000,
+          "seconds": 43075.21032816917,
+          "clipped_fraction": 0.043808,
+          "clip": 32.82066253662109,
+          "batch_size": 32,
+          "microbatch_size": 32,
+          "GPU_peak_bytes": 10101226496
+        },
+        "source_validation": {
+          "native_training_math_unchanged": true,
+          "new_logic_tests": 4,
+          "new_logic_tests_job": 4539372,
+          "authority": "docs/p_recipe/USER_DIRECTIVE_20261123.md",
+          "only_science_change": "TRAIN conformer_cap",
+          "normalization": "window2_TRAIN_normalization_parameters_20261107_v1"
+        },
+        "only_science_change": "TRAIN conformer_cap; published fixed_random after D5",
+        "baseline_checkpoint": {
+          "label": "round4_F2",
+          "arm": "F2",
+          "samples": 3000000,
+          "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
+          "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/samples_3000000.pt",
+          "bytes": 231769313,
+          "run": "fixed_20261115_round4_F2",
+          "components": [
+            "A1",
+            "B3",
+            "B4",
+            "F2"
+          ],
+          "pretraining_seed": 0,
+          "source_training_budget": 3000000
+        },
+        "new_baseline_training": false,
+        "FP32": true,
+        "TF32": false,
+        "normalization_unchanged": true,
+        "request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/fixed_20261115_E1_k2_seed0_4539380_handoff_request.json",
+        "ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/fixed_20261115_E1_k2_seed0_4539380_handoff_ack.json",
+        "monitor_thread_joined": true
+      },
+      "exit": {
+        "root": 2138652,
+        "actual_root_exists": false,
+        "reaped": {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2138652,
+          "root_returncode": 0
+        },
+        "terminal": {
+          "phase": "RESIDENT_TERMINAL",
+          "job_id": "4539380",
+          "returncode": 0,
+          "remaining_children": []
+        },
+        "owner_uid": 1278,
+        "k": 2,
+        "job_id": 4539380,
+        "node": "compute-0-6",
+        "observed_at": 1795535269.6063166
+      },
+      "checkpoint_identity": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k2_seed0/samples_3000000.pt",
+        "bytes": 231769377,
+        "mtime_ns_string": "1795535141407410328"
+      }
+    },
+    {
+      "k": 5,
+      "job_id": 4539381,
+      "summary": {
+        "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+        "run": "fixed_20261115_E1_k5_seed0",
+        "samples": 3000000,
+        "updates": 93750,
+        "actual_samples": 3000000,
+        "seconds": 43184.76604292169,
+        "clipped_fraction": 0.039488,
+        "clip": 33.436343383789065,
+        "batch_size": 32,
+        "microbatch_size": 32,
+        "GPU_peak_bytes": 10108674048
+      },
+      "managed_receipt": {
+        "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+        "job_id": "4539381",
+        "node": "compute-0-7",
+        "card": {
+          "uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+          "name": "NVIDIA GeForce RTX 3090",
+          "memory_used_mib": 8.0,
+          "memory_total_mib": 24576.0
+        },
+        "result": {
+          "status": "TRAINING_COMPLETE_EVALUATION_PENDING",
+          "run": "fixed_20261115_E1_k5_seed0",
+          "samples": 3000000,
+          "updates": 93750,
+          "actual_samples": 3000000,
+          "seconds": 43184.76604292169,
+          "clipped_fraction": 0.039488,
+          "clip": 33.436343383789065,
+          "batch_size": 32,
+          "microbatch_size": 32,
+          "GPU_peak_bytes": 10108674048
+        },
+        "source_validation": {
+          "native_training_math_unchanged": true,
+          "new_logic_tests": 4,
+          "new_logic_tests_job": 4539372,
+          "authority": "docs/p_recipe/USER_DIRECTIVE_20261123.md",
+          "only_science_change": "TRAIN conformer_cap",
+          "normalization": "window2_TRAIN_normalization_parameters_20261107_v1"
+        },
+        "only_science_change": "TRAIN conformer_cap; published fixed_random after D5",
+        "baseline_checkpoint": {
+          "label": "round4_F2",
+          "arm": "F2",
+          "samples": 3000000,
+          "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
+          "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/samples_3000000.pt",
+          "bytes": 231769313,
+          "run": "fixed_20261115_round4_F2",
+          "components": [
+            "A1",
+            "B3",
+            "B4",
+            "F2"
+          ],
+          "pretraining_seed": 0,
+          "source_training_budget": 3000000
+        },
+        "new_baseline_training": false,
+        "FP32": true,
+        "TF32": false,
+        "normalization_unchanged": true,
+        "request": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/fixed_20261115_E1_k5_seed0_4539381_handoff_request.json",
+        "ack": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/fixed_20261115_E1_k5_seed0_4539381_handoff_ack.json",
+        "monitor_thread_joined": true
+      },
+      "exit": {
+        "root": 2850536,
+        "actual_root_exists": false,
+        "reaped": {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2850536,
+          "root_returncode": 0
+        },
+        "terminal": {
+          "phase": "RESIDENT_TERMINAL",
+          "job_id": "4539381",
+          "returncode": 0,
+          "remaining_children": []
+        },
+        "owner_uid": 1278,
+        "k": 5,
+        "job_id": 4539381,
+        "node": "compute-0-7",
+        "observed_at": 1795535356.6127672
+      },
+      "checkpoint_identity": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_seed0/samples_3000000.pt",
+        "bytes": 231769377,
+        "mtime_ns_string": "1795535240591720110"
+      }
+    }
+  ]
+}

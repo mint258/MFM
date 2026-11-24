@@ -15,8 +15,12 @@ MAE保持原任务单位。S采用共同scratch三种子MAE均值为分母；E1�
 
 [完整原始主统计及1000个draw](../../results/p_recipe/E1/k10_full/primary.json)、[四任务原表](../../results/p_recipe/E1/k10_full/rows.csv)、[实际执行与退出证明](../../results/p_recipe/E1/k10_full12_completion_20261124.json)。
 
-闭合的k10 full输出实际占3464949760字节。node4的64GiB RAM/64MiB日志未来预留归零，原数据、检查点和日志全部保留。原4539411在结算已写入后因漏建回执目录退出1；修正目录创建，并由4539412 C0/5秒只补回执，未重复扫描/扣减。[结算回执](../../results/p_recipe/E1/k10_resource_settlement_20261124.json)。此后根据实际文件分配测量，E1总峰值修正为30GiB（32212254720字节），当前剩余未来写入28747304960字节；只撤回未用预测，保留全部文件及活跃训练峰值，详见[存储测量](E1_STORAGE_20261124.md)。
+闭合的k10 full输出实际占3464949760字节。k10结算当时node4的64GiB RAM/64MiB日志未来预留归零，随后候选full阶段按实际任务重新登记，原数据、检查点和日志全部保留。原4539411在结算已写入后因漏建回执目录退出1；修正目录创建，并由4539412 C0/5秒只补回执，未重复扫描/扣减。[结算回执](../../results/p_recipe/E1/k10_resource_settlement_20261124.json)。此后根据实际文件分配测量，E1总峰值修正为30GiB（32212254720字节），当前剩余未来写入28747304960字节；只撤回未用预测，保留全部文件及活跃训练峰值，详见[存储测量](E1_STORAGE_20261124.md)。
 
 k=1/2/5在node5/6/7的首个1M完整状态文件均于07:47 UTC落盘，每份231764897字节；[1M记录](../../results/p_recipe/E1/first1M_progress_20261124.json)及原文件保留。
 
-当前三组均已超过2M/3M。各自2M完整状态文件于11:45–11:46 UTC原子落盘，每份231767137字节；固定VAL各有10个family、62500次更新，原训练继续。记录基于原子发布文件元信息、原CSV和实际Slurm状态，未另外反序列化权重或增加模型计算。[2M记录](../../results/p_recipe/E1/second2M_progress_20261124.json)。半小时观察174无错误。k*待候选三格完成自身3M及原冻结评测、full微调后判定；最终REPORT仍等待E1与外部A4。D线95a8d784已报告获批缓存清理后同一原进程恢复，尚未交付最终section5控制结果。
+1M/2M保存记录作为历史保留；三个候选现已完成自身3M/93750更新，原生job4539379/4539380/4539381均C0并已核实自有树reap0、children=[]和实际root不存在。[原始3M完成记录](../../results/p_recipe/E1/native_completion_20261124.json)。
+
+后续原3个冻结读出和36项full已按真实3M文件尺寸/mtime绑定提交，GPU只用健康node4/6/7，原16CPU、普通sbatch、无exclusive，同卡afterok串行；CPU统计和配对判定在已核实恢复的node8单核队列中。[GPU链](../../results/p_recipe/E1/GPU_pipeline_20261125.json)、[CPU链](../../results/p_recipe/E1/CPU_pipeline_20261125.json)。首批3个配置启动错误已修正，原失败输出及成本保留，详见[11-25日报](daily/2026-11-25.md)。
+
+k*待候选原冻结评测和四任务×三种子full主统计后判定。最终REPORT仍等待E1与外部A4；D线95a8d784未交付最终section5控制结果。当前node5/20 drain只限制新提交，P预训练均自然完成。

@@ -1,0 +1,43 @@
+{
+  "observed_at": 1795536524.7164934,
+  "old_manager_2827663_absent": true,
+  "guards": {
+    "ram": {
+      "line": "p-recipe",
+      "kind": "node_ram",
+      "node": "compute-0-8",
+      "path": "None",
+      "own": 42949672960,
+      "peers": 0,
+      "reserve": 40446525849,
+      "available": 399148294144
+    },
+    "tmp": {
+      "line": "p-recipe",
+      "kind": "node_disk",
+      "node": "compute-0-8",
+      "path": "/tmp",
+      "own": 16777216,
+      "peers": 0,
+      "reserve": 10737418240,
+      "available": 69070675968,
+      "probe_target": "/tmp"
+    },
+    "NFS": {
+      "line": "p-recipe",
+      "kind": "shared_fs",
+      "node": null,
+      "path": "/share",
+      "own": 29013139456,
+      "peers": 36097163264,
+      "reserve": 108589934592,
+      "available": 305332244480,
+      "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools",
+      "filesystem_available": 5726227398656,
+      "quota_available": 305332244480,
+      "quota_source": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/window2_20261105/share_quota_available_v3.json",
+      "quota_uid": 1278,
+      "quota_observed_time": 1795536523.124263
+    }
+  }
+}
