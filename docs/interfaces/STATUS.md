@@ -1810,3 +1810,13 @@ k=1/2/5原预训练4539379/4539380/4539381均完成3000000样本/93750更新，�
 ## 2026-11-25 P：已关闭文件从未来预算结算6534041600B，原文件不删
 
 三组原生3M、6项已核实退出的full及3个已闭合GPU读出的只读feature/R3张量，共12组件/228常规文件，实际stat_blocks分配6534041600B已在UID实际用量中。只从P未来写入同字节扣除一次：28747304960→22213263360B；scope与canonical claim已一致，后续原observer续租保持。E1总峰值30GiB不变，全部CPU R1/统计未来写入、临时峰值/控制缓冲、目录占用和其它owner预留保持，文件删除0B；没有操作peer进程或其它窗口文件。详细228文件stat清单保留在服务器控制目录。[结算摘要](../../results/p_recipe/E1/closed_file_future_settlement_summary_20261125.json)、[存储依据](../p_recipe/E1_STORAGE_20261124.md)。
+
+
+## 2026-11-25 P：38个下游GPU任务退出已核实，最后未启动任务补位node4
+
+01:28 CST：E1三组原GPU冻结读出及35/36项新full完成，38个自有进程树均reap0、children=[]且实际root不存在。原k1/homo/seed2的4539961只在PENDING0秒、无输出时hold后取消，node4空卡复核通过后普通sbatch 4539985/16CPU接续这项未开始的独立种子；未停止任何运行任务或丢弃进度，CPU9979依赖已换新ID，无坏依赖。所有科学配置和旧输出/成本保留。[补位记录](../../results/p_recipe/E1/pending_refill_20261125.json)、[更新GPU链](../../results/p_recipe/E1/GPU_pipeline_20261125.json)、[38树退出证明](../../results/p_recipe/E1/closed_GPU_trees_20261125.json)。
+
+8项CPU任务仍在node8排队；依据原同形实测，在PENDING0秒时将3项R1/R3实际时限细化为20分钟，其余5项5分钟，各保留180秒收尾，ID和科学协议不变。[CPU链](../../results/p_recipe/E1/CPU_pipeline_20261125.json)。监控185轮正常完成；D/S分支仍95a8d784/9959c2f3，尚无最终D section5交付。k*、硬件汇总和最终REPORT/PR7仍待实际产物。[日报](../p_recipe/daily/2026-11-25.md)。
+
+
+01:30 CST追加：另29个闭合full组件/116常规文件实际分配8378015744B结算一次，P未来NFS 22213263360→13835247616B；node6/7自有E1树全退出后未来RAM/tmp置0，node4和全部CPU预留保持，删除0B、原30GiB总峰值不变。[摘要](../../results/p_recipe/E1/closed_full_future_settlement_summary_20261125.json)。

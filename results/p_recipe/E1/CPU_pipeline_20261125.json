@@ -9,7 +9,9 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/training_hardware_seed0_cpu8.json",
       "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1_final_training_hardware_CPU8_20261125.sbatch",
       "dependency": null,
-      "submitted_at": 1795536606.2671127
+      "submitted_at": 1795536606.2671127,
+      "actual_TimeLimit": "00:05:00",
+      "cleanup_seconds": 180
     },
     {
       "key": "E1_k1_original_R1_R3_statistics",
@@ -19,7 +21,9 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k1_statistics_seed0_cpu8.json",
       "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1_k1_original_R1_R3_statistics_CPU8_20261125.sbatch",
       "dependency": "afterok:4539974",
-      "submitted_at": 1795536606.2923238
+      "submitted_at": 1795536606.2923238,
+      "actual_TimeLimit": "00:20:00",
+      "cleanup_seconds": 180
     },
     {
       "key": "E1_k1_full12_primary",
@@ -28,8 +32,10 @@
       "cpu_count": 1,
       "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k1_F_primary_seed0_cpu8.json",
       "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1_k1_full12_primary_CPU8_20261125.sbatch",
-      "dependency": "afterok:4539950:4539951:4539952:4539953:4539954:4539955:4539956:4539957:4539958:4539959:4539960:4539961",
-      "submitted_at": 1795536606.3152423
+      "dependency": "afterok:4539950:4539951:4539952:4539953:4539954:4539955:4539956:4539957:4539958:4539959:4539960:4539985",
+      "submitted_at": 1795536606.3152423,
+      "actual_TimeLimit": "00:05:00",
+      "cleanup_seconds": 180
     },
     {
       "key": "E1_k2_original_R1_R3_statistics",
@@ -39,7 +45,9 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k2_statistics_seed0_cpu8.json",
       "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1_k2_original_R1_R3_statistics_CPU8_20261125.sbatch",
       "dependency": "afterok:4539975",
-      "submitted_at": 1795536606.337974
+      "submitted_at": 1795536606.337974,
+      "actual_TimeLimit": "00:20:00",
+      "cleanup_seconds": 180
     },
     {
       "key": "E1_k2_full12_primary",
@@ -49,7 +57,9 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k2_F_primary_seed0_cpu8.json",
       "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1_k2_full12_primary_CPU8_20261125.sbatch",
       "dependency": "afterok:4539976:4539939:4539940:4539941:4539942:4539943:4539944:4539945:4539946:4539947:4539948:4539949",
-      "submitted_at": 1795536606.3621964
+      "submitted_at": 1795536606.3621964,
+      "actual_TimeLimit": "00:05:00",
+      "cleanup_seconds": 180
     },
     {
       "key": "E1_k5_original_R1_R3_statistics",
@@ -59,7 +69,9 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k5_statistics_seed0_cpu8.json",
       "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1_k5_original_R1_R3_statistics_CPU8_20261125.sbatch",
       "dependency": "afterok:4539938",
-      "submitted_at": 1795536606.385211
+      "submitted_at": 1795536606.385211,
+      "actual_TimeLimit": "00:20:00",
+      "cleanup_seconds": 180
     },
     {
       "key": "E1_k5_full12_primary",
@@ -69,7 +81,9 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k5_F_primary_seed0_cpu8.json",
       "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1_k5_full12_primary_CPU8_20261125.sbatch",
       "dependency": "afterok:4539962:4539963:4539964:4539965:4539966:4539967:4539968:4539969:4539970:4539971:4539972:4539973",
-      "submitted_at": 1795536606.4083111
+      "submitted_at": 1795536606.4083111,
+      "actual_TimeLimit": "00:05:00",
+      "cleanup_seconds": 180
     },
     {
       "key": "E1_seed0_original_decision",
@@ -79,7 +93,9 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/decision_seed0_cpu8.json",
       "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1_seed0_original_decision_CPU8_20261125.sbatch",
       "dependency": "afterok:4539978:4539980:4539982:4539979:4539981:4539983",
-      "submitted_at": 1795536606.4313037
+      "submitted_at": 1795536606.4313037,
+      "actual_TimeLimit": "00:05:00",
+      "cleanup_seconds": 180
     }
   ],
   "hardware_job": 4539977,
@@ -93,5 +109,65 @@
     "2": 4539981,
     "5": 4539983
   },
-  "decision_job": 4539984
+  "decision_job": 4539984,
+  "pending_deadline_refinement": {
+    "observed_at": 1795539873.8326702,
+    "original_same_shape_R1_R3_CPU_job": 4539310,
+    "original_same_shape_allocated_seconds": 121,
+    "original_full_primary_CPU_job": 4539329,
+    "original_full_primary_allocated_seconds": 10,
+    "E1_k10_primary_allocated_seconds": 9,
+    "cleanup_seconds_unchanged": 180,
+    "science_budget_and_protocol_unchanged": true,
+    "rows": [
+      {
+        "job": 4539977,
+        "key": "E1_final_training_hardware",
+        "TimeLimit": "00:05:00",
+        "no_computation_started": true
+      },
+      {
+        "job": 4539978,
+        "key": "E1_k1_original_R1_R3_statistics",
+        "TimeLimit": "00:20:00",
+        "no_computation_started": true
+      },
+      {
+        "job": 4539979,
+        "key": "E1_k1_full12_primary",
+        "TimeLimit": "00:05:00",
+        "no_computation_started": true
+      },
+      {
+        "job": 4539980,
+        "key": "E1_k2_original_R1_R3_statistics",
+        "TimeLimit": "00:20:00",
+        "no_computation_started": true
+      },
+      {
+        "job": 4539981,
+        "key": "E1_k2_full12_primary",
+        "TimeLimit": "00:05:00",
+        "no_computation_started": true
+      },
+      {
+        "job": 4539982,
+        "key": "E1_k5_original_R1_R3_statistics",
+        "TimeLimit": "00:20:00",
+        "no_computation_started": true
+      },
+      {
+        "job": 4539983,
+        "key": "E1_k5_full12_primary",
+        "TimeLimit": "00:05:00",
+        "no_computation_started": true
+      },
+      {
+        "job": 4539984,
+        "key": "E1_seed0_original_decision",
+        "TimeLimit": "00:05:00",
+        "no_computation_started": true
+      }
+    ]
+  }
 }
