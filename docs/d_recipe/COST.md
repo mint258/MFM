@@ -60,3 +60,11 @@ Data plan的Stage2池3221225472→2471225472B、full峰值35118709120→34368709
 没有在准入不足时提交续跑。对原已闭合R1 seed0、Stage1 seed1、G1的12个checkpoint只读stat.st_blocks×512资源元信息，撤回806413184B未使用预测；全部12文件保留，活动L1两次剩余断点/三个通用备用槽及原checkpoint上界250MB、读出/序列化缓冲均保持。[闭合checkpoint结算](../../results/d_recipe/closed_checkpoint_pool_physical_settlement_20261124.json)。另以原h_resources.allocated同一物理方法按整个已闭合structures目录、native A1 reference目录、原R0四层cache目录保守结算，撤回2729007854B原未用预测；所有数组/统计/缓存原封保留，role索引预测、原200MB metadata/360138915B序列化、Stage1的291483648B及Stage2的221225472B缓冲都不减。[闭合源目录结算](../../results/d_recipe/closed_source_components_physical_settlement_20261124.json)。
 
 现full峰值30369288082B、live联合NFS37325341935B；活跃前续接配置仍保留原42074762973B更保守声明。物理释放0B、不改其它owner future/100GB/fresh5秒/原native额外8GiB或根盘底线；只是剔除已无writer的本线未用future。原native完整准入已重新通过，所需308397102081B。新训练仍待实际sbatch；科学条件与原1M完整状态/501088样本重放记录不变。[续接记录](../../results/d_recipe/L1_exit_proc_race_and_1M_continuation_prelaunch_20261124.json)。
+
+## 2026-11-24 · 原1M续接改用获准的GPU20备用组
+
+4号GPU在复核时已有其它CUDA上下文，我未据此挡住4539399提交；该父FAILED1:0/11秒×5CPU，launcher在训练前退出，未创建训练目录、loss或telemetry。原reap roots3609151/3609183/3609148、returncodes0/1/1，resident children=[]且实际/proc均缺失；原新旧配置与所有成本保留，没有操作其它任务。此项属于启动资源准入拒绝，退出监督器竞态修复已由原13项CPU测试通过，没有重复该代码故障或追加同类修复。
+
+实际小组各卡均已有CUDA上下文，按原授权转另一组：compute-0-20的RTX4090/UUID GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02，实际423/49140MiB、公共自有锁可用，符合20/22既有≤30%共存规则；原其它上下文保留。该节点104CPU/已分配80，5CPU普通sbatch足够，不启动原生SSH模型。实际root余924034408448B、inode465749662，按实际954159071232B的10%系统底线再留本线17314086912B；原联合NFS37325341935B/UID与其它预算不变。
+
+新入口仍恢复原1M完整状态至同一seed0/3M，501088样本未保存重放及全部失败成本保留，已冻结p99不重拟合、原R1控制复用。[具体准备记录](../../results/d_recipe/L1_GPU20_same_1M_continuation_prelaunch_20261124.json)。此刻GPU20尚未提交；原4号脚本冻结保留，后续只用新文件。

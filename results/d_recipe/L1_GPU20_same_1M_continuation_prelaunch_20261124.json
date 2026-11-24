@@ -1,0 +1,76 @@
+{
+  "status": "GPU20_CONTINUATION_PREPARED_NOT_SUBMITTED",
+  "authority": "TASKBOOK3.4 same-arm infrastructure continuation and authorized size-based other-group fallback",
+  "observed_at_UTC": "2026-11-24T04:25:52Z",
+  "original_failure_and_1M_source": "results/d_recipe/L1_exit_proc_race_and_1M_continuation_prelaunch_20261124.json",
+  "prior_GPU4_admission": {
+    "job": 4539399,
+    "state": "FAILED",
+    "exit_code": "1:0",
+    "elapsed_seconds": 11,
+    "allocated_CPUs": 5,
+    "node": "compute-0-4",
+    "scope": "Launcher admission ended before native dataset/training; candidate training directory/losses/telemetry absent",
+    "selected_GPU_had_other_compute_context_at_recheck": true,
+    "common_lock_or_GPU_admission_rejected_before_training": "Worker returned1 with no TRAIN record; exact silent launcher branch not recorded",
+    "avoidable_submission_decision_error_acknowledged": true,
+    "actual_reaped_roots": [
+      3609151,
+      3609183,
+      3609148
+    ],
+    "actual_root_returncodes": [
+      0,
+      1,
+      1
+    ],
+    "resident_terminal": 1,
+    "resident_children": [],
+    "all_three_actual_proc_absent": true,
+    "other_owners_processes_unchanged": true,
+    "new_numerical_training_samples": 0,
+    "source_configuration_and_old_resident_retained": true
+  },
+  "proc_race_fix_validation": "13 originalCPU focused tests passed,0skipped; no repeated proc-race failure or further code repair",
+  "selected_actual_GPU20": {
+    "node": "compute-0-20",
+    "UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+    "own_shared_GPU_lock": "AVAILABLE",
+    "root_available_bytes": 924034408448,
+    "root_total_bytes": 954159071232,
+    "root_inodes": 465749662,
+    "root_and_tmp_same_device": true,
+    "GPU": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02, NVIDIA GeForce RTX 4090, 423, 49140"
+  },
+  "actual_node20_state": "MIXED",
+  "actual_node20_CPUs": 104,
+  "actual_node20_allocated_CPUs": 80,
+  "available_CPU_allocation": 24,
+  "request_CPU_allocation": 5,
+  "existing_CUDA_context_retained": "Original small423MiB context, user20/22<=30% rule, no other process signal or MPS reconfiguration",
+  "execution": "ordinary gpu Slurm sbatch; no native SSH model process because enough allocatable CPUs",
+  "root_joint_future_bytes": 17314086912,
+  "root_system_floor": "max(10GiB,10%954159071232B), unchanged",
+  "NFS_live_joint": 37325341935,
+  "conservative_configuration_bound": 42074762973,
+  "configurations": [
+    "configs/d_recipe/screening/D-L1_seed0_resume1M_gpu20_20261124.json",
+    "configs/d_recipe/screening/D-L1_seed0_resume1M_gpu20_20261124_cpu_statistics.json"
+  ],
+  "resident_entries": [
+    "configs/d_recipe/launches/D-L1_seed0_resume1M_gpu20_20261124_resident.sbatch",
+    "configs/d_recipe/launches/D-L1_seed0_resume1M_gpu20_20261124_statistics_resident.sbatch",
+    "configs/d_recipe/launches/D-L1_seed0_resume1M_gpu20_20261124_comparison_resident.sbatch"
+  ],
+  "same_original_checkpoint_without_copy": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M/training/samples_1000000.pt",
+  "resume_samples": 1000000,
+  "logical_budget": 3000000,
+  "seed": 0,
+  "p99_from_original_checkpoint_not_refitted": true,
+  "original_unsaved_work_replayed_samples": 501088,
+  "new_arm_or_seed": false,
+  "all_actual_outputs_and_failure_costs_retained": true,
+  "other_owner_forecasts_and_all_native_guards_unchanged": true,
+  "original_R1_seed0_control_reused": true,
+  "new_NFS_checkpoint_slots": 0
+}

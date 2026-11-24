@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_TRAINING_L2_A1_UNRESOLVED_G1_COMPLETE",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-24T04:17:41Z",
+  "updated_at_utc": "2026-11-24T04:25:52Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -3307,7 +3307,7 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ORIGINAL_L1_INFRASTRUCTURE_FAILED_1M_CONTINUATION_PREPARED",
+  "automation_state": "ORIGINAL_L1_1M_GPU20_CONTINUATION_PREPARED",
   "blocking_condition": null,
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
@@ -3913,7 +3913,7 @@
   },
   "stage1_transfer_decision": "results/d_recipe/stage1_transfer_decision_20261123.json",
   "stage2": {
-    "status": "L1_ORIGINAL_GPU_FAILED_INFRASTRUCTURE_CONTINUATION_PREPARED_L2_UR_G1_COMPLETE",
+    "status": "L1_GPU20_1M_CONTINUATION_PREPARED_L2_UR_G1_COMPLETE",
     "selected_stage1_control": "D-R1",
     "recipe_components": [
       "A1",
@@ -4698,7 +4698,7 @@
       }
     },
     "L1": {
-      "status": "ORIGINAL_GPU_FAILED_INFRASTRUCTURE_CONTINUATION_PREPARED",
+      "status": "ORIGINAL_INFRASTRUCTURE_FAILED_GPU20_CONTINUATION_PREPARED",
       "configuration": "configs/d_recipe/screening/D-L1_seed0.json",
       "resident": "configs/d_recipe/launches/D-L1_seed0_resident.sbatch",
       "CPU_node": "compute-0-11",
@@ -4897,48 +4897,49 @@
         }
       },
       "infrastructure_continuation_prelaunch": {
-        "source": "results/d_recipe/L1_exit_proc_race_and_1M_continuation_prelaunch_20261124.json",
-        "configuration": "configs/d_recipe/screening/D-L1_seed0_resume1M_20261124.json",
-        "statistics_configuration": "configs/d_recipe/screening/D-L1_seed0_resume1M_20261124_cpu_statistics.json",
-        "source_checkpoint": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M/training/samples_1000000.pt",
-        "checkpoint_bytes": 205549589,
-        "source_checkpoint_copied": false,
-        "resume_samples": 1000000,
-        "logical_final_samples": 3000000,
-        "seed": 0,
-        "original_p99_threshold_state_retained": 13.768829002380377,
-        "unsaved_prefix_replayed_samples": 501088,
-        "same_seed_original_R1_control_reused": true,
-        "new_arm_or_seed": false,
-        "GPU_node": "compute-0-4",
-        "GPU_UUID": "GPU-6965a7c7-025e-e4fd-013a-2be3245ef7c6",
-        "GPU_CPUs": 5,
-        "workers": 3,
+        "source": "results/d_recipe/L1_GPU20_same_1M_continuation_prelaunch_20261124.json",
+        "status": "GPU20_PREPARED_NOT_SUBMITTED",
+        "configuration": "configs/d_recipe/screening/D-L1_seed0_resume1M_gpu20_20261124.json",
+        "statistics_configuration": "configs/d_recipe/screening/D-L1_seed0_resume1M_gpu20_20261124_cpu_statistics.json",
+        "GPU_node": "compute-0-20",
+        "GPU_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
         "CPU_node": "compute-0-12",
-        "CPU_CPUs": 1,
-        "root_GPU_future": 17314086912,
-        "CPU_future_bound": 38788923392,
-        "actual_GPU_root_available_before_source": 45434535936,
-        "actual_GPU_root_total": 75125227520,
-        "actual_GPU_root_inodes": 36530458,
-        "actual_GPU_memory_used_MiB": 5,
-        "actual_GPU_memory_total_MiB": 24576,
-        "actual_GPU_contexts": [],
-        "actual_CPU_root_available_before_source": 65863479296,
-        "actual_CPU_root_inodes": 36532186,
-        "actual_CPU_available_allocation": 88,
-        "actual_GPU_available_allocation": 32,
-        "live_D_joint_forecast": 37325341935,
-        "conservative_original_resource_configuration_bound_retained": 42074762973,
-        "new_NFS_checkpoint_slots": 0,
-        "all_existing_outputs_retained": true,
-        "guards_and_all_other_owner_forecasts_unchanged": true,
-        "cleanup_seconds": 900,
-        "GPU_TimeLimit": "2-00:00:00",
-        "statistics_TimeLimit": "08:00:00",
-        "comparison_TimeLimit": "04:00:00",
-        "status": "READY_AFTER_ORIGINAL_NATIVE_ADMISSION_NOT_SUBMITTED"
-      }
+        "resume_checkpoint": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M/training/samples_1000000.pt",
+        "resume_samples": 1000000,
+        "scientific_samples": 3000000,
+        "seed": 0,
+        "live_D_joint_forecast": 37325341935
+      },
+      "admission_attempts": [
+        {
+          "job": 4539399,
+          "state": "FAILED",
+          "exit_code": "1:0",
+          "elapsed_seconds": 11,
+          "allocated_CPUs": 5,
+          "node": "compute-0-4",
+          "scope": "Launcher admission ended before native dataset/training; candidate training directory/losses/telemetry absent",
+          "selected_GPU_had_other_compute_context_at_recheck": true,
+          "common_lock_or_GPU_admission_rejected_before_training": "Worker returned1 with no TRAIN record; exact silent launcher branch not recorded",
+          "avoidable_submission_decision_error_acknowledged": true,
+          "actual_reaped_roots": [
+            3609151,
+            3609183,
+            3609148
+          ],
+          "actual_root_returncodes": [
+            0,
+            1,
+            1
+          ],
+          "resident_terminal": 1,
+          "resident_children": [],
+          "all_three_actual_proc_absent": true,
+          "other_owners_processes_unchanged": true,
+          "new_numerical_training_samples": 0,
+          "source_configuration_and_old_resident_retained": true
+        }
+      ]
     },
     "next_L1_progress_check_UTC": "2026-11-24T01:28:16Z",
     "L2": {
