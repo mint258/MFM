@@ -1,0 +1,47 @@
+{
+  "status": "ORIGINAL_FIXED_VAL_CLOSED_BEFORE_INFRASTRUCTURE_FAILURE",
+  "job_id": 4539360,
+  "run": "d_recipe_20261120_D_L1_seed0_3M",
+  "samples": 1500000,
+  "updates": 46875,
+  "fixed_VAL": 2000,
+  "original_units_csv": "results/d_recipe/D-L1_seed0_VAL_original_units_1500000_failed_prefix_20261124.csv",
+  "reported_field_rows": 198,
+  "original_family_rows": [
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M",
+      "kind": "VAL_fixed2000",
+      "samples": "1500000",
+      "updates": "46875",
+      "family": "atom_sasa",
+      "loss": "0.00892274571955204",
+      "clipped_fraction": "0.004458666666666666",
+      "seconds": "30176.18866575882"
+    },
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M",
+      "kind": "VAL_fixed2000",
+      "samples": "1500000",
+      "updates": "46875",
+      "family": "graph_2d",
+      "loss": "0.028590682551264762",
+      "clipped_fraction": "0.004458666666666666",
+      "seconds": "30176.188674962148"
+    },
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M",
+      "kind": "VAL_fixed2000",
+      "samples": "1500000",
+      "updates": "46875",
+      "family": "molecule_3d",
+      "loss": "0.021278338707983492",
+      "clipped_fraction": "0.004458666666666666",
+      "seconds": "30176.188675930724"
+    }
+  ],
+  "source": "results/d_recipe/training/d_recipe_20261120_D_L1_seed0_3M/VAL_original_units_1500000.csv and family_losses.csv",
+  "gradient_clipping_fraction_is_not_target_clip_fraction": true,
+  "failed_attempt_prefix_retained": true,
+  "independent_forward_or_statistics_repeated": false,
+  "decision_input": false
+}

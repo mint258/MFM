@@ -300,3 +300,11 @@ Data plan的Stage2池3221225472→2471225472B、full峰值35118709120→34368709
 原quota守卫随后在1007360样本暂停，PID1491773，available312291291136B/required312397987623B。只退役已闭合Stage1 seed1两个未使用额外checkpoint槽464000000B：原GPU4538566/67、CPU4538568/69/70已原C0并reap、无未来writer；原六个1M/2M/3M文件及全部缓冲保留，Stage2九槽/原221225472B缓冲也不变。Stage1池2147483648→1683483648B，全D full峰值34368709120→33904709120B、live联合41324762973→40860762973B。所有实际文件、其它owner future、100GB/fresh5秒、原quota额外8GiB/根盘底线及活跃L1配置42074762973B上界保持。
 
 同一原guard自行通过新计划准入后DISK_TRANSPORT_RESUMED，仍PID1491773；原losses.csv随后1010912样本/20969.7940208707循环秒。无人工信号/新job/重启/重新初始化或checkpoint重载，原分配及暂停全部计成本。[本线未用future与原事件](../../results/d_recipe/closed_stage1_unused_slots_and_L1_resume_20261124.json)。若后续L1 seed0 WIN才另登记该臂seed1，不复用此已闭合Stage1控制池启动新工作。L2仍UR不重试，最终配方未冻结，全部后续关卡/冷9M/最终A-B-C与基准/成本/一次全回归及两PR范围保持。
+
+## 2026-11-24 · L1原监督器/proc竞态，准备原1M完整状态续接
+
+原GPU4539360在1501088样本/46909更新/30202.13498191908循环秒后FAILED1:0，实际父30323秒×5CPU。原1.5M固定2000 VAL已生成198字段与三块损失，保留[原失败前窗口](../../results/d_recipe/D-L1_seed0_original_fixed_VAL_1500000_failed_prefix_20261124.json)；这不是3M/R3结果。原冻结resident traceback为ProcessLookupError `/proc/1511343/task`，位于supervise→descendants→children；原root1491752已reap(-15)、worker1491773及瞬时PID1511343均实际/proc缺失，actual remaining own job scope=[]，节点5仍MIXED。没有OOM/磁盘满/节点故障结论，不对其它用户进程发信号。
+
+仅给后续监督器补上进程/线程刚退出时的ESRCH处理，权限等无关错误继续抛出；旧冻结resident/配置/产物保留。CPU12/4539397已通过13项相关测试、0跳过、原测试0.300秒，原Slurm C0/ElapsedRaw0×1CPU；root1812247 reap0、resident children=[]、实际/proc缺失。完整默认回归仍留PR前一次。
+
+按TASKBOOK3.4，准备从原205549589B、1M完整checkpoint恢复同一D-L1/seed0，原模型、优化器、clock、采样器/torch/CUDA随机状态和已冻结p99随原载荷恢复，逻辑预算仍3M。原未保存的501088样本需重放，全部实际失败成本保留，不从头训练或加新臂/seed。拟用GPU4/RTX3090/5CPU/3workers及CPU12单核统计→原R1 seed0配对；节点实际盘/inode/GPU/Slurm健康已核实，原900秒退出窗口、48h/8h/4h时限、NFS/根盘/UID/其它owner future保持。原1M不复制，后续仅2M/3M两个断点仍在原Stage2九槽池内。[具体原记录和续接绑定](../../results/d_recipe/L1_exit_proc_race_and_1M_continuation_prelaunch_20261124.json)。此刻只完成准备，尚未提交新训练。

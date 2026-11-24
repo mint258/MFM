@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_TRAINING_L2_A1_UNRESOLVED_G1_COMPLETE",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-24T01:02:15Z",
+  "updated_at_utc": "2026-11-24T04:07:39Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -3307,7 +3307,7 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ACTIVE_ORIGINAL_L1_GPU_TRAINING_L2_A1_UNRESOLVED_G1_COMPLETE",
+  "automation_state": "ORIGINAL_L1_INFRASTRUCTURE_FAILED_1M_CONTINUATION_PREPARED",
   "blocking_condition": null,
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
@@ -3913,7 +3913,7 @@
   },
   "stage1_transfer_decision": "results/d_recipe/stage1_transfer_decision_20261123.json",
   "stage2": {
-    "status": "L1_FRESH_3M_RUNNING_L2_A1_TWO_FAILURES_UNRESOLVED_D_L2_NOT_RUN_G1_COMPLETE",
+    "status": "L1_ORIGINAL_GPU_FAILED_INFRASTRUCTURE_CONTINUATION_PREPARED_L2_UR_G1_COMPLETE",
     "selected_stage1_control": "D-R1",
     "recipe_components": [
       "A1",
@@ -4698,7 +4698,7 @@
       }
     },
     "L1": {
-      "status": "RUNNING",
+      "status": "ORIGINAL_GPU_FAILED_INFRASTRUCTURE_CONTINUATION_PREPARED",
       "configuration": "configs/d_recipe/screening/D-L1_seed0.json",
       "resident": "configs/d_recipe/launches/D-L1_seed0_resident.sbatch",
       "CPU_node": "compute-0-11",
@@ -4744,13 +4744,12 @@
         "whole_card_power_summary_pending": true
       },
       "latest_original_progress": {
-        "kind": "original_L1_progress",
-        "observed_at_UTC": "2026-11-24T01:02:15Z",
         "job_id": 4539360,
         "node": "compute-0-5",
-        "samples": 1010912,
-        "training_loop_seconds": 20969.7940208707,
-        "source": "Original losses.csv after native guard resumed same process",
+        "samples": 1501088,
+        "updates": 46909,
+        "training_loop_seconds": 30202.13498191908,
+        "source": "Last original closed losses.csv row",
         "independent_metrics_recomputed": false
       },
       "live_joint_NFS_forecast_bytes": 40860762973,
@@ -4798,6 +4797,14 @@
           "samples": 1000000,
           "source": "results/d_recipe/D-L1_seed0_original_1M_milestone_20261124.json",
           "original_units_csv": "results/d_recipe/D-L1_seed0_VAL_original_units_1000000_20261124.csv",
+          "reported_field_rows": 198,
+          "decision_input": false
+        },
+        {
+          "samples": 1500000,
+          "source": "results/d_recipe/D-L1_seed0_original_fixed_VAL_1500000_failed_prefix_20261124.json",
+          "original_units_csv": "results/d_recipe/D-L1_seed0_VAL_original_units_1500000_failed_prefix_20261124.csv",
+          "failed_attempt_prefix": true,
           "reported_field_rows": 198,
           "decision_input": false
         }
@@ -4855,6 +4862,82 @@
         "original_required": 312397987623,
         "resumed_same_process": true,
         "manual_signals": false
+      },
+      "original_failed_attempt": {
+        "job": 4539360,
+        "state": "FAILED",
+        "exit_code": "1:0",
+        "elapsed_seconds": 30323,
+        "allocated_CPUs": 5,
+        "node": "compute-0-5",
+        "start_CST": "2026-11-24T03:10:57",
+        "end_CST": "2026-11-24T11:36:20",
+        "TotalCPU_unreported": true,
+        "all_failure_cost_retained": true,
+        "last_closed_progress": {
+          "job_id": 4539360,
+          "node": "compute-0-5",
+          "samples": 1501088,
+          "updates": 46909,
+          "training_loop_seconds": 30202.13498191908,
+          "source": "Last original closed losses.csv row",
+          "independent_metrics_recomputed": false
+        },
+        "native_failure": {
+          "exception": "ProcessLookupError: [Errno 3] No such process: '/proc/1511343/task'",
+          "stack": "<resident-exit-lifecycle> supervise -> descendants -> children -> pathlib.iterdir",
+          "original_frozen_script_retained": "configs/d_recipe/launches/D-L1_seed0_resident.sbatch",
+          "native_reaped_root": 1491752,
+          "native_root_returncode": -15,
+          "original_worker": 1491773,
+          "original_root_worker_and_transient_PID_actual_absent": true,
+          "actual_remaining_own_job_processes": [],
+          "node_health_at_observation": "MIXED, no drain/down",
+          "no_OOM_or_disk_full_root_cause_claim": true
+        }
+      },
+      "infrastructure_continuation_prelaunch": {
+        "source": "results/d_recipe/L1_exit_proc_race_and_1M_continuation_prelaunch_20261124.json",
+        "configuration": "configs/d_recipe/screening/D-L1_seed0_resume1M_20261124.json",
+        "statistics_configuration": "configs/d_recipe/screening/D-L1_seed0_resume1M_20261124_cpu_statistics.json",
+        "source_checkpoint": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M/training/samples_1000000.pt",
+        "checkpoint_bytes": 205549589,
+        "source_checkpoint_copied": false,
+        "resume_samples": 1000000,
+        "logical_final_samples": 3000000,
+        "seed": 0,
+        "original_p99_threshold_state_retained": 13.768829002380377,
+        "unsaved_prefix_replayed_samples": 501088,
+        "same_seed_original_R1_control_reused": true,
+        "new_arm_or_seed": false,
+        "GPU_node": "compute-0-4",
+        "GPU_UUID": "GPU-6965a7c7-025e-e4fd-013a-2be3245ef7c6",
+        "GPU_CPUs": 5,
+        "workers": 3,
+        "CPU_node": "compute-0-12",
+        "CPU_CPUs": 1,
+        "root_GPU_future": 17314086912,
+        "CPU_future_bound": 38788923392,
+        "actual_GPU_root_available_before_source": 45434535936,
+        "actual_GPU_root_total": 75125227520,
+        "actual_GPU_root_inodes": 36530458,
+        "actual_GPU_memory_used_MiB": 5,
+        "actual_GPU_memory_total_MiB": 24576,
+        "actual_GPU_contexts": [],
+        "actual_CPU_root_available_before_source": 65863479296,
+        "actual_CPU_root_inodes": 36532186,
+        "actual_CPU_available_allocation": 88,
+        "actual_GPU_available_allocation": 32,
+        "live_D_joint_forecast": 40860762973,
+        "conservative_original_resource_configuration_bound_retained": 42074762973,
+        "new_NFS_checkpoint_slots": 0,
+        "all_existing_outputs_retained": true,
+        "guards_and_all_other_owner_forecasts_unchanged": true,
+        "cleanup_seconds": 900,
+        "GPU_TimeLimit": "2-00:00:00",
+        "statistics_TimeLimit": "08:00:00",
+        "comparison_TimeLimit": "04:00:00",
+        "status": "PREPARED_NOT_SUBMITTED"
       }
     },
     "next_L1_progress_check_UTC": "2026-11-24T01:28:16Z",
