@@ -1,7 +1,7 @@
 #!/usr/bin/python3 -ISB
 #SBATCH --job-name=D-cold9M-tests
 #SBATCH --partition=cpu
-#SBATCH --nodelist=compute-0-[8-19]
+#SBATCH --exclude=compute-0-[0-7,20-22]
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
