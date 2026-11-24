@@ -1,0 +1,115 @@
+{
+  "schema": "P_E1_FIRST_1M_CHECKPOINT_AND_FIXED_VAL_V1",
+  "observed_utc": "2026-11-24 07:50:52 UTC",
+  "rows": [
+    {
+      "k": 1,
+      "job_id": 4539379,
+      "node": "compute-0-5",
+      "checkpoint": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k1_seed0/samples_1000000.pt",
+        "mtime_utc": "2026-11-24T07:47:16.0000000Z",
+        "k": 1,
+        "bytes": 231764897
+      },
+      "family_csv": "results/p_recipe/training/fixed_20261115_E1_k1_seed0/family_losses.csv",
+      "exported_family_csv_prefix_bytes": 36883,
+      "VAL_samples": 1000000,
+      "VAL_updates": 31250,
+      "VAL_rows": 10,
+      "VAL_families": [
+        "bonding",
+        "charge",
+        "energy",
+        "frontier/IP-EA",
+        "multipole",
+        "off-equilibrium",
+        "reactivity",
+        "response",
+        "size",
+        "solvation"
+      ],
+      "training_continued_after_checkpoint": true
+    },
+    {
+      "k": 2,
+      "job_id": 4539380,
+      "node": "compute-0-6",
+      "checkpoint": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k2_seed0/samples_1000000.pt",
+        "mtime_utc": "2026-11-24T07:47:16.0000000Z",
+        "k": 2,
+        "bytes": 231764897
+      },
+      "family_csv": "results/p_recipe/training/fixed_20261115_E1_k2_seed0/family_losses.csv",
+      "exported_family_csv_prefix_bytes": 36978,
+      "VAL_samples": 1000000,
+      "VAL_updates": 31250,
+      "VAL_rows": 10,
+      "VAL_families": [
+        "bonding",
+        "charge",
+        "energy",
+        "frontier/IP-EA",
+        "multipole",
+        "off-equilibrium",
+        "reactivity",
+        "response",
+        "size",
+        "solvation"
+      ],
+      "training_continued_after_checkpoint": true
+    },
+    {
+      "k": 5,
+      "job_id": 4539381,
+      "node": "compute-0-7",
+      "checkpoint": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_seed0/samples_1000000.pt",
+        "mtime_utc": "2026-11-24T07:47:15.0000000Z",
+        "k": 5,
+        "bytes": 231764897
+      },
+      "family_csv": "results/p_recipe/training/fixed_20261115_E1_k5_seed0/family_losses.csv",
+      "exported_family_csv_prefix_bytes": 36924,
+      "VAL_samples": 1000000,
+      "VAL_updates": 31250,
+      "VAL_rows": 10,
+      "VAL_families": [
+        "bonding",
+        "charge",
+        "energy",
+        "frontier/IP-EA",
+        "multipole",
+        "off-equilibrium",
+        "reactivity",
+        "response",
+        "size",
+        "solvation"
+      ],
+      "training_continued_after_checkpoint": true
+    }
+  ],
+  "checkpoint_observation": "Original atomic complete-state publisher created files; all three original Slurm training jobs remain RUNNING and losses advanced past1M. No separate checkpoint tensor deserialization or model pass.",
+  "original_publisher_fields": [
+    "model",
+    "optimizer",
+    "configuration",
+    "architecture",
+    "clock",
+    "rng",
+    "torch_rng",
+    "cuda_rng",
+    "elapsed_seconds",
+    "family_window",
+    "family_window_updates",
+    "clipped_updates",
+    "total_window",
+    "clip_calibration"
+  ],
+  "scientific_configuration_unchanged": true,
+  "training_stopped_or_restarted": false,
+  "intermediate_R1_R3_added": false,
+  "final_candidate_budget_samples": 3000000,
+  "k_star": null
+}
