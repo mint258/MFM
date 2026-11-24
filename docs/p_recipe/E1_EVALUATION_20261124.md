@@ -10,3 +10,5 @@
 
 k10 full主统计4539401在CPU12等待afterok4539396，启动时要求原12份完整微调摘要；输出仍原E1 NFS总32GiB预留。其余三格的36份full、3份GPU读出及3份CPU统计为ready=false草案，待真实3M完成后再绑定checkpoint字节/mtime和退出证据。
 最终章节由e1_report.py消费闭合的E1_k_star.json生成，逐格列frozen R1/R3和full的Δ/CI/判定、实际平均k、每臂clip及四任务full MAE均值/std；不产生新的科学统计。消费者新增2项检查4539405 C0/1秒通过，缺失E1、缺失微调种子或未闭合条件seed1均不能生成最终REPORT。k10原主统计在4539401之后由4539406按原字节导出至results/p_recipe/E1/k10_full/，所有来源预测仍原封保留。
+
+四格最终判定入口e1_decision_entry.py已准备，配置decision_seed0_draft.json保持ready=false。其输入须为真实自身3M、原L6/H0、全部48项full的原来源与闭合主统计；只对原1000个保留draw做配对代数，不重抽。新来源路由测试4539407 CPU12/1核/4秒C0，原3M接受、9M中点/改层拒绝；3份AST通过，root1813547 reap0/children=[]/实际不存在。若最小合格k有WIN且拟采用，输出WAITING_CONDITIONAL_SEED1，k_star不提前定稿。
