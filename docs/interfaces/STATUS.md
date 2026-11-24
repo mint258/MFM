@@ -942,3 +942,14 @@ L1原GPU5/4539360在1M正常保存samples_1000000.pt（205549589B，00:48:53 UTC
 Data live plan的stage1池2147483648→1683483648B、槽8→6；134217728B读出/日志和157265920B其余原缓冲均不变，Stage2九槽/2471225472B及221225472B缓冲不变。全D full峰值34368709120→33904709120B、联合NFS live峰值41324762973→40860762973B。活跃L1配置保留原42074762973B保守声明，原guard源码/额外8GiB/100GB/fresh5秒/系统底线及其它owner任何future均不改，所有已存文件不删除。若未来L1 seed0胜出才另登记该臂seed1资源，不借已闭合Stage1控制池启动新臂。
 
 同一原守卫自行读取新计划、通过原准入后已DISK_TRANSPORT_RESUMED，仍PID1491773；无人工信号、无重启/重新初始化/加载checkpoint。暂停和分配时长保留成本。原1M报告与预算证据见d-recipe/results/d_recipe/D-L1_seed0_original_1M_milestone_20261124.json及closed_stage1_unused_slots_and_L1_resume_20261124.json。L2 A1仍按两次失败UNRESOLVED、不重试。完整任务继续、配方尚未冻结；不声称其它窗口已读/部署。
+
+
+## 2026-11-24 · D Root：L1原1M完整状态在GPU20续接，监督器竞态已修复
+
+原GPU5/4539360 FAILED1:0/30323s×5CPU，last1501088；冻结resident读取已消失/proc/1511343/task出现ESRCH，原自有scope实际已空、原root/worker均/proc缺失，节点非drain。后续监督器只补消失进程/线程ESRCH，权限错误仍抛出；CPU12/4539397原13项测试全过、0skip、0.300s，actual root1812247 reap0/ABSENT、children=[]，旧冻结脚本和所有产物保留。
+
+原1M完整checkpoint205549589B不复制，按TASKBOOK3.4续同一L1/seed0至3M。GPU4准入4539399 FAILED1:0/11s×5CPU，未建training/loss/telemetry、实际三根均reap/ABSENT；复核已有上下文时我未阻止提交，记录此判断错误与全部成本，不碰其它进程。小组各卡实际有上下文后，转获准另一组：GPU20第二张RTX4090/UUID GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02，预检423/49140MiB、共用锁AVAILABLE、104CPU已分配80，符合20/22≤30%规则并有5可分配CPU，普通Slurm；其它原400MiB上下文保持。
+
+GPU4539402已RUNNING，CPU12单核统计4539403 afterok402→配对4539404 afterok403，原R1 seed0复用。源b308e5fe6859d25b1ea7564a7d259f22c5a5c95e先于提交封存，实际Start24日12:27:55 CST/End26日12:27:55，900s收尾。原clip13.768829002380377/2813更新已从checkpoint恢复，first1000032/31251，现1005280样本；实际CUDA PID281103/UID1278/start_ticks67356059/job4539402。501088未保存样本重放与全部失败成本保留，未加新臂/seed或重算A1/D4；新native累计timer含旧1M prior，不把它当4090整段FPS，功耗仍整卡点均值含共存上下文。
+
+仅对本线已无writer的12个checkpoint和原structures/native A1/R0 cache整目录按原物理stat计量结算，撤回3535421038B未用future，所有现存文件与全部工作/日志/序列化缓冲及开放槽位保留；释放物理0B。Data full峰值30369288082B、联合live37325341935B，续接配置仍42074762973B保守声明；其它owner任何future、100GB/fresh5秒/额外8GiB/系统max10GiB10%不变。GPU20实际根余924034265088B/inode465749656，另留root17.314GB future与实际954GB盘10%系统底线；CPU12原36GiB+128MiB future保持。源见d-recipe/results/d_recipe/L1_GPU20_continuation_started_20261124.json及两个closed_*physical_settlement_20261124.json。L2 A1仍UR不重试，配方未冻结；完整TASKBOOK的后续关卡/冷9M/最终A-B-C+基准/成本/一次完整检查/两未合并PR全范围继续。不声称其它窗口已读/部署。
