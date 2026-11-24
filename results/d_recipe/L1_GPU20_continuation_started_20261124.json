@@ -1,0 +1,123 @@
+{
+  "status": "RUNNING_RESTORED_ORIGINAL_1M_STATE",
+  "observed_at_UTC": "2026-11-24T04:34:06Z",
+  "prelaunch_source_commit": "b308e5fe6859d25b1ea7564a7d259f22c5a5c95e",
+  "prelaunch_record": "results/d_recipe/L1_GPU20_same_1M_continuation_prelaunch_20261124.json",
+  "GPU_job": 4539402,
+  "CPU_statistics_job": 4539403,
+  "CPU_pair_job": 4539404,
+  "GPU_node": "compute-0-20",
+  "CPU_node": "compute-0-12",
+  "dependencies": {
+    "statistics": "afterok:4539402",
+    "comparison": "afterok:4539403"
+  },
+  "GPU_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+  "GPU_model": "NVIDIA GeForce RTX 4090",
+  "GPU_CPUs": 5,
+  "workers": 3,
+  "CPU_CPUs": 1,
+  "actual_start_CST": "2026-11-24T12:27:55",
+  "actual_EndTime_CST": "2026-11-26T12:27:55",
+  "cleanup_seconds": 900,
+  "original_resident_entry": {
+    "phase": "RESIDENT_BEFORE_SHARED_SOURCE",
+    "job_id": "4539402",
+    "node": "compute-0-20",
+    "TimeLimit": "2-00:00:00",
+    "EndTime": "2026-11-26T12:27:55",
+    "root_available_bytes": 924034265088,
+    "root_inodes": 465749656,
+    "source_independent": true
+  },
+  "original_native_initial_record": {
+    "run": "d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124",
+    "TRAIN_molecules": 1194228,
+    "batch_size": 32,
+    "microbatch_size": 32,
+    "source": "PM7"
+  },
+  "original_restored_state": {
+    "clip_calibration.json": {
+      "calibration_samples": 150000,
+      "quantile": 0.99,
+      "initial_clip": 281.7,
+      "threshold": 13.768829002380377,
+      "observed_updates": 2813,
+      "fitted": true,
+      "window_start_samples": 60000,
+      "sample_axis": "optimizer_step_start",
+      "effective_freeze_samples": 150016
+    },
+    "configuration.json": {
+      "run": "d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124",
+      "seed": 0,
+      "samples": 3000000,
+      "resume": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M/training/samples_1000000.pt",
+      "resume_from_output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M/training",
+      "node": "compute-0-20",
+      "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "batch_size": 32,
+      "microbatch_size": 32
+    }
+  },
+  "actual_native_process_metadata": {
+    "job": 4539402,
+    "node": "compute-0-20",
+    "own_GPU_processes": [
+      {
+        "pid": 281103,
+        "start_ticks": 67356059,
+        "PPID": 281058,
+        "PGID": 281103,
+        "UIDs": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/slurm/uid_1278/job_4539402/step_batch\n0::/system.slice/slurmd.service\n",
+        "used_MiB": "3626"
+      }
+    ],
+    "other_contexts_preserved": [
+      {
+        "pid": 279217,
+        "used_MiB": "400"
+      }
+    ],
+    "first_native_complete_row": "1000032,31251,0.08153042197227478,12.562350273132324,0.00023047792821196991,20189.967980438494",
+    "latest_native_complete_row": [
+      "1005280",
+      "31415",
+      "0.05310269072651863",
+      "6.541264533996582",
+      "0.00022976680701259651",
+      "20304.017527490505"
+    ]
+  },
+  "latest_original_progress": {
+    "kind": "original_L1_progress",
+    "observed_at_UTC": "2026-11-24T04:34:06Z",
+    "job_id": 4539402,
+    "node": "compute-0-20",
+    "samples": 1005280,
+    "updates": 31415,
+    "training_loop_seconds": 20304.017527490505,
+    "source": "Original continuation losses.csv last complete row; native cumulative timer includes original1M checkpoint prefix",
+    "independent_metrics_recomputed": false
+  },
+  "formal_first1000_scope": "Original cold RTX3090 prefix source retained; not a new benchmark or RTX4090 rate",
+  "resource_cost_scope": "Original failed GPU4539360/30323s*5CPU and admission4539399/11s*5CPU retain all cost; continuation native cumulative timer includes original1M checkpoint prior and must not be assigned wholly to RTX4090. Final once-only cost producer must report each original parent/card and actual non-overlapping timer-point windows. Whole-card power includes retained other context; no attributed power or integrated energy claim.",
+  "failed_unsaved_training_replayed_samples": 501088,
+  "original_1M_checkpoint_copied": false,
+  "logical_seed": 0,
+  "logical_budget": 3000000,
+  "source_full_peak": 30369288082,
+  "live_D_joint_peak": 37325341935,
+  "conservative_configuration_upper_bound": 42074762973,
+  "all_native_guards_and_other_owner_forecasts_unchanged": true,
+  "new_NFS_checkpoint_slots": 0,
+  "full_TASKBOOK_remaining_unchanged": true,
+  "final_recipe_frozen": false
+}

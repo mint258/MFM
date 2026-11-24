@@ -68,3 +68,11 @@ Data plan的Stage2池3221225472→2471225472B、full峰值35118709120→34368709
 实际小组各卡均已有CUDA上下文，按原授权转另一组：compute-0-20的RTX4090/UUID GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02，实际423/49140MiB、公共自有锁可用，符合20/22既有≤30%共存规则；原其它上下文保留。该节点104CPU/已分配80，5CPU普通sbatch足够，不启动原生SSH模型。实际root余924034408448B、inode465749662，按实际954159071232B的10%系统底线再留本线17314086912B；原联合NFS37325341935B/UID与其它预算不变。
 
 新入口仍恢复原1M完整状态至同一seed0/3M，501088样本未保存重放及全部失败成本保留，已冻结p99不重拟合、原R1控制复用。[具体准备记录](../../results/d_recipe/L1_GPU20_same_1M_continuation_prelaunch_20261124.json)。此刻GPU20尚未提交；原4号脚本冻结保留，后续只用新文件。
+
+## 2026-11-24 · 原1M状态在GPU20真实恢复运行
+
+新的原生续接4539402已在compute-0-20/RTX4090/UUID GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02 RUNNING，实际12:27:55 CST开始、End26日12:27:55，5CPU/3workers、原B32。CPU12单核4539403 afterokGPU402→原R1 seed0配对4539404 afterokCPU403，未重复控制。源在提交前已封为b308e5fe6859d25b1ea7564a7d259f22c5a5c95e；实际entry root余924034265088B/inode465749656，原900秒收尾、100GB/fresh5秒/额外8GiB及所有peer保护保持。[原恢复与实际进程记录](../../results/d_recipe/L1_GPU20_continuation_started_20261124.json)。
+
+原configuration明确resume原samples_1000000.pt；原clip_calibration已fitted=true、13.768829002380377/2813更新，未重拟合。原losses.csv首行1000032样本/31251更新、原累计秒20189.967980438494，后续已1005280样本/原累计20304.017527490505秒，证实恢复同一clock；原TRAIN1194228/PM7。实际CUDA worker PID281103、UID1278、start_ticks67356059、真实job4539402/step_batch；其它400MiB上下文保留。原preflight root281022的reap0只代表预检，不是GPU训练退出。
+
+原未保存501088样本及GPU4准入0样本失败均保留成本。RTX3090旧正式首1000窗口只归原冷启动；新RTX4090的native timer含旧1M prior，最终成本一次汇总须按原父/卡和实际计时点区间报告，不能把累计3M/累计秒标成4090整段速度；整卡功耗含共存上下文，不报归因功耗或积分能耗。此前原1.5M失败前VAL保留，续接自然重放的窗口另存，均不作配方门。后续仍原3M/R3配对、条件seed1、全部关卡后冻结、冷9M及最终A-B-C/基准/成本/一次完整回归/两未合并PR，不缩减范围。
