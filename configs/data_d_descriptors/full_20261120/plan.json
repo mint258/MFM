@@ -30,10 +30,10 @@
       "D_R1_checkpoint_pool": 1073741824,
       "native_stage1_metadata": 200000000,
       "native_stage1_serialization_buffer": 360138915,
-      "registered_stage1_conditional_seed1_checkpoints_and_readouts": 2147483648,
+      "registered_stage1_conditional_seed1_checkpoints_and_readouts": 1683483648,
       "registered_stage2_seed0_checkpoints_and_readouts": 2471225472
     },
-    "peak_new_bytes": 34368709120,
+    "peak_new_bytes": 33904709120,
     "structure_forecast_bytes": 1838746350,
     "structures_existing_bytes": null,
     "ram_working_forecast_bytes": 103576304,
@@ -64,13 +64,50 @@
         "D-R0 seed1",
         "D-R1 seed1"
       ],
-      "additional_bytes": 2147483648,
-      "checkpoint_slots": 8,
+      "additional_bytes": 1683483648,
+      "checkpoint_slots": 6,
       "checkpoint_upper_bound_bytes": 232000000,
       "logs_and_readouts_bytes": 134217728,
       "all_existing_outputs_retained": true,
       "diagnostic_feature_cache_bytes": 0,
-      "global_Lustre_registry_changed": false
+      "global_Lustre_registry_changed": false,
+      "original_registration": {
+        "trigger": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/results/d_recipe/comparisons/D-R1_vs_D-R0_seed0_3M.json",
+        "source_commit": "dba26d70fffa0a10201f44d900782ac71d12da08",
+        "runs": [
+          "D-R0 seed1",
+          "D-R1 seed1"
+        ],
+        "additional_bytes": 2147483648,
+        "checkpoint_slots": 8,
+        "checkpoint_upper_bound_bytes": 232000000,
+        "logs_and_readouts_bytes": 134217728,
+        "all_existing_outputs_retained": true,
+        "diagnostic_feature_cache_bytes": 0,
+        "global_Lustre_registry_changed": false
+      },
+      "retired_closed_stage1_unused_safety_slots": {
+        "slots": 2,
+        "bytes": 464000000,
+        "reason": "Both original Stage1 seed1 arms finished 3M/readout/CPU/pairing; no repeat shared control or further writer registered. Only six required 1M/2M/3M checkpoints exist, no partial checkpoint.",
+        "closed_GPU_jobs": [
+          4538566,
+          4538567
+        ],
+        "closed_CPU_jobs": [
+          4538568,
+          4538569,
+          4538570
+        ],
+        "native_completion_record": "d-recipe:configs/d_recipe/CURRENT_BEST.json#/conditional_seed1",
+        "six_existing_checkpoint_files_retained": true,
+        "logs_and_readouts_buffer_retained_bytes": 134217728,
+        "other_unitemized_buffer_retained_bytes": 157265920,
+        "no_future_L1_seed1_taken_from_this_closed_pool": true,
+        "all_actual_files_retained": true,
+        "active_L1_configuration_and_all_guards_unchanged": true,
+        "updated_at_UTC": "2026-11-24T01:00:33Z"
+      }
     },
     "stage2_seed0_storage_registration": {
       "arms": [
@@ -121,14 +158,14 @@
       "source_smiles_index": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
       "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures",
-      "peak_bytes": 41324762973,
+      "peak_bytes": 40860762973,
       "chunk_rows": 1024
     },
     "produce": {
       "input_rows": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures/structures.jsonl",
       "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores",
-      "peak_bytes": 41324762973,
+      "peak_bytes": 40860762973,
       "workers": 3,
       "chunk_rows": 256,
       "existing_parameters_json": {
@@ -139,7 +176,7 @@
       "input_rows": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures/structures.jsonl",
       "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores",
-      "peak_bytes": 41324762973,
+      "peak_bytes": 40860762973,
       "workers": 1,
       "chunk_rows": 256,
       "existing_parameters_json": {
