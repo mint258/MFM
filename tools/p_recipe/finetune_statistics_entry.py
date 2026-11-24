@@ -107,7 +107,8 @@ def run(c):
             reference={t:values[0] for t,values in load_many(c["reference"],1).items()}
             frozen={name:{t:values[0] for t,values in load_many(tasks,1).items()}
                     for name,tasks in c["frozen"].items()}
-            if bindings(c)!=identity:
+            if c.get("E1_seed_mean_draws",False):identity["E1_seed_mean_draws"] = True
+            if dict(bindings(c),**({"E1_seed_mean_draws":True} if c.get("E1_seed_mean_draws",False) else {}))!=identity:
                 raise ValueError("Source files changed during the primary load")
             checkpoint=output/"primary_checkpoint.json"
             state=json.loads(checkpoint.read_text()) if checkpoint.exists() else None
@@ -117,7 +118,7 @@ def run(c):
                         float(os.environ["P_MANAGED_STOP_NEW_UNITS_AT"]))
             result=summarize(groups,scratch,reference,input_identity=identity,
                 frozen=frozen,state=state,checkpoint=lambda s:atomic_json(checkpoint,s),
-                should_stop=should_stop)
+                should_stop=should_stop,seed_mean_draws=c.get("E1_seed_mean_draws",False))
             if result["status"]!="COMPLETE":
                 return 75
             atomic_json(output/"primary.json",result)
@@ -130,7 +131,7 @@ def run(c):
             summary=dict(status="COMPLETE",run=c["run"],job_id=os.environ["SLURM_JOB_ID"],
                 node=c["node"],cpu_seconds_this_attempt=time.time()-started,
                 rows=len(result["rows"]),bootstrap_draws=1000,bootstrap_seed=20261025,
-                estimator="three_seed_point_mean_and_mean_prediction_molecular_CI_separate",
+                estimator="E1_three_seed_point_mean_and_matched_seed_mean_CI" if c.get("E1_seed_mean_draws",False) else "three_seed_point_mean_and_mean_prediction_molecular_CI_separate",
                 frozen_reused_seed0=True,new_frozen_fits=0,input_identity=identity)
             atomic_json(output/"primary_complete.json",summary)
             print(json.dumps({k:v for k,v in summary.items() if k!="input_identity"}),flush=True)

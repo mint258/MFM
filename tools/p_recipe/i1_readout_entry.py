@@ -43,7 +43,7 @@ def validate(c):
         raise ValueError("Actual own3M final checkpoint binding changed")
     return expected
 
-def run(c):
+def run(c, *, validator=validate):
     if c.get("ready") is not True:
         raise ValueError("Coordinator must activate this exact registered point")
     with CooperativeStop() as stop:
@@ -53,7 +53,7 @@ def run(c):
         os.environ["CUDA_VISIBLE_DEVICES"]=c["gpu_uuid"]
         started=time.monotonic()
         try:
-            readout=validate(c);output=Path(readout["output"]);output.mkdir(parents=True,exist_ok=True)
+            readout=validator(c);output=Path(readout["output"]);output.mkdir(parents=True,exist_ok=True)
             with (output/"resident_owner.lock").open("a") as owner:
                 fcntl.flock(owner,fcntl.LOCK_EX|fcntl.LOCK_NB)
                 if (output/"summary.json").exists():

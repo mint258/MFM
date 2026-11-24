@@ -42,13 +42,19 @@ def normalized(actual, baseline):
     return (baseline-actual)/baseline
 
 
+def seed_mean_score(candidates,baselines,indices=None):
+    """Mean seed error, never the error of an ensemble prediction."""
+    return normalized(float(np.mean([error(p,indices) for p in candidates])),
+                      float(np.mean([error(p,indices) for p in baselines])))
+
+
 def interval(values):
     finite = [v for v in values if v is not None and math.isfinite(v)]
     return (np.quantile(finite, [.025, .975]).tolist() if finite else None, len(finite))
 
 
 def summarize(groups, scratch, reference, *, input_identity, state=None,
-              checkpoint=None, should_stop=None, frozen=None):
+              checkpoint=None, should_stop=None, frozen=None, seed_mean_draws=False):
     """Return new-group table rows plus retained paired primary draw values.
 
     groups[group][task] and scratch[task] contain seed0/1/2 predictions in order.
@@ -66,7 +72,7 @@ def summarize(groups, scratch, reference, *, input_identity, state=None,
     all_groups = dict(groups)
     for key, tasks in frozen.items():
         all_groups[key] = {task: [prediction] for task, prediction in tasks.items()}
-    prepared, point_rows, populations = {}, {}, {}
+    prepared, point_rows, populations, seed_predictions = {}, {}, {}, {}
     for key in sorted(all_groups):
         if set(all_groups[key]) != set(TASKS):
             raise ValueError("Each F condition requires all four registered tasks")
@@ -91,6 +97,7 @@ def summarize(groups, scratch, reference, *, input_identity, state=None,
                 raise ValueError("Point-score denominator unavailable; do not invent a score")
             condition = key + "/" + task
             prepared[condition] = (actual, base, reference[task])
+            if seed_mean_draws:seed_predictions[condition] = (candidates, scratch[task])
             point_rows[condition] = dict(condition=key, task=task,
                 seed_count=len(candidates),
                 seed_policy="original_frozen_R3_seed0_reused" if frozen_reuse else "registered_finetuning_seeds_0_1_2",
@@ -123,10 +130,13 @@ def summarize(groups, scratch, reference, *, input_identity, state=None,
                     bootstrap_seed=20261025, samples=1000,
                     point_normalization="shared_three_seed_scratch_mean_mae",
                     frozen_reuse=sorted(frozen))
+    if seed_mean_draws:identity["seed_mean_draws"] = True
     if state is None:
         state = dict(identity=identity, completed_draws=0,
             draws={key:dict(mae=[], scratch_improvement=[], frozen_reference_score=[])
                    for key in prepared}, rng_state=np.random.default_rng(20261025).bit_generator.state)
+        if seed_mean_draws:
+            for values in state["draws"].values():values["scratch_improvement_seed_mean"] = []
     elif state["identity"] != identity:
         raise ValueError("Unfinished primary bootstrap identity changed")
     completed = state["completed_draws"]
@@ -157,16 +167,21 @@ def summarize(groups, scratch, reference, *, input_identity, state=None,
             store["mae"].append(a)
             store["scratch_improvement"].append(normalized(a, b))
             store["frozen_reference_score"].append(normalized(a, r))
+            if seed_mean_draws:
+                candidates, baselines = seed_predictions[key]
+                store["scratch_improvement_seed_mean"].append(seed_mean_score(candidates,baselines,indices))
         state["completed_draws"] = draw_number+1
         state["rng_state"] = rng.bit_generator.state
         if checkpoint is not None and state["completed_draws"] % 50 == 0:
             checkpoint(state)
     for key, row in point_rows.items():
+        if seed_mean_draws:row["E1_decision_ci_estimand"] = "mean_of_seed_scores_with_shared_mean_scratch_denominator"
         for metric, values in state["draws"][key].items():
             bounds, defined = interval(values)
-            row[metric+"_ensemble_ci_lower"] = bounds[0] if bounds else None
-            row[metric+"_ensemble_ci_upper"] = bounds[1] if bounds else None
-            row[metric+"_ensemble_bootstrap_defined"] = defined
+            suffix = "_ci" if metric=="scratch_improvement_seed_mean" else "_ensemble_ci"
+            row[metric+suffix+"_lower"] = bounds[0] if bounds else None
+            row[metric+suffix+"_upper"] = bounds[1] if bounds else None
+            row[metric+("_bootstrap_defined" if metric=="scratch_improvement_seed_mean" else "_ensemble_bootstrap_defined")] = defined
     return dict(status="COMPLETE", rows=list(point_rows.values()), retained=state)
 
 

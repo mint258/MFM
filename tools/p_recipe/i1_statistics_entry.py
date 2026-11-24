@@ -3,14 +3,16 @@ import argparse,json,os,time
 from pathlib import Path
 from finetune_entry import CooperativeStop,set_actual_deadline
 from budget_statistics_entry import require_cpu_admission
-def run(c):
+def run(c, *, validate_source=None):
  if c.get('ready') is not True:raise ValueError('Actual I1 frozen readout must close before activation')
  with CooperativeStop() as stop:
   set_actual_deadline(c,stop);require_cpu_admission(c)
   import torch,cpu_statistics,shared_guard
   torch.set_num_threads(1)
   original=json.loads(Path(c['original_configuration']).read_text())
-  if (original['arm']!='I1' or original['source_training_budget']!=3000000
+  if validate_source is not None:
+   validate_source(original,c)
+  elif (original['arm']!='I1' or original['source_training_budget']!=3000000
       or original['samples']!=3000000 or original['run']!=c['original_run']
       or original['output']!=c['output'] or original['readout_seed']!=0):
    raise ValueError('Only the exact original I1 own3M frozen readout may be finalized')

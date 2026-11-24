@@ -1,0 +1,63 @@
+{
+    "output":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_frozen_seed0",
+    "output_mount":  "/share",
+    "new_training":  false,
+    "new_seeds":  false,
+    "ready":  false,
+    "node":  null,
+    "gpu_uuid":  null,
+    "nvidia_smi":  "/usr/bin/nvidia-smi",
+    "reservation_ids":  [
+                            "P_E1_NFS_future"
+                        ],
+    "ram_peak_bytes":  68719476736,
+    "remaining_output_bytes":  3221225472,
+    "local_output_peak_bytes":  67108864,
+    "minimum_free_gpu_mib":  22000,
+    "work_unit_seconds":  120,
+    "cleanup_seconds":  900,
+    "proposed_time_minutes":  120,
+    "schema":  "P_E1_FROZEN_READOUT_V1",
+    "kind":  "E1_FROZEN_READOUT",
+    "source_configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k5_managed_seed0_attempt2.json",
+    "checkpoint_identity":  {
+                                "path":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_seed0/samples_3000000.pt",
+                                "bytes":  null,
+                                "mtime_ns":  null
+                            },
+    "source_validation":  {
+                              "E1_authority":  "docs/p_recipe/USER_DIRECTIVE_20261123.md",
+                              "actual_terminal_pending":  true
+                          },
+    "readout":  {
+                    "run":  "fixed_20261115_E1_k5_seed0_frozen_readout",
+                    "arm":  "E1_k5",
+                    "stage":  0,
+                    "round":  0,
+                    "study_revision":  "fixed_20261115",
+                    "samples":  3000000,
+                    "source_run":  "fixed_20261115_E1_k5_seed0",
+                    "source_configuration":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k5_managed_seed0_attempt2.json",
+                    "source_training_budget":  3000000,
+                    "checkpoint":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_seed0/samples_3000000.pt",
+                    "checkpoint_resolver":  "actual_own_budget_terminal_checkpoint",
+                    "layer":  6,
+                    "representation":  "H0",
+                    "output":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_frozen_seed0",
+                    "features":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_frozen_seed0/features",
+                    "persist_features":  true,
+                    "R1_backend":  "slurm_cpu",
+                    "store":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json",
+                    "statistics_backend":  "slurm_cpu",
+                    "evaluation_samples":  [
+                                               3000000
+                                           ],
+                    "authority":  "docs/p_recipe/USER_DIRECTIVE_20261123.md",
+                    "bootstrap_samples":  1000,
+                    "bootstrap_seed":  20261025,
+                    "new_training":  false,
+                    "new_seeds":  false,
+                    "readout_seed":  0
+                },
+    "activation_basis":  "DRAFT: bind actual completed3M and managed exit before ready"
+}
