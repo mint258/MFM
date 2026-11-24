@@ -1,0 +1,92 @@
+{
+  "schema": "D_APPROVED_R0_CACHE_CLEANUP_AND_SAME_L1_NATIVE_RESUME_V1",
+  "status": "CLEANUP_COMPLETE_SAME_NATIVE_WORKER_RESUMED",
+  "user_answer": "批准清理这 12 个已完成缓存",
+  "approval_proposal_commit": "7697bbcf4f0731a749077a1213a11c67b537ba7b",
+  "approval_proposal": "docs/d_recipe/R0_CACHE_CLEANUP_PROPOSAL_20261124.md",
+  "native_result": {
+    "schema": "D_APPROVED_EXACT_R0_CACHE_UNLINK_NATIVE_RESULT_V1",
+    "observed_at_UTC": "2026-11-24T08:13:56Z",
+    "UID": 1278,
+    "node": "compute-0-12",
+    "deleted_exact_relative_paths": [
+      "expansionrx/layer3.pt",
+      "expansionrx/layer4.pt",
+      "expansionrx/layer5.pt",
+      "expansionrx/layer6.pt",
+      "cyp_isoform/layer3.pt",
+      "cyp_isoform/layer4.pt",
+      "cyp_isoform/layer5.pt",
+      "cyp_isoform/layer6.pt",
+      "qm9/layer3.pt",
+      "qm9/layer4.pt",
+      "qm9/layer5.pt",
+      "qm9/layer6.pt"
+    ],
+    "deleted_file_count": 12,
+    "deleted_physical_file_bytes": 3081236480,
+    "closed_R0_directory_before_bytes": 3139026944,
+    "closed_R0_directory_after_bytes": 57790464,
+    "actual_directory_physical_reduction_bytes": 3081236480,
+    "cache_manifests_retained": true,
+    "primary_files_retained": [
+      "/lfshome/zixiao/model_v31_20261105/D_RECIPE_20261120/training/D-R0_seed0_3M/samples_3000000.pt",
+      "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R0_seed0_3M/representation_statistics/summary.json",
+      "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R0_seed0_3M/representation_statistics/bootstrap.npz"
+    ],
+    "other_paths_deleted": false,
+    "process_signals_sent": false,
+    "original_model_restarted": false
+  },
+  "old_full_peak_bytes": 30369288082,
+  "new_full_peak_bytes": 27288051602,
+  "old_joint_peak_bytes": 37325341935,
+  "new_joint_peak_bytes": 34244105455,
+  "component": "D_R0_development_four_layer_cache",
+  "settled_only_after_actual_unlinks": true,
+  "all_other_components_buffers_slots_and_other_owner_forecasts_preserved": true,
+  "active_frozen_static_configuration_bytes": 42074762973,
+  "original_guards_floor_100GB_extra_8GiB_freshness5_unchanged": true,
+  "no_regeneration_or_closed_science_repetition": true,
+  "observed_at_UTC": "2026-11-24T08:17:01Z",
+  "approval": {
+    "approved": true,
+    "scope": "Exact12cache files as proposal commit7697bbcf4f0731a749077a1213a11c67b537ba7b; preserve all primary outputs",
+    "answer": "批准清理这 12 个已完成缓存",
+    "received_UTC": "2026-11-24T08:12:46Z"
+  },
+  "quota_after_settlement": {
+    "available_bytes": 310322528256,
+    "native_peer_required_bytes": 308396853274,
+    "native_peer_headroom_bytes": 1925674982,
+    "static_direct_required_bytes": 309136036573,
+    "static_direct_headroom_bytes": 1186491683,
+    "live_joint_peak_bytes": 34244105455,
+    "live_full_peak_bytes": 27288051602
+  },
+  "native_resume": {
+    "job": 4539402,
+    "node": "compute-0-20",
+    "pid": 281103,
+    "start_ticks": 67356059,
+    "UID": 1278,
+    "cgroup": "1:freezer:/slurm/uid_1278/job_4539402/step_batch",
+    "original_event": "DISK_TRANSPORT_RESUMED",
+    "actual_state_after_resume": "S",
+    "paused_samples": 1076288,
+    "resumed_samples": 1077344,
+    "native_cumulative_seconds": 33824.80896643351,
+    "manual_signals": false,
+    "restarted": false,
+    "new_training_job": false,
+    "checkpoint_reloaded": false,
+    "p99_refitted": false,
+    "CPU_dependencies_unchanged": [
+      4539403,
+      4539404
+    ]
+  },
+  "cost_scope": "Original cumulative native timer includes the original1M prefix and the actual quota pause; report wall cost and pause/replay scope without labeling all cumulative samples/time as RTX4090 throughput. No extra measurement workload.",
+  "full_TASKBOOK_remaining_unchanged": true,
+  "final_recipe_frozen": false
+}

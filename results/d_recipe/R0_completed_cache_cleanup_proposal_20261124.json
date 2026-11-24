@@ -1,6 +1,6 @@
 {
   "schema": "D_COMPLETED_R0_CACHE_CLEANUP_PROPOSAL_V1",
-  "status": "PROPOSED_AWAITING_EXPLICIT_USER_APPROVAL_NO_DELETION",
+  "status": "USER_APPROVED_EXACT12_EXECUTED_PRIMARY_OUTPUTS_RETAINED",
   "observed_at_UTC": "2026-11-24T05:48:54Z",
   "root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R0_seed0_3M/development_layers",
   "root_resolved": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R0_seed0_3M/development_layers",
@@ -212,8 +212,8 @@
   ],
   "proposed_physical_bytes": 3081236480,
   "proposed_logical_bytes": 3081221821,
-  "approved": false,
-  "actually_deleted_bytes": 0,
+  "approved": true,
+  "actually_deleted_bytes": 3081236480,
   "scope": "Only twelve exact regular layer3..6.pt development feature-cache files for completed D-R0 seed0/3M; three manifest.json and all other paths retained. No recursive deletion.",
   "safety": {
     "uid": 1278,
@@ -288,5 +288,7 @@
     "no_existing_deletion_authorization": true
   },
   "full_TASKBOOK_goal_unchanged": true,
-  "final_recipe_frozen": false
+  "final_recipe_frozen": false,
+  "execution_result": "results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json",
+  "original_proposal_preserved_at_commit": "7697bbcf4f0731a749077a1213a11c67b537ba7b"
 }

@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_TRAINING_L2_A1_UNRESOLVED_G1_COMPLETE",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-24T05:48:54Z",
+  "updated_at_utc": "2026-11-24T08:17:01Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -1486,7 +1486,8 @@
       "cached_layer_GPU_dependency": "afterany:4537579,afterok:4537572",
       "cached_layer_CPU_job": 4537585,
       "cached_layer_CPU_dependency": "afterok:4537584:4537573",
-      "cached_layer_scope": "Only cached layers3-5 nativeR1/R3 probes; layer6 predictions and scores reused; no encoder fallback"
+      "cached_layer_scope": "Only cached layers3-5 nativeR1/R3 probes; layer6 predictions and scores reused; no encoder fallback",
+      "development_layer_cache_retirement": "results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json"
     },
     "D_R1": {
       "status": "CACHED_LAYERS_COMPLETE_GEOMETRY_UNRESOLVED_NO_RETRY",
@@ -2961,7 +2962,16 @@
         "status": "COMPLETE",
         "all_registered_diagnostic_job_seconds": 9135
       },
-      "encoder_forward_repeated": false
+      "encoder_forward_repeated": false,
+      "development_layer_cache": {
+        "status": "RETIRED_AFTER_ALL_ORIGINAL_CONSUMERS_CLOSED_USER_APPROVED",
+        "files": 12,
+        "physical_bytes_deleted": 3081236480,
+        "source": "results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json",
+        "primary_outputs_retained": true,
+        "manifests_retained": true,
+        "no_new_forward_to_regenerate": true
+      }
     },
     "D_R1_seed0_3M": {
       "forward_attempts": [
@@ -3307,15 +3317,8 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ACTIVE_L1_ORIGINAL_GUARD_PAUSED_CACHE_CLEANUP_PROPOSED",
-  "blocking_condition": {
-    "kind": "ACTUAL_UID_QUOTA",
-    "status": "ORIGINAL_GUARD_PAUSED",
-    "proposal": "docs/d_recipe/R0_CACHE_CLEANUP_PROPOSAL_20261124.md",
-    "explicit_deletion_approval_pending": true,
-    "model_process_preserved": true,
-    "full_goal_unchanged": true
-  },
+  "automation_state": "ORIGINAL_L1_GPU20_RESUMED_AFTER_USER_APPROVED_CLOSED_CACHE_CLEANUP",
+  "blocking_condition": null,
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
     "scope": "Future start/safe continuation; frozen active training source unchanged",
@@ -3678,74 +3681,12 @@
     ]
   },
   "previous_blocking_condition": {
-    "type": "EXTERNAL_KERNEL_IO_WAIT_AND_SLURM_MANAGEMENT_STARTUP",
-    "consecutive_goal_turns": 3,
-    "verified_at_utc": "2026-11-22T08:50:31Z",
-    "preparation_job": 4538549,
-    "preparation_process": 2827663,
-    "preparation_CPU_time_seconds": 0,
-    "preparation_log_exists": true,
-    "seed1_configurations_exist": false,
-    "seed1_registry_exists": false,
-    "main_model_training_started": false,
-    "original_clipping_and_layer_jobs": "Original clipping PID exit unproven afteroneTERM; original layer7598 parent/worker confirmed ABSENT, layers3/6 closed and4/5 pending.",
-    "recovery": "Administrator kernel/slurmd/slurmctld/filesystem review needed before preparation4538549 hard deadline18:18:03CST; actual PID exit and target health before continuation. Staged entries also require an outer supervisor resident before shared source loading; default template exits64. Old held jobs embed old scripts and must not be directly released.",
-    "scientific_result_invalidated": false,
-    "configuration_or_budget_admission_bypassed": false,
-    "root_cause": "UNDETERMINED_DO_NOT_INFER_OOM_FULL_DISK_OR_NODE17_ATTRIBUTION",
-    "resumed_run": true,
-    "preparation_management_process": {
-      "pid": 2827663,
-      "start_ticks": 2244925324,
-      "uids": [
-        0,
-        1278,
-        0,
-        1278
-      ],
-      "name": "slurmstepd",
-      "state": "D",
-      "job": 4538549,
-      "direct_user_signal_allowed": false,
-      "last_proc_observation_at_utc": "2026-11-22T07:21:29.907Z",
-      "observation_is_not_a_fresh_PID_identity_check": true
-    },
-    "preparation_hard_deadline_CST": "2026-11-22T18:18:03+08:00",
-    "administrator_attention_needed_before_preparation_deadline": true,
-    "preparation_log_bytes": 0,
-    "preparation_log_mtime_CST": "2026-11-22T16:25:09.048939254+08:00",
-    "last_artifact_observation_at_utc": "2026-11-22T08:49:15Z",
-    "preparation_live_queue_observation": {
-      "job": 4538549,
-      "state": "RUNNING",
-      "runtime": "02:31:13",
-      "node": "compute-0-8",
-      "observed_at_utc": "2026-11-22T08:49:15Z",
-      "EndTime_CST": "2026-11-22T18:18:03+08:00"
-    },
-    "current_turn_classification": "VERIFIED_WAIT_SAME_LIVE_JOB_SAME_EXTERNAL_BLOCKER",
-    "preparation_process_entry_evidence": "Current empty0B log and absent bothseed1 configs/registry; no native Python start/completion marker. Prior root/slurmstepd PID observation is historical, not freshly revalidated by another fault-node probe.",
-    "goal_automation_status": "BLOCKED_NOT_COMPLETE",
-    "last_live_job_observation": {
-      "job": 4538549,
-      "state": "RUNNING",
-      "runtime": "02:31:13",
-      "node": "compute-0-8",
-      "observed_at_utc": "2026-11-22T08:49:15Z",
-      "EndTime_CST": "2026-11-22T18:18:03+08:00"
-    },
-    "safe_independent_work_exhausted": true,
-    "no_new_fault_node_diagnostics_repairs_or_jobs": true,
-    "blocker_audit": "Same external preparation/source-I/O blocker persisted over3 consecutive resumed goal turns. Earlier turn completed code/cleanup/report work; last two turns verified the same live job and absent configs. No change to original full experimental objective.",
-    "why_no_independent_experiment_can_start": "Stage1 seed1 canonical configs/live forecast are not closed; all later recipe/library arms require that decision. Old clipping worker exit remains unproven; no duplicate writer/producer. New entry extension stopped after two interrupted attempts and remains inactive, requiring source-independent outer supervision and actual healthy-node admission.",
-    "recovery_requirements": [
-      "Administrator inspect kernel/slurmd/slurmctld/shared filesystem, especially actual preparation4538549 before18:18:03CST; no direct user signal to historical mixed-rootUID manager.",
-      "Re-read actual jobs, configs, registry, forecast and all completed artifacts after recovery; never overwrite newer preparation or experiment progress with this blocked snapshot.",
-      "Verify actual exit of old clipping process before any same-output replacement; preserve original full-TRAIN cursor/config/coefficient/conformer bindings.",
-      "Deploy and verify source-independent outer supervision before loading shared scientific modules; keep core16 passing and two interrupted tests distinct.",
-      "Close actual node health, canonical config/live global forecast, bytes/inodes/fresh UID quota and all peer future, then verify old five jobs stillPENDING0s and replace same registered science/dependencies rather than release embedded old scripts."
-    ],
-    "full_scope_preserved": true
+    "kind": "ACTUAL_UID_QUOTA",
+    "status": "ORIGINAL_GUARD_PAUSED",
+    "proposal": "docs/d_recipe/R0_CACHE_CLEANUP_PROPOSAL_20261124.md",
+    "explicit_deletion_approval_pending": true,
+    "model_process_preserved": true,
+    "full_goal_unchanged": true
   },
   "latest_daily": "docs/d_recipe/daily/2026-11-24.md",
   "development_H_policy": {
@@ -3945,7 +3886,7 @@
     "GPU_admission_status": "All G1 main, layer and geometry forward GPU writers are closed; original geometry CPU statistics is live; wide original A1 still collecting, no new model ready",
     "proposed_joint_NFS_bytes": 37325341935,
     "capacity_registration_pending": false,
-    "joint_NFS_forecast_bytes": 37325341935,
+    "joint_NFS_forecast_bytes": 34244105455,
     "additional_NFS_checkpoint_pool_bytes": 2331771136,
     "capacity_plan": "data-d-descriptors-20261120:configs/data_d_descriptors/full_20261120/plan.json",
     "reference_root_joint_future_bytes": 38788923392,
@@ -4705,7 +4646,7 @@
       }
     },
     "L1": {
-      "status": "PAUSED_BY_ORIGINAL_QUOTA_GUARD",
+      "status": "RUNNING_ORIGINAL_1M_INFRASTRUCTURE_CONTINUATION",
       "configuration": "configs/d_recipe/screening/D-L1_seed0_resume1M_gpu20_20261124.json",
       "resident": "configs/d_recipe/launches/D-L1_seed0_resume1M_gpu20_20261124_resident.sbatch",
       "CPU_node": "compute-0-12",
@@ -4752,14 +4693,15 @@
       },
       "latest_original_progress": {
         "kind": "original_L1_progress",
-        "observed_at_UTC": "2026-11-24T05:28:00Z",
+        "observed_at_UTC": "2026-11-24T08:17:01Z",
         "job_id": 4539402,
         "node": "compute-0-20",
-        "samples": 1076288,
-        "training_loop_seconds": 21628.10007113556,
-        "source": "Original continuation losses.csv native scalar progress; no independent metric recomputation"
+        "samples": 1077344,
+        "training_loop_seconds": 33824.80896643351,
+        "source": "Original continuation losses.csv after native quota guard auto-resume; cumulative time includes old1M prefix and quota pause",
+        "independent_metrics_recomputed": false
       },
-      "live_joint_NFS_forecast_bytes": 37325341935,
+      "live_joint_NFS_forecast_bytes": 34244105455,
       "active_frozen_configuration_share_upper_bound_bytes": 42074762973,
       "native_quota_pause_and_resume": {
         "pid": 1491773,
@@ -5099,14 +5041,43 @@
           4539403,
           4539404
         ],
-        "source": "results/d_recipe/R0_completed_cache_cleanup_proposal_20261124.json"
+        "source": "results/d_recipe/R0_completed_cache_cleanup_proposal_20261124.json",
+        "status": "RESOLVED_BY_APPROVED_EXACT12_CACHE_CLEANUP_AND_NATIVE_AUTO_RESUME",
+        "resume_source": "results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json"
       },
       "proposed_cache_cleanup": {
-        "status": "PROPOSED_AWAITING_EXPLICIT_USER_APPROVAL_NO_DELETION",
-        "bytes": 3081236480,
-        "approved": false,
-        "actually_deleted_bytes": 0,
-        "source": "results/d_recipe/R0_completed_cache_cleanup_proposal_20261124.json"
+        "status": "USER_APPROVED_EXECUTED",
+        "approved": true,
+        "actually_deleted_bytes": 3081236480,
+        "source": "results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json"
+      },
+      "completed_cache_cleanup_and_native_resume": {
+        "source": "results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json",
+        "actual_native_worker": {
+          "job": 4539402,
+          "node": "compute-0-20",
+          "pid": 281103,
+          "start_ticks": 67356059,
+          "UID": 1278,
+          "cgroup": "1:freezer:/slurm/uid_1278/job_4539402/step_batch",
+          "original_event": "DISK_TRANSPORT_RESUMED",
+          "actual_state_after_resume": "S",
+          "paused_samples": 1076288,
+          "resumed_samples": 1077344,
+          "native_cumulative_seconds": 33824.80896643351,
+          "manual_signals": false,
+          "restarted": false,
+          "new_training_job": false,
+          "checkpoint_reloaded": false,
+          "p99_refitted": false,
+          "CPU_dependencies_unchanged": [
+            4539403,
+            4539404
+          ]
+        },
+        "static_config_bytes": 42074762973,
+        "full_peak": 27288051602,
+        "joint_peak": 34244105455
       }
     },
     "next_L1_progress_check_UTC": "2026-11-24T04:58:16Z",
@@ -5638,7 +5609,14 @@
       "configs/d_recipe/screening/D-L1_seed0.json",
       "configs/d_recipe/screening/D-L2_seed0.json",
       "configs/d_recipe/screening/D-G1_seed0.json"
-    ]
+    ],
+    "approved_completed_R0_cache_retirement": {
+      "source": "results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json",
+      "component_before": 3139026944,
+      "component_after": 57790464,
+      "actual_deleted_bytes": 3081236480,
+      "all_other_components_and_buffers_preserved": true
+    }
   },
   "telemetry_scope_clarification": {
     "source": "tools/p_recipe/native_run.py:record_gpu_telemetry",
