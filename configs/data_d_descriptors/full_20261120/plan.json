@@ -19,21 +19,21 @@
       "raw_values_F64": 17594278800,
       "explicit_status_u8": 2199284850,
       "array_headers": 16384,
-      "structures_jsonl_new": 1838746350,
+      "structures_jsonl_new": 1000214528,
       "role_row_index_forecast": 19228720,
       "field_and_checkpoint_json": 5903072,
       "statistics_atomic_json_temporary": 5631709,
       "preparation_checkpoint_atomic_temporary": 1048576,
       "production_writer_workspace_reserve": 9529856,
-      "native_A1_collection": 2147483648,
-      "D_R0_development_four_layer_cache": 4294967296,
+      "native_A1_collection": 1412947968,
+      "D_R0_development_four_layer_cache": 3139026944,
       "D_R1_checkpoint_pool": 611344384,
       "native_stage1_metadata": 200000000,
       "native_stage1_serialization_buffer": 360138915,
       "registered_stage1_conditional_seed1_checkpoints_and_readouts": 1478922240,
       "registered_stage2_seed0_checkpoints_and_readouts": 2331771136
     },
-    "peak_new_bytes": 33098295936,
+    "peak_new_bytes": 30369288082,
     "structure_forecast_bytes": 1838746350,
     "structures_existing_bytes": null,
     "ram_working_forecast_bytes": 103576304,
@@ -392,6 +392,110 @@
       "native_stage1_serialization_buffer_preserved": 360138915,
       "L1_original_3M_scientific_budget_and_seed_unchanged": true,
       "conservative_new_L1_configuration_bound_unchanged": 42074762973
+    },
+    "closed_source_components_physical_settlement": {
+      "schema": "D_CLOSED_SOURCE_COMPONENTS_PHYSICAL_SETTLEMENT_V1",
+      "status": "CLOSED_WRITERS_ONLY_UNUSED_FUTURE_RETIRED",
+      "observed_at_UTC": "2026-11-24T04:16:20Z",
+      "retired_components": [
+        {
+          "component": "structures_jsonl_new",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures",
+          "old_forecast": 1838746350,
+          "new_conservative_bound_entire_closed_directory": 1000214528,
+          "retired_unused_future": 838531822
+        },
+        {
+          "component": "native_A1_collection",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/reference",
+          "old_forecast": 2147483648,
+          "new_conservative_bound_entire_closed_directory": 1412947968,
+          "retired_unused_future": 734535680
+        },
+        {
+          "component": "D_R0_development_four_layer_cache",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R0_seed0_3M",
+          "old_forecast": 4294967296,
+          "new_conservative_bound_entire_closed_directory": 3139026944,
+          "retired_unused_future": 1155940352
+        }
+      ],
+      "total_retired_bytes": 2729007854,
+      "old_full_peak": 33098295936,
+      "new_full_peak": 30369288082,
+      "old_joint_peak": 40054349789,
+      "new_joint_peak": 37325341935,
+      "physical_measurement": "Same native h_resources.allocated metadata method; all original arrays/models retained, no numerical data read",
+      "resource_metadata": [
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1",
+          "allocated_physical_bytes": 6566240256,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R0_seed0_3M",
+          "allocated_physical_bytes": 3139026944,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/D-R1_seed0_3M",
+          "allocated_physical_bytes": 770588672,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/clip_reports",
+          "allocated_physical_bytes": 192512,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/reference",
+          "allocated_physical_bytes": 1412947968,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/native_stage1/seed1",
+          "allocated_physical_bytes": 1243484160,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2",
+          "allocated_physical_bytes": 906457088,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores",
+          "allocated_physical_bytes": 19796029440,
+          "directory": true
+        },
+        {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures",
+          "allocated_physical_bytes": 1000214528,
+          "directory": true
+        }
+      ],
+      "closure_evidence": {
+        "structures": "Original Stage0 full inputs/structure production complete and accepted loader/64-head reception; no future structure writer",
+        "native_A1_reference": "Original native D20 fullTRAIN A1 frozen before Stage1 seed0; no old D4 refit or new collection",
+        "R0_cache": "Original R0 seed0 complete plus original registered four-layer/geometry diagnostics complete; no new R0 forward before separately frozen cold9M"
+      },
+      "scope_bound_is_entire_closed_directory_not_just_selected_files": true,
+      "physical_bytes_freed": 0,
+      "files_deleted": false,
+      "all_other_owner_forecasts_and_native_safety_floors_and_8GiB_extra_unchanged": true,
+      "checkpoint_pool_settlement_preserved": "results/d_recipe/closed_checkpoint_pool_physical_settlement_20261124.json",
+      "all_open_L1_slots_and_three_general_spares_and_buffers_preserved": true,
+      "preserved_native_stage1_metadata": 200000000,
+      "preserved_native_stage1_serialization_buffer": 360138915,
+      "preserved_stage1_seed1_logs_readout_and_other_buffers": 291483648,
+      "preserved_stage2_readout_serialization_buffer": 221225472,
+      "preserved_role_index_forecast": 19228720,
+      "preserved_stage0_workspace_and_atomic_buffers": {
+        "statistics_atomic_json_temporary": 5631709,
+        "preparation_checkpoint_atomic_temporary": 1048576,
+        "production_writer_workspace_reserve": 9529856
+      },
+      "same_arm_L1_from_original1M_checkpoint_still_required": true,
+      "all_future_new_arms_and_cold9M_require_later_explicit_resource_registration": true
     }
   },
   "configs": {
@@ -401,14 +505,14 @@
       "source_smiles_index": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
       "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures",
-      "peak_bytes": 40054349789,
+      "peak_bytes": 37325341935,
       "chunk_rows": 1024
     },
     "produce": {
       "input_rows": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures/structures.jsonl",
       "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores",
-      "peak_bytes": 40054349789,
+      "peak_bytes": 37325341935,
       "workers": 3,
       "chunk_rows": 256,
       "existing_parameters_json": {
@@ -419,7 +523,7 @@
       "input_rows": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures/structures.jsonl",
       "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores",
-      "peak_bytes": 40054349789,
+      "peak_bytes": 37325341935,
       "workers": 1,
       "chunk_rows": 256,
       "existing_parameters_json": {
