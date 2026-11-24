@@ -1746,3 +1746,14 @@ New evaluation logic4539400 CPU12/1CPU/8s COMPLETE0:3 targeted synthetic tests a
 ## P E1 final-report consumer and original-primary export ready (2026-11-24)
 
 P native3M k1/2/5 still running; k10 full12 plus original CPU primary chain remains active. New E1 report consumer is integrated into the original final-report entry: four original cell results, actual mean k, matched frozen/full decisions and full4tasks x3seeds are required; missing E1 or unclosed conditional seed1 blocks final REPORT. It renders source summaries without fitting or generating bootstrap draws. Two new synthetic-consumer tests and3AST checks4539405 CPU12/1CPU/1s COMPLETE0 passed, ownroot1813289 reaped/children[] and actual/proc absent. k10 original published clip33.238172454833986 reused; others retain their own new original fixed p99. Original-primary byte export4539406 waits afterok4539401, no prediction/model reads or resampling. Report requirements ledger corrected to27 and current E1 cost accumulation; the previous710.658479GPUh remains a historical lower-bound snapshot. FinalREPORT not generated; external Dsection5 A4 remains pending. This is P's own progress only; no other line's tasks changed.
+
+
+## 2026-11-24 · D Root：L1原1M完整状态在GPU20续接，监督器竞态已修复
+
+原GPU5/4539360 FAILED1:0/30323s×5CPU，last1501088；冻结resident读取已消失/proc/1511343/task出现ESRCH，原自有scope实际已空、原root/worker均/proc缺失，节点非drain。后续监督器只补消失进程/线程ESRCH，权限错误仍抛出；CPU12/4539397原13项测试全过、0skip、0.300s，actual root1812247 reap0/ABSENT、children=[]，旧冻结脚本和所有产物保留。
+
+原1M完整checkpoint205549589B不复制，按TASKBOOK3.4续同一L1/seed0至3M。GPU4准入4539399 FAILED1:0/11s×5CPU，未建training/loss/telemetry、实际三根均reap/ABSENT；复核已有上下文时我未阻止提交，记录此判断错误与全部成本，不碰其它进程。小组各卡实际有上下文后，转获准另一组：GPU20第二张RTX4090/UUID GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02，预检423/49140MiB、共用锁AVAILABLE、104CPU已分配80，符合20/22≤30%规则并有5可分配CPU，普通Slurm；其它原400MiB上下文保持。
+
+GPU4539402已RUNNING，CPU12单核统计4539403 afterok402→配对4539404 afterok403，原R1 seed0复用。源b308e5fe6859d25b1ea7564a7d259f22c5a5c95e先于提交封存，实际Start24日12:27:55 CST/End26日12:27:55，900s收尾。原clip13.768829002380377/2813更新已从checkpoint恢复，first1000032/31251，现1005280样本；实际CUDA PID281103/UID1278/start_ticks67356059/job4539402。501088未保存样本重放与全部失败成本保留，未加新臂/seed或重算A1/D4；新native累计timer含旧1M prior，不把它当4090整段FPS，功耗仍整卡点均值含共存上下文。
+
+仅对本线已无writer的12个checkpoint和原structures/native A1/R0 cache整目录按原物理stat计量结算，撤回3535421038B未用future，所有现存文件与全部工作/日志/序列化缓冲及开放槽位保留；释放物理0B。Data full峰值30369288082B、联合live37325341935B，续接配置仍42074762973B保守声明；其它owner任何future、100GB/fresh5秒/额外8GiB/系统max10GiB10%不变。GPU20实际根余924034265088B/inode465749656，另留root17.314GB future与实际954GB盘10%系统底线；CPU12原36GiB+128MiB future保持。源见d-recipe/results/d_recipe/L1_GPU20_continuation_started_20261124.json及两个closed_*physical_settlement_20261124.json。L2 A1仍UR不重试，配方未冻结；完整TASKBOOK的后续关卡/冷9M/最终A-B-C+基准/成本/一次完整检查/两未合并PR全范围继续。不声称其它窗口已读/部署。
