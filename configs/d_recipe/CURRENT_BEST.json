@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_TRAINING_L2_A1_UNRESOLVED_G1_COMPLETE",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-24T04:34:06Z",
+  "updated_at_utc": "2026-11-24T04:39:35Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -3948,7 +3948,7 @@
       "configs/d_recipe/reference/L2_stage2.json"
     ],
     "training_configurations": [
-      "configs/d_recipe/screening/D-L1_seed0.json",
+      "configs/d_recipe/screening/D-L1_seed0_resume1M_gpu20_20261124.json",
       "configs/d_recipe/screening/D-L2_seed0.json",
       "configs/d_recipe/screening/D-G1_seed0.json"
     ],
@@ -4745,13 +4745,12 @@
       },
       "latest_original_progress": {
         "kind": "original_L1_progress",
-        "observed_at_UTC": "2026-11-24T04:34:06Z",
+        "observed_at_UTC": "2026-11-24T04:39:35Z",
         "job_id": 4539402,
         "node": "compute-0-20",
-        "samples": 1005280,
-        "updates": 31415,
-        "training_loop_seconds": 20304.017527490505,
-        "source": "Original continuation losses.csv last complete row; native cumulative timer includes original1M checkpoint prefix",
+        "samples": 1024416,
+        "training_loop_seconds": 20666.5856013475,
+        "source": "Original continuation losses.csv after same-state restore; cumulative native time includes old1M prefix",
         "independent_metrics_recomputed": false
       },
       "live_joint_NFS_forecast_bytes": 37325341935,
@@ -5072,7 +5071,9 @@
         }
       },
       "formal_first1000_scope": "Original cold RTX3090 prefix source retained; not a new benchmark or RTX4090 rate",
-      "resource_cost_scope": "Original failed GPU4539360/30323s*5CPU and admission4539399/11s*5CPU retain all cost; continuation native cumulative timer includes original1M checkpoint prior and must not be assigned wholly to RTX4090. Final once-only cost producer must report each original parent/card and actual non-overlapping timer-point windows. Whole-card power includes retained other context; no attributed power or integrated energy claim."
+      "resource_cost_scope": "Original failed GPU4539360/30323s*5CPU and admission4539399/11s*5CPU retain all cost; continuation native cumulative timer includes original1M checkpoint prior and must not be assigned wholly to RTX4090. Final once-only cost producer must report each original parent/card and actual non-overlapping timer-point windows. Whole-card power includes retained other context; no attributed power or integrated energy claim.",
+      "original_configuration": "configs/d_recipe/screening/D-L1_seed0.json",
+      "original_statistics_configuration": "configs/d_recipe/screening/D-L1_seed0_cpu_statistics.json"
     },
     "next_L1_progress_check_UTC": "2026-11-24T04:58:16Z",
     "L2": {
@@ -5598,7 +5599,12 @@
       },
       "same_arm_L1_from_original1M_checkpoint_still_required": true,
       "all_future_new_arms_and_cold9M_require_later_explicit_resource_registration": true
-    }
+    },
+    "original_training_configurations": [
+      "configs/d_recipe/screening/D-L1_seed0.json",
+      "configs/d_recipe/screening/D-L2_seed0.json",
+      "configs/d_recipe/screening/D-G1_seed0.json"
+    ]
   },
   "telemetry_scope_clarification": {
     "source": "tools/p_recipe/native_run.py:record_gpu_telemetry",
