@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_TRAINING_L2_A1_UNRESOLVED_G1_COMPLETE",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-24T04:39:35Z",
+  "updated_at_utc": "2026-11-24T05:48:54Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -3307,8 +3307,15 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ACTIVE_ORIGINAL_L1_1M_CONTINUATION_GPU20",
-  "blocking_condition": null,
+  "automation_state": "ACTIVE_L1_ORIGINAL_GUARD_PAUSED_CACHE_CLEANUP_PROPOSED",
+  "blocking_condition": {
+    "kind": "ACTUAL_UID_QUOTA",
+    "status": "ORIGINAL_GUARD_PAUSED",
+    "proposal": "docs/d_recipe/R0_CACHE_CLEANUP_PROPOSAL_20261124.md",
+    "explicit_deletion_approval_pending": true,
+    "model_process_preserved": true,
+    "full_goal_unchanged": true
+  },
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
     "scope": "Future start/safe continuation; frozen active training source unchanged",
@@ -4698,7 +4705,7 @@
       }
     },
     "L1": {
-      "status": "RUNNING_ORIGINAL_1M_INFRASTRUCTURE_CONTINUATION",
+      "status": "PAUSED_BY_ORIGINAL_QUOTA_GUARD",
       "configuration": "configs/d_recipe/screening/D-L1_seed0_resume1M_gpu20_20261124.json",
       "resident": "configs/d_recipe/launches/D-L1_seed0_resume1M_gpu20_20261124_resident.sbatch",
       "CPU_node": "compute-0-12",
@@ -4745,13 +4752,12 @@
       },
       "latest_original_progress": {
         "kind": "original_L1_progress",
-        "observed_at_UTC": "2026-11-24T04:39:35Z",
+        "observed_at_UTC": "2026-11-24T05:28:00Z",
         "job_id": 4539402,
         "node": "compute-0-20",
-        "samples": 1024416,
-        "training_loop_seconds": 20666.5856013475,
-        "source": "Original continuation losses.csv after same-state restore; cumulative native time includes old1M prefix",
-        "independent_metrics_recomputed": false
+        "samples": 1076288,
+        "training_loop_seconds": 21628.10007113556,
+        "source": "Original continuation losses.csv native scalar progress; no independent metric recomputation"
       },
       "live_joint_NFS_forecast_bytes": 37325341935,
       "active_frozen_configuration_share_upper_bound_bytes": 42074762973,
@@ -5073,7 +5079,35 @@
       "formal_first1000_scope": "Original cold RTX3090 prefix source retained; not a new benchmark or RTX4090 rate",
       "resource_cost_scope": "Original failed GPU4539360/30323s*5CPU and admission4539399/11s*5CPU retain all cost; continuation native cumulative timer includes original1M checkpoint prior and must not be assigned wholly to RTX4090. Final once-only cost producer must report each original parent/card and actual non-overlapping timer-point windows. Whole-card power includes retained other context; no attributed power or integrated energy claim.",
       "original_configuration": "configs/d_recipe/screening/D-L1_seed0.json",
-      "original_statistics_configuration": "configs/d_recipe/screening/D-L1_seed0_cpu_statistics.json"
+      "original_statistics_configuration": "configs/d_recipe/screening/D-L1_seed0_cpu_statistics.json",
+      "current_quota_pause": {
+        "job": 4539402,
+        "node": "compute-0-20",
+        "pid": 281103,
+        "uid": 1278,
+        "start_ticks": 67356059,
+        "actual_state": "T",
+        "cgroup": "1:freezer:/slurm/uid_1278/job_4539402/step_batch",
+        "last_samples": 1076288,
+        "last_native_seconds": 21628.10007113556,
+        "last_progress_observed_UTC": "2026-11-24T05:28:00Z",
+        "process_state_observed_UTC": "2026-11-24T05:48:54Z",
+        "reason": "Original guard: Insufficient actual UID quota after registered peer reservations",
+        "model_restarted": false,
+        "manual_signals": false,
+        "CPU_dependencies_pending": [
+          4539403,
+          4539404
+        ],
+        "source": "results/d_recipe/R0_completed_cache_cleanup_proposal_20261124.json"
+      },
+      "proposed_cache_cleanup": {
+        "status": "PROPOSED_AWAITING_EXPLICIT_USER_APPROVAL_NO_DELETION",
+        "bytes": 3081236480,
+        "approved": false,
+        "actually_deleted_bytes": 0,
+        "source": "results/d_recipe/R0_completed_cache_cleanup_proposal_20261124.json"
+      }
     },
     "next_L1_progress_check_UTC": "2026-11-24T04:58:16Z",
     "L2": {
