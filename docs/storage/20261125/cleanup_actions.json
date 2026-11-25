@@ -1,0 +1,1695 @@
+{
+  "updated_epoch": 1795590115.6223981,
+  "capacity": {
+    "observed_epoch": 1795590115.6223981,
+    "NFS": {
+      "used_bytes": 4094008782848,
+      "limit_bytes": 4398046511104,
+      "free_bytes": 304037728256,
+      "target_free_bytes": 2199023255552,
+      "remaining_gap_bytes": 1894985527296
+    },
+    "Lustre": {
+      "used_bytes": 2195310899200,
+      "limit_bytes": 2199023255552,
+      "free_bytes": 3712356352,
+      "target_free_bytes": 536870912000,
+      "remaining_gap_bytes": 533158555648
+    },
+    "goals": {
+      "NFS_free_bytes": 2199023255552,
+      "Lustre_free_bytes": 536870912000
+    },
+    "goals_status": "NOT_MET",
+    "jobs": {
+      "S_checkpoint_compression": {
+        "job": "4540054",
+        "status": "PENDING||(Priority)"
+      }
+    }
+  },
+  "events": [
+    {
+      "path": "LUSTRE/model_v31_20261105/P_RECIPE_20261113/round1_A4/samples_500000.pt",
+      "bytes_freed": 220282880,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "LUSTRE/model_v31_20261105/P_RECIPE_20261113/round1_A2/samples_500000.pt",
+      "bytes_freed": 220282880,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "LUSTRE/model_v31_20261105/P_RECIPE_20261113/calibration_20261114/calibration_20261114_G2_B128_lr3e4_sbatch/samples_500000.pt",
+      "bytes_freed": 220295168,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "LUSTRE/model_v31_20261105/P_RECIPE_20261113/calibration_20261114/calibration_20261114_G3_B128_lr6e4/samples_500000.pt",
+      "bytes_freed": 220299264,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "LUSTRE/model_v31_20261105/P_RECIPE_20261113/calibration_20261114/calibration_20261114_G1_B32_lr3e4_sbatch/samples_1500000.pt",
+      "bytes_freed": 220332032,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "LUSTRE/model_v31_20261105/P_RECIPE_20261113/calibration_20261114/calibration_20261114_G1_B32_lr3e4_sbatch/samples_500000.pt",
+      "bytes_freed": 220323840,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "LUSTRE/model_v31_20261105/P_RECIPE_20261113/round1_A1_attempt2/samples_500000.pt",
+      "bytes_freed": 220282880,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "LUSTRE/model_v31_20261105/P_RECIPE_20261113/round1_B0_attempt2/samples_500000.pt",
+      "bytes_freed": 220282880,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "LUSTRE/model_v31_20261105/P_RECIPE_20261113/round1_A5_sbatch/samples_500000.pt",
+      "bytes_freed": 220282880,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "LUSTRE/model_v31_20261105/P_RECIPE_20261113/round1_A3_attempt2/samples_500000.pt",
+      "bytes_freed": 219693056,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "LUSTRE/model_v31_20261105/P_C1_a_seed0_micro32_continuation_20261110/samples_4000000.pt",
+      "bytes_freed": 221159424,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "LUSTRE/model_v31_20261105/P_C1_b_seed0_micro32_continuation_20261110/samples_4000000.pt",
+      "bytes_freed": 221503488,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed0/job_4515669/step_000500.pt",
+      "bytes_freed": 85794816,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed0/job_4515669/step_001000.pt",
+      "bytes_freed": 85794816,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed0/job_4515669/step_001500.pt",
+      "bytes_freed": 85794816,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed0/job_4515669/step_002000.pt",
+      "bytes_freed": 85794816,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed0/job_4515669/step_002500.pt",
+      "bytes_freed": 85798912,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed0/job_4515669/step_003000.pt",
+      "bytes_freed": 85798912,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed0/job_4515669/step_003500.pt",
+      "bytes_freed": 85798912,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed1/job_4515670/step_000500.pt",
+      "bytes_freed": 85794816,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed1/job_4515670/step_001000.pt",
+      "bytes_freed": 85794816,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed1/job_4515670/step_001500.pt",
+      "bytes_freed": 85794816,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed1/job_4515670/step_002000.pt",
+      "bytes_freed": 85794816,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed1/job_4515670/step_002500.pt",
+      "bytes_freed": 85798912,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed1/job_4515670/step_003000.pt",
+      "bytes_freed": 85798912,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg2_seed1/job_4515670/step_003500.pt",
+      "bytes_freed": 85798912,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed0/job_4515660/step_000500.pt",
+      "bytes_freed": 84873216,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed0/job_4515660/step_001000.pt",
+      "bytes_freed": 84877312,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed0/job_4515660/step_001500.pt",
+      "bytes_freed": 84877312,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed0/job_4515660/step_002000.pt",
+      "bytes_freed": 84877312,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed0/job_4515660/step_002500.pt",
+      "bytes_freed": 84877312,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed0/job_4515660/step_003000.pt",
+      "bytes_freed": 84881408,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed0/job_4515660/step_003500.pt",
+      "bytes_freed": 84881408,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed1/job_4515661/step_000500.pt",
+      "bytes_freed": 84873216,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed1/job_4515661/step_001000.pt",
+      "bytes_freed": 84877312,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed1/job_4515661/step_001500.pt",
+      "bytes_freed": 84877312,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed1/job_4515661/step_002000.pt",
+      "bytes_freed": 84877312,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed1/job_4515661/step_002500.pt",
+      "bytes_freed": 84877312,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed1/job_4515661/step_003000.pt",
+      "bytes_freed": 84881408,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_msg1_seed1/job_4515661/step_003500.pt",
+      "bytes_freed": 84881408,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed0/job_4515657/step_000500.pt",
+      "bytes_freed": 80003072,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed0/job_4515657/step_001000.pt",
+      "bytes_freed": 80003072,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed0/job_4515657/step_001500.pt",
+      "bytes_freed": 80003072,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed0/job_4515657/step_002000.pt",
+      "bytes_freed": 80007168,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed0/job_4515657/step_002500.pt",
+      "bytes_freed": 80007168,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed0/job_4515657/step_003000.pt",
+      "bytes_freed": 80007168,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed0/job_4515657/step_003500.pt",
+      "bytes_freed": 80007168,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed1/job_4515658/step_000500.pt",
+      "bytes_freed": 80003072,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed1/job_4515658/step_001000.pt",
+      "bytes_freed": 80003072,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed1/job_4515658/step_001500.pt",
+      "bytes_freed": 80003072,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed1/job_4515658/step_002000.pt",
+      "bytes_freed": 80007168,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed1/job_4515658/step_002500.pt",
+      "bytes_freed": 80007168,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed1/job_4515658/step_003000.pt",
+      "bytes_freed": 80007168,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A5_seed1/job_4515658/step_003500.pt",
+      "bytes_freed": 80007168,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed1/job_4515652/step_000500.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed1/job_4515652/step_001000.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed1/job_4515652/step_001500.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed1/job_4515652/step_002000.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed1/job_4515652/step_002500.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed1/job_4515652/step_003000.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed1/job_4515652/step_003500.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed0/job_4515607/step_000500.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed0/job_4515607/step_001000.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed0/job_4515607/step_001500.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed0/job_4515607/step_002000.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed0/job_4515607/step_002500.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed0/job_4515607/step_003000.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A4_seed0/job_4515607/step_003500.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed1/job_4515603/step_000500.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed1/job_4515603/step_001000.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed1/job_4515603/step_001500.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed1/job_4515603/step_002000.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed1/job_4515603/step_002500.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed1/job_4515603/step_003000.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed1/job_4515603/step_003500.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed0/job_4515595/step_000500.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed0/job_4515595/step_001000.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed0/job_4515595/step_001500.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed0/job_4515595/step_002000.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed0/job_4515595/step_002500.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed0/job_4515595/step_003000.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A3_seed0/job_4515595/step_003500.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed1/job_4515586/step_000500.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed1/job_4515586/step_001000.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed1/job_4515586/step_001500.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed1/job_4515586/step_002000.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed1/job_4515586/step_002500.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed1/job_4515586/step_003000.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed1/job_4515586/step_003500.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed0/job_4515578/step_000500.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed0/job_4515578/step_001000.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed0/job_4515578/step_001500.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed0/job_4515578/step_002000.pt",
+      "bytes_freed": 83955712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed0/job_4515578/step_002500.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed0/job_4515578/step_003000.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A2_seed0/job_4515578/step_003500.pt",
+      "bytes_freed": 83959808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed1/job_4515554/step_000500.pt",
+      "bytes_freed": 83439616,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed1/job_4515554/step_001000.pt",
+      "bytes_freed": 83439616,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed1/job_4515554/step_001500.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed1/job_4515554/step_002000.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed1/job_4515554/step_002500.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed1/job_4515554/step_003000.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed1/job_4515554/step_003500.pt",
+      "bytes_freed": 83447808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed0/job_4515553/step_000500.pt",
+      "bytes_freed": 83439616,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed0/job_4515553/step_001000.pt",
+      "bytes_freed": 83439616,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed0/job_4515553/step_001500.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed0/job_4515553/step_002000.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed0/job_4515553/step_002500.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed0/job_4515553/step_003000.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A1_seed0/job_4515553/step_003500.pt",
+      "bytes_freed": 83447808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed0/job_4515542/step_000500.pt",
+      "bytes_freed": 83439616,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed0/job_4515542/step_001000.pt",
+      "bytes_freed": 83439616,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed0/job_4515542/step_001500.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed0/job_4515542/step_002000.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed0/job_4515542/step_002500.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed0/job_4515542/step_003000.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed0/job_4515542/step_003500.pt",
+      "bytes_freed": 83447808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed1/job_4515543/step_000500.pt",
+      "bytes_freed": 83439616,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed1/job_4515543/step_001000.pt",
+      "bytes_freed": 83439616,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed1/job_4515543/step_001500.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed1/job_4515543/step_002000.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed1/job_4515543/step_002500.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed1/job_4515543/step_003000.pt",
+      "bytes_freed": 83443712,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/s_denoise_repair_20261016/diagnostics/A0_seed1/job_4515543/step_003500.pt",
+      "bytes_freed": 83447808,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521197/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521191/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521191/tmp_3/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521138/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521138/tmp_3/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521116/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521108/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521108/tmp_3/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521086/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521074/tmp_3/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521074/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521070/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521064/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521064/tmp_3/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521060/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521053/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521053/tmp_3/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521035/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521027/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521027/tmp_3/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521021/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521020/tmp_3/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521010/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521004/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521004/tmp_3/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520997/tmp_3/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520996/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520994/tmp_1/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520989/tmp_1/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520989/tmp_1/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520988/tmp_1/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520983/tmp_1/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520984/tmp_1/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520985/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520978/tmp_1/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520979/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520971/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520970/tmp_1/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520969/tmp_1/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520659/tmp_1/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520656/tmp_1/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520657/tmp_1/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520649/tmp_1/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520651/tmp_1/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520648/tmp_1/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520535/tmp_0/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520534/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520534/tmp_2/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520531/tmp_2/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520530/tmp_2/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520530/tmp_3/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520519/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520519/tmp_2/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520518/tmp_1/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520509/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520507/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520507/tmp_2/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520504/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520504/tmp_2/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520505/tmp_0/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520500/tmp_1/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520499/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520499/tmp_2/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520493/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520493/tmp_2/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520492/tmp_2/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520489/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520489/tmp_2/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520489/tmp_1/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520479/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520479/tmp_2/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520478/tmp_1/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/c2_postmerge_tests_4520472/tmp_1/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/c2_postmerge_tests_4520472/tmp_1/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/c2_postmerge_tests_4520472/tmp_2/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/reliable_pipeline_postmerge_tests_4520443/tmp_1/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/reliable_pipeline_postmerge_tests_4520443/tmp_1/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/reliable_pipeline_postmerge_tests_4520443/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/a_checkpoint_premerge_tests_4520442/tmp_1/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/a_checkpoint_premerge_tests_4520442/tmp_1/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/a_checkpoint_premerge_tests_4520442/tmp_2/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/coordinate_lookup_premerge_tests_4520441/tmp_1/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/coordinate_lookup_premerge_tests_4520441/tmp_2/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/coordinate_lookup_premerge_tests_4520441/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/performance_premerge_tests_4520433/tmp_14/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/performance_premerge_tests_4520433/tmp_10/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/performance_premerge_tests_4520433/tmp_11/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/selected_store_premerge_tests_4520429/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/selected_store_premerge_tests_4520429/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/selected_store_premerge_tests_4520429/tmp_3/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/selected_store_postmerge_tests_4520424/tmp_1/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/selected_store_postmerge_tests_4520424/tmp_1/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/selected_store_postmerge_tests_4520424/tmp_1/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/selected_store_premerge_tests_4520420/tmp_1/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/selected_store_premerge_tests_4520420/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/selected_store_premerge_tests_4520420/tmp_3/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/selected_store_premerge_tests_4520418/tmp_13/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/selected_store_premerge_tests_4520418/tmp_2/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/selected_store_premerge_tests_4520418/tmp_11/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/architecture_postmerge_tests_4520415/tmp_15/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/architecture_postmerge_tests_4520415/tmp_10/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/architecture_postmerge_tests_4520415/tmp_12/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/architecture_premerge_tests_4520412/tmp_10/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/architecture_premerge_tests_4520412/tmp_15/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/architecture_premerge_tests_4520412/tmp_6/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/performance_postmerge_tests_4520406/tmp_14/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/performance_postmerge_tests_4520406/tmp_10/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/performance_postmerge_tests_4520406/tmp_12/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/performance_premerge_tests_4520401/tmp_14/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/performance_premerge_tests_4520401/tmp_10/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/performance_premerge_tests_4520401/tmp_12/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integrated_sa3_tests_4520368/tmp_4/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integrated_sa3_tests_4520368/tmp_14/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integrated_sa3_tests_4520368/tmp_10/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa3_all_tests_4520363/tmp_1/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa3_all_tests_4520363/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa3_all_tests_4520363/tmp_11/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa3_all_tests_4520358/tmp_1/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa3_all_tests_4520358/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa3_all_tests_4520358/tmp_11/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integrated_sa2_tests_4520355/tmp_10/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integrated_sa2_tests_4520355/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/integrated_sa2_tests_4520355/tmp_13/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa2_all_tests_4520347/tmp_10/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa2_all_tests_4520347/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa2_all_tests_4520347/tmp_13/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa2_all_tests_4520346/tmp_10/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa2_all_tests_4520346/tmp_3/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa2_all_tests_4520346/tmp_13/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa1_all_tests_4520339/tmp_11/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa1_all_tests_4520339/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/sa1_all_tests_4520339/tmp_15/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/baseline_tests_4520330/tmp_11/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/baseline_tests_4520330/tmp_2/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/baseline_tests_4520330/tmp_13/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v31_20261105/S_C1_a_seed0/samples_4000000.pt",
+      "bytes_freed": 198492160,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/model_v31_20261105/S_C1_b_seed0_v2/samples_4000000.pt",
+      "bytes_freed": 198836224,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/model_v31_20261105/S_C1_0_seed0_v2/samples_4000000.pt",
+      "bytes_freed": 198729728,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_cpu_perf_20261112/regression_4530452/part5/tmp_0/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_cpu_perf_20261112/regression_4530449/part1/tmp_3/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_cpu_perf_20261112/regression_4530447/part0/tmp_2/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/p_followup_20261116/regression_scratch_4535192/t/155/test_same_shape_different_norm0/checkpoint.pt",
+      "bytes_freed": 348160,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/p_followup_20261116/regression_scratch_4535192/t/140/test_real_cpu_updates_log_boun0/latest.pt",
+      "bytes_freed": 1040384,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/p_followup_20261116/regression_scratch_4535192/t/130/test_resume_rejects_same_shape0/checkpoint.pt",
+      "bytes_freed": 339968,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/p_followup_20261116/regression_scratch_4535192/t/123/test_cooperative_worker_exits_0/samples_1.pt",
+      "bytes_freed": 4096,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/p_followup_20261116/regression_scratch_4535192/t/123/test_optimizer_clock_rng_and_n0/samples_12.pt",
+      "bytes_freed": 12288,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/runs/p_followup_20261116/regression_scratch_4535192/t/123/test_publication_is_complete_a0/samples_128.pt",
+      "bytes_freed": 4096,
+      "action": "DELETE",
+      "reason": "Verified model checkpoint in closed synthetic/test fixture; no repository citation"
+    },
+    {
+      "path": "PROJECT/MFM_precision_20261115/results/precision_20261115/artifacts/precision_20261115_bf16_islands_G1_3M_non21/samples_500000.pt",
+      "bytes_freed": 220323840,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/MFM_precision_20261115/results/precision_20261115/artifacts/precision_20261115_bf16_islands_G1_3M_non21/samples_1500000.pt",
+      "bytes_freed": 220327936,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/MFM_precision_20261115/results/precision_20261115/artifacts/precision_20261115_bf16_islands_G1_3M_non21/samples_2500000.pt",
+      "bytes_freed": 220319744,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/MFM_precision_20261115/results/precision_20261115/artifacts/precision_20261115_tf32_islands_G1_3M_non21/samples_500000.pt",
+      "bytes_freed": 220323840,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/MFM_precision_20261115/results/precision_20261115/artifacts/precision_20261115_tf32_islands_G1_3M_non21/samples_1500000.pt",
+      "bytes_freed": 220327936,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    },
+    {
+      "path": "PROJECT/MFM_precision_20261115/results/precision_20261115/artifacts/precision_20261115_tf32_islands_G1_3M_non21/samples_2500000.pt",
+      "bytes_freed": 220319744,
+      "action": "DELETE",
+      "reason": "Non-key intermediate checkpoint; later checkpoint exists, no citation/scaling/E1/active dependency"
+    }
+  ]
+}
