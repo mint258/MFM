@@ -1,0 +1,53 @@
+{
+  "schema": "P_A5_SHARED_UFF_FROZEN_R3_20261125_V1",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261125.md",
+  "kind": "A5_READOUT",
+  "run": "A5_UFF_T4_9M_20261125",
+  "ready": false,
+  "node": null,
+  "gpu_uuid": null,
+  "nvidia_smi": "/usr/bin/nvidia-smi",
+  "cpus": 16,
+  "ram_peak_bytes": 34359738368,
+  "minimum_free_gpu_mib": 22000,
+  "remaining_output_bytes": 2147483648,
+  "local_output_peak_bytes": 67108864,
+  "reservation_ids": [],
+  "output": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_20261125/T4_9M",
+  "output_mount": "/share",
+  "cleanup_seconds": 180,
+  "work_unit_seconds": 120,
+  "proposed_TimeLimit": "02:00:00",
+  "source": {
+    "label": "T4_9M",
+    "source_binding": {
+      "label": "T4_9M",
+      "arm": "T4",
+      "samples": 9000000,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T4.json",
+      "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T4_sbatch/samples_9000000.pt",
+      "bytes": 231766369,
+      "run": "fixed_20261115_confirmation_T4_sbatch",
+      "components": [
+        "A1",
+        "B3",
+        "B4",
+        "F2"
+      ],
+      "pretraining_seed": 0,
+      "source_training_budget": 9000000
+    },
+    "checkpoint_mtime_ns": "1795306724000000000"
+  },
+  "cohort": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_20261125/cohort/common_cohort.json",
+  "native_store": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json",
+    "sha256": "481f3fc82cd8545a6c9a0222631b487fb840527983aaad77e212dee7a1abe894"
+  },
+  "readout_seed": 0,
+  "layer": 6,
+  "TF32": false,
+  "precision": "float32",
+  "batch_size": 32,
+  "source_validation": "Wait for CPU4540060 original two-contract PASS and complete common-cohort producer; then actual24GiB UUID/CPU/health/disk/inode/RAM/quota admission"
+}

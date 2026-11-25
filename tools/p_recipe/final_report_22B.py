@@ -155,7 +155,16 @@ def render_sections(repo,b):
   x=b['A5'];text+=['A5按同一根因的科学/方法失败时间盒记UNRESOLVED（工程失败不计）。只完成全InChIKey目录匹配，未接收UFF共同人群和原子映射，没有同UFF几何的T2−T4读出/Δ/CI，不能声称已排除几何因素。',
    f'[失败原因、原输出与成本]({d}A5_unresolved.json)。全键匹配数量不是UFF最终可用人群数量。','']
  else:
-  text+=[f'[封存S-prime UFF共同人群、排除数及配对Δ/CI]({d}A5_primary.json)。','']
+  a5=b['A5'];pairs={(r['task'],r['geometry']):r for r in a5['rows']}
+  def paired_cell(task,geometry):
+   row=pairs[task,geometry]
+   return number(row['delta'])+' ['+', '.join(number(v) for v in row['ci95'])+']'
+  text+=[table(['任务','原几何 T2−T4 Δ [95%CI]','同一封存UFF T2−T4 Δ [95%CI]'],
+   [[task,paired_cell(task,'original'),paired_cell(task,'sealed_UFF_common')]
+    for task in ['exp.LogD','exp.LogS','exp.Log_HLM_CLint','three_task_mean']]),'',
+   '共同UFF人群接收'+str(a5['accepted_members'])+'，两臂同时剔除'+str(a5['excluded_members'])+'；原因：'+json.dumps(a5['exclusion_reasons'],ensure_ascii=False)+'。原几何列沿用原闭合主表及其保留draws；UFF列两臂使用同一合格人群。','',
+   '预注册描述：'+a5['interpretation']+'。冻结配方、T4判定和seed1触发均不改变。','',
+   f'[封存S-prime UFF共同人群、排除数及配对Δ/CI]({d}A5_primary.json)。','']
  text+=['### D第5节直接描述符与组成参照','',
  '以下仅转录D线已闭合交付，P侧不重拟合；覆盖与不可比较任务按原交付标识。','',
  f'[逐任务上限参照与R3落后标记]({d}A4_descriptor_upper_controls.json)。来源：'+str(b['A4']['source_delivery'])+'。','',

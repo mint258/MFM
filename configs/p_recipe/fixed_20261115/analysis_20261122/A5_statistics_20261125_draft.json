@@ -1,0 +1,36 @@
+{
+  "schema": "P_A5_ORIGINAL_PAIRED_PRIMARY_20261125_V1",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261125.md",
+  "kind": "A5_STATS",
+  "run": "A5_common_UFF_statistics_20261125",
+  "ready": false,
+  "node": null,
+  "excluded_nodes": [
+    "compute-0-10",
+    "compute-0-14",
+    "compute-0-15",
+    "compute-0-16",
+    "compute-0-17",
+    "compute-0-18"
+  ],
+  "cpus": 1,
+  "ram_peak_bytes": 8589934592,
+  "remaining_output_bytes": 67108864,
+  "reservation_ids": [],
+  "output": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_20261125/statistics",
+  "output_mount": "/share",
+  "cleanup_seconds": 180,
+  "work_unit_seconds": 120,
+  "proposed_TimeLimit": "00:20:00",
+  "cohort": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_20261125/cohort/common_cohort.json",
+  "reference_manifest": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/predictions.json",
+  "GPU_receipts": {
+    "T2_9M": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_20261125/T2_9M/primary_complete.json",
+    "T4_9M": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_20261125/T4_9M/primary_complete.json"
+  },
+  "original_geometry_scores": {
+    "T2_9M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/readout/scores.json",
+    "T4_9M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T4_sbatch/readout/scores.json"
+  },
+  "publication_primary": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/fixed_20261115/analysis_20261122/A5_primary.json"
+}
