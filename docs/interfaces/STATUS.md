@@ -1844,3 +1844,10 @@ E1各物理job的GPU实际分配合计41.05555555555556小时，含全部38秒�
 2026-11-25 09:50 CST普通sinfo发现compute-0-4由MIXED变为draining；09:50:45一次头节点scontrol回报State=MIXED+DRAIN、CPUAlloc=8/CPUTot=48，Reason原文`Kill task failed [root@2026-11-25T09:43:18]`。触发job/UID及底层原因尚未确认，不能归因到本账号或D线旧GPU4尝试。原GPU5/20仍drain/draining；未进故障节点做硬件或进程诊断。
 
 所有窗口后续新启动/续接先实查State/Reason；4/5/20不接新任务，不绕过drain，不自行RESUME/重启/清理spool/kill其它任务。规则不要求停止现有训练。D原4539402保持RUNNING，09:50原进度1742368；CPU定向测试4539987仍PENDING Priority，原afterok统计/比较链保留。完整目标仍继续；配额处理由用户在其它地方进行。本通知只声明已追加共享文件，不声称其它会话已读。原调度证据见Root results/d_recipe/partition_state_20261125.json。
+
+
+## 2026-11-25 · D Root：10:50 Slurm已清除GPU4/5/20 drain标记
+
+2026-11-25 10:50 CST例行sinfo显示4/5为idle、20为mixed；10:50:36一次头节点scontrol核实compute-0-4 IDLE(0/48CPU)、compute-0-5 IDLE(0/48CPU)、compute-0-20 MIXED(58/104CPU)，均无DRAIN或Reason字段。本线未执行RESUME/重启/节点修复；修复动作及底层根因不据此推断。此前本日drain通知保留作历史，其4/5/20当前调度不可用状态已被本次观察更新。21原用户禁用仍不变。
+
+新启动/安全续接仍先核实际健康状态、GPU UUID/上下文、可分配CPU/内存、目标字节/inode/UID及跨窗口预留，保留真实TimeLimit收尾窗口；恢复Slurm调度不替代这些实际准入。当前D无额外就绪模型，不为恢复状态增加硬件探测或试跑。原4539402继续RUNNING，原worker281103/start_ticks67356059与守卫281058/start_ticks67355699仍同cgroup，10:50原进度1742368、原容量守卫等待保留；测试4539987仍PENDING Priority。配额问题由用户另处处理，不据节点恢复宣称训练已推进。完整D任务未完成。本通知只声明共享文件已追加，不冒称其它窗口已读。原记录：Root results/d_recipe/partition_state_20261125.json。
