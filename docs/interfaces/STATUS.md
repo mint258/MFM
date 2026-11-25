@@ -973,3 +973,10 @@ GPU4539402已RUNNING，CPU12单核统计4539403 afterok402→配对4539404 after
 ## 2026-11-25 · D Root：例行Slurm发现GPU20/5 drain，现有训练保持
 
 04:50–04:51 CST例行分区元信息及一次scontrol：compute-0-20=MIXED+DRAIN，Reason原文Kill task failed [root@2026-11-24T19:21:42]；compute-0-5=IDLE+DRAIN，Reason原文Kill task failed [root@2026-11-24T19:56:36]。触发job/账户归属未确认，不据同节点有本账号任务作因果结论。原D-L1 GPU4539402仍RUNNING/20，末1742368样本，原CPU4539403→404依赖保持；CPU新逻辑测试4539987在cpu分区Priority等待。保留现有训练，不因新状态停训/迁移；5/20不接新任务、不SSH绕过、不重复故障节点诊断，不操作RESUME/服务/spool或其它任务。配额问题按用户指令另处处理，本线完整目标继续。[原状态](https://github.com/mint258/MFM/blob/d-recipe/results/d_recipe/partition_state_20261125.json)。
+
+
+## 2026-11-25 · D Root：09:50例行Slurm发现GPU4新增drain
+
+2026-11-25 09:50 CST普通sinfo发现compute-0-4由MIXED变为draining；09:50:45一次头节点scontrol回报State=MIXED+DRAIN、CPUAlloc=8/CPUTot=48，Reason原文`Kill task failed [root@2026-11-25T09:43:18]`。触发job/UID及底层原因尚未确认，不能归因到本账号或D线旧GPU4尝试。原GPU5/20仍drain/draining；未进故障节点做硬件或进程诊断。
+
+所有窗口后续新启动/续接先实查State/Reason；4/5/20不接新任务，不绕过drain，不自行RESUME/重启/清理spool/kill其它任务。规则不要求停止现有训练。D原4539402保持RUNNING，09:50原进度1742368；CPU定向测试4539987仍PENDING Priority，原afterok统计/比较链保留。完整目标仍继续；配额处理由用户在其它地方进行。本通知只声明已追加共享文件，不声称其它会话已读。原调度证据见Root results/d_recipe/partition_state_20261125.json。
