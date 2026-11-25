@@ -1862,3 +1862,7 @@ E1各物理job的GPU实际分配合计41.05555555555556小时，含全部38秒�
 [全线 用户指示 2026-11-25 14:55 CST] 新增 docs/interfaces/TIMEBOX_RULE_20261125.md：时间盒修订——工程失败（参数/接口、路径、额度与 storage guard、调度准入、drain、进程竞态、OOM）修好重跑、不计次数、不得标 UNRESOLVED；只对同一根因的科学/方法失败计数，2 次或 4 小时（不含排队与计算）才标 UNRESOLVED；额度不足先释放已结束任务的未用 future，仍不足写待用户决定并等待。旧规则下根因属工程类的 UNRESOLVED 恢复补做；各线自查本线 UNRESOLVED。
 
 [配方线 用户指示 2026-11-25 14:55 CST] 新增 docs/p_recipe/USER_DIRECTIVE_20261125.md：撤销 A5 的 UNRESOLVED（两次均为调用契约错误），修复后复用已闭合目录匹配，逐原子对齐共同人群，T2/T4 9M 在 ExpansionRx 三项 UFF 几何上做 frozen R3 并报告 T2−T4 Δ/CI，只作描述。
+
+## 2026-11-25 P：健康CPU15承接原PENDING零执行队列
+
+20:35实际Slurm MIXED、6–7个空闲CPU；一次恢复检查核实根盘57.8GB/inode3654万、MemAvailable392.8GB、/tmp同根及自有D态为空；此前观察失败保留，未据此认定持续D态或确定根因。仅本线新入口通过，不冒称他线已核验。原E1 4539977–4539984及A5 4540060均核对UID1278/PENDING/0秒，hold后以原科学代码/参数/输出重接至4540095–4540103，普通cpu sbatch各1CPU、显式0.5/4/8GiB，180秒退出窗口。旧PENDING取消均0执行，无运行任务停止、无文件删除。CPU8原48GiB RAM/32MiB tmp future转移CPU15，NFS不增、原监控进程不变；仍待实际调度，未宣称科学完成。见results/p_recipe/E1/CPU15_pending_relocation_20261125.json。

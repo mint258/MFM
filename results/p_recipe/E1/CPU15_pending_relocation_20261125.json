@@ -1,15 +1,6 @@
 {
-  "schema": "P_CPU15_PENDING_ONLY_RELOCATION_20261125_V1",
-  "status": "PREPARED_NOT_SUBMITTED",
-  "at": 1795609954.2966764,
-  "node": "compute-0-15",
-  "original9jobs_pending0_verified": true,
-  "original_outputs_and_costs_retained": true,
-  "scientific_code_unchanged": true,
-  "own_D_state_pids": [],
-  "root_available_bytes": 57817178112,
-  "root_inodes": 36545331,
-  "MemAvailable": 392816553984,
+  "status": "ACTUAL_SUBMITTED_AND_RELEASED",
+  "at": 1795610068.2370856,
   "jobs": [
     {
       "key": "E1_final_training_hardware",
@@ -22,7 +13,10 @@
       "memory_MiB": 512,
       "TimeLimit": "00:05:00",
       "node": "compute-0-15",
-      "cpus": 1
+      "cpus": 1,
+      "job_id": 4540095,
+      "old_cancelled_zero": true,
+      "released": true
     },
     {
       "key": "E1_k1_original_R1_R3_statistics",
@@ -35,7 +29,10 @@
       "memory_MiB": 8192,
       "TimeLimit": "00:20:00",
       "node": "compute-0-15",
-      "cpus": 1
+      "cpus": 1,
+      "job_id": 4540096,
+      "old_cancelled_zero": true,
+      "released": true
     },
     {
       "key": "E1_k1_full12_primary",
@@ -48,7 +45,10 @@
       "memory_MiB": 4096,
       "TimeLimit": "00:05:00",
       "node": "compute-0-15",
-      "cpus": 1
+      "cpus": 1,
+      "job_id": 4540097,
+      "old_cancelled_zero": true,
+      "released": true
     },
     {
       "key": "E1_k2_original_R1_R3_statistics",
@@ -61,7 +61,10 @@
       "memory_MiB": 8192,
       "TimeLimit": "00:20:00",
       "node": "compute-0-15",
-      "cpus": 1
+      "cpus": 1,
+      "job_id": 4540098,
+      "old_cancelled_zero": true,
+      "released": true
     },
     {
       "key": "E1_k2_full12_primary",
@@ -74,7 +77,10 @@
       "memory_MiB": 4096,
       "TimeLimit": "00:05:00",
       "node": "compute-0-15",
-      "cpus": 1
+      "cpus": 1,
+      "job_id": 4540099,
+      "old_cancelled_zero": true,
+      "released": true
     },
     {
       "key": "E1_k5_original_R1_R3_statistics",
@@ -87,7 +93,10 @@
       "memory_MiB": 8192,
       "TimeLimit": "00:20:00",
       "node": "compute-0-15",
-      "cpus": 1
+      "cpus": 1,
+      "job_id": 4540100,
+      "old_cancelled_zero": true,
+      "released": true
     },
     {
       "key": "E1_k5_full12_primary",
@@ -100,7 +109,10 @@
       "memory_MiB": 4096,
       "TimeLimit": "00:05:00",
       "node": "compute-0-15",
-      "cpus": 1
+      "cpus": 1,
+      "job_id": 4540101,
+      "old_cancelled_zero": true,
+      "released": true
     },
     {
       "key": "E1_seed0_original_decision",
@@ -109,11 +121,14 @@
       "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/decision_seed0_cpu15.json",
       "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1_seed0_original_decision_CPU15_20261125.sbatch",
       "old_script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1_seed0_original_decision_CPU8_20261125.sbatch",
-      "dependency": "afterok:4539978:4539980:4539982:4539979:4539981:4539983",
+      "dependency": "afterok:4540096:4540098:4540100:4540097:4540099:4540101",
       "memory_MiB": 4096,
       "TimeLimit": "00:05:00",
       "node": "compute-0-15",
-      "cpus": 1
+      "cpus": 1,
+      "job_id": 4540102,
+      "old_cancelled_zero": true,
+      "released": true
     },
     {
       "key": "A5_shared_UFF_cohort_20261125",
@@ -126,7 +141,82 @@
       "memory_MiB": 8192,
       "TimeLimit": "00:30:00",
       "node": "compute-0-15",
-      "cpus": 1
+      "cpus": 1,
+      "job_id": 4540103,
+      "old_cancelled_zero": true,
+      "released": true
     }
-  ]
+  ],
+  "old_jobs": [
+    {
+      "job": 4539977
+    },
+    {
+      "job": 4539978
+    },
+    {
+      "job": 4539979
+    },
+    {
+      "job": 4539980
+    },
+    {
+      "job": 4539981
+    },
+    {
+      "job": 4539982
+    },
+    {
+      "job": 4539983
+    },
+    {
+      "job": 4539984
+    },
+    {
+      "job": 4540060
+    }
+  ],
+  "actual_guard": {
+    "RAM": {
+      "line": "p-recipe",
+      "kind": "node_ram",
+      "node": "compute-0-15",
+      "path": "None",
+      "own": 51539607552,
+      "peers": 8589934592,
+      "reserve": 17179869184,
+      "available": 113007767552
+    },
+    "tmp": {
+      "line": "p-recipe",
+      "kind": "node_disk",
+      "node": "compute-0-15",
+      "path": "/tmp",
+      "own": 33554432,
+      "peers": 0,
+      "reserve": 47328893337,
+      "available": 368353660928,
+      "probe_target": "/tmp"
+    },
+    "NFS": {
+      "line": "p-recipe",
+      "kind": "shared_fs",
+      "node": null,
+      "path": "/share",
+      "own": 6196866560,
+      "peers": 33003503616,
+      "reserve": 108589934592,
+      "available": 303090352128,
+      "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools",
+      "filesystem_available": 5400473718784,
+      "quota_available": 303090352128,
+      "quota_source": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/window2_20261105/share_quota_available_v3.json",
+      "quota_uid": 1278,
+      "quota_observed_time": 1795610066.7038395
+    }
+  },
+  "finished_at": 1795610069.0428832,
+  "scientific_code_changed": false,
+  "original_outputs_retained": true,
+  "no_running_job_stopped": true
 }
