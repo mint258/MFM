@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_TRAINING_L2_A1_UNRESOLVED_G1_COMPLETE",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-25T02:50:36Z",
+  "updated_at_utc": "2026-11-25T06:01:06Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -3327,15 +3327,66 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ACTIVE_COLD_CONFIRMATION_PREPARATION_AND_ORIGINAL_NATIVE_WAIT",
+  "automation_state": "BLOCKED_EXTERNAL_RESOURCE_CONDITIONS_ORIGINAL_JOBS_RETAINED",
   "blocking_condition": {
     "kind": "NATIVE_QUOTA_WAIT",
-    "goal_status": "ACTIVE",
+    "goal_status": "BLOCKED",
     "handling_owner": "USER_EXTERNAL",
     "user_directive": "先继续工作，暂时忽略限额问题，我会在别的地方单独解决这个问题",
     "do_not_repeat_quota_troubleshooting": true,
     "native_guard_and_existing_process_retained": true,
-    "independent_deliverables_continue": true
+    "observed_at_UTC": "2026-11-25T06:01:06Z",
+    "primary_condition": "Original L1 worker is STOPPED(T) by its existing storage guard, latest native reason: Insufficient actual UID quota after registered peer reservations",
+    "independent_preparation_state": "Cold9M planner and selected-endpoint A/B/C contract ready; focused10tests pending CPU Priority; all actual later scientific work remains gated on L1/final freeze",
+    "consecutive_goal_turn_audit": [
+      {
+        "classification": "VERIFIED_WAIT",
+        "observed_progress_UTC": "2026-11-25T03:50:03.000Z",
+        "samples": 1742368,
+        "training_state": "RUNNING"
+      },
+      {
+        "classification": "VERIFIED_WAIT_WITH_ORIGINAL_PROCESS_REVALIDATION",
+        "observed_progress_UTC": "2026-11-25T04:50:03.000Z",
+        "samples": 1742368,
+        "training_state": "RUNNING"
+      },
+      {
+        "classification": "VERIFIED_WAIT",
+        "observed_progress_UTC": "2026-11-25T05:50:03.000Z",
+        "samples": 1742368,
+        "training_state": "RUNNING"
+      }
+    ],
+    "fresh_native_identity": {
+      "job": 4539402,
+      "UID": 1278,
+      "worker_pid": 281103,
+      "worker_start_ticks": 67356059,
+      "worker_state": "T",
+      "guardian_pid": 281058,
+      "guardian_start_ticks": 67355699,
+      "guardian_state": "S",
+      "scope": "/slurm/uid_1278/job_4539402/step_batch",
+      "last_phase": "DISK_TRANSPORT_PAUSED",
+      "native_error_text_last64KiB": []
+    },
+    "latest_native_samples": 1742368,
+    "retained_jobs": {
+      "training": 4539402,
+      "statistics": 4539403,
+      "comparison": 4539404,
+      "focused_test": 4539987
+    },
+    "Slurm_training_state": "RUNNING",
+    "focused_test_state": "PENDING_PRIORITY",
+    "job_cancellation_or_signals": false,
+    "scientific_arm_failed_or_closed": false,
+    "storage_reservations_retired": false,
+    "full_taskbook_scope_unchanged": true,
+    "goal_completion_claimed": false,
+    "resume_agent_action": "Inspect authoritative original queue, guard, native progress and test result; consume completed original output or continue the same run; no restart merely for observation delay",
+    "resume_condition": "Native guard admission/training progress or CPU-test queue/result changes; user handles the quota issue externally"
   },
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
