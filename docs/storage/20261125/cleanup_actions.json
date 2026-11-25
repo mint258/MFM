@@ -1,13 +1,14 @@
 {
-  "updated_epoch": 1795590115.6223981,
+  "updated_epoch": 1795591045.4337387,
   "capacity": {
-    "observed_epoch": 1795590115.6223981,
+    "observed_epoch": 1795591045.4337387,
+    "observed_host": "sonmi",
     "NFS": {
-      "used_bytes": 4094008782848,
+      "used_bytes": 4094009802752,
       "limit_bytes": 4398046511104,
-      "free_bytes": 304037728256,
+      "free_bytes": 304036708352,
       "target_free_bytes": 2199023255552,
-      "remaining_gap_bytes": 1894985527296
+      "remaining_gap_bytes": 1894986547200
     },
     "Lustre": {
       "used_bytes": 2195310899200,
@@ -24,7 +25,13 @@
     "jobs": {
       "S_checkpoint_compression": {
         "job": "4540054",
-        "status": "PENDING||(Priority)"
+        "status": "PENDING||(Priority)",
+        "scheduler_snapshot_epoch": 1795591045.4407518
+      },
+      "raw_output_gate": {
+        "job": "4540058",
+        "status": "PENDING||(Dependency)",
+        "scheduler_snapshot_epoch": 1795591045.4469426
       }
     }
   },
