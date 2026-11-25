@@ -23,9 +23,21 @@
     "job": 4539402,
     "Slurm_state": "RUNNING",
     "node": "compute-0-20",
-    "last_native_progress_observed_UTC": "2026-11-25T01:50:03Z",
+    "last_native_progress_observed_UTC": "2026-11-25T02:50:03Z",
     "samples": 1742368,
-    "native_seconds": 46407.724043155555
+    "native_seconds": 46407.724043155555,
+    "worker_identity_unchanged_after_node_recovery": {
+      "observed_at_UTC": "2026-11-25T02:51:08Z",
+      "UID": 1278,
+      "worker_PID": 281103,
+      "worker_start_ticks": 67356059,
+      "worker_state": "T",
+      "guardian_PID": 281058,
+      "guardian_start_ticks": 67355699,
+      "guardian_state": "S",
+      "scope": "/slurm/uid_1278/job_4539402/step_batch",
+      "native_error_text_last64KiB": []
+    }
   },
   "CPU_dependencies": [
     4539403,
@@ -61,12 +73,44 @@
       "triggering_job_or_account_attribution": "NOT_ESTABLISHED",
       "existing_D_training_preserved": true,
       "node_SSH_or_hardware_diagnostics_started": false
+    },
+    {
+      "observed_at_UTC": "2026-11-25T02:50:36Z",
+      "source": "Routine02:50:02Z sinfo plus one ordinary head-node scontrol query after observed recovery",
+      "event": "SLURM_DRAIN_FLAGS_CLEARED",
+      "nodes": [
+        {
+          "node": "compute-0-4",
+          "state": "IDLE",
+          "CPUAlloc": 0,
+          "CPUTot": 48,
+          "reason_raw": null,
+          "reason_field_present": false
+        },
+        {
+          "node": "compute-0-5",
+          "state": "IDLE",
+          "CPUAlloc": 0,
+          "CPUTot": 48,
+          "reason_raw": null,
+          "reason_field_present": false
+        },
+        {
+          "node": "compute-0-20",
+          "state": "MIXED",
+          "CPUAlloc": 58,
+          "CPUTot": 104,
+          "reason_raw": null,
+          "reason_field_present": false
+        }
+      ],
+      "node_admin_action_by_D_agent": false,
+      "underlying_root_cause_or_remediation": "NOT_ESTABLISHED",
+      "no_new_D_model_ready": true,
+      "actual_resource_and_storage_admission_still_required": true
     }
   ],
-  "latest_observed_at_UTC": "2026-11-25T01:50:45Z",
-  "current_unavailable_gpu_nodes_at_latest_observation": [
-    "compute-0-4",
-    "compute-0-5",
-    "compute-0-20"
-  ]
+  "latest_observed_at_UTC": "2026-11-25T02:50:36Z",
+  "current_unavailable_gpu_nodes_at_latest_observation": [],
+  "scheduling_recovery_scope": "Only observed4/5/20 drain flags; compute-0-21 remains user-prohibited and every new launch still needs actual admission"
 }
