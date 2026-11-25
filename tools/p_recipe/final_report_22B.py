@@ -11,8 +11,10 @@ class ReportNotReady(ValueError):pass
 
 def valid_timebox_skip(value):
  if not isinstance(value,dict) or value.get('status')!='UNRESOLVED_SKIPPED':return False
- if len(value.get('attempts',[]))>=2 and 'implementation' in value.get('stop_reason','').lower():return True
- return value.get('timebox_scope')=='implementation_or_repair' and (value.get('failed_attempts',0)>=2 or value.get('implementation_seconds',0)>=14400)
+ if value.get('failure_category') not in {'scientific','method'}:return False
+ return (value.get('timebox_scope')=='scientific_diagnosis_or_repair'
+         and (value.get('same_root_cause_failed_repairs',0)>=2
+              or value.get('diagnosis_repair_seconds_excluding_queue_compute',0)>=14400))
 
 def metric_present(row,name):
  return row.get(name) not in (None,'') or bool(row.get('metric_undefined_reasons',{}).get(name))
@@ -150,7 +152,7 @@ def render_sections(repo,b):
  text+=['## P与Pprime的几何对照','',
  '原9M对照沿原几何。A5只限ExpansionRx LogD/LogS/Log_HLM_CLint，QM9不做此项，保持DFT。','']
  if valid_timebox_skip(b['A5']):
-  x=b['A5'];text+=['A5按连续两次实现失败的明示时间盒记UNRESOLVED。只完成全InChIKey目录匹配，未接收UFF共同人群和原子映射，没有同UFF几何的T2−T4读出/Δ/CI，不能声称已排除几何因素。',
+  x=b['A5'];text+=['A5按同一根因的科学/方法失败时间盒记UNRESOLVED（工程失败不计）。只完成全InChIKey目录匹配，未接收UFF共同人群和原子映射，没有同UFF几何的T2−T4读出/Δ/CI，不能声称已排除几何因素。',
    f'[失败原因、原输出与成本]({d}A5_unresolved.json)。全键匹配数量不是UFF最终可用人群数量。','']
  else:
   text+=[f'[封存S-prime UFF共同人群、排除数及配对Δ/CI]({d}A5_primary.json)。','']

@@ -17,7 +17,7 @@ def ready():
   H_comp=dict(status='COMPLETE',atomic_metrics=['EEV']),H_comp_rows=metrics(report.H_SOURCES),A2_rows=metrics(report.B4_SOURCES),
   A1=dict(status='COMPLETE',all_source_count=4,current_decision_rules_changed=False),A3=dict(status='COMPLETE',rows=[{}]*4,current_recipe_changed=False,I2_condition=dict(I2_triggered=False)),
   F1={},F2=dict(status='COMPLETE_BASE60',base_fits=60),F_rows=base+ft,A6=dict(status='COMPLETE',new_GPU_R3_cells=16,rows=[{}]*32,molecule_count_effect=[{}]*8),
-  A5=dict(status='UNRESOLVED_SKIPPED',attempts=[{},{}],stop_reason='Two implementation failures'),
+  A5=dict(status='COMPLETE',common_cohort_verified=True,full_inchikey_exact_join=True),
   A4=dict(status='COMPLETE',source_delivery='closed D fixture',rows=[{}],new_computation_performed=False),
   I1=dict(status='COMPLETE',candidate=dict(arm='I1',samples=3000000,source_training_budget=3000000),baseline=dict(arm='F2',samples=3000000,source_training_budget=3000000),frozen_recipe_changed=False,pretraining_seed_count=1,conditional_seed1_required=False,conditional_seed1_complete=False,verdict='loss',rule_recommendation='RETAIN'),
   I1_F=dict(status='COMPLETE',source_training_budget=3000000,rows=ft),
@@ -45,7 +45,7 @@ def test_atomic_CEV_is_rejected_and_explicit_undefined_metric_is_reportable():
  assert report.validate_bundle(b) is b
 
 def test_training_duration_is_not_implementation_timebox():
- assert report.valid_timebox_skip(ready()['A5'])
+ assert not report.valid_timebox_skip(dict(status='UNRESOLVED_SKIPPED',attempts=[{},{}],stop_reason='Two implementation failures'))
  assert not report.valid_timebox_skip(dict(status='UNRESOLVED_SKIPPED',timebox_scope='training',training_seconds=50000))
  b=ready();b['I1_F']['rows'][0]['seed_count']=2
  with pytest.raises(report.ReportNotReady):report.validate_bundle(b)
