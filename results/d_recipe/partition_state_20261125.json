@@ -23,7 +23,7 @@
     "job": 4539402,
     "Slurm_state": "RUNNING",
     "node": "compute-0-20",
-    "last_native_progress_observed_UTC": "2026-11-24T20:50:04Z",
+    "last_native_progress_observed_UTC": "2026-11-25T01:50:03Z",
     "samples": 1742368,
     "native_seconds": 46407.724043155555
   },
@@ -43,9 +43,30 @@
     "node_RESUME_or_admin_mutation": false,
     "other_jobs_signaled": false,
     "new_jobs_on_5_or_20": false,
-    "further_fault_node_diagnostics": false
+    "further_fault_node_diagnostics": false,
+    "new_jobs_on_4_or_5_or_20": false
   },
   "policy": "Preserve existing training. No new work on DRAIN/DRAINING/DOWN nodes and no bypass through SSH. Trigger attribution unknown; do not infer this D job or this account caused it.",
   "quota_work_owner": "USER_EXTERNAL",
-  "full_goal_still_active": true
+  "full_goal_still_active": true,
+  "subsequent_observations": [
+    {
+      "observed_at_UTC": "2026-11-25T01:50:45Z",
+      "source": "Routine01:50:02Z sinfo plus one ordinary head-node scontrol query for the newly draining GPU4",
+      "node": "compute-0-4",
+      "state": "MIXED+DRAIN",
+      "CPUAlloc": 8,
+      "CPUTot": 48,
+      "reason_raw": "Kill task failed [root@2026-11-25T09:43:18]",
+      "triggering_job_or_account_attribution": "NOT_ESTABLISHED",
+      "existing_D_training_preserved": true,
+      "node_SSH_or_hardware_diagnostics_started": false
+    }
+  ],
+  "latest_observed_at_UTC": "2026-11-25T01:50:45Z",
+  "current_unavailable_gpu_nodes_at_latest_observation": [
+    "compute-0-4",
+    "compute-0-5",
+    "compute-0-20"
+  ]
 }
