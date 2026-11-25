@@ -65,6 +65,62 @@ def cpu_perf_csv(name: str, raw: bytes) -> bool:
         return False
 
 
+
+DIAGNOSTIC_ROOT = 'results/model_v3_diagnostics_20261112'
+DIAGNOSTIC_DELIVERY_LIMIT = 50_000_000
+
+
+def diagnostic_delivery_artifacts(root: Path) -> dict[str, int]:
+    """Recognize only the user-requested closed Nov12 exports, by producer metadata.
+
+    This checks filenames and recorded byte lengths, not scientific values,
+    numerical exports, array contents, or new hashes.
+    """
+    manifests = (
+        ('DELIVERY_MANIFEST.json', 'MODEL_V3_DIAGNOSTICS_DELIVERY_20261112',
+         'ALL_SIX_EXPORTS_COMPLETE', 'file_count', ''),
+        ('csv/CSV_MANIFEST.json', 'MODEL_V3_DIAGNOSTICS_CSV_DELIVERY_V1',
+         'COMPLETE', 'csv_tables', 'csv/'),
+    )
+    allowed = {}
+    from pathlib import PurePosixPath
+    for filename, schema, status, count_key, prefix in manifests:
+        path = root / DIAGNOSTIC_ROOT / filename
+        if not path.exists():
+            continue
+        if path.is_symlink() or path.stat().st_size > 2 * 1024**2:
+            raise ValueError('Invalid closed diagnostic delivery manifest')
+        document = json.loads(path.read_text(encoding='utf-8-sig'))
+        files = document.get('files')
+        if (document.get('schema') != schema or document.get('status') != status
+                or document.get('selection_use') is not False
+                or not isinstance(files, list)
+                or type(document.get(count_key)) is not int
+                or document[count_key] != len(files)):
+            raise ValueError('Closed diagnostic delivery metadata differs')
+        seen = set()
+        for row in files:
+            name, size = row.get('path'), row.get('bytes')
+            if not isinstance(name, str):
+                raise ValueError('Diagnostic delivery path must be relative')
+            relative = PurePosixPath(name)
+            if (relative.is_absolute() or '..' in relative.parts or '\\' in name
+                    or relative.as_posix() != name or name in seen
+                    or type(size) is not int or not 0 < size <= DIAGNOSTIC_DELIVERY_LIMIT):
+                raise ValueError('Invalid diagnostic delivery path/byte bound')
+            seen.add(name)
+            # A manifest does not authorize model weights, databases, or secrets.
+            typed = relative.suffix.lower() in {'.csv', '.parquet', '.json'}
+            loss_segment = (not prefix and re.fullmatch(
+                r'native_s_logs/S_seed0_losses_v2\.tar\.gz\.part[0-9]{4}', name))
+            if typed or loss_segment:
+                full = DIAGNOSTIC_ROOT + '/' + prefix + name
+                if full in allowed:
+                    raise ValueError('Duplicate diagnostic delivery binding')
+                allowed[full] = size
+    return allowed
+
+
 def model_summary_csv(name: str, raw: bytes) -> bool:
     """Allow only small, typed, one-row-per-run model experiment summaries."""
     if cpu_perf_csv(name, raw):
@@ -81,6 +137,9 @@ def model_summary_csv(name: str, raw: bytes) -> bool:
                  'results/p_recipe/fixed_20261115/hardware_confirmation.csv',
                  'results/p_recipe/fixed_20261115/confirmation/budget_curve.csv',
                  'results/p_recipe/fixed_20261115/confirmation/budget_curve_tasks.csv',
+                 'results/p_recipe/E1/k10_full/rows.csv',
+                 'results/p_recipe/fixed_20261115/analysis_20261122/I1.csv',
+                 'results/p_recipe/fixed_20261115/analysis_20261122/hardware_I1.csv',
                  'results/p_recipe/fixed_20261115/analysis_20261122/F.csv',
                  'results/p_recipe/fixed_20261115/analysis_20261122/A1.csv',
                  'results/p_recipe/fixed_20261115/analysis_20261122/A3.csv',
@@ -192,6 +251,12 @@ def model_summary_csv(name: str, raw: bytes) -> bool:
 
 def check(root: Path, paths: list[str], *, verify_export=True) -> dict:
     errors = []
+    try:
+        diagnostic_artifacts = diagnostic_delivery_artifacts(root)
+    except (ValueError, OSError, TypeError, KeyError) as exc:
+        errors.append({'path': DIAGNOSTIC_ROOT,
+                       'reason': 'invalid closed diagnostic delivery manifest'})
+        diagnostic_artifacts = {}
     source_manifest = json.loads((root / 'docs/SOURCE_MANIFEST.json').read_text(encoding='utf-8'))
     references = {row['path']: row for row in source_manifest['files']}
     total = python_files = matched_sources = 0
@@ -203,12 +268,17 @@ def check(root: Path, paths: list[str], *, verify_export=True) -> dict:
             errors.append({'path': name, 'reason': 'symlinks cannot package external assets'})
             continue
         size = path.stat().st_size
-        if size > 2 * 1024 * 1024:
+        declared_size = diagnostic_artifacts.get(name)
+        if declared_size is not None and size != declared_size:
+            errors.append({'path': name, 'reason': 'differs from the closed diagnostic delivery byte length'})
+            continue
+        allowed_diagnostic = declared_size is not None
+        if size > 2 * 1024 * 1024 and not allowed_diagnostic:
             errors.append({'path': name, 'reason': 'exceeds the 2 MiB source-file limit'})
             continue
         raw = path.read_bytes()
         allowed_summary = path.suffix == '.csv' and model_summary_csv(name, raw)
-        if ((path.suffix.lower() in HEAVY_SUFFIXES and not allowed_summary)
+        if ((path.suffix.lower() in HEAVY_SUFFIXES and not allowed_summary and not allowed_diagnostic)
                 or path.name in {'.env', '.netrc', '.npmrc'}):
             errors.append({'path': name, 'reason': 'data, weights, archive, or credentials file'})
             continue
