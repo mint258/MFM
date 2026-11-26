@@ -1,6 +1,6 @@
 {
   "schema": "D_L2_ORIGINAL_REFERENCE_FIT_PHASE_PLAN_V1",
-  "status": "ORIGINAL_FULL_TRAIN_FIT_RUNNING",
+  "status": "COMPLETE_ORIGINAL_FULL_TRAIN_FIT_AND_PUBLICATION",
   "entry": "tools.d_recipe.reference_fit_ssh",
   "source_commit": "ca217517e610fe34332afce955b56cdc186f658f",
   "scientific_fitter": "tools.d_recipe.fit_reference.fit_collected -> original element_reference shared-mask five-fold F64 ridge and make_label_parameters; alpha/folds/fields unchanged",
@@ -152,5 +152,16 @@
       17,
       37
     ]
-  }
+  },
+  "actual_native_complete": true,
+  "actual_returncode": 0,
+  "owned_tree_reaped": true,
+  "original_process_alive": {
+    "supervisor": false,
+    "parent": false,
+    "worker": false
+  },
+  "parameters_published": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
+  "actual_CPU_seconds": 11439.778441999999,
+  "actual_wall_seconds": 1625.637849330902
 }

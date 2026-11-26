@@ -1,6 +1,6 @@
 {
   "schema": "D_RECIPE_CURRENT_BEST_V1",
-  "status": "STAGE2_L1_WAIT_GPU_L2_ORIGINAL_FULL_TRAIN_A1_FITTING",
+  "status": "STAGE2_L1_WAIT_GPU_L2_A1_PUBLISHED_WAIT_REPORT_AND_GPU",
   "recipe_frozen": false,
   "current_best": {
     "arm": "D-R1",
@@ -5718,7 +5718,7 @@
     "next_L1_progress_check_UTC": null,
     "L2": {
       "arm": "D-L2",
-      "status": "ORIGINAL_FULL_TRAIN_A1_FIT_RUNNING",
+      "status": "A1_PARAMETERS_PUBLISHED_WAIT_REPORT_AND_GPU",
       "A1_jobs": [
         4539164,
         4539169,
@@ -5726,7 +5726,7 @@
       ],
       "A1_failures": 0,
       "required_full_TRAIN_rows": 1194228,
-      "parameters_published": false,
+      "parameters_published": true,
       "seed0_started": false,
       "seed1_required": false,
       "R3_available": false,
@@ -5843,7 +5843,7 @@
       "last_observed_worker": null,
       "next_segment_plan": "configs/d_recipe/reference/L2_cursor_segments_20261126_plan.json",
       "canonical_next_segment_entry": "tools/d_recipe/reference_segment_guarded.py",
-      "A1_status": "FITTING_ORIGINAL_FULL_TRAIN",
+      "A1_status": "ORIGINAL_FULL_TRAIN_PARAMETERS_PUBLISHED",
       "latest_native_progress": {
         "observed_at_epoch": 1795710890.13166,
         "receipt_status": "COMPLETE",
@@ -6757,7 +6757,7 @@
         }
       ],
       "fit_SSH_execution": {
-        "status": "RUNNING",
+        "status": "COMPLETE",
         "phase": "ORIGINAL_FULL_TRAIN_A1_FIT",
         "source_commit": "04e19868ca24f26b9c9491ad86a3cb87631a1013",
         "worker_source_commit": "ca217517e610fe34332afce955b56cdc186f658f",
@@ -6903,9 +6903,9 @@
         "started_at_epoch": 1795710979.1618054,
         "hard_end_epoch": 1795732569.1618054,
         "latest_native_progress": {
-          "observed_at_epoch": 1795712127.5578637,
-          "receipt_status": "RUNNING",
-          "returncode": null,
+          "observed_at_epoch": 1795712638.5976524,
+          "receipt_status": "COMPLETE",
+          "returncode": 0,
           "started_at_epoch": 1795710979.1618054,
           "hard_end_epoch": 1795732569.1618054,
           "closed_rows": 1194228,
@@ -6918,41 +6918,77 @@
             "closed_rows": 1194228,
             "elapsed_seconds": 111.70419206470251
           },
-          "actual_supervisor": {
-            "pid": 299526,
-            "start_ticks": 2283199140,
-            "state": "S",
-            "uid": 1278
-          },
-          "actual_worker": {
-            "pid": 299545,
-            "start_ticks": 2283199645,
-            "state": "R",
-            "uid": 1278
-          },
-          "actual_parent": {
-            "pid": 299525,
-            "start_ticks": 2283199140,
-            "state": "S",
-            "uid": 1278
-          },
-          "owned_tree_reaped": null,
-          "remaining_children": null,
-          "actual_cpu_seconds": null,
-          "wall_seconds": null,
-          "actual_root_available": 51297071104,
-          "actual_root_inodes": 36569744,
-          "own_local_allocated": 15353671680,
-          "own_local_remaining_future": 1826197504
+          "actual_supervisor": null,
+          "actual_worker": null,
+          "actual_parent": null,
+          "owned_tree_reaped": true,
+          "remaining_children": [],
+          "actual_cpu_seconds": 11439.778441999999,
+          "wall_seconds": 1625.637849330902,
+          "actual_root_available": 51289493504,
+          "actual_root_inodes": 36569743,
+          "own_local_allocated": 15360978944,
+          "own_local_remaining_future": 1818890240
         },
         "canonical_own_RAM_and_disk_admission": true,
         "original_scientific_configuration_unchanged": true,
         "original_D4_modified": false,
         "partial_TRAIN_fit": false,
         "shared_parameters_output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
-        "publication_accepted": false
+        "publication_accepted": true,
+        "returncode": 0,
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false,
+          "worker": false
+        },
+        "actual_CPU_seconds": 11439.778441999999,
+        "wall_seconds": 1625.637849330902,
+        "peak_child_RSS_KiB": 49778836,
+        "ended_at_epoch": 1795712604.7996545,
+        "publication_event": {
+          "stage": "D_A1_SSH_FIT",
+          "status": "FROZEN_PARAMETERS_PUBLISHED",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
+          "local_result_reused": false,
+          "fit_role": "TRAIN",
+          "full_collection_rows": 1194228,
+          "configuration_unchanged": true,
+          "original_D4_modified": false
+        },
+        "source_parameters": [
+          {
+            "path": "/tmp/d_recipe_20261120_stage2_A1_L2/collection/label_parameters.json",
+            "bytes": 7299154,
+            "uid": 1278,
+            "mtime": 1795712600.9321454
+          },
+          {
+            "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
+            "bytes": 7299154,
+            "uid": 1278,
+            "mtime": 1795712604.1360397
+          }
+        ],
+        "own_closed_phase_RAM_future_bytes": 0,
+        "own_closed_phase_local_future_bytes": 0,
+        "closure_observed_at_epoch": 1795712695.7022588
       },
-      "collection_source_commit": "eeb17c125f05381868699475dc07a516cb4f34c5"
+      "collection_source_commit": "eeb17c125f05381868699475dc07a516cb4f34c5",
+      "parameters_path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
+      "source_parameter_metadata": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
+        "bytes": 7299154,
+        "uid": 1278,
+        "mtime": 1795712604.1360397
+      },
+      "A1_report_preparation": {
+        "status": "PREPARED_NOT_STARTED",
+        "target": "results/d_recipe/L2_original_A1_fit_20261127.json",
+        "consumes_original_fit_fields_once": true
+      }
     },
     "reference_production_status": "L1_FROZEN_L2_CURSOR_RECOVERY_PENDING",
     "storage_retirement": {
@@ -8854,5 +8890,5 @@
     "historical_engineering_failure_count": 2,
     "scientific_failure_count": 0
   },
-  "updated_at_utc": "2026-11-26T16:55:42.939Z"
+  "updated_at_utc": "2026-11-26T17:04:55.702Z"
 }

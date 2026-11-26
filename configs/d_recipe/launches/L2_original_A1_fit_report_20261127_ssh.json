@@ -1,0 +1,23 @@
+{
+  "execution_id": "ssh:P_D_L2_original_A1_report_20261127",
+  "node": "compute-0-19",
+  "cores": [
+    14
+  ],
+  "expected_seconds": 60,
+  "timeout_seconds": 1800,
+  "cleanup_seconds": 180,
+  "ram_peak_bytes": 2147483648,
+  "root_future_bytes": 1048576,
+  "receipt": "/tmp/d_recipe_20261127_L2_A1_report/receipt.json",
+  "line": "D",
+  "worker_argv": [
+    "/usr/bin/env",
+    "TMPDIR=/tmp/d_recipe_20261127_L2_A1_report",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/usr/bin/python3",
+    "-IB",
+    "-c",
+    "import collections,importlib.util,json,os,stat,sys,time\nfrom pathlib import Path\nrepo=Path(\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\")\nsys.path[:0]=[str(repo),str(repo.parent/\"MFM_p_recipe/tools/p_recipe\")]\nimport cpu_ssh_runtime as provider\nc=json.loads((repo/\"configs/d_recipe/launches/L2_original_A1_fit_report_20261127_ssh.json\").read_text())\ntransport=dict(execution_backend=\"ssh_cpu\",ssh_execution_id=c[\"execution_id\"],ssh_runtime_receipt=c[\"receipt\"],node=c[\"node\"],cleanup_seconds=180,work_unit_seconds=30,ram_peak_bytes=c[\"ram_peak_bytes\"],local_future_bytes=c[\"root_future_bytes\"],local_output_root=str(Path(c[\"receipt\"]).parent),shared_future_bytes={\"/share\":150000000},reservation_ids=[\"D_new_CPU19_tests_RAM\",\"D_new_CPU19_tests_tmp\",\"D_source_results_metadata_remaining\"])\nprovider.verified_deadline(transport)\nproof=json.loads((repo/\"results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json\").read_text())[\"L2\"][\"fit_execution\"]\nassert proof[\"execution_id\"]==\"ssh:P_D_L2_A1_full_fit1_20261127\" and proof[\"status\"]==\"COMPLETE\" and proof[\"returncode\"]==0\nassert proof[\"owned_tree_reaped\"] is True and proof[\"remaining_children\"]==[] and not any(proof[\"original_process_alive\"].values())\nsource=repo.parent/\"runs/d_recipe_20261120/reference/L2/label_parameters.json\"\nout=repo/\"results/d_recipe/L2_original_A1_fit_20261127.json\"\nfrom tools.d_recipe.shared_admission import admit,atomic_json\nadmit(transport,[out])\nif out.exists():raise FileExistsError(\"Original report already transcribed; preserve it\")\ninfo=source.lstat();assert stat.S_ISREG(info.st_mode) and info.st_uid==os.getuid() and info.st_size>0\noriginal=json.loads(source.read_text())\nfit=original[\"fit\"]\nreport={key:value for key,value in fit.items() if key!=\"reference_fit\"}\nreference=fit[\"reference_fit\"]\nreport[\"reference_fit\"]={key:value for key,value in reference.items() if key!=\"fields\"}\nreport[\"reference_fit\"][\"fields_source\"]=str(source)+\"#/fit/reference_fit/fields\"\nreport[\"source_parameters\"]=dict(path=str(source),bytes=info.st_size,uid=info.st_uid,mtime=info.st_mtime,normalizations_and_all_frozen_coefficients_retained=True)\nreport[\"source_execution_id\"]=proof[\"execution_id\"]\nreport[\"source_configuration\"]=proof[\"configuration\"]\nreport[\"target_policy_counts\"]=dict(collections.Counter(field[\"target_policy\"] for field in fit[\"fields\"]))\nreport[\"transcription\"]=dict(source_parsed_once=True,source_fit_fields_transcribed_unchanged=True,raw_training_data_or_prediction_payloads_read=False,fit_or_bootstrap_repeated=False,full_coefficients_preserved_in_source=True)\natomic_json(out,report)\nprint(json.dumps(dict(stage=\"D_L2_ORIGINAL_A1_REPORT\",report=str(out),status=fit[\"status\"],cohort_rows=fit[\"cohort_rows\"],model_name=fit[\"model_name\"],field_count=len(fit[\"fields\"]),target_policy_counts=report[\"target_policy_counts\"],unresolved_fields=fit.get(\"unresolved_fields\",[]),source_parameters=report[\"source_parameters\"])),flush=True)\n"
+  ]
+}
