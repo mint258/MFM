@@ -41,4 +41,8 @@ elif any(row and row[0].strip()==gpu for row in contexts):
 if total-used<c['minimum_free_gpu_mib']:raise RuntimeError('Actual free GPU memory is below this arm allowance')
 print(json.dumps(dict(node=node,job_id=os.environ['SLURM_JOB_ID'],gpu_uuid=gpu,used_mib=used,total_mib=total)),flush=True)
 PY
-exec "$python" -B -m tools.d_recipe.resources "$command" --configuration "$configuration"
+resource_module=tools.d_recipe.resources
+if [[ ${D_CANONICAL_ADMISSION:-0} == 1 ]]; then
+  resource_module=tools.d_recipe.canonical_resources
+fi
+exec "$python" -B -m "$resource_module" "$command" --configuration "$configuration"

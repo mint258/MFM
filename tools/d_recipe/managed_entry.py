@@ -105,6 +105,10 @@ def _query(arguments, scope):
 
 
 def _prepare(configuration_path, job, kind):
+    selected = json.loads(Path(configuration_path).read_text())
+    if selected.get("canonical_admission") is True:
+        from tools.d_recipe.canonical_runtime import prepare_snapshot
+        return prepare_snapshot(selected, job, kind)
     from tools.d_recipe.resources import admit_output, execution_site
     from tools.d_recipe.train import publish_summary
     c = json.loads(Path(configuration_path).read_text())
@@ -118,6 +122,10 @@ def _prepare(configuration_path, job, kind):
 
 
 def _request(snapshot, job):
+    selected = json.loads(Path(snapshot).read_text())
+    if selected.get("canonical_admission") is True:
+        from tools.d_recipe.canonical_runtime import request_snapshot
+        return request_snapshot(selected, job)
     from tools.d_recipe.train import publish_summary
     c = json.loads(Path(snapshot).read_text())
     if c["safe_exit_control"]["job_id"] != str(job):
@@ -189,6 +197,10 @@ def main():
     if command not in permitted[args.kind]:
         raise ValueError("Use only existing registered D worker commands")
     configuration = json.loads(Path(args.configuration).read_text())
+    if configuration.get("canonical_admission") is True:
+        os.environ["D_CANONICAL_ADMISSION"] = "1"
+    else:
+        os.environ.pop("D_CANONICAL_ADMISSION", None)
     snapshot, _ = runtime_payload(configuration, job, args.kind)
     worker = _worker_command(args.kind, command, snapshot, args)
     helper = [args.metadata_python, "-B", "-m", "tools.d_recipe.managed_entry",
