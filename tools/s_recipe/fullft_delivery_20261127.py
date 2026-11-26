@@ -24,7 +24,7 @@ def progress(delivered):
         lines.append(f"| {item['point']} | {value['scratch_improvement_seed_mean']:.6f} | "
             f"{value['ensemble_scratch_improvement']:.6f} | [{lo:.6f}, {hi:.6f}] |")
     lines += ['', '点估计是三种子分数的均值；平均预测及其CI属于另一统计量，分列报告。E1的选择只使用另行保存的真实seed-mean抽样CI，不用这里的平均预测CI替代。', '',
-        f'表中完整点评测覆盖{len(delivered)}/16点、{len(delivered)*12}/192个fit；其他点内的部分fit见执行进展JSON。各臂相对B0及S-G1逐任务配对对比仍待相应参照点汇总，不据部分点选择配方或k*。', '',
+        f'表中完整点评测覆盖{len(delivered)}/16点、{len(delivered)*12}/192个fit；其他点内的部分fit见执行进展JSON。已闭合的配对对比见[FULL_FINETUNING_CONTRASTS.md](FULL_FINETUNING_CONTRASTS.md)，其余待对应点完成；不据部分点选择配方或k*。', '',
         '| 点 | 任务 | 原单位MAE均值 | MAE种子标准差 | scratch改善均值 | 平均预测改善95%CI |',
         '| --- | --- | ---: | ---: | ---: | --- |']
     for item in delivered:

@@ -1,0 +1,86 @@
+{
+  "task_rows": [
+    {
+      "left": "S_R1_3M",
+      "right": "S_B0_3M",
+      "task": "qm9.U0_atom",
+      "delta_seed_mean": -0.04193853485109056,
+      "tau": 0.030527144638130995,
+      "delta_ensemble": -0.04460268346306151,
+      "ensemble_ci_lower": -0.057750308361034286,
+      "ensemble_ci_upper": -0.03243092885341435,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "difference_of_scores_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct"
+    },
+    {
+      "left": "S_R1_3M",
+      "right": "S_B0_3M",
+      "task": "qm9.homo",
+      "delta_seed_mean": -0.0018978144570293565,
+      "tau": 0.017311692127126663,
+      "delta_ensemble": -0.0041815132405828015,
+      "ensemble_ci_lower": -0.020445148139276545,
+      "ensemble_ci_upper": 0.013574297174450634,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "difference_of_scores_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct"
+    },
+    {
+      "left": "S_R1_3M",
+      "right": "S_B0_3M",
+      "task": "exp.LogD",
+      "delta_seed_mean": 0.002178746077349858,
+      "tau": 0.021136713377096848,
+      "delta_ensemble": -0.013678770154565478,
+      "ensemble_ci_lower": -0.03816363039594755,
+      "ensemble_ci_upper": 0.01115877875339985,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "difference_of_scores_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct"
+    },
+    {
+      "left": "S_R1_3M",
+      "right": "S_B0_3M",
+      "task": "exp.LogS",
+      "delta_seed_mean": 0.00772467756372569,
+      "tau": 0.012932141858408484,
+      "delta_ensemble": -0.0011544600126588977,
+      "ensemble_ci_lower": -0.03074954173272627,
+      "ensemble_ci_upper": 0.030958241505576165,
+      "bootstrap_defined": 1000,
+      "ci_estimand": "difference_of_scores_of_mean_predictions",
+      "interpretation": "Descriptive; seed-mean decision point and ensemble CI are distinct"
+    }
+  ],
+  "aggregate": {
+    "delta_seed_mean": -0.008483231416761092,
+    "delta_ensemble": -0.015904356717717172,
+    "ensemble_ci_lower": -0.02725786685442408,
+    "ensemble_ci_upper": -0.004375425728846332,
+    "bootstrap_defined": 1000,
+    "ci_estimand": "difference_of_four_task_mean_scores_of_three_seed_mean_predictions",
+    "point_estimand": "difference_of_four_task_means_of_three_seed_scores",
+    "ordinary_fullft_is_descriptive": true,
+    "E1_decision_uses_separate_seed_mean_draws": true
+  },
+  "status": "COMPLETE",
+  "left": "S_R1_3M",
+  "right": "S_B0_3M",
+  "job_id": null,
+  "native_handle": "S_R1_fullft_contrasts_native_20261127_attempt0",
+  "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_R1_fullft_contrasts_native_20261127_attempt0/record.json",
+  "authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md; subset full-reference pairs also20261123C",
+  "source_deliveries": [
+    "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/results/s_recipe/full_finetune/S_R1_3M.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/results/s_recipe/full_finetune/S_B0_3M.json"
+  ],
+  "original_retained_primary_deliveries": [
+    "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/fullft_delivery_20261127/S_R1_3M_primary.json",
+    "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/fullft_delivery_20261127/S_B0_3M_primary.json"
+  ],
+  "new_fits": 0,
+  "new_bootstrap_draws": 0,
+  "original_prediction_files_read": 0,
+  "interpretation": "Descriptive FT comparison; original frozen S recipe decisions unchanged"
+}

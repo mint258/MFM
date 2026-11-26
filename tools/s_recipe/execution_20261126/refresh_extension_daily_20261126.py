@@ -52,6 +52,8 @@ if (C/'e1_s_rule_check_20261127.json').exists():
     runpy.run_path(str(C/'deliver_execution_progress_20261127.py'),run_name='__main__')
 execution=read(R/'results/s_recipe/execution_progress_20261127.json')
 completed_points=len(list((R/'results/s_recipe/full_finetune').glob('*.json')))
+from conformer_mean_reporting_20261127 import means
+actual_means=means()
 active=[row for row in rows if row['summary_status']!='COMPLETE']
 subset_wait=('T5在节点20本次RAM准入未通过（两项预留128GiB＋余量16GiB，现场可用约107GiB），未启动、不降在跑预留；待合适资源。'
     if 'S_subset_T5_s0_9M' not in read(C/'execution.json')['runs'] else '')
@@ -63,7 +65,9 @@ lines=['# S 配方研究 · '+stamp.date().isoformat()+' · '+stamp.strftime('%H
     str(len(execution['completed_original9M_prefix_statistics']))+'/16点。详情见[微调](../FULL_FINETUNING_PROGRESS.md)及[执行进展](../../../results/s_recipe/execution_progress_20261127.json)。', '',
     '在跑与预计：'+'；'.join(progress(row) for row in active)+
     '。微调在登记范围内按E1优先补位；训练结束估计取原首1000步速度，读出/统计另计。', '',
-    '人群：E1 TRAIN=1192951；原P T5/T6与S交集249744/499456，不重抽。两条子集9M及其评测仍在登记范围内，E1争卡优先。', '',
+    '人群：E1 TRAIN=1192951；实际平均PM7构象数（上限1/2/5/10）='+
+    '/'.join(format(actual_means[str(k)],'.9f') for k in (1,2,5,10))+
+    '；原P T5/T6与S交集249744/499456，不重抽。两条子集9M及其评测仍在登记范围内，E1争卡优先。', '',
     '真实首1000步（样本/秒；整卡点均W，非整段能耗）：']
 for row in rows:
     hardware=row['hardware']
