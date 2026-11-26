@@ -1,0 +1,23 @@
+{
+  "execution_id": "ssh:D_canonical_GPU_transport_contracts_20261126_attempt2",
+  "node": "compute-0-19",
+  "cores": [
+    65
+  ],
+  "expected_seconds": 60,
+  "timeout_seconds": 1800,
+  "cleanup_seconds": 180,
+  "ram_peak_bytes": 536870912,
+  "root_future_bytes": 1048576,
+  "receipt": "/tmp/d_recipe_20261126_canonical_GPU_transport_contracts_attempt2/receipt.json",
+  "line": "D",
+  "worker_argv": [
+    "/usr/bin/env",
+    "TMPDIR=/tmp/d_recipe_20261126_canonical_GPU_transport_contracts_attempt2",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/usr/bin/python3",
+    "-SB",
+    "-c",
+    "import ast,json,os,subprocess,sys,time,unittest;from pathlib import Path;os.chdir(\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\");sys.path[:0]=[\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\",\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tests\"];ast.parse(Path('tools/d_recipe/managed_entry.py').read_text());subprocess.run(['/bin/bash','-n','tools/d_recipe/run.sbatch'],check=True);s=unittest.defaultTestLoader.loadTestsFromName('test_d_recipe_canonical_runtime');t=time.monotonic();r=unittest.TextTestRunner(verbosity=1).run(s);print(json.dumps(dict(stage='D_CANONICAL_GPU_TRANSPORT_CONTRACTS',tests_run=r.testsRun,failures=len(r.failures),errors=len(r.errors),seconds=time.monotonic()-t)),flush=True);sys.exit(not r.wasSuccessful())"
+  ]
+}
