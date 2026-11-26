@@ -1,0 +1,158 @@
+{
+  "schema": "D_SAFE_CONTINUATION_PLAN_V1",
+  "status": "PREPARED_NOT_RUNNABLE_NOT_SUBMITTED",
+  "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
+  "source_report": "results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json",
+  "checkpoint": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M_resume1M_gpu20_20261124/training/samples_2090752.pt",
+    "samples": 2090752,
+    "optimizer_updates": 65336,
+    "bytes": 205552213,
+    "UID": 1278,
+    "remaining_samples": 909248,
+    "tensors_read_for_preparation": false
+  },
+  "scientific_configuration": {
+    "arm": "D-L1",
+    "weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "p_recipe": {
+      "element_residual": true,
+      "pma_pooling": true,
+      "anti_collapse": true,
+      "gamma": 0.1597693323500406
+    },
+    "pooling": "registry",
+    "lr": 0.0003,
+    "k": 10,
+    "root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+    "condition": "D",
+    "order": "fixed_random",
+    "training_view": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json",
+    "distance_bias": "C1-0",
+    "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M_resume1M_gpu20_20261124/training",
+    "run": "d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124",
+    "subset_seed": 20261112,
+    "source": "PM7",
+    "schedule": "cosine",
+    "workers": 3,
+    "microbatch_size": 32,
+    "stage": 2,
+    "head_form": "H1",
+    "batch_size": 32,
+    "round": 2,
+    "normalizations": "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json",
+    "corpus": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/corpus/corpus.json",
+    "subset_molecules": null,
+    "seed": 0,
+    "mean_labels": false,
+    "views": "three",
+    "warmup_fraction": 0.02,
+    "schema": "D_RECIPE_RUN_V1",
+    "samples": 3000000,
+    "persist_features": false,
+    "activation_checkpointing": false,
+    "screening_samples": 3000000,
+    "confirmation_multiplier": 3,
+    "confirmation_samples": 9000000,
+    "gradient_accumulation_steps": 1,
+    "lr_sample_axis": "completed_samples",
+    "clip_calibration": {
+      "calibration_samples": 150000,
+      "window_start_samples": 60000,
+      "initial_clip": 281.7,
+      "quantile": 0.99,
+      "sample_axis": "optimizer_step_start"
+    },
+    "study_revision": "d_recipe_20261120",
+    "run_prefix": "d_recipe_20261120_",
+    "results_directory": "results/d_recipe",
+    "control_directory": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120",
+    "checkpoint_policy": "screen_final_confirmation_milestones",
+    "confirmation_checkpoint_interval": 1000000,
+    "screening_checkpoint_interval": 1000000,
+    "components": [
+      "A1",
+      "B3",
+      "B4"
+    ],
+    "evaluation_samples": [
+      3000000
+    ],
+    "checkpoint_samples": [
+      1000000,
+      2000000,
+      3000000
+    ],
+    "fields": null,
+    "label_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L1/label_parameters.json",
+    "execution": "Slurm",
+    "statistics_backend": "slurm_cpu",
+    "readout_store": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json",
+    "reference_manifest": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/predictions.json",
+    "persist_final_features": false,
+    "step_overhead": {
+      "grouped_fields": true,
+      "head_checkpointing": false,
+      "distance_tiling": true,
+      "prepared_input": false
+    },
+    "output_filesystem": "/share",
+    "storage_peak_bytes": 42074762973,
+    "share_output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120",
+    "share_storage_peak_bytes": 42074762973,
+    "minimum_free_gpu_mib": 14000,
+    "preregistration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/preregistration.json",
+    "d_recipe": {
+      "enabled": true,
+      "library": "L1",
+      "include_3d": true,
+      "graph_mask_enabled": false,
+      "pma_compatibility": true,
+      "block_weights": {
+        "graph_2d": 0.7083333333333334,
+        "molecule_3d": 0.25,
+        "atom_sasa": 0.041666666666666664
+      },
+      "scientific_binding": {
+        "preregistration": "configs/d_recipe/preregistration.json",
+        "native_field_policy": "Original D20/D3 and 2026-11-07 D4; source-disabled fields unchanged",
+        "target_clip_sigma": 6
+      },
+      "label_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L1/label_parameters.json",
+      "wide_manifest": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores/final_manifest_zero_scale_amendment_20261122.json"
+    },
+    "exit_root_log_future_bytes": 134217728,
+    "local_storage_peak_bytes": 8589934592,
+    "resume": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M_resume1M_gpu20_20261124/training/samples_2090752.pt",
+    "resume_from_output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M_resume1M_gpu20_20261124/training",
+    "infrastructure_continuation": {
+      "source_job": 4539402,
+      "source_ack": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/exit_control/d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124/job_4539402/ack.json",
+      "source_samples": 2090752,
+      "source_updates": 65336,
+      "reason": "Original real-TimeLimit cooperative safe handoff",
+      "same_arm": true,
+      "same_seed": true,
+      "same_budget": true,
+      "complete_optimizer_sampler_Torch_and_CUDA_RNG_and_clip_state_preserved": true,
+      "scientific_failure": false
+    }
+  },
+  "operational_fields_must_bind_before_launch": [
+    "Actual healthy node and assigned GPU UUID",
+    "Correct Slurm or native SSH backend and actual parent identity",
+    "Fresh own canonical node_ram/node_disk/shared_fs claims and check_with_timeout admission",
+    "Fresh real root/tmp available bytes/inode and actual UID quota",
+    "New node-local owned root and diagnostic_feature_root, keep original8GiB local bound",
+    "Original source run/output retained; no duplicate producer; current original PIDs and job cgroup already absent",
+    "Actual TimeLimit, cleanup at least900s and new job-specific SAVE_AND_EXIT paths",
+    "Updated CPU SSH postprocess transport after true3M readout success"
+  ],
+  "launch_submitted": false,
+  "scientific_recipe_frozen": false,
+  "independent_checkpoint_QA": false
+}
