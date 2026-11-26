@@ -46,7 +46,7 @@ def intervention_ready(value,arm):
  if arm=='I2' and recommend!=('ADOPT' if verdict=='win' else 'NOT_ADOPT'):return False
  return verdict in {'win','tie','loss'} and recommend in {'DROP','RETAIN','ADOPT','NOT_ADOPT'}
 
-def validate_bundle(b):
+def validate_bundle(b,*,require_external_A4=True):
  errors=[]
  def need(condition,label):
   if not condition:errors.append(label)
@@ -65,7 +65,7 @@ def validate_bundle(b):
  a5=b.get('A5') or {}
  need(valid_timebox_skip(a5) or (a5.get('status')=='COMPLETE' and a5.get('common_cohort_verified') is True and a5.get('full_inchikey_exact_join') is True),'A5 completed common geometry or authorized timebox exception')
  a4=b.get('A4') or {}
- need(a4.get('status')=='COMPLETE' and bool(a4.get('source_delivery')) and bool(a4.get('rows')) and a4.get('new_computation_performed') is False,'external D section5 A4 delivery, no P-side refit')
+ if require_external_A4:need(a4_ready(a4),'external D section5 A4 delivery, no P-side refit')
  for arm in ['I1']+(['I2'] if a3.get('I2_condition',{}).get('I2_triggered') is True else []):
   decision=b.get(arm) or {};need(intervention_ready(decision,arm),arm+' original decision and conditional-seed closure')
   if valid_timebox_skip(decision):continue
@@ -81,7 +81,7 @@ def validate_bundle(b):
  if errors:raise ReportNotReady('Final REPORT waits for: '+'; '.join(errors))
  return b
 
-def require_closed(repo):
+def require_closed(repo,*,require_external_A4=True):
  repo=Path(repo)
  e1=repo/'configs/p_recipe/E1_k_star.json'
  if not e1.is_file() or json.loads(e1.read_text()).get('status')!='COMPLETE':
@@ -104,7 +104,7 @@ def require_closed(repo):
  for arm in ['I1','I2']:
   b[arm]=read(d/(arm+'_decision.json'));b[arm+'_F']=read(d/(arm+'_F_primary.json'));b[arm+'_composition']=read(d/(arm+'_composition_primary.json'))
  b['E1']=value
- return validate_bundle(b)
+ return validate_bundle(b,require_external_A4=require_external_A4)
 
 def number(value):
  return '—' if value in (None,'') else format(float(value),'.8g')
@@ -116,8 +116,8 @@ def table(headers,rows):
 def interval(row,low='CI_low',high='CI_high'):
  return '['+number(row.get(low))+', '+number(row.get(high))+']'
 
-def render_sections(repo,b):
- validate_bundle(b);d='../../results/p_recipe/fixed_20261115/analysis_20261122/'
+def render_sections(repo,b,*,include_external_A4=True):
+ validate_bundle(b,require_external_A4=include_external_A4);d='../../results/p_recipe/fixed_20261115/analysis_20261122/'
  text=['## 微调与冻结读出','',
  'F：原开发划分与四任务固定；full/top2/scratch为三种子、50轮、批32、FP32/TF32关闭；编码器lr1e-4、头lr1e-3，AdamW wd0.01、betas(0.9,0.999)，5% warmup后cosine至0，内部10%按seed20261112选轮。frozen复用原seed0、30轮常数lr的R3，协议差异保留。',
  '点估计采用三个种子分数均值及标准差；CI是三个种子平均预测的分数，不是种子均值的CI。bootstrap为1,000次整分子配对、seed20261025。τ=max(0.01,0.05×较大S)，S以共同scratch为参照；随机编码器frozen E_ref分数另列。区间跨0不证明等效，也不单独证明信息未丢失。','',
@@ -165,11 +165,24 @@ def render_sections(repo,b):
    '共同UFF人群接收'+str(a5['accepted_members'])+'，两臂同时剔除'+str(a5['excluded_members'])+'；原因：'+json.dumps(a5['exclusion_reasons'],ensure_ascii=False)+'。原几何列沿用原闭合主表及其保留draws；UFF列两臂使用同一合格人群。','',
    '预注册描述：'+a5['interpretation']+'。冻结配方、T4判定和seed1触发均不改变。','',
    f'[封存S-prime UFF共同人群、排除数及配对Δ/CI]({d}A5_primary.json)。','']
- text+=['### D第5节直接描述符与组成参照','',
- '以下仅转录D线已闭合交付，P侧不重拟合；覆盖与不可比较任务按原交付标识。','',
- f'[逐任务上限参照与R3落后标记]({d}A4_descriptor_upper_controls.json)。来源：'+str(b['A4']['source_delivery'])+'。','',
+ text+=['',render_a4_section(b['A4']) if include_external_A4 else '<!-- P_A4_SECTION_PENDING -->','',
  '新增章节消费已闭合主统计；不重跑旧读出、不另生成bootstrap、也不重算P归一化。','']
  if b.get('E1') is not None:
   from e1_report import render as render_e1
   text+=['',render_e1(b['E1'])]
  return '\n'.join(text)
+
+
+def a4_ready(value):
+ return (isinstance(value,dict) and value.get('status')=='COMPLETE'
+         and bool(value.get('source_delivery')) and bool(value.get('rows'))
+         and value.get('new_computation_performed') is False)
+
+
+def render_a4_section(value):
+ if not a4_ready(value):raise ReportNotReady('Final REPORT waits for: external D section5 A4 delivery, no P-side refit')
+ rows=value['rows'];columns=list(dict.fromkeys(k for row in rows for k in row))
+ def display(v):return json.dumps(v,ensure_ascii=False) if isinstance(v,(dict,list)) else str(v)
+ return '\n'.join(['### D第5节直接描述符与组成参照','','仅转录D线已闭合交付，覆盖与不可比较任务保留原标识；P侧不重拟合。','',
+  table(columns,[[display(row.get(k,'—')) for k in columns] for row in rows]),'',
+  '[逐任务原始对照](../../results/p_recipe/fixed_20261115/analysis_20261122/A4_descriptor_upper_controls.json)。来源：'+str(value['source_delivery'])+'。',''])

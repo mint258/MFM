@@ -207,11 +207,11 @@ def seed_sections(states,verdict):
         table(['比较','A','B','种子数','平均A R3','平均B R3','平均ΔR3','95% CI','判定'],decisions),'']
 
 
-def render(plan, verdict, states, selection, code_commit):
+def render(plan, verdict, states, selection, code_commit, *, require_external_A4=True):
     supplemental_section = ''
     if (REPO / 'docs/p_recipe/USER_DIRECTIVE_20261122B.md').is_file():
         from final_report_22B import require_closed, render_sections
-        supplemental_section = render_sections(REPO, require_closed(REPO))
+        supplemental_section = render_sections(REPO, require_closed(REPO,require_external_A4=require_external_A4),include_external_A4=require_external_A4)
     closeout=plan.get('selection_authority')==CLOSEOUT
     budget_section = ''
     if closeout and (REPO / 'docs/p_recipe/USER_DIRECTIVE_20261121.md').is_file():
@@ -405,6 +405,15 @@ def main():
     args = parser.parse_args()
     if Path(args.output).exists():
         raise FileExistsError('Final REPORT already exists; do not generate it twice')
+    sealed = REPO / 'results/p_recipe/independent_delivery_20261126.json'
+    if sealed.is_file():
+        from independent_delivery import assemble_final
+        content = assemble_final(REPO, read(sealed), args.code_commit)
+        with Path(args.output).open('x') as stream:
+            stream.write(content)
+        print(json.dumps(dict(report=args.output,source='original sealed P sections plus actual A4',
+                              checkpoint_hashes_reused=True,new_scientific_computation=False)),flush=True)
+        return
     content, configs, summaries, results = render(read(args.plan), read(args.verdict),
                                                 [read(path) for path in args.states],
                                                 read(args.selection), args.code_commit)
