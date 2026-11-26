@@ -1,0 +1,23 @@
+{
+  "execution_id": "ssh:D_L1_continuation_metadata_20261126",
+  "node": "compute-0-19",
+  "cores": [
+    65
+  ],
+  "expected_seconds": 60,
+  "timeout_seconds": 1800,
+  "cleanup_seconds": 180,
+  "ram_peak_bytes": 536870912,
+  "root_future_bytes": 1048576,
+  "receipt": "/tmp/d_recipe_20261126_L1_continuation_metadata/receipt.json",
+  "line": "D",
+  "worker_argv": [
+    "/usr/bin/env",
+    "TMPDIR=/tmp/d_recipe_20261126_L1_continuation_metadata",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/usr/bin/python3",
+    "-SB",
+    "-c",
+    "import ast,json,os,stat,sys,time\nfrom pathlib import Path\nrepo=Path(\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\")\nsys.path.insert(0,str(repo))\nfrom tools.d_recipe.training import prepare_runtime\npath=repo/\"configs/d_recipe/continuations/L1_from2090752_GPU20_20261126.json\"\nc=json.loads(path.read_text())\noriginal=json.loads((Path(c[\"output\"])/\"configuration.json\").read_text())\na,b=prepare_runtime(original),prepare_runtime(c)\nassert a[\"d_recipe\"][\"scientific_binding\"]==b[\"d_recipe\"][\"scientific_binding\"]\nfor key in (\"arm\",\"seed\",\"samples\",\"batch_size\",\"microbatch_size\",\"lr\",\"betas\",\"weight_decay\",\"warmup_fraction\",\"clip_calibration\",\"p_recipe\",\"step_overhead\",\"run\",\"output\"):\n assert a[key]==b[key],key\nack=json.loads(Path(c[\"infrastructure_continuation\"][\"source_ack\"]).read_text())\ninfo=Path(c[\"resume\"]).lstat()\nassert stat.S_ISREG(info.st_mode) and info.st_uid==1278 and info.st_size==205552213\nassert ack[\"checkpoint\"]==c[\"resume\"] and ack[\"clock\"][\"samples_consumed\"]==2090752 and ack[\"clock\"][\"optimizer_updates\"]==65336\nassert c[\"resume_from_output\"]==str(Path(c[\"resume\"]).parent)\nresident=repo/\"configs/d_recipe/launches/D-L1_from2090752_GPU20_20261126_resident.sbatch\"\ntree=ast.parse(resident.read_text())\nvalues={n.targets[0].id:ast.literal_eval(n.value) for n in tree.body if isinstance(n,ast.Assign) and isinstance(n.targets[0],ast.Name) and n.targets[0].id.startswith(\"_\") and n.targets[0].id in (\"_LIFECYCLE_SOURCE\",\"_WORKER_COMMAND\",\"_ROOT_FUTURE_BYTES\",\"_ALLOWED_NODES\",\"_COOPERATIVE\")}\nassert values[\"_LIFECYCLE_SOURCE\"]==(repo/\"tools/d_recipe/exit_lifecycle.py\").read_text()\nassert values[\"_ROOT_FUTURE_BYTES\"]==c[\"local_future_bytes\"]==8*2**30+128*2**20\nassert values[\"_ALLOWED_NODES\"]==[c[\"node\"]] and values[\"_COOPERATIVE\"] is True\nassert str(path) in values[\"_WORKER_COMMAND\"] and c[\"gpu_uuid\"] in values[\"_WORKER_COMMAND\"]\nprint(json.dumps(dict(stage=\"D_L1_CONTINUATION_METADATA\",scientific_bindings_equal=True,complete_2090752_checkpoint_metadata=True,embedded_lifecycle_current=True,original_run_and_output_retained=True,source_config=str(path),native_GPU_submitted=False,independent_tensor_QA=False)),flush=True)\n"
+  ]
+}
