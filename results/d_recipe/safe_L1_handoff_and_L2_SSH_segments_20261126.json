@@ -1,6 +1,6 @@
 {
   "schema": "D_OPERATIONAL_SCHEDULING_UPDATE_20261126_V1",
-  "observed_at_UTC": "2026-11-26T13:35:45.415Z",
+  "observed_at_UTC": "2026-11-26T13:55:02.949Z",
   "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
   "L1": {
     "status": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
@@ -84,11 +84,11 @@
     "remaining_samples": 909248,
     "scientific_budget": 3000000,
     "seed": 0,
-    "next_GPU_admission_UTC": "2026-11-26T13:54:45.658Z",
+    "next_GPU_admission_UTC": "2026-11-26T14:25:00.743Z",
     "latest_admission": {
-      "observed_at_UTC": "2026-11-26T13:24:45.658Z",
+      "observed_at_UTC": "2026-11-26T13:55:00.743Z",
       "GPU20_target_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-      "used_MiB": 441,
+      "used_MiB": 443,
       "total_MiB": 49140,
       "own_lock_free": true,
       "allocated_CPUs": 101,
@@ -96,18 +96,18 @@
       "required_CPUs": 5,
       "required_own_RAM_bytes": 68719476736,
       "RAM_admission": "REFUSED",
-      "available_RAM_bytes": 83356676096,
+      "available_RAM_bytes": 84834574336,
       "own_candidate_RAM_released_to_zero": true,
       "new_GPU_job_submitted": false,
       "preferred_group": "0/1/3/4 allocated with no CPU;5/6/7 retained CUDA contexts",
-      "node22": "26158/32607MiB,own_lock_busy,no allocated CPU available",
-      "next_GPU_admission_UTC": "2026-11-26T13:54:45.658Z",
+      "node22": "26150/32607MiB,own_lock_busy,no allocated CPU available",
+      "next_GPU_admission_UTC": "2026-11-26T14:25:00.743Z",
       "allocatable_CPUs": 3,
       "ordinary_sbatch_candidate_currently_eligible": false,
       "required_transport_if_RAM_admits": "SSH GPU plus matched same-task sbatch checkpoint takeover; original5CPU configuration retained",
       "native_GPU_transport": "PREPARED_TESTED_WITH_REAL_CPU_PROCESS_NO_GPU_RUN",
       "native_GPU_plan": "configs/d_recipe/continuations/L1_GPU20_native_20261126_plan.json",
-      "admission_deficit_bytes": 71262146560,
+      "admission_deficit_bytes": 69784248320,
       "resource_probe_outer_timeout_seconds": 100,
       "canonical_inner_check_timeout_seconds": 60,
       "ordinary_sbatch_ineligible_reasons": [
@@ -123,6 +123,18 @@
         "verified_actual_conditions": "3 allocatable CPUs for required5, and own64GiB RAM admission refused",
         "scientific_configuration_changed": false,
         "actual_GPU_run_affected": false
+      },
+      "preferred_group_context_ownership_observation": {
+        "observed_at_UTC": "2026-11-26T13:43:58Z",
+        "nodes": [
+          5,
+          6,
+          7
+        ],
+        "existing_contexts_owned_by_other_UID": true,
+        "own_D_stray_CUDA_contexts_found": false,
+        "nonowner_command_or_environment_read": false,
+        "processes_modified": false
       }
     },
     "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json",
@@ -702,20 +714,20 @@
       "log_tail": "{\"phase\": \"SSH_RESIDENT_STARTED\", \"schema\": \"P_CPU_SSH_RUNTIME_20261126_V1\", \"status\": \"RUNNING\", \"execution_id\": \"ssh:P_D_L2_A1_segment4_20261126\", \"node\": \"compute-0-11\", \"supervisor\": {\"pid\": 288575, \"start_ticks\": 2282094908, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-995.scope\\n\", \"state\": \"R\"}, \"parent\": {\"pid\": 288574, \"start_ticks\": 2282094908, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-995.scope\\n\", \"state\": \"S\"}, \"session_id\": 288574, \"cores\": [37], \"idle_fraction\": {\"37\": 1.0}, \"MemAvailable\": 397908697088, \"started_at\": 1795699939.8457718, \"hard_end_epoch\": 1795721529.8457718, \"timeout_seconds\": 21600, \"cleanup_seconds\": 180, \"original_pending_job\": null, \"worker_argv\": [\"/usr/bin/env\", \"TMPDIR=/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment4_20261126\", \"PYTHONDONTWRITEBYTECODE=1\", \"PYTHONPATH=/share/home/zixiao/descriptor_analysis/MFM_d_recipe:/share/home/zixiao/descriptor_analysis/MFM_d_recipe/current:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/current:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps\", \"/share/home/zixiao/.conda/envs/chemprop/bin/python\", \"-B\", \"-m\", \"tools.d_recipe.reference_segment_guarded\", \"--configuration\", \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/launches/L2_A1_segment4_20261126.json\"], \"scientific_code_and_outputs_preserved\": true}\n{\"stage\": \"D_A1_COLLECT\", \"closed_rows\": 1069312, \"total_rows\": 1194228}\n{\"stage\": \"D_A1_COLLECT\", \"closed_rows\": 1069568, \"total_rows\": 1194228}\n"
     },
     "latest_native_progress": {
-      "observed_at_epoch": 1795700145.4156258,
+      "observed_at_epoch": 1795701302.949202,
       "receipt_status": "RUNNING",
       "returncode": null,
       "started_at_epoch": 1795699939.8457718,
       "hard_end_epoch": 1795721529.8457718,
-      "closed_rows": 1070848,
+      "closed_rows": 1084416,
       "collection_status": "COLLECTING",
       "last_attempt": {
         "job_id": null,
         "node": "compute-0-11",
         "start_row": 1069056,
         "state": "RUNNING",
-        "closed_rows": 1070848,
-        "elapsed_seconds": 153.4865494184196
+        "closed_rows": 1084416,
+        "elapsed_seconds": 1320.4741075895727
       },
       "actual_supervisor": {
         "pid": 288575,
@@ -739,10 +751,10 @@
       "remaining_children": null,
       "actual_cpu_seconds": null,
       "wall_seconds": null,
-      "actual_root_available": 52880183296,
-      "actual_root_inodes": 36569770,
-      "own_local_allocated": 13771141120,
-      "own_local_remaining_future": 3408728064
+      "actual_root_available": 52708188160,
+      "actual_root_inodes": 36569769,
+      "own_local_allocated": 13944061952,
+      "own_local_remaining_future": 3235807232
     },
     "original_scientific_binding_unchanged": true,
     "partial_TRAIN_fitting": false,
