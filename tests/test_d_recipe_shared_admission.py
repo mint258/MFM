@@ -9,6 +9,23 @@ from tools.d_recipe import shared_admission as a
 
 
 class DSharedAdmissionTests(unittest.TestCase):
+    def test_owned_local_phase_does_not_use_historical_shared_or_peer_forecasts(self):
+        with tempfile.TemporaryDirectory() as directory:
+            transport = self.fixture(directory)
+            local = Path(directory) / "d_recipe_fixture"
+            local.mkdir()
+            transport.update(local_output_root=str(local), registered_model_share_future_bytes=10**30)
+            with patch.object(a.shared_guard, "REGISTRY", Path(directory)), \
+                 patch.object(a, "LOCAL_BASE", Path(directory)), \
+                 patch.object(a.socket, "gethostname", return_value=transport["node"]), \
+                 patch.object(a.time, "time", return_value=100), \
+                 patch.object(a.shared_guard, "_same_device", return_value={"/", "/tmp"}), \
+                 patch.object(a.shared_guard, "check_with_timeout") as check:
+                result = a.admit(transport, [local / "collection"])
+            self.assertEqual(result["mounts"], [])
+            self.assertEqual([(x.args[1], x.args[2]) for x in check.call_args_list],
+                             [("node_ram", 100), ("node_disk", 20)])
+
     def fixture(self, directory):
         transport = dict(node="compute-0-19", reservation_ids=["ram", "tmp", "out"],
                          ram_peak_bytes=100, local_future_bytes=20,
