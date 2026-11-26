@@ -1,0 +1,63 @@
+{
+  "schema": "P_HYBRID_SCHEDULING_V1",
+  "nodes": [
+    "compute-0-0",
+    "compute-0-1",
+    "compute-0-2",
+    "compute-0-3",
+    "compute-0-4",
+    "compute-0-5",
+    "compute-0-6",
+    "compute-0-7",
+    "compute-0-20",
+    "compute-0-22"
+  ],
+  "partition": "gpu",
+  "exclusive": false,
+  "cpu_overhead": 2,
+  "maximum_existing_gpu_memory_fraction": 0.3,
+  "minimum_free_gpu_mib": 18432,
+  "gpu_preference": [
+    "5090",
+    "4090",
+    "3090"
+  ],
+  "small_task_maximum_samples": 3000000,
+  "small_task_preferred_nodes": [
+    "compute-0-0",
+    "compute-0-1",
+    "compute-0-2",
+    "compute-0-3",
+    "compute-0-4",
+    "compute-0-5",
+    "compute-0-6",
+    "compute-0-7"
+  ],
+  "large_task_preferred_nodes": [
+    "compute-0-22",
+    "compute-0-20"
+  ],
+  "cpu_only_nodes": [
+    "compute-0-8",
+    "compute-0-9",
+    "compute-0-10",
+    "compute-0-11",
+    "compute-0-12",
+    "compute-0-13",
+    "compute-0-14",
+    "compute-0-15",
+    "compute-0-16",
+    "compute-0-17",
+    "compute-0-18",
+    "compute-0-19"
+  ],
+  "disabled_nodes": [
+    "compute-0-21"
+  ],
+  "fallback_to_other_group_without_waiting": true,
+  "small_nodes_require_free_cpus_and_no_gpu_context": true,
+  "handoff": "checkpoint_after_committed_optimizer_update",
+  "checkpoint_protocol": "atomic_publish_and_acknowledge",
+  "standby_if_native": true,
+  "authority": "AGENTS.md:2026-11-18 GPU by sample budget and CPU-only nodes"
+}

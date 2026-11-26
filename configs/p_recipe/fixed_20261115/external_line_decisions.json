@@ -1,0 +1,323 @@
+{
+  "schema": "P_RECIPE_EXTERNAL_DECISIONS_V1",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+  "observed_at_utc": "2026-11-20 09:22:14 UTC",
+  "external_line_decisions_complete": true,
+  "recipe_frozen": true,
+  "external_adoptions": [],
+  "external_line_decisions": {
+    "heads": {
+      "status": "COMPLETE_FOR_RECIPE_NO_WINNERS_USER_20261119",
+      "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/docs/p_heads/USER_DIRECTIVE_20261119.md",
+      "source_git_blob": "22b78a32ee162b7e8f2f22d3520d8d807c058bec",
+      "adopted_components": [],
+      "component_decisions": [
+        {
+          "arm": "T1",
+          "baseline": "M2 [A1,B3,B4]",
+          "reference_configuration": "configs/p_recipe/fixed_20261115/round3/M2.json",
+          "status": "COMPLETE_TWO_SEEDS",
+          "seed_count": 2,
+          "seed_deltas_R3": [
+            0.004251179229980251,
+            -0.0022619000885155116
+          ],
+          "seed_CI": [
+            [
+              -0.007078817581392126,
+              0.014793625130516982
+            ],
+            [
+              -0.012367245104910263,
+              0.007547898029821682
+            ]
+          ],
+          "seed_deltas_R1": [
+            0.001115213206377974,
+            -0.06252541000781825
+          ],
+          "seed_CI_R1": [
+            [
+              -0.010517873819686894,
+              0.013809469597857244
+            ],
+            [
+              -0.07430686597279726,
+              -0.04962435563598987
+            ]
+          ],
+          "per_seed_R3_scores": [
+            {
+              "candidate": 0.47225381237562564,
+              "reference": 0.4680026331456454
+            },
+            {
+              "candidate": 0.46778791130674247,
+              "reference": 0.470049811395258
+            }
+          ],
+          "verdict": "tie",
+          "R1_verdict": "tie",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T1_deltas.json",
+          "source_git_blob": "3e06f7dbb2af69aab42b4c7f706ddadf7b1d3dd6",
+          "decision_rule": "Owner's original two-seed rule and canonical verdict retained. TIE is not a win or proof of equivalence; no main-line5% rejudging, new pooledCI, probe fitting or resampling.",
+          "current_best_confirmation_required": false,
+          "reference_R3_training_noise": 0.002047178249612591,
+          "producer_jobs": {
+            "seed1_training": 4536378,
+            "status": "Owner-published completed3M/R1/R3 and COMPLETE_TWO_SEEDS"
+          }
+        },
+        {
+          "arm": "T2",
+          "baseline": "B3 [A1,B3]",
+          "reference_configuration": "configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json",
+          "status": "COMPLETE_TWO_SEEDS",
+          "seed_count": 2,
+          "seed_deltas_R3": [
+            -0.007585450322706355,
+            0.0013032523004910535
+          ],
+          "seed_CI": [
+            [
+              -0.016785810164422956,
+              0.0020004774800213097
+            ],
+            [
+              -0.009372422341078549,
+              0.011136945517705965
+            ]
+          ],
+          "seed_deltas_R1": [
+            -0.003421136926090085,
+            0.009722118146321235
+          ],
+          "seed_CI_R1": [
+            [
+              -0.015207643623784359,
+              0.008744198142949395
+            ],
+            [
+              -0.0024079925355455635,
+              0.02278484642280607
+            ]
+          ],
+          "per_seed_R3_scores": [
+            {
+              "candidate": 0.4669179815594994,
+              "reference": 0.47450343188220573
+            },
+            {
+              "candidate": 0.44194477249539066,
+              "reference": 0.4406415201948996
+            }
+          ],
+          "verdict": "tie",
+          "R1_verdict": "tie",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T2_deltas.json",
+          "source_git_blob": "5c8783cdfd148f68119c229442a7645948fd3df5",
+          "decision_rule": "Owner's original two-seed rule and canonical verdict retained. TIE is not a win or proof of equivalence; no main-line5% rejudging, new pooledCI, probe fitting or resampling.",
+          "current_best_confirmation_required": false,
+          "reference_R3_training_noise": 0.03386191168730612,
+          "producer_jobs": {
+            "seed1_training": 4536355,
+            "seed1_training_status": "COMPLETED0:0,23:08:39,3M/R1/R3",
+            "field_copy": 4536289,
+            "field_copy_status": "COMPLETED0:0,4seconds",
+            "comparison": 4536290,
+            "comparison_status": "COMPLETED0:0,2seconds",
+            "status": "Owner-published completed3M/R1/R3 and COMPLETE_TWO_SEEDS"
+          }
+        },
+        {
+          "arm": "T3",
+          "baseline": "B3 [A1,B3]",
+          "seed_count": 2,
+          "seed_deltas_R3": [
+            -0.022013477007160442,
+            -0.00949951975103619
+          ],
+          "seed_CI": [
+            [
+              -0.032053393575519645,
+              -0.012058970924839008
+            ],
+            [
+              -0.018908726064840085,
+              -5.651925868087425e-05
+            ]
+          ],
+          "seed_deltas_R1": [
+            0.0032227614128629845,
+            0.011893479671824803
+          ],
+          "seed_CI_R1": [
+            [
+              -0.008731332850063315,
+              0.014110362564626137
+            ],
+            [
+              -0.0019266658452948156,
+              0.025638475820842884
+            ]
+          ],
+          "verdict": "loss",
+          "R1_verdict": "tie",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T3_deltas.json",
+          "source_git_blob": "3b83bb216c8daec8c56ccbc53408a786825d1d50",
+          "decision_rule": "Owner's original two-seed rule: both R3 CI upper bounds below0 => loss. Retain original per-seed intervals; no main-line rejudging or resampling.",
+          "current_best_confirmation_required": false,
+          "producer_jobs": {
+            "seed1_training": 4536341,
+            "field_copy": 4536613,
+            "comparison": 4536614,
+            "status": "Owner-published complete3M/93750/R1R3 and successful0:0"
+          }
+        },
+        {
+          "arm": "T4",
+          "baseline": "B3 [A1,B3]",
+          "reference_configuration": "configs/p_recipe/fixed_20261115/provisional_B_20261116/round2/B3.json",
+          "status": "COMPLETE_TWO_SEEDS",
+          "seed_count": 2,
+          "seed_deltas_R3": [
+            -0.022990684550554807,
+            0.008936110520611162
+          ],
+          "seed_CI": [
+            [
+              -0.03329311920502372,
+              -0.012381142009745813
+            ],
+            [
+              -0.0004768960235272762,
+              0.018201008294255163
+            ]
+          ],
+          "seed_deltas_R1": [
+            -0.040332257442023234,
+            -0.03718610119099747
+          ],
+          "seed_CI_R1": [
+            [
+              -0.05218049930015768,
+              -0.02843549551397923
+            ],
+            [
+              -0.05178440010141949,
+              -0.02374540391812444
+            ]
+          ],
+          "per_seed_R3_scores": [
+            {
+              "candidate": 0.4515127473316509,
+              "reference": 0.47450343188220573
+            },
+            {
+              "candidate": 0.44957763071551077,
+              "reference": 0.4406415201948996
+            }
+          ],
+          "verdict": "tie",
+          "R1_verdict": "loss",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/results/p_heads/T/T4_deltas.json",
+          "source_git_blob": "e3611e9ce5ca37defbdb49fb4550406b914706c2",
+          "decision_rule": "Owner's original two-seed rule and canonical verdict retained. TIE is not a win or proof of equivalence; no main-line5% rejudging, new pooledCI, probe fitting or resampling.",
+          "current_best_confirmation_required": false,
+          "reference_R3_training_noise": 0.03386191168730612,
+          "producer_jobs": {
+            "seed1_training": 4536400,
+            "status": "Owner-published completed3M/R1/R3 and COMPLETE_TWO_SEEDS"
+          }
+        }
+      ],
+      "note": "11-19 authority closes T5 on seed0 with no significant improvement and cancels its seed1 (owner executes). T1\u2013T4 original results retained. No winning components. Owner regression/report are still separate.",
+      "pending_arms": [],
+      "recipe_decision_complete": true,
+      "owner_study_closed": false,
+      "T5_directive_disposition": {
+        "adopted": false,
+        "verdict": "no_significant_improvement",
+        "source": "https://github.com/mint258/MFM/blob/p-heads-20261117/docs/p_heads/USER_DIRECTIVE_20261119.md",
+        "seed_count": 1
+      }
+    },
+    "decoupling": {
+      "status": "COMPLETE_TWO_SEEDS",
+      "source": "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/FINAL_REPORT.md",
+      "source_git_blob": "fb9612219fe3855239bc89993966d49836c22f20",
+      "adopted_components": [],
+      "runtime_integration_required": false,
+      "recipe_decision_complete": true,
+      "owner_study_closed": false,
+      "owner_remaining": "C3 descriptive readout/layer6, final CPU regression/check/report/PR remain with the owner and do not change the completed recipe disposition.",
+      "component_decisions": [
+        {
+          "arm": "Dprime",
+          "baseline": "M2 [A1,B3,B4]",
+          "seed_count": 2,
+          "delta": -0.03842869553842196,
+          "seed_deltas_R3": [
+            -0.04528424256768254,
+            -0.031573148509161375
+          ],
+          "seed_CI": [
+            [
+              -0.05626819574608201,
+              -0.034293740123209175
+            ],
+            [
+              -0.04243675973173937,
+              -0.021103425065180016
+            ]
+          ],
+          "seed_deltas_R1": [
+            -0.10623905592125829,
+            -0.11864777015385317
+          ],
+          "seed_CI_R1": [
+            [
+              -0.12004127120194975,
+              -0.09211544270142917
+            ],
+            [
+              -0.1310879747100256,
+              -0.10581670034245609
+            ]
+          ],
+          "verdict": "loss",
+          "adopted": false,
+          "configuration_keys_to_adopt": [],
+          "source": "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/DPRIME_M2_COMPARISON.md",
+          "source_git_blob": "b5136760de8bb7c45ef5d31efc4c8257db5c4910",
+          "mean_delta_source": "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/FINAL_REPORT.md",
+          "decision_rule_source": "https://github.com/mint258/MFM/blob/p-followup-20261116/docs/p_followup/USER_DIRECTIVE_20261117.md",
+          "decision_rule": "Owner rule retained: both seed R3 CI upper bounds below0 => loss. Positive-win threshold is the owner's own8%/0.03 rule; no main-line5% rejudging or new pooled CI.",
+          "producer_jobs": {
+            "seed1_training": 4536314,
+            "comparison": 4536315,
+            "status": "Owner-published successful0:0 and complete3M/R1/R3"
+          }
+        }
+      ],
+      "closed_non_adoptions": {
+        "C": "loss; deduplication not adopted",
+        "B_F64": "closed unresolved; no fields enabled",
+        "D": "Legacy M1+C single-seed win retained only in its original scope; owner explicitly excludes it from eligible M2 two-seed handoff."
+      },
+      "new_probe_fitting": false,
+      "new_bootstrap_resampling": false,
+      "own_new_GPU_jobs": 0
+    }
+  },
+  "frozen_at_utc": "2026-11-20T12:25:52.908698+00:00",
+  "frozen_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/FROZEN_P.json"
+}

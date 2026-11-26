@@ -1,0 +1,49 @@
+{
+  "schema": "P_RECIPE_CURRENT_BEST_V1",
+  "updated_at": "2026-11-20T12:25:52.908698+00:00",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+  "recipe": "FROZEN_P",
+  "components": [
+    "A1",
+    "B3",
+    "B4",
+    "F2"
+  ],
+  "configuration": "configs/p_recipe/fixed_20261115/round4/F2.json",
+  "configuration_absolute": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F2.json",
+  "run": "fixed_20261115_round4_F2",
+  "seed": 0,
+  "samples": 3000000,
+  "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/samples_3000000.pt",
+  "checkpoint_kind": "complete_training_state",
+  "checkpoint_observed_bytes": 231769313,
+  "readouts": {
+    "R1": {
+      "mean_normalized_improvement": 0.3194926232706708,
+      "bootstrap_ci": [
+        0.30540550597466976,
+        0.3331280541980035
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_defined": 1000
+    },
+    "R3": {
+      "mean_normalized_improvement": 0.474057641022044,
+      "bootstrap_ci": [
+        0.46120203092575607,
+        0.4870064555385049
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_defined": 1000
+    }
+  },
+  "bootstrap_source": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/readout/scores.json",
+  "predictions_source": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/readout/predictions.json",
+  "public_task_scores": "results/p_recipe/scores.csv",
+  "status": "FINAL_RECIPE_FROZEN_9M_CONFIRMATION_PENDING",
+  "recipe_frozen": true,
+  "runnable_frozen_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/FROZEN_P.json",
+  "confirmation_plan": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/plan.json",
+  "selection_evidence": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4_decision.json",
+  "shared_seed1_reference": "configs/p_recipe/M2_SEED1_REFERENCE.json"
+}

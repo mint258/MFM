@@ -1,0 +1,30 @@
+{
+  "node": "compute-0-7",
+  "GPU": "NVIDIA GeForce RTX 3090",
+  "GPU_UUID": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+  "GPU_total_MiB": 24576,
+  "driver": "520.61.05",
+  "torch": "2.7.1+cu118",
+  "cuda": "11.8",
+  "Slurm_CPUs_per_task": 16,
+  "reader_workers": 14,
+  "torch_CPU_threads": 1,
+  "precision": "FP32",
+  "TF32": false,
+  "batch_size": 32,
+  "microbatch_size": 32,
+  "seed": 0,
+  "lr": 0.0003,
+  "declared_sample_budget": 3000000,
+  "backbone_activation_checkpointing": false,
+  "normalization": "window2_TRAIN_normalization_parameters_20261107_v1",
+  "warmup_updates_each_timing_version": 100,
+  "measured_updates_each_timing_version": 1000,
+  "profiling": "Separate py-spy --native, 100Hz, 30 seconds after100 warmup updates",
+  "adopted_step_overhead": {
+    "grouped_fields": true,
+    "head_checkpointing": false,
+    "distance_tiling": true,
+    "prepared_input": true
+  }
+}

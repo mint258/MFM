@@ -1,0 +1,412 @@
+{
+  "created_at": 1795535813.295944,
+  "status": "REGISTERED_GPU_PIPELINE_ACTIVATION_METADATA_REPAIRED",
+  "jobs": [
+    {
+      "key": "fixed_20261115_E1_k1_seed0_frozen_readout",
+      "job_id": 4539974,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k1_frozen_readout_seed0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_fixed_20261115_E1_k1_seed0_frozen_readout_activation2_20261125.sbatch",
+      "dependency": null,
+      "submitted_at": 1795536150.3346808,
+      "previous_failed_before_science": 4539935
+    },
+    {
+      "key": "fixed_20261115_E1_k2_seed0_frozen_readout",
+      "job_id": 4539975,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k2_frozen_readout_seed0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_fixed_20261115_E1_k2_seed0_frozen_readout_activation2_20261125.sbatch",
+      "dependency": null,
+      "submitted_at": 1795536150.3743184,
+      "previous_failed_before_science": 4539936
+    },
+    {
+      "key": "E1FT_full_k2_3M_exp_LogD_s0",
+      "job_id": 4539976,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_exp_LogD_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_exp_LogD_s0_activation2_20261125.sbatch",
+      "dependency": null,
+      "submitted_at": 1795536150.413698,
+      "previous_failed_before_science": 4539937
+    },
+    {
+      "key": "fixed_20261115_E1_k5_seed0_frozen_readout",
+      "job_id": 4539938,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k5_frozen_readout_seed0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_fixed_20261115_E1_k5_seed0_frozen_readout_20261124.sbatch",
+      "dependency": 4539974,
+      "submitted_at": 1795535813.4299235
+    },
+    {
+      "key": "E1FT_full_k2_3M_exp_LogD_s1",
+      "job_id": 4539939,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_exp_LogD_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_exp_LogD_s1_20261124.sbatch",
+      "dependency": 4539976,
+      "submitted_at": 1795535813.4661977
+    },
+    {
+      "key": "E1FT_full_k2_3M_exp_LogD_s2",
+      "job_id": 4539940,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_exp_LogD_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_exp_LogD_s2_20261124.sbatch",
+      "dependency": 4539939,
+      "submitted_at": 1795535813.502671
+    },
+    {
+      "key": "E1FT_full_k2_3M_exp_LogS_s0",
+      "job_id": 4539941,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_exp_LogS_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_exp_LogS_s0_20261124.sbatch",
+      "dependency": 4539940,
+      "submitted_at": 1795535813.5391335
+    },
+    {
+      "key": "E1FT_full_k2_3M_exp_LogS_s1",
+      "job_id": 4539942,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_exp_LogS_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_exp_LogS_s1_20261124.sbatch",
+      "dependency": 4539941,
+      "submitted_at": 1795535813.5751934
+    },
+    {
+      "key": "E1FT_full_k2_3M_exp_LogS_s2",
+      "job_id": 4539943,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_exp_LogS_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_exp_LogS_s2_20261124.sbatch",
+      "dependency": 4539942,
+      "submitted_at": 1795535813.611586
+    },
+    {
+      "key": "E1FT_full_k2_3M_qm9_U0_atom_s0",
+      "job_id": 4539944,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_qm9_U0_atom_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_qm9_U0_atom_s0_20261124.sbatch",
+      "dependency": 4539943,
+      "submitted_at": 1795535813.6480002
+    },
+    {
+      "key": "E1FT_full_k2_3M_qm9_U0_atom_s1",
+      "job_id": 4539945,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_qm9_U0_atom_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_qm9_U0_atom_s1_20261124.sbatch",
+      "dependency": 4539944,
+      "submitted_at": 1795535813.6848145
+    },
+    {
+      "key": "E1FT_full_k2_3M_qm9_U0_atom_s2",
+      "job_id": 4539946,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_qm9_U0_atom_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_qm9_U0_atom_s2_20261124.sbatch",
+      "dependency": 4539945,
+      "submitted_at": 1795535813.7226393
+    },
+    {
+      "key": "E1FT_full_k2_3M_qm9_homo_s0",
+      "job_id": 4539947,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_qm9_homo_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_qm9_homo_s0_20261124.sbatch",
+      "dependency": 4539946,
+      "submitted_at": 1795535813.7594118
+    },
+    {
+      "key": "E1FT_full_k2_3M_qm9_homo_s1",
+      "job_id": 4539948,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_qm9_homo_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_qm9_homo_s1_20261124.sbatch",
+      "dependency": 4539947,
+      "submitted_at": 1795535813.7961602
+    },
+    {
+      "key": "E1FT_full_k2_3M_qm9_homo_s2",
+      "job_id": 4539949,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_qm9_homo_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_qm9_homo_s2_20261124.sbatch",
+      "dependency": 4539948,
+      "submitted_at": 1795535813.8329473
+    },
+    {
+      "key": "E1FT_full_k1_3M_exp_LogD_s0",
+      "job_id": 4539950,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_exp_LogD_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_exp_LogD_s0_20261124.sbatch",
+      "dependency": 4539938,
+      "submitted_at": 1795535813.8696764
+    },
+    {
+      "key": "E1FT_full_k1_3M_exp_LogD_s1",
+      "job_id": 4539951,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_exp_LogD_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_exp_LogD_s1_20261124.sbatch",
+      "dependency": 4539950,
+      "submitted_at": 1795535813.906559
+    },
+    {
+      "key": "E1FT_full_k1_3M_exp_LogD_s2",
+      "job_id": 4539952,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_exp_LogD_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_exp_LogD_s2_20261124.sbatch",
+      "dependency": 4539951,
+      "submitted_at": 1795535813.9445841
+    },
+    {
+      "key": "E1FT_full_k1_3M_exp_LogS_s0",
+      "job_id": 4539953,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_exp_LogS_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_exp_LogS_s0_20261124.sbatch",
+      "dependency": 4539952,
+      "submitted_at": 1795535813.9826343
+    },
+    {
+      "key": "E1FT_full_k1_3M_exp_LogS_s1",
+      "job_id": 4539954,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_exp_LogS_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_exp_LogS_s1_20261124.sbatch",
+      "dependency": 4539953,
+      "submitted_at": 1795535814.0205753
+    },
+    {
+      "key": "E1FT_full_k1_3M_exp_LogS_s2",
+      "job_id": 4539955,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_exp_LogS_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_exp_LogS_s2_20261124.sbatch",
+      "dependency": 4539954,
+      "submitted_at": 1795535814.0582259
+    },
+    {
+      "key": "E1FT_full_k1_3M_qm9_U0_atom_s0",
+      "job_id": 4539956,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_qm9_U0_atom_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_qm9_U0_atom_s0_20261124.sbatch",
+      "dependency": 4539955,
+      "submitted_at": 1795535814.095427
+    },
+    {
+      "key": "E1FT_full_k1_3M_qm9_U0_atom_s1",
+      "job_id": 4539957,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_qm9_U0_atom_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_qm9_U0_atom_s1_20261124.sbatch",
+      "dependency": 4539956,
+      "submitted_at": 1795535814.1330836
+    },
+    {
+      "key": "E1FT_full_k1_3M_qm9_U0_atom_s2",
+      "job_id": 4539958,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_qm9_U0_atom_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_qm9_U0_atom_s2_20261124.sbatch",
+      "dependency": 4539957,
+      "submitted_at": 1795535814.1712563
+    },
+    {
+      "key": "E1FT_full_k1_3M_qm9_homo_s0",
+      "job_id": 4539959,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_qm9_homo_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_qm9_homo_s0_20261124.sbatch",
+      "dependency": 4539958,
+      "submitted_at": 1795535814.2091925
+    },
+    {
+      "key": "E1FT_full_k1_3M_qm9_homo_s1",
+      "job_id": 4539960,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_qm9_homo_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_qm9_homo_s1_20261124.sbatch",
+      "dependency": 4539959,
+      "submitted_at": 1795535814.246772
+    },
+    {
+      "key": "E1FT_full_k1_3M_qm9_homo_s2",
+      "job_id": 4539985,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_qm9_homo_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_qm9_homo_s2_refill_node4_20261125.sbatch",
+      "dependency": null,
+      "submitted_at": 1795541189.5168245,
+      "previous_pending_job": 4539961,
+      "no_running_task_stopped": true
+    },
+    {
+      "key": "E1FT_full_k5_3M_exp_LogD_s0",
+      "job_id": 4539962,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_exp_LogD_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_exp_LogD_s0_20261124.sbatch",
+      "dependency": 4539975,
+      "submitted_at": 1795535814.3219106
+    },
+    {
+      "key": "E1FT_full_k5_3M_exp_LogD_s1",
+      "job_id": 4539963,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_exp_LogD_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_exp_LogD_s1_20261124.sbatch",
+      "dependency": 4539962,
+      "submitted_at": 1795535814.3591146
+    },
+    {
+      "key": "E1FT_full_k5_3M_exp_LogD_s2",
+      "job_id": 4539964,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_exp_LogD_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_exp_LogD_s2_20261124.sbatch",
+      "dependency": 4539963,
+      "submitted_at": 1795535814.3955278
+    },
+    {
+      "key": "E1FT_full_k5_3M_exp_LogS_s0",
+      "job_id": 4539965,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_exp_LogS_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_exp_LogS_s0_20261124.sbatch",
+      "dependency": 4539964,
+      "submitted_at": 1795535814.4323905
+    },
+    {
+      "key": "E1FT_full_k5_3M_exp_LogS_s1",
+      "job_id": 4539966,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_exp_LogS_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_exp_LogS_s1_20261124.sbatch",
+      "dependency": 4539965,
+      "submitted_at": 1795535814.4695888
+    },
+    {
+      "key": "E1FT_full_k5_3M_exp_LogS_s2",
+      "job_id": 4539967,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_exp_LogS_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_exp_LogS_s2_20261124.sbatch",
+      "dependency": 4539966,
+      "submitted_at": 1795535814.5075235
+    },
+    {
+      "key": "E1FT_full_k5_3M_qm9_U0_atom_s0",
+      "job_id": 4539968,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_qm9_U0_atom_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_qm9_U0_atom_s0_20261124.sbatch",
+      "dependency": 4539967,
+      "submitted_at": 1795535814.5442715
+    },
+    {
+      "key": "E1FT_full_k5_3M_qm9_U0_atom_s1",
+      "job_id": 4539969,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_qm9_U0_atom_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_qm9_U0_atom_s1_20261124.sbatch",
+      "dependency": 4539968,
+      "submitted_at": 1795535814.5860837
+    },
+    {
+      "key": "E1FT_full_k5_3M_qm9_U0_atom_s2",
+      "job_id": 4539970,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_qm9_U0_atom_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_qm9_U0_atom_s2_20261124.sbatch",
+      "dependency": 4539969,
+      "submitted_at": 1795535814.6275995
+    },
+    {
+      "key": "E1FT_full_k5_3M_qm9_homo_s0",
+      "job_id": 4539971,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_qm9_homo_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_qm9_homo_s0_20261124.sbatch",
+      "dependency": 4539970,
+      "submitted_at": 1795535814.665616
+    },
+    {
+      "key": "E1FT_full_k5_3M_qm9_homo_s1",
+      "job_id": 4539972,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_qm9_homo_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_qm9_homo_s1_20261124.sbatch",
+      "dependency": 4539971,
+      "submitted_at": 1795535814.7044222
+    },
+    {
+      "key": "E1FT_full_k5_3M_qm9_homo_s2",
+      "job_id": 4539973,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_qm9_homo_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_qm9_homo_s2_20261124.sbatch",
+      "dependency": 4539972,
+      "submitted_at": 1795535814.7430358
+    }
+  ],
+  "R3_jobs": {
+    "1": 4539974,
+    "2": 4539975,
+    "5": 4539938
+  },
+  "node4_full_kept_original_CPUs": 16,
+  "previous_failed_heads": {
+    "4539935": 4539974,
+    "4539936": 4539975,
+    "4539937": 4539976
+  }
+}

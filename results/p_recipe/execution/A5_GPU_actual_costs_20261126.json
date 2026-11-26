@@ -1,0 +1,65 @@
+{
+  "base_total_gpu_hours": 751.7140346049878,
+  "added_gpu_hours": 0.0872681783967548,
+  "rows": [
+    {
+      "execution_id": "ssh:P_A5_UFF_T2_9M_20261126",
+      "source": "T2_9M",
+      "node": "compute-0-20",
+      "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "card": "RTX4090_48GiB",
+      "started_at": 1795667587.7453408,
+      "ended_at": 1795667620.5023928,
+      "physical_gpu_seconds": 32.757051944732666,
+      "returncode": 1,
+      "owned_tree_reaped": true,
+      "runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_GPU_20261126/T2_9M_SSH_runtime.json"
+    },
+    {
+      "execution_id": "ssh:P_A5_UFF_T2_9M_20261126_attempt2",
+      "source": "T2_9M",
+      "node": "compute-0-20",
+      "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "card": "RTX4090_48GiB",
+      "started_at": 1795667855.3786697,
+      "ended_at": 1795667986.2458646,
+      "physical_gpu_seconds": 130.86719512939453,
+      "returncode": 1,
+      "owned_tree_reaped": true,
+      "runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_GPU_20261126/T2_9M_attempt2_SSH_runtime.json"
+    },
+    {
+      "execution_id": "ssh:P_A5_UFF_T2_9M_20261126_attempt3",
+      "source": "T2_9M",
+      "node": "compute-0-20",
+      "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "card": "RTX4090_48GiB",
+      "started_at": 1795668554.7156746,
+      "ended_at": 1795668576.888966,
+      "physical_gpu_seconds": 22.17329168319702,
+      "returncode": 0,
+      "owned_tree_reaped": true,
+      "runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_GPU_20261126/T2_9M_attempt3_SSH_runtime.json"
+    },
+    {
+      "execution_id": "ssh:P_A5_UFF_T4_9M_20261126",
+      "source": "T4_9M",
+      "node": "compute-0-20",
+      "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "card": "RTX4090_48GiB",
+      "started_at": 1795668824.758211,
+      "ended_at": 1795668953.1261141,
+      "physical_gpu_seconds": 128.36790347099304,
+      "returncode": 0,
+      "owned_tree_reaped": true,
+      "runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_GPU_20261126/T4_9M_SSH_runtime.json"
+    }
+  ],
+  "engineering_failure_attempts_included": true,
+  "standby_4540279_actual_sacct": "4540279|CANCELLED by 1278|0|0|None assigned",
+  "T4_standby_created": false,
+  "T4_registration_gap": "Manual submission occurred after actual source completion; no duplicate submitted; future launch now registers immediately",
+  "no_new_training": true,
+  "physical_timing_basis": "Managed native supervisor elapsed; includes source initialization/readout and failed attempts; startup outside managed root not measured",
+  "old_historical_lower_bounds_retained": true
+}

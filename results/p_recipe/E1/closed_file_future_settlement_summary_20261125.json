@@ -1,0 +1,100 @@
+{
+    "observed_at":  1795538009.0360014,
+    "status":  "MEASURED_CLOSED_COMPONENT_FILES_ONLY",
+    "allocated_file_bytes":  6534041600,
+    "not_yet_applied":  false,
+    "no_arrays_read":  true,
+    "no_files_deleted":  true,
+    "all_CPU_output_and_original_temp_buffers_retained":  true,
+    "directory_allocation_not_retired":  true,
+    "previous_future_bytes":  28747304960,
+    "remaining_future_bytes":  22213263360,
+    "E1_total_peak_unchanged_bytes":  32212254720,
+    "components":  [
+                       {
+                           "key":  "native_k1_3M",
+                           "job":  4539379,
+                           "allocated_file_bytes":  777818112,
+                           "regular_files":  47,
+                           "basis":  "Original native3M writer closed and actual root absent; subsequent consumers only read these files"
+                       },
+                       {
+                           "key":  "native_k2_3M",
+                           "job":  4539380,
+                           "allocated_file_bytes":  777834496,
+                           "regular_files":  47,
+                           "basis":  "Original native3M writer closed and actual root absent; subsequent consumers only read these files"
+                       },
+                       {
+                           "key":  "native_k5_3M",
+                           "job":  4539381,
+                           "allocated_file_bytes":  777826304,
+                           "regular_files":  47,
+                           "basis":  "Original native3M writer closed and actual root absent; subsequent consumers only read these files"
+                       },
+                       {
+                           "key":  "frozen_GPU_static_k1",
+                           "job":  4539974,
+                           "allocated_file_bytes":  824446976,
+                           "regular_files":  21,
+                           "basis":  "Closed GPU feature/R3 tensors only; mutable manifests and all future CPU R1/bootstrap bytes remain reserved"
+                       },
+                       {
+                           "key":  "frozen_GPU_static_k2",
+                           "job":  4539975,
+                           "allocated_file_bytes":  824446976,
+                           "regular_files":  21,
+                           "basis":  "Closed GPU feature/R3 tensors only; mutable manifests and all future CPU R1/bootstrap bytes remain reserved"
+                       },
+                       {
+                           "key":  "full_E1FT_full_k2_3M_exp_LogD_s0",
+                           "job":  4539976,
+                           "allocated_file_bytes":  287870976,
+                           "regular_files":  4,
+                           "basis":  "Full producer complete; managed own root absent; later primary reads only"
+                       },
+                       {
+                           "key":  "frozen_GPU_static_k5",
+                           "job":  4539938,
+                           "allocated_file_bytes":  824446976,
+                           "regular_files":  21,
+                           "basis":  "Closed GPU feature/R3 tensors only; mutable manifests and all future CPU R1/bootstrap bytes remain reserved"
+                       },
+                       {
+                           "key":  "full_E1FT_full_k2_3M_exp_LogD_s1",
+                           "job":  4539939,
+                           "allocated_file_bytes":  287870976,
+                           "regular_files":  4,
+                           "basis":  "Full producer complete; managed own root absent; later primary reads only"
+                       },
+                       {
+                           "key":  "full_E1FT_full_k2_3M_exp_LogD_s2",
+                           "job":  4539940,
+                           "allocated_file_bytes":  287870976,
+                           "regular_files":  4,
+                           "basis":  "Full producer complete; managed own root absent; later primary reads only"
+                       },
+                       {
+                           "key":  "full_E1FT_full_k1_3M_exp_LogD_s0",
+                           "job":  4539950,
+                           "allocated_file_bytes":  287870976,
+                           "regular_files":  4,
+                           "basis":  "Full producer complete; managed own root absent; later primary reads only"
+                       },
+                       {
+                           "key":  "full_E1FT_full_k5_3M_exp_LogD_s0",
+                           "job":  4539962,
+                           "allocated_file_bytes":  287866880,
+                           "regular_files":  4,
+                           "basis":  "Full producer complete; managed own root absent; later primary reads only"
+                       },
+                       {
+                           "key":  "full_E1FT_full_k5_3M_exp_LogD_s1",
+                           "job":  4539963,
+                           "allocated_file_bytes":  287870976,
+                           "regular_files":  4,
+                           "basis":  "Full producer complete; managed own root absent; later primary reads only"
+                       }
+                   ],
+    "full_file_stat_manifest":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_closed_native_GPU_file_allocations_20261125.json"
+}

@@ -1,0 +1,68 @@
+{
+  "job": 4538725,
+  "native": "COMPLETED0:0",
+  "elapsed_seconds": 9,
+  "cpu": 1,
+  "node": "compute-0-13",
+  "junit": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "10",
+      "time": "6.677",
+      "timestamp": "2026-11-22T22:05:02.423784+08:00",
+      "hostname": "compute-0-13"
+    }
+  ],
+  "cases": [
+    {
+      "name": "test_seed_mean_and_mean_prediction_are_not_silently_conflated",
+      "class": "tools.p_recipe.test_finetune_statistics"
+    },
+    {
+      "name": "test_bootstrap_repeats_whole_molecules_with_all_native_records",
+      "class": "tools.p_recipe.test_finetune_statistics"
+    },
+    {
+      "name": "test_resume_keeps_identical_draws_without_restarting_the_primary",
+      "class": "tools.p_recipe.test_finetune_statistics"
+    },
+    {
+      "name": "test_cross_batch_contrast_reuses_matched_retained_values_and_baselines",
+      "class": "tools.p_recipe.test_finetune_statistics"
+    },
+    {
+      "name": "test_different_native_masks_refuse_paired_statistics",
+      "class": "tools.p_recipe.test_finetune_statistics"
+    },
+    {
+      "name": "test_common_scratch_mean_preserves_three_seed_mean_mae_ranking",
+      "class": "tools.p_recipe.test_finetune_statistics"
+    },
+    {
+      "name": "test_frozen_reuse_keeps_one_real_seed_without_invented_variability",
+      "class": "tools.p_recipe.test_finetune_statistics"
+    },
+    {
+      "name": "test_shared_scratch_baseline_allows_one_perfect_seed_but_refuses_zero_mean",
+      "class": "tools.p_recipe.test_finetune_statistics"
+    },
+    {
+      "name": "test_share_key_stays_canonical_for_peer_accounting",
+      "class": "tools.test_shared_guard.AutofsTargetTests"
+    },
+    {
+      "name": "test_share_probe_uses_existing_project_directory_not_autofs_root",
+      "class": "tools.test_shared_guard.AutofsTargetTests"
+    }
+  ],
+  "log": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4538725\", \"node\": \"compute-0-13\", \"TimeLimit\": \"00:10:00\", \"EndTime\": \"2026-11-22T22:15:01\", \"root_available_bytes\": 69584384000, \"root_inodes\": 36542564, \"source_independent\": true}\n{\"stage\": \"F_STATS_AFFECTED_8_AND_NEW_AUTOFS_2_ONLY\", \"local\": \"/tmp/p-Fstats-mean-tests-4538725\", \"old_guard7_repeated\": false}\n..........                                                               [100%]\n=============================== warnings summary ===============================\n../../share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26\n  /share/home/zixiao/.conda/envs/chemprop/lib/python3.11/site-packages/torch_geometric/llm/utils/backend_utils.py:26: DeprecationWarning: `torch_geometric.distributed` has been deprecated since 2.7.0 and will no longer be maintained. For distributed training, refer to our tutorials on distributed training at https://pytorch-geometric.readthedocs.io/en/latest/tutorial/distributed.html or cuGraph examples at https://github.com/rapidsai/cugraph-gnn/tree/main/python/cugraph-pyg/cugraph_pyg/examples\n    from torch_geometric.distributed import (\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n10 passed, 1 warning in 6.68s\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 3588720, \"root_returncode\": 0}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4538725\", \"returncode\": 0, \"remaining_children\": []}\n",
+  "root": 3588720,
+  "actual_PID_absence_pending": false,
+  "actual_PID_status": "ABSENT",
+  "shared_autofs_fix_origin": "s-recipe",
+  "original7_repeated": false,
+  "historical20_retained_except_5_affected_stats_rechecked": true
+}

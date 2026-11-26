@@ -1,0 +1,78 @@
+{
+  "status": "COMPLETED",
+  "job": 4539039,
+  "node": "compute-0-6",
+  "cpus": 16,
+  "workers": 14,
+  "TimeLimit": "02:00:00",
+  "cleanup_seconds": 900,
+  "dependencies": [
+    "4539038",
+    "4539035"
+  ],
+  "sources": [
+    "T2_1M",
+    "T2_3M",
+    "T2_6M",
+    "T2_9M",
+    "round2_M1",
+    "round2_B4",
+    "round2_B3",
+    "round3_M2"
+  ],
+  "T1_waits_own_budget_readouts": true,
+  "cache_peak_all12_bytes": 63980666880,
+  "registered_in_shared_claims": true,
+  "new_training": false,
+  "native_elapsed_seconds": 576,
+  "source_summary": {
+    "status": "COMPLETE",
+    "job_id": "4539039",
+    "node": "compute-0-6",
+    "card": {
+      "uuid": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "name": "NVIDIA GeForce RTX 3090",
+      "memory_used_mib": 8,
+      "memory_total_mib": 24576
+    },
+    "sources": {
+      "T2_1M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T2_A2_forwards/T2_1M/cursor.json",
+      "T2_3M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T2_A2_forwards/T2_3M/cursor.json",
+      "T2_6M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T2_A2_forwards/T2_6M/cursor.json",
+      "T2_9M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T2_A2_forwards/T2_9M/cursor.json",
+      "round2_M1": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T2_A2_forwards/round2_M1/cursor.json",
+      "round2_B4": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T2_A2_forwards/round2_B4/cursor.json",
+      "round2_B3": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T2_A2_forwards/round2_B3/cursor.json",
+      "round3_M2": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T2_A2_forwards/round3_M2/cursor.json"
+    },
+    "source_count": 8,
+    "panel": {
+      "receipt": {
+        "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_panel/panel_complete.json",
+        "bytes": 6685,
+        "mtime_ns": "1795371875000000000"
+      },
+      "panel": {
+        "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_panel/panel.npz",
+        "bytes": 336065,
+        "mtime_ns": "1795371875000000000"
+      }
+    },
+    "molecules": 5000,
+    "records": 47698,
+    "atom_records": 2555170,
+    "layer": 6,
+    "representation": "H0_before_projector",
+    "batch_size": 32,
+    "precision": "FP32; mean uses originalCPU_F64_then_F32",
+    "new_training": false,
+    "targets_read": false,
+    "TF32": false,
+    "statistics_pending": true,
+    "atomic_metric_definition_pending": true,
+    "seconds_this_attempt": 569.209742307663,
+    "peak_GPU_allocated_bytes": 634331648
+  },
+  "owned_root_absent": true,
+  "owned_root_pid": 2098100
+}

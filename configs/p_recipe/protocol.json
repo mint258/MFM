@@ -1,0 +1,169 @@
+{
+  "authority": "模型线任务书 P：P 预训练配方研究（迁移前）.md",
+  "encoder": "C1-0",
+  "dimensions": 512,
+  "layers": 6,
+  "attention_heads": 8,
+  "ffn_multiplier": 2,
+  "dtype": "float32",
+  "tf32": false,
+  "seed": 0,
+  "readouts": [
+    "R1",
+    "R3"
+  ],
+  "scored_tasks": [
+    "exp.LogD",
+    "exp.LogS",
+    "exp.Log_HLM_CLint",
+    "qm9.U0_atom",
+    "qm9.alpha",
+    "qm9.homo",
+    "qm9.lumo"
+  ],
+  "report_only_tasks": [
+    "cyp.3A4",
+    "cyp.2D6"
+  ],
+  "feature_std_floor": {
+    "absolute": 1e-12,
+    "relative_to_median": 0.0001
+  },
+  "probe": {
+    "epochs": 30,
+    "epoch_selection": "minimum_error_on_internal_10_percent_TRAIN_molecules",
+    "split_seed": 20261112,
+    "train_fraction": 0.9,
+    "refit_all_train": false,
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "batch_size": 32,
+    "seed": 0
+  },
+  "reference": "random_initialization_C1-0_under_same_protocol_and_readout",
+  "ill_conditioned_reference_floor": 0.05,
+  "primary": "mean_seven_task_R3_normalized_improvements",
+  "secondary": "mean_seven_task_R1_normalized_improvements_report_only",
+  "bootstrap": {
+    "unit": "molecule",
+    "paired": true,
+    "draws": 1000,
+    "seed": 20261025
+  },
+  "win": {
+    "ci95_lower_strictly_positive": true,
+    "delta_absolute_minimum": 0.01,
+    "delta_relative_to_max_score_minimum": 0.05,
+    "tie": "simpler_configuration"
+  },
+  "training": {
+    "condition": "P",
+    "source": "PM7",
+    "sampling": "uniform_molecule_then_uniform_allowed_conformer",
+    "max_conformers": 10,
+    "batch_size": 32,
+    "optimizer": "AdamW",
+    "lr": 0.0003,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "weight_decay": 0.01,
+    "schedule": "cosine_to_zero_at_each_run_budget",
+    "warmup_fraction": 0.02,
+    "normalization": "frozen_data_line_20261107_full_TRAIN_parameters_for_entire_P_study",
+    "clip": "per_arm_fixed_sample_window_preclip_p99",
+    "loss": "standardized_Huber_delta1_and_radial_huber_v1",
+    "microbatch_size": 32,
+    "gradient_accumulation": false,
+    "batch_authority": "User20261114 supplement: fixed32, one full forward, no recomputation; running G1 explicitly continues original recipe",
+    "checkpoint_policy": "Screening final and cooperative-handoff checkpoints; confirmation immutable every1M and final, cooperative-handoff checkpoint whenever requested; fixed2000VAL remains every500k",
+    "activation_checkpointing": false,
+    "clip_calibration": {
+      "calibration_samples": 150000,
+      "window_start_samples": 60000,
+      "initial_clip": 281.7,
+      "quantile": 0.99,
+      "sample_axis": "optimizer_step_start"
+    },
+    "lr_sample_axis": "completed_samples"
+  },
+  "screening": {
+    "samples": 3000000,
+    "max_rounds": 3,
+    "stop_after_consecutive_rounds_without_winners": 2,
+    "gpu_hours_limit_finish_current_round": null,
+    "gpu_hours_limit_cancelled_authority": "docs/p_recipe/USER_DIRECTIVE_20261117.md",
+    "supplemental_final_round": 4,
+    "round4_authority": "docs/p_recipe/USER_DIRECTIVE_20261118.md",
+    "removal_tie_policy": {
+      "arms": [
+        "X1",
+        "F2"
+      ],
+      "adopt_only_if": "R3 CI includes zero; apply same-place larger-delta conflict rule",
+      "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md"
+    }
+  },
+  "confirmation": {
+    "samples": 9000000,
+    "molecule_subsets": [
+      250000,
+      500000,
+      "all_TRAIN"
+    ],
+    "subset_seed": 20261112,
+    "nested": true,
+    "multiplier": 3,
+    "checkpoint_interval_samples": 1000000,
+    "arms": [
+      "T1",
+      "T2",
+      "T4",
+      "T5",
+      "T6"
+    ],
+    "cancelled_arms": [
+      "T3",
+      "T7"
+    ],
+    "T4_disposition": "KEEP per completed PP seed0 and18B automatic rule",
+    "freeze_before_submission": true,
+    "perf_switches": "USER_CONFIRMED_ALL_OFF;16CPU/14readers/B32/FP32"
+  },
+  "poll_interval_seconds": 1800,
+  "training_update_policy": "Do not stop running training for recipe/rule changes without explicit user instruction; resume progress and record changes",
+  "overlap_policy": "Exclude TRAIN molecule IDs, preserve fullTRAIN20261107 normalization, log and continue",
+  "unlisted_computation_policy": {
+    "maximum_unauthorized_estimate_seconds": 7200,
+    "on_exceed": "Do not execute; list in daily pending-user-decisions",
+    "infrastructure_resume_exempt": true
+  },
+  "round2_dispatch_priority": "B1",
+  "round_completion_hardware_report": [
+    "measured_samples_per_second_by_gpu_type",
+    "mean_whole_board_power_watts_by_gpu_type"
+  ],
+  "supplemental_authorities": [
+    "docs/p_recipe/USER_DIRECTIVE_20261117.md",
+    "docs/p_recipe/USER_DIRECTIVE_20261117B.md",
+    "docs/p_recipe/USER_DIRECTIVE_20261118.md",
+    "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+    "docs/p_recipe/USER_DIRECTIVE_20261119.md"
+  ],
+  "seed_policy": {
+    "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+    "screening_3M": {
+      "default": 0,
+      "maximum_seeds": 2,
+      "conditional_seed1": "seed0 WIN: R3 CI lower>0 and delta>=max(.01,.05*max(primary scores))",
+      "exception": "documented seed0 training problem; full-state continuous resume is not an exception",
+      "tie_or_loss": "seed0 final; no seed1"
+    },
+    "confirmation_9M": {
+      "seed": 0,
+      "maximum_seeds": 1,
+      "seed1_allowed": false
+    }
+  }
+}

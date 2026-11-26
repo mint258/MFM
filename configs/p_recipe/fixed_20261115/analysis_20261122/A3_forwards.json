@@ -1,0 +1,104 @@
+{
+  "run": "A3_B4_penalty_forwards",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+  "kind": "A3_FORWARD",
+  "ready": true,
+  "node": "compute-0-6",
+  "gpu_uuid": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+  "nvidia_smi": "/usr/bin/nvidia-smi",
+  "cpus": 16,
+  "workers": 14,
+  "minimum_free_gpu_mib": 22000,
+  "ram_peak_bytes": 68719476736,
+  "remaining_output_bytes": 67108864,
+  "local_output_peak_bytes": 33619968,
+  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/A3_forwards",
+  "output_mount": "/lfshome",
+  "sources": [
+    {
+      "label": "T2_1M",
+      "source_binding": {
+        "arm": "T2",
+        "samples": 1000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/samples_1000000.pt",
+        "bytes": 231766305,
+        "run": "fixed_20261115_confirmation_T2",
+        "source_training_budget": 9000000
+      },
+      "checkpoint_mtime_ns": "1795191015000000000"
+    },
+    {
+      "label": "T2_3M",
+      "source_binding": {
+        "arm": "T2",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/samples_3000000.pt",
+        "bytes": 231770849,
+        "run": "fixed_20261115_confirmation_T2",
+        "source_training_budget": 9000000
+      },
+      "checkpoint_mtime_ns": "1795218306000000000"
+    },
+    {
+      "label": "T2_6M",
+      "source_binding": {
+        "arm": "T2",
+        "samples": 6000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/samples_6000000.pt",
+        "bytes": 231768609,
+        "run": "fixed_20261115_confirmation_T2",
+        "source_training_budget": 9000000
+      },
+      "checkpoint_mtime_ns": "1795258293000000000"
+    },
+    {
+      "label": "T2_9M",
+      "source_binding": {
+        "arm": "T2",
+        "samples": 9000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/samples_9000000.pt",
+        "bytes": 231766305,
+        "run": "fixed_20261115_confirmation_T2",
+        "source_training_budget": 9000000
+      },
+      "checkpoint_mtime_ns": "1795298623000000000"
+    }
+  ],
+  "cleanup_seconds": 900,
+  "work_unit_seconds": 120,
+  "reservation_ids": [
+    "P_A3_GPU6_RAM",
+    "P_A3_GPU6_tmp",
+    "P_A3_forward_remaining"
+  ],
+  "uid_quota_snapshot": null,
+  "source_validation": {
+    "new_logic_tests_job": "4539015",
+    "unique_new_tests": 8,
+    "sourcecheck_job": "4539015",
+    "scientific_model_code_sha": "a00498651c6afb9b67483692a8a18365b2b97988",
+    "new_source_Git_blobs": {
+      "penalty_entry.py": "f438baeae797ac07591f411fcc6f0c88b2637e59",
+      "penalty_statistics.py": "0c062b2af8354afa693df77b62ef8a1a610648cc",
+      "penalty_statistics_entry.py": "e61ab3c544ba85bb11e1b1f35f36c13d7b1b50e2",
+      "test_penalty_statistics.py": "71ccc7e3aba2b40fb17e31accdac0e52c4ced28e"
+    },
+    "constructor_seed_alignment": "Original checkpoint seed initializes CPU/CUDA before model construction; applied while job4539017 PENDING0s",
+    "directory_initialization_repair": {
+      "first_job": "4539017",
+      "native_status": "FAILED_1:0_24s",
+      "root_pid": 2097019,
+      "owned_tree_reaped": true,
+      "actual_root_absent": true,
+      "change": "Create each source output directory before its first atomic cursor write",
+      "science_changed": false
+    }
+  },
+  "new_training": false,
+  "new_optimizer_updates": 0,
+  "forward_protocol": "Original_fixed2000_VAL_native_B32_last16_immutable_T2"
+}

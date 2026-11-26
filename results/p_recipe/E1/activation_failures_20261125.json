@@ -1,0 +1,77 @@
+{
+  "observed_at": 1795535882.5830057,
+  "rows": [
+    {
+      "log": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4539935\", \"node\": \"compute-0-6\", \"TimeLimit\": \"02:00:00\", \"EndTime\": \"2026-11-25T01:57:16\", \"root_available_bytes\": 52327211008, \"root_inodes\": 36540087, \"source_independent\": true}\nTraceback (most recent call last):\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/e1_readout_entry.py\", line 39, in <module>\n    a=p.parse_args();raise SystemExit(shared.run(json.loads(a.configuration.read_text()),validator=validate))\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/i1_readout_entry.py\", line 56, in run\n    readout=validator(c);output=Path(readout[\"output\"]);output.mkdir(parents=True,exist_ok=True)\n            ^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/e1_readout_entry.py\", line 31, in validate\n    raise ValueError(\"Actual E1 terminal checkpoint binding changed\")\nValueError: Actual E1 terminal checkpoint binding changed\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 2156393, \"root_returncode\": 1}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4539935\", \"returncode\": 1, \"remaining_children\": []}\n",
+      "reaped": [
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2156393,
+          "root_returncode": 1
+        }
+      ],
+      "terminal": [
+        {
+          "phase": "RESIDENT_TERMINAL",
+          "job_id": "4539935",
+          "returncode": 1,
+          "remaining_children": []
+        }
+      ],
+      "actual_root_exists": [
+        false
+      ],
+      "key": "fixed_20261115_E1_k1_seed0_frozen_readout",
+      "job_id": 4539935,
+      "node": "compute-0-6"
+    },
+    {
+      "log": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4539936\", \"node\": \"compute-0-7\", \"TimeLimit\": \"02:00:00\", \"EndTime\": \"2026-11-25T01:57:16\", \"root_available_bytes\": 42342158336, \"root_inodes\": 36529016, \"source_independent\": true}\nTraceback (most recent call last):\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/e1_readout_entry.py\", line 39, in <module>\n    a=p.parse_args();raise SystemExit(shared.run(json.loads(a.configuration.read_text()),validator=validate))\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/i1_readout_entry.py\", line 56, in run\n    readout=validator(c);output=Path(readout[\"output\"]);output.mkdir(parents=True,exist_ok=True)\n            ^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/e1_readout_entry.py\", line 31, in validate\n    raise ValueError(\"Actual E1 terminal checkpoint binding changed\")\nValueError: Actual E1 terminal checkpoint binding changed\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 2867945, \"root_returncode\": 1}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4539936\", \"returncode\": 1, \"remaining_children\": []}\n",
+      "reaped": [
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2867945,
+          "root_returncode": 1
+        }
+      ],
+      "terminal": [
+        {
+          "phase": "RESIDENT_TERMINAL",
+          "job_id": "4539936",
+          "returncode": 1,
+          "remaining_children": []
+        }
+      ],
+      "actual_root_exists": [
+        false
+      ],
+      "key": "fixed_20261115_E1_k2_seed0_frozen_readout",
+      "job_id": 4539936,
+      "node": "compute-0-7"
+    },
+    {
+      "log": "{\"phase\": \"RESIDENT_BEFORE_SHARED_SOURCE\", \"job_id\": \"4539937\", \"node\": \"compute-0-4\", \"TimeLimit\": \"00:35:00\", \"EndTime\": \"2026-11-25T00:32:16\", \"root_available_bytes\": 45434798080, \"root_inodes\": 36530410, \"source_independent\": true}\nTraceback (most recent call last):\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune_entry.py\", line 336, in <module>\n    raise SystemExit(main(parser.parse_args().configuration))\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune_entry.py\", line 200, in main\n    raise ValueError(\"Only the registered F protocol may enter this worker\")\nValueError: Only the registered F protocol may enter this worker\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 3634140, \"root_returncode\": 1}\n{\"phase\": \"RESIDENT_TERMINAL\", \"job_id\": \"4539937\", \"returncode\": 1, \"remaining_children\": []}\n",
+      "reaped": [
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 3634140,
+          "root_returncode": 1
+        }
+      ],
+      "terminal": [
+        {
+          "phase": "RESIDENT_TERMINAL",
+          "job_id": "4539937",
+          "returncode": 1,
+          "remaining_children": []
+        }
+      ],
+      "actual_root_exists": [
+        false
+      ],
+      "key": "E1FT_full_k2_3M_exp_LogD_s0",
+      "job_id": 4539937,
+      "node": "compute-0-4"
+    }
+  ]
+}

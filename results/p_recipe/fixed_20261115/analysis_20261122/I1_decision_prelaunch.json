@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "job": "4539210",
+  "new_tests": 3,
+  "actual_native3M_source_contract": "PASS",
+  "gradient_clip_reports": {
+    "candidate": {
+      "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/I1_3M_seed0/clip_calibration.json",
+      "report": {
+        "calibration_samples": 150000,
+        "quantile": 0.99,
+        "initial_clip": 281.7,
+        "threshold": 33.53069976806641,
+        "observed_updates": 2813,
+        "fitted": true,
+        "window_start_samples": 60000,
+        "sample_axis": "optimizer_step_start",
+        "effective_freeze_samples": 150016
+      },
+      "recomputed": false
+    },
+    "baseline": {
+      "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round4_F2/clip_calibration.json",
+      "report": {
+        "calibration_samples": 150000,
+        "quantile": 0.99,
+        "initial_clip": 281.7,
+        "threshold": 33.238172454833986,
+        "observed_updates": 2813,
+        "fitted": true,
+        "window_start_samples": 60000,
+        "sample_axis": "optimizer_step_start",
+        "effective_freeze_samples": 150016
+      },
+      "recomputed": false
+    }
+  },
+  "decision_produced": false,
+  "REPORT_generated": false,
+  "checkpoint_SHA_computed": false,
+  "old_numeric_results_replayed": false,
+  "sourcecheck": {
+    "status": "PASS",
+    "files": 6,
+    "bytes": 60026,
+    "python_files": 5,
+    "server_sources_verified": 0,
+    "export_verification_required": false,
+    "errors": []
+  }
+}

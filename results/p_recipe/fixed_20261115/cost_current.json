@@ -1,0 +1,642 @@
+{
+  "observed_at": 1795675525.6871796,
+  "local_date": "2026-11-26",
+  "physical_ledger_gpu_hours": 746.3337535442317,
+  "F1_acceptance_gpu_hours": 0.5911111111111111,
+  "F1_acceptance_jobs": {
+    "F1_real_loader_acceptance_20261119": 4536840,
+    "F1_real_loader_acceptance_attempt2_20261120": 4536854
+  },
+  "closed_initial_gpu_hours": 3.81173,
+  "closed_D1_D2_gpu_hours": 0.9774399496449364,
+  "total_physical_gpu_hours": 751.8013027833845,
+  "current_screening_gpu_hours": 349.7684876728793,
+  "reused_baseline_gpu_hours": 11.614853340519801,
+  "screening_budget_gpu_hours": 361.3833410133991,
+  "groups": {
+    "archived_screening": 69.41391402648554,
+    "batch_speed": 6.652941999766561,
+    "calibration": 39.263173079755575,
+    "current_screening": 349.7684876728793,
+    "noise_seed1": 12.8970701388518,
+    "confirmation": 182.04399995982646,
+    "budget_readouts": 12.046944444444444,
+    "analysis_F1": 11.040277777777781,
+    "analysis_A1": 1.2452777777777777,
+    "analysis_A3": 0.03916666666666667,
+    "analysis_composition": 0.3302777777777778,
+    "analysis_F2": 5.816666666666665,
+    "analysis_I1": 12.465833333333332,
+    "analysis_I1_full": 1.190277777777778,
+    "analysis_E1_training": 36.24805555555556,
+    "analysis_E1_full": 4.807499999999999,
+    "analysis_A6": 1.0638888888888889,
+    "analysis_A5_UFF_native": 0.0872681783967548
+  },
+  "counts": {
+    "archived_screening": 15,
+    "batch_speed": 16,
+    "calibration": 10,
+    "current_screening": 34,
+    "noise_seed1": 2,
+    "confirmation": 7,
+    "budget_readouts": 23,
+    "analysis_F1": 120,
+    "analysis_A1": 1,
+    "analysis_A3": 2,
+    "analysis_composition": 5,
+    "analysis_F2": 60,
+    "analysis_I1": 3,
+    "analysis_I1_full": 12,
+    "analysis_E1_training": 11,
+    "analysis_E1_full": 49,
+    "analysis_A6": 1,
+    "other": 0,
+    "analysis_A5_UFF_native": 4
+  },
+  "unknown_handles": [],
+  "preflight_rejected_before_GPU": [
+    "fixed_20261115_provisional_B_20261116_round2_M1",
+    "fixed_20261115_provisional_B_20261116_round2_M1_attempt2"
+  ],
+  "lower_bound_handles": [
+    "fixed_20261115_provisional_B_20261116_round2_M1_attempt3_sbatch",
+    "fixed_20261115_round3_M2"
+  ],
+  "total_is_lower_bound": true,
+  "skipped_non_GPU_or_unallocated": [
+    {
+      "name": "P_A1_statistics_T2_1M_20261123",
+      "job": "4538815",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "P_A1_statistics_T2_6M_20261123",
+      "job": "4538816",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "P_A1_statistics_T2_9M_20261123",
+      "job": "4538829",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "P_F_T2_9M_primary_20261123",
+      "job": "4538836",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "P_F_T2_9M_retained_contrasts_20261123",
+      "job": "4538837",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "P_A1_statistics_round4_F2_20261123",
+      "job": "4538841",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "P_A3_B4_statistics_20261123",
+      "job": "4539018",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "P_F1_T1_T5_9M_primary_20261123",
+      "job": "4539021",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "P_F1_T6_9M_primary_20261123",
+      "job": "4539022",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "P_F1_top2_T2_1M_9M_primary_20261123",
+      "job": "4539023",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "fixed_20261115_I1_original_paired_decision_NFS_20261123",
+      "job": "4539325",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "composition_I1_mean_NFS_20261123",
+      "job": "4539327",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "composition_I1_descriptive_NFS_20261123",
+      "job": "4539328",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "I1_F_primary_NFS_20261123",
+      "job": "4539329",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "composition_I1_descriptive_retry1_NFS_20261123",
+      "job": "4539331",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "analysis_native_4539297",
+      "job": "4539297",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "analysis_native_4539305",
+      "job": "4539305",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "analysis_native_4539306",
+      "job": "4539306",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "analysis_native_4539307",
+      "job": "4539307",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "analysis_native_4539308",
+      "job": "4539308",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "analysis_native_4539309",
+      "job": "4539309",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "analysis_native_4539310",
+      "job": "4539310",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "analysis_native_4539311",
+      "job": "4539311",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "analysis_native_4539326",
+      "job": "4539326",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "analysis_native_4539330",
+      "job": "4539330",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "I1_composition_export_4539332",
+      "job": "4539332",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "I1FT_full_I1_3M_qm9_homo_s1_unstarted_original_queue_4539322",
+      "job": "4539322",
+      "reason": "No_native_allocation_start"
+    },
+    {
+      "name": "I1FT_full_I1_3M_qm9_homo_s2_unstarted_original_queue_4539323",
+      "job": "4539323",
+      "reason": "No_native_allocation_start"
+    },
+    {
+      "name": "I1_CPU_control_4539333",
+      "job": "4539333",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "I1_CPU_control_4539334",
+      "job": "4539334",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "I1_full12_public_export_4539337",
+      "job": "4539337",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "I1_closed_CPU_or_zeroallocation_4539338",
+      "job": "4539338",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_cap_logic_tests_20261124",
+      "job": "4539372",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_CPU_4539382",
+      "job": "4539382",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_CPU_4539383",
+      "job": "4539383",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_CPU_4539384",
+      "job": "4539384",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_new_evaluation_logic_test",
+      "job": "4539400",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_k10_full_primary",
+      "job": "4539401",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_k10_full_primary_export",
+      "job": "4539406",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_report_consumer_new_logic",
+      "job": "4539405",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_decision_source_new_logic",
+      "job": "4539407",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_final_training_hardware",
+      "job": "4539977",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_hardware_cost_new_logic",
+      "job": "4539408",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "P_future_exit_proc_race_20261124",
+      "job": "4539410",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_k10_closed_resources_first_receipt_directory_failure",
+      "job": "4539411",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_k10_closed_resources_receipt_only_recovery",
+      "job": "4539412",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_measured_storage_peak_metadata",
+      "job": "4539414",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_final_training_hardware_CPU12_pending_replaced",
+      "job": "4539409",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_k1_original_R1_R3_statistics",
+      "job": "4539978",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_k1_full12_primary",
+      "job": "4539979",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_k2_original_R1_R3_statistics",
+      "job": "4539980",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_k2_full12_primary",
+      "job": "4539981",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_k5_original_R1_R3_statistics",
+      "job": "4539982",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_k5_full12_primary",
+      "job": "4539983",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1_seed0_original_decision",
+      "job": "4539984",
+      "reason": "CPU_target"
+    },
+    {
+      "name": "E1FT_full_k1_3M_qm9_homo_s2_pending_reassigned_from_node6",
+      "job": "4539961",
+      "reason": "No_native_allocation_start"
+    }
+  ],
+  "physical_aliases": [],
+  "active_GPU_handles": [],
+  "native_snapshot": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/weekly_cost_native_snapshot_20261123.json",
+  "snapshot_not_final": true,
+  "E1_added_GPU_hours": 41.05555555555556,
+  "E1_closed_GPU_allocated_seconds": 147800,
+  "E1_native_receipt": "results/p_recipe/E1/all_GPU_completion_20261125.json",
+  "prior_snapshot_archive": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/weekly_cost_native_snapshot_pre_E1_closure_20261125.json",
+  "prior_cost_archive": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/cost_current_pre_E1_closure_20261125.json",
+  "source_GPU_alias_clocks_preserved": true,
+  "raw_scientific_arrays_read": 0,
+  "E1_hardware_CPU_job": 4539977,
+  "E1_hardware_status": "QUEUED_ORIGINAL_TELEMETRY_SUMMARY",
+  "A5_native_extension": {
+    "base_total_gpu_hours": 751.7140346049878,
+    "added_gpu_hours": 0.0872681783967548,
+    "rows": [
+      {
+        "execution_id": "ssh:P_A5_UFF_T2_9M_20261126",
+        "source": "T2_9M",
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "card": "RTX4090_48GiB",
+        "started_at": 1795667587.7453408,
+        "ended_at": 1795667620.5023928,
+        "physical_gpu_seconds": 32.757051944732666,
+        "returncode": 1,
+        "owned_tree_reaped": true,
+        "runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_GPU_20261126/T2_9M_SSH_runtime.json"
+      },
+      {
+        "execution_id": "ssh:P_A5_UFF_T2_9M_20261126_attempt2",
+        "source": "T2_9M",
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "card": "RTX4090_48GiB",
+        "started_at": 1795667855.3786697,
+        "ended_at": 1795667986.2458646,
+        "physical_gpu_seconds": 130.86719512939453,
+        "returncode": 1,
+        "owned_tree_reaped": true,
+        "runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_GPU_20261126/T2_9M_attempt2_SSH_runtime.json"
+      },
+      {
+        "execution_id": "ssh:P_A5_UFF_T2_9M_20261126_attempt3",
+        "source": "T2_9M",
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "card": "RTX4090_48GiB",
+        "started_at": 1795668554.7156746,
+        "ended_at": 1795668576.888966,
+        "physical_gpu_seconds": 22.17329168319702,
+        "returncode": 0,
+        "owned_tree_reaped": true,
+        "runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_GPU_20261126/T2_9M_attempt3_SSH_runtime.json"
+      },
+      {
+        "execution_id": "ssh:P_A5_UFF_T4_9M_20261126",
+        "source": "T4_9M",
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "card": "RTX4090_48GiB",
+        "started_at": 1795668824.758211,
+        "ended_at": 1795668953.1261141,
+        "physical_gpu_seconds": 128.36790347099304,
+        "returncode": 0,
+        "owned_tree_reaped": true,
+        "runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/A5_GPU_20261126/T4_9M_SSH_runtime.json"
+      }
+    ],
+    "engineering_failure_attempts_included": true,
+    "standby_4540279_actual_sacct": "4540279|CANCELLED by 1278|0|0|None assigned",
+    "T4_standby_created": false,
+    "T4_registration_gap": "Manual submission occurred after actual source completion; no duplicate submitted; future launch now registers immediately",
+    "no_new_training": true,
+    "physical_timing_basis": "Managed native supervisor elapsed; includes source initialization/readout and failed attempts; startup outside managed root not measured",
+    "old_historical_lower_bounds_retained": true
+  },
+  "CPU_short_SSH_20261126": {
+    "schema": "P_NEW_SHORT_CPU_SSH_ACTUAL_COSTS_20261126_V1",
+    "executions": {
+      "ssh:P_runtime_contract_tests_20261126": {
+        "execution_id": "ssh:P_runtime_contract_tests_20261126",
+        "key": "runtime_contract_tests",
+        "node": "compute-0-15",
+        "cores": [
+          1
+        ],
+        "actual_CPU_seconds": 0.61,
+        "wall_seconds": 11.309932947158813,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/runtime_contract_tests_runtime.json"
+      },
+      "ssh:P_runtime_contract_tests_v2_20261126": {
+        "execution_id": "ssh:P_runtime_contract_tests_v2_20261126",
+        "key": "runtime_contract_tests_v2",
+        "node": "compute-0-15",
+        "cores": [
+          1
+        ],
+        "actual_CPU_seconds": 0.51,
+        "wall_seconds": 1.7705950736999512,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/runtime_contract_tests_v2_runtime.json"
+      },
+      "ssh:P_E1_final_training_hardware_20261126": {
+        "execution_id": "ssh:P_E1_final_training_hardware_20261126",
+        "key": "E1_final_training_hardware",
+        "node": "compute-0-15",
+        "cores": [
+          1
+        ],
+        "actual_CPU_seconds": 4.26,
+        "wall_seconds": 72.24787783622742,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/E1_final_training_hardware_runtime.json"
+      },
+      "ssh:P_E1_k1_original_R1_R3_statistics_20261126": {
+        "execution_id": "ssh:P_E1_k1_original_R1_R3_statistics_20261126",
+        "key": "E1_k1_original_R1_R3_statistics",
+        "node": "compute-0-15",
+        "cores": [
+          3
+        ],
+        "actual_CPU_seconds": 101.08,
+        "wall_seconds": 160.5575590133667,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/E1_k1_original_R1_R3_statistics_runtime.json"
+      },
+      "ssh:P_A5_shared_UFF_cohort_20261126": {
+        "execution_id": "ssh:P_A5_shared_UFF_cohort_20261126",
+        "key": "A5_shared_UFF_cohort",
+        "node": "compute-0-15",
+        "cores": [
+          1
+        ],
+        "actual_CPU_seconds": 0.03,
+        "wall_seconds": 5.05,
+        "returncode": 1,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/A5_shared_UFF_cohort_runtime.json"
+      },
+      "ssh:P_E1_k1_full12_primary_20261126": {
+        "execution_id": "ssh:P_E1_k1_full12_primary_20261126",
+        "key": "E1_k1_full12_primary",
+        "node": "compute-0-15",
+        "cores": [
+          7
+        ],
+        "actual_CPU_seconds": 6.39,
+        "wall_seconds": 7.7795515060424805,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/E1_k1_full12_primary_runtime.json"
+      },
+      "ssh:P_E1_k2_original_R1_R3_statistics_20261126": {
+        "execution_id": "ssh:P_E1_k2_original_R1_R3_statistics_20261126",
+        "key": "E1_k2_original_R1_R3_statistics",
+        "node": "compute-0-15",
+        "cores": [
+          2
+        ],
+        "actual_CPU_seconds": 100.91,
+        "wall_seconds": 111.62681198120117,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/E1_k2_original_R1_R3_statistics_runtime.json"
+      },
+      "ssh:P_A5_shared_UFF_cohort_attempt2_20261126": {
+        "execution_id": "ssh:P_A5_shared_UFF_cohort_attempt2_20261126",
+        "key": "A5_shared_UFF_cohort_attempt2",
+        "node": "compute-0-15",
+        "cores": [
+          1
+        ],
+        "actual_CPU_seconds": 32.58,
+        "wall_seconds": 291.0203592777252,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/A5_shared_UFF_cohort_attempt2_runtime.json"
+      },
+      "ssh:P_E1_k2_full12_primary_20261126": {
+        "execution_id": "ssh:P_E1_k2_full12_primary_20261126",
+        "key": "E1_k2_full12_primary",
+        "node": "compute-0-11",
+        "cores": [
+          63
+        ],
+        "actual_CPU_seconds": 7.2700000000000005,
+        "wall_seconds": 8.785751104354858,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/E1_k2_full12_primary_runtime.json"
+      },
+      "ssh:P_E1_k5_full12_primary_20261126": {
+        "execution_id": "ssh:P_E1_k5_full12_primary_20261126",
+        "key": "E1_k5_full12_primary",
+        "node": "compute-0-11",
+        "cores": [
+          61
+        ],
+        "actual_CPU_seconds": 7.01,
+        "wall_seconds": 8.032336235046387,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/E1_k5_full12_primary_runtime.json"
+      },
+      "ssh:P_E1_k5_original_R1_R3_statistics_20261126": {
+        "execution_id": "ssh:P_E1_k5_original_R1_R3_statistics_20261126",
+        "key": "E1_k5_original_R1_R3_statistics",
+        "node": "compute-0-11",
+        "cores": [
+          62
+        ],
+        "actual_CPU_seconds": 115.53,
+        "wall_seconds": 130.75398921966553,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/E1_k5_original_R1_R3_statistics_runtime.json"
+      },
+      "ssh:P_A5_handoff_control_tests_20261126": {
+        "execution_id": "ssh:P_A5_handoff_control_tests_20261126",
+        "key": "A5_handoff_control_tests",
+        "node": "compute-0-11",
+        "cores": [
+          63
+        ],
+        "actual_CPU_seconds": 0.6,
+        "wall_seconds": 4.946292400360107,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/A5_handoff_control_tests_runtime.json"
+      },
+      "ssh:P_E1_seed0_original_decision_20261126": {
+        "execution_id": "ssh:P_E1_seed0_original_decision_20261126",
+        "key": "E1_seed0_original_decision",
+        "node": "compute-0-11",
+        "cores": [
+          63
+        ],
+        "actual_CPU_seconds": 3.5,
+        "wall_seconds": 5.022500038146973,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/E1_seed0_original_decision_runtime.json"
+      },
+      "ssh:P_A5_common_UFF_statistics_20261126": {
+        "execution_id": "ssh:P_A5_common_UFF_statistics_20261126",
+        "key": "A5_common_UFF_statistics",
+        "node": "compute-0-11",
+        "cores": [
+          63
+        ],
+        "actual_CPU_seconds": 7.9,
+        "wall_seconds": 9.5394766330719,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/A5_common_UFF_statistics_runtime.json"
+      },
+      "ssh:P_P_independent_delivery_20261126": {
+        "execution_id": "ssh:P_P_independent_delivery_20261126",
+        "key": "P_independent_delivery",
+        "node": "compute-0-11",
+        "cores": [
+          63
+        ],
+        "actual_CPU_seconds": 4.359999999999999,
+        "wall_seconds": 6.7785398960113525,
+        "returncode": 1,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/P_independent_delivery_runtime.json"
+      },
+      "ssh:P_P_independent_delivery_attempt2_20261126": {
+        "execution_id": "ssh:P_P_independent_delivery_attempt2_20261126",
+        "key": "P_independent_delivery_attempt2",
+        "node": "compute-0-11",
+        "cores": [
+          63
+        ],
+        "actual_CPU_seconds": 4.46,
+        "wall_seconds": 6.780580520629883,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/P_independent_delivery_attempt2_runtime.json"
+      }
+    },
+    "actual_CPU_seconds": 397.00000000000006,
+    "count_scope": "New short CPU SSH executions only, all attempts once; original costs retained"
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F1.json",
+  "run": "fixed_20261115_round4_F1",
+  "real_loader": true,
+  "acceptance": "one_per_head_overfit_of_changed_fidelity_heads",
+  "fields": [
+    "P.pm7_B.r49.value",
+    "P.pm7_B.r50.value",
+    "P.pm7_B.r52.x",
+    "P.pm7_B.r52.y",
+    "P.pm7_B.r52.z",
+    "P.pm7_B.r61.value",
+    "P.pm7_B.r63.value",
+    "P.xtb_singlepoint.r669.x",
+    "P.xtb_singlepoint.r669.y",
+    "P.xtb_singlepoint.r669.z",
+    "P.xtb_singlepoint.r671.value",
+    "P.xtb_singlepoint.r672.value",
+    "P.xtb_vipea.r751.value",
+    "P.xtb_vipea.r752.value"
+  ],
+  "molecules": 1000,
+  "maximum_updates": 10000,
+  "batch_size": 32,
+  "criterion": "Existing per-head original-unit R2 >=0.95",
+  "remaining_development_seconds": 11904.468458043993,
+  "status": "ACCEPTED",
+  "actual_updates": 4500,
+  "seconds": 749.5411057732999,
+  "all_fields_passed": true,
+  "per_head_metrics": [
+    {
+      "field": "P.xtb_singlepoint.r669.z",
+      "valid_components": 1000,
+      "R2": 0.9865936670837314,
+      "MAE": 0.24084347398916725,
+      "passed": true
+    },
+    {
+      "field": "P.pm7_B.r52.x",
+      "valid_components": 1000,
+      "R2": 0.9761467105963066,
+      "MAE": 0.3138361997283064,
+      "passed": true
+    },
+    {
+      "field": "P.pm7_B.r49.value",
+      "valid_components": 1000,
+      "R2": 0.9879535133516387,
+      "MAE": 0.06504835492791608,
+      "passed": true
+    },
+    {
+      "field": "P.pm7_B.r61.value",
+      "valid_components": 1000,
+      "R2": 0.9871049993355027,
+      "MAE": 0.046221582412719724,
+      "passed": true
+    },
+    {
+      "field": "P.pm7_B.r63.value",
+      "valid_components": 1000,
+      "R2": 0.9889098546737415,
+      "MAE": 0.056408197653101524,
+      "passed": true
+    },
+    {
+      "field": "P.xtb_singlepoint.r669.y",
+      "valid_components": 1000,
+      "R2": 0.9861463362257878,
+      "MAE": 0.2569237033764366,
+      "passed": true
+    },
+    {
+      "field": "P.xtb_vipea.r752.value",
+      "valid_components": 1000,
+      "R2": 0.9917385226706665,
+      "MAE": 0.03632652473449707,
+      "passed": true
+    },
+    {
+      "field": "P.pm7_B.r50.value",
+      "valid_components": 1000,
+      "R2": 0.9776164781753018,
+      "MAE": 0.06977818584442139,
+      "passed": true
+    },
+    {
+      "field": "P.xtb_singlepoint.r669.x",
+      "valid_components": 1000,
+      "R2": 0.9727158529493467,
+      "MAE": 0.31449563011247667,
+      "passed": true
+    },
+    {
+      "field": "P.xtb_singlepoint.r672.value",
+      "valid_components": 1000,
+      "R2": 0.9909181473869776,
+      "MAE": 0.07590538860857486,
+      "passed": true
+    },
+    {
+      "field": "P.pm7_B.r52.y",
+      "valid_components": 1000,
+      "R2": 0.9837420479202655,
+      "MAE": 0.25765432412619704,
+      "passed": true
+    },
+    {
+      "field": "P.xtb_vipea.r751.value",
+      "valid_components": 1000,
+      "R2": 0.9896964792611894,
+      "MAE": 0.08397376149939373,
+      "passed": true
+    },
+    {
+      "field": "P.pm7_B.r52.z",
+      "valid_components": 1000,
+      "R2": 0.982698002594478,
+      "MAE": 0.25909607736067847,
+      "passed": true
+    },
+    {
+      "field": "P.xtb_singlepoint.r671.value",
+      "valid_components": 1000,
+      "R2": 0.9867617959570165,
+      "MAE": 0.04119562768936157,
+      "passed": true
+    }
+  ],
+  "job_id": 4536854,
+  "Slurm_state": "COMPLETED",
+  "exit_code": "0:0",
+  "GPU_elapsed_seconds": 766,
+  "unit_job": 4536849,
+  "first_attempt": {
+    "job_id": 4536840,
+    "status": "OVERFIT_NOT_PASSED",
+    "outputs_preserved": true
+  },
+  "formal_training_initialization": "fresh; no acceptance weights reused"
+}

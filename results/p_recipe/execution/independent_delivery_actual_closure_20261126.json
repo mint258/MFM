@@ -1,0 +1,183 @@
+{
+  "observed_at": 1795675375.0333068,
+  "rows": [
+    {
+      "key": "P_independent_delivery_attempt2",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_P_independent_delivery_attempt2_20261126",
+      "node": "compute-0-11",
+      "cores": [
+        63
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_P_independent_delivery_attempt2_20261126",
+        "node": "compute-0-11",
+        "supervisor": {
+          "pid": 262313,
+          "start_ticks": 2279636752,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-666.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 262312,
+          "start_ticks": 2279636752,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-666.scope\n",
+          "state": "S"
+        },
+        "session_id": 262311,
+        "cores": [
+          63
+        ],
+        "idle_fraction": {
+          "63": 1.0
+        },
+        "MemAvailable": 390743949312,
+        "started_at": 1795675365.2837198,
+        "hard_end_epoch": 1795677155.2837198,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": null,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/independent_delivery_entry.py",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/independent_delivery_20261126_attempt2.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795675372.0643003,
+        "wall_seconds": 6.780580520629883,
+        "user_cpu_seconds": 3.718231,
+        "system_cpu_seconds": 0.6793669999999999,
+        "actual_cpu_seconds": 4.3975979999999995,
+        "peak_child_RSS_KiB": 709436,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795675374.1349914,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v3.py --configuration /tmp/P_CPU_SSH_20261126/P_independent_delivery_attempt2.json\"\n\tUser time (seconds): 3.77\n\tSystem time (seconds): 0.69\n\tPercent of CPU this job got: 37%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:11.87\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 709436\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 189221\n\tVoluntary context switches: 13433\n\tInvoluntary context switches: 282\n\tSwaps: 0\n\tFile system inputs: 906392\n\tFile system outputs: 232\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 4.46
+    },
+    {
+      "key": "P_independent_delivery",
+      "state": "FAILED_EXIT_PROVEN",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_P_independent_delivery_20261126",
+      "node": "compute-0-11",
+      "cores": [
+        63
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "FAILED",
+        "execution_id": "ssh:P_P_independent_delivery_20261126",
+        "node": "compute-0-11",
+        "supervisor": {
+          "pid": 262044,
+          "start_ticks": 2279628321,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-664.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 262043,
+          "start_ticks": 2279628321,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-664.scope\n",
+          "state": "S"
+        },
+        "session_id": 262042,
+        "cores": [
+          63
+        ],
+        "idle_fraction": {
+          "63": 1.0
+        },
+        "MemAvailable": 390756974592,
+        "started_at": 1795675280.9843783,
+        "hard_end_epoch": 1795677070.9843783,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": null,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/independent_delivery_entry.py",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/independent_delivery_20261126.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 1,
+        "ended_at": 1795675287.762918,
+        "wall_seconds": 6.7785398960113525,
+        "user_cpu_seconds": 3.761217,
+        "system_cpu_seconds": 0.539628,
+        "actual_cpu_seconds": 4.300845,
+        "peak_child_RSS_KiB": 725940,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795675374.1358073,
+      "actual_time_report": "Command exited with non-zero status 1\n\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v3.py --configuration /tmp/P_CPU_SSH_20261126/P_independent_delivery.json\"\n\tUser time (seconds): 3.82\n\tSystem time (seconds): 0.54\n\tPercent of CPU this job got: 36%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:11.84\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 725940\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 191380\n\tVoluntary context switches: 15554\n\tInvoluntary context switches: 291\n\tSwaps: 0\n\tFile system inputs: 13048\n\tFile system outputs: 128\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 1\n",
+      "total_process_tree_CPU_seconds": 4.359999999999999,
+      "log_tail": "{\"phase\": \"SSH_PREFLIGHT_IDENTITY\", \"execution_id\": \"ssh:P_P_independent_delivery_20261126\", \"supervisor\": {\"pid\": 262044, \"start_ticks\": 2279628321, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-664.scope\\n\", \"state\": \"R\"}, \"session_id\": 262042}\n{\"phase\": \"SSH_RESIDENT_STARTED\", \"schema\": \"P_CPU_SSH_RUNTIME_20261126_V1\", \"status\": \"RUNNING\", \"execution_id\": \"ssh:P_P_independent_delivery_20261126\", \"node\": \"compute-0-11\", \"supervisor\": {\"pid\": 262044, \"start_ticks\": 2279628321, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-664.scope\\n\", \"state\": \"R\"}, \"parent\": {\"pid\": 262043, \"start_ticks\": 2279628321, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-664.scope\\n\", \"state\": \"S\"}, \"session_id\": 262042, \"cores\": [63], \"idle_fraction\": {\"63\": 1.0}, \"MemAvailable\": 390756974592, \"started_at\": 1795675280.9843783, \"hard_end_epoch\": 1795677070.9843783, \"timeout_seconds\": 1800, \"cleanup_seconds\": 180, \"original_pending_job\": null, \"worker_argv\": [\"/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python\", \"-B\", \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/independent_delivery_entry.py\", \"--configuration\", \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/independent_delivery_20261126.json\"], \"scientific_code_and_outputs_preserved\": true}\n....                                                                     [100%]\n4 passed in 0.12s\nTraceback (most recent call last):\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/independent_delivery_entry.py\", line 37, in <module>\n    raise SystemExit(run(json.loads(Path(a.configuration).read_text())))\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/independent_delivery_entry.py\", line 29, in run\n    value=seal_independent(c['repo'],c,should_stop=should_stop)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/independent_delivery.py\", line 90, in seal_independent\n    inputs=report_dependencies(repo,content,configs,c)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/independent_delivery.py\", line 78, in report_dependencies\n    if not p.exists():raise ValueError('P report references missing original artifact: '+str(p))\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: P report references missing original artifact: /share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/fixed_20261115/molecule_scaling.svg\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 262070, \"root_returncode\": 1}\n{\"phase\": \"SSH_RESIDENT_TERMINAL\", \"schema\": \"P_CPU_SSH_RUNTIME_20261126_V1\", \"status\": \"FAILED\", \"execution_id\": \"ssh:P_P_independent_delivery_20261126\", \"node\": \"compute-0-11\", \"supervisor\": {\"pid\": 262044, \"start_ticks\": 2279628321, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-664.scope\\n\", \"state\": \"R\"}, \"parent\": {\"pid\": 262043, \"start_ticks\": 2279628321, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-664.scope\\n\", \"state\": \"S\"}, \"session_id\": 262042, \"cores\": [63], \"idle_fraction\": {\"63\": 1.0}, \"MemAvailable\": 390756974592, \"started_at\": 1795675280.9843783, \"hard_end_epoch\": 1795677070.9843783, \"timeout_seconds\": 1800, \"cleanup_seconds\": 180, \"original_pending_job\": null, \"worker_argv\": [\"/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python\", \"-B\", \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/independent_delivery_entry.py\", \"--configuration\", \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/independent_delivery_20261126.json\"], \"scientific_code_and_outputs_preserved\": true, \"returncode\": 1, \"ended_at\": 1795675287.762918, \"wall_seconds\": 6.7785398960113525, \"user_cpu_seconds\": 3.761217, \"system_cpu_seconds\": 0.539628, \"actual_cpu_seconds\": 4.300845, \"peak_child_RSS_KiB\": 725940, \"remaining_children\": [], \"owned_tree_reaped\": true}\n"
+    }
+  ],
+  "original_monitor": {
+    "cycle": 259,
+    "next_due": 1795676283.2177649,
+    "errors": {},
+    "actual_identity_verified": true
+  },
+  "original_tests_reused_after_engineering_link_fix": true
+}

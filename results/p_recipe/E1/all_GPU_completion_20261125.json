@@ -1,0 +1,792 @@
+{
+  "observed_at": 1795541800.9706469,
+  "status": "ALL39_GPU_EVALUATIONS_COMPLETE_CPU_STATISTICS_PENDING",
+  "GPU_jobs": [
+    {
+      "key": "fixed_20261115_E1_k1_seed0_frozen_readout",
+      "job_id": 4539974,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k1_frozen_readout_seed0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_fixed_20261115_E1_k1_seed0_frozen_readout_activation2_20261125.sbatch",
+      "dependency": null,
+      "submitted_at": 1795536150.3346808,
+      "previous_failed_before_science": 4539935
+    },
+    {
+      "key": "fixed_20261115_E1_k2_seed0_frozen_readout",
+      "job_id": 4539975,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k2_frozen_readout_seed0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_fixed_20261115_E1_k2_seed0_frozen_readout_activation2_20261125.sbatch",
+      "dependency": null,
+      "submitted_at": 1795536150.3743184,
+      "previous_failed_before_science": 4539936
+    },
+    {
+      "key": "E1FT_full_k2_3M_exp_LogD_s0",
+      "job_id": 4539976,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_exp_LogD_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_exp_LogD_s0_activation2_20261125.sbatch",
+      "dependency": null,
+      "submitted_at": 1795536150.413698,
+      "previous_failed_before_science": 4539937
+    },
+    {
+      "key": "fixed_20261115_E1_k5_seed0_frozen_readout",
+      "job_id": 4539938,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k5_frozen_readout_seed0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_fixed_20261115_E1_k5_seed0_frozen_readout_20261124.sbatch",
+      "dependency": 4539974,
+      "submitted_at": 1795535813.4299235
+    },
+    {
+      "key": "E1FT_full_k2_3M_exp_LogD_s1",
+      "job_id": 4539939,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_exp_LogD_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_exp_LogD_s1_20261124.sbatch",
+      "dependency": 4539976,
+      "submitted_at": 1795535813.4661977
+    },
+    {
+      "key": "E1FT_full_k2_3M_exp_LogD_s2",
+      "job_id": 4539940,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_exp_LogD_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_exp_LogD_s2_20261124.sbatch",
+      "dependency": 4539939,
+      "submitted_at": 1795535813.502671
+    },
+    {
+      "key": "E1FT_full_k2_3M_exp_LogS_s0",
+      "job_id": 4539941,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_exp_LogS_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_exp_LogS_s0_20261124.sbatch",
+      "dependency": 4539940,
+      "submitted_at": 1795535813.5391335
+    },
+    {
+      "key": "E1FT_full_k2_3M_exp_LogS_s1",
+      "job_id": 4539942,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_exp_LogS_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_exp_LogS_s1_20261124.sbatch",
+      "dependency": 4539941,
+      "submitted_at": 1795535813.5751934
+    },
+    {
+      "key": "E1FT_full_k2_3M_exp_LogS_s2",
+      "job_id": 4539943,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_exp_LogS_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_exp_LogS_s2_20261124.sbatch",
+      "dependency": 4539942,
+      "submitted_at": 1795535813.611586
+    },
+    {
+      "key": "E1FT_full_k2_3M_qm9_U0_atom_s0",
+      "job_id": 4539944,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_qm9_U0_atom_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_qm9_U0_atom_s0_20261124.sbatch",
+      "dependency": 4539943,
+      "submitted_at": 1795535813.6480002
+    },
+    {
+      "key": "E1FT_full_k2_3M_qm9_U0_atom_s1",
+      "job_id": 4539945,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_qm9_U0_atom_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_qm9_U0_atom_s1_20261124.sbatch",
+      "dependency": 4539944,
+      "submitted_at": 1795535813.6848145
+    },
+    {
+      "key": "E1FT_full_k2_3M_qm9_U0_atom_s2",
+      "job_id": 4539946,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_qm9_U0_atom_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_qm9_U0_atom_s2_20261124.sbatch",
+      "dependency": 4539945,
+      "submitted_at": 1795535813.7226393
+    },
+    {
+      "key": "E1FT_full_k2_3M_qm9_homo_s0",
+      "job_id": 4539947,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_qm9_homo_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_qm9_homo_s0_20261124.sbatch",
+      "dependency": 4539946,
+      "submitted_at": 1795535813.7594118
+    },
+    {
+      "key": "E1FT_full_k2_3M_qm9_homo_s1",
+      "job_id": 4539948,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_qm9_homo_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_qm9_homo_s1_20261124.sbatch",
+      "dependency": 4539947,
+      "submitted_at": 1795535813.7961602
+    },
+    {
+      "key": "E1FT_full_k2_3M_qm9_homo_s2",
+      "job_id": 4539949,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k2_3M_qm9_homo_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k2_3M_qm9_homo_s2_20261124.sbatch",
+      "dependency": 4539948,
+      "submitted_at": 1795535813.8329473
+    },
+    {
+      "key": "E1FT_full_k1_3M_exp_LogD_s0",
+      "job_id": 4539950,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_exp_LogD_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_exp_LogD_s0_20261124.sbatch",
+      "dependency": 4539938,
+      "submitted_at": 1795535813.8696764
+    },
+    {
+      "key": "E1FT_full_k1_3M_exp_LogD_s1",
+      "job_id": 4539951,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_exp_LogD_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_exp_LogD_s1_20261124.sbatch",
+      "dependency": 4539950,
+      "submitted_at": 1795535813.906559
+    },
+    {
+      "key": "E1FT_full_k1_3M_exp_LogD_s2",
+      "job_id": 4539952,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_exp_LogD_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_exp_LogD_s2_20261124.sbatch",
+      "dependency": 4539951,
+      "submitted_at": 1795535813.9445841
+    },
+    {
+      "key": "E1FT_full_k1_3M_exp_LogS_s0",
+      "job_id": 4539953,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_exp_LogS_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_exp_LogS_s0_20261124.sbatch",
+      "dependency": 4539952,
+      "submitted_at": 1795535813.9826343
+    },
+    {
+      "key": "E1FT_full_k1_3M_exp_LogS_s1",
+      "job_id": 4539954,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_exp_LogS_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_exp_LogS_s1_20261124.sbatch",
+      "dependency": 4539953,
+      "submitted_at": 1795535814.0205753
+    },
+    {
+      "key": "E1FT_full_k1_3M_exp_LogS_s2",
+      "job_id": 4539955,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_exp_LogS_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_exp_LogS_s2_20261124.sbatch",
+      "dependency": 4539954,
+      "submitted_at": 1795535814.0582259
+    },
+    {
+      "key": "E1FT_full_k1_3M_qm9_U0_atom_s0",
+      "job_id": 4539956,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_qm9_U0_atom_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_qm9_U0_atom_s0_20261124.sbatch",
+      "dependency": 4539955,
+      "submitted_at": 1795535814.095427
+    },
+    {
+      "key": "E1FT_full_k1_3M_qm9_U0_atom_s1",
+      "job_id": 4539957,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_qm9_U0_atom_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_qm9_U0_atom_s1_20261124.sbatch",
+      "dependency": 4539956,
+      "submitted_at": 1795535814.1330836
+    },
+    {
+      "key": "E1FT_full_k1_3M_qm9_U0_atom_s2",
+      "job_id": 4539958,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_qm9_U0_atom_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_qm9_U0_atom_s2_20261124.sbatch",
+      "dependency": 4539957,
+      "submitted_at": 1795535814.1712563
+    },
+    {
+      "key": "E1FT_full_k1_3M_qm9_homo_s0",
+      "job_id": 4539959,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_qm9_homo_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_qm9_homo_s0_20261124.sbatch",
+      "dependency": 4539958,
+      "submitted_at": 1795535814.2091925
+    },
+    {
+      "key": "E1FT_full_k1_3M_qm9_homo_s1",
+      "job_id": 4539960,
+      "node": "compute-0-6",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_qm9_homo_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_qm9_homo_s1_20261124.sbatch",
+      "dependency": 4539959,
+      "submitted_at": 1795535814.246772
+    },
+    {
+      "key": "E1FT_full_k1_3M_qm9_homo_s2",
+      "job_id": 4539985,
+      "node": "compute-0-4",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k1_3M_qm9_homo_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k1_3M_qm9_homo_s2_refill_node4_20261125.sbatch",
+      "dependency": null,
+      "submitted_at": 1795541189.5168245,
+      "previous_pending_job": 4539961,
+      "no_running_task_stopped": true
+    },
+    {
+      "key": "E1FT_full_k5_3M_exp_LogD_s0",
+      "job_id": 4539962,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_exp_LogD_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_exp_LogD_s0_20261124.sbatch",
+      "dependency": 4539975,
+      "submitted_at": 1795535814.3219106
+    },
+    {
+      "key": "E1FT_full_k5_3M_exp_LogD_s1",
+      "job_id": 4539963,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_exp_LogD_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_exp_LogD_s1_20261124.sbatch",
+      "dependency": 4539962,
+      "submitted_at": 1795535814.3591146
+    },
+    {
+      "key": "E1FT_full_k5_3M_exp_LogD_s2",
+      "job_id": 4539964,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_exp_LogD_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_exp_LogD_s2_20261124.sbatch",
+      "dependency": 4539963,
+      "submitted_at": 1795535814.3955278
+    },
+    {
+      "key": "E1FT_full_k5_3M_exp_LogS_s0",
+      "job_id": 4539965,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_exp_LogS_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_exp_LogS_s0_20261124.sbatch",
+      "dependency": 4539964,
+      "submitted_at": 1795535814.4323905
+    },
+    {
+      "key": "E1FT_full_k5_3M_exp_LogS_s1",
+      "job_id": 4539966,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_exp_LogS_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_exp_LogS_s1_20261124.sbatch",
+      "dependency": 4539965,
+      "submitted_at": 1795535814.4695888
+    },
+    {
+      "key": "E1FT_full_k5_3M_exp_LogS_s2",
+      "job_id": 4539967,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_exp_LogS_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_exp_LogS_s2_20261124.sbatch",
+      "dependency": 4539966,
+      "submitted_at": 1795535814.5075235
+    },
+    {
+      "key": "E1FT_full_k5_3M_qm9_U0_atom_s0",
+      "job_id": 4539968,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_qm9_U0_atom_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_qm9_U0_atom_s0_20261124.sbatch",
+      "dependency": 4539967,
+      "submitted_at": 1795535814.5442715
+    },
+    {
+      "key": "E1FT_full_k5_3M_qm9_U0_atom_s1",
+      "job_id": 4539969,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_qm9_U0_atom_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_qm9_U0_atom_s1_20261124.sbatch",
+      "dependency": 4539968,
+      "submitted_at": 1795535814.5860837
+    },
+    {
+      "key": "E1FT_full_k5_3M_qm9_U0_atom_s2",
+      "job_id": 4539970,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_qm9_U0_atom_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_qm9_U0_atom_s2_20261124.sbatch",
+      "dependency": 4539969,
+      "submitted_at": 1795535814.6275995
+    },
+    {
+      "key": "E1FT_full_k5_3M_qm9_homo_s0",
+      "job_id": 4539971,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_qm9_homo_s0.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_qm9_homo_s0_20261124.sbatch",
+      "dependency": 4539970,
+      "submitted_at": 1795535814.665616
+    },
+    {
+      "key": "E1FT_full_k5_3M_qm9_homo_s1",
+      "job_id": 4539972,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_qm9_homo_s1.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_qm9_homo_s1_20261124.sbatch",
+      "dependency": 4539971,
+      "submitted_at": 1795535814.7044222
+    },
+    {
+      "key": "E1FT_full_k5_3M_qm9_homo_s2",
+      "job_id": 4539973,
+      "node": "compute-0-7",
+      "cpu_count": 16,
+      "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/E1FT_full_k5_3M_qm9_homo_s2.json",
+      "script": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/P_E1FT_full_k5_3M_qm9_homo_s2_20261124.sbatch",
+      "dependency": 4539972,
+      "submitted_at": 1795535814.7430358
+    }
+  ],
+  "own_process_proofs": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_postnative_closed_GPU_proofs_20261125.json",
+  "verified_process_trees": 39,
+  "GPU_allocated_seconds_by_bucket": {
+    "native_success": 129429,
+    "native_admission_failure": 23,
+    "reference_k10_full12": 4361,
+    "new_GPU_evaluations": 13972,
+    "evaluation_activation_failure": 15,
+    "unstarted_cancelled": 0
+  },
+  "E1_GPU_allocated_seconds": 147800,
+  "E1_GPU_hours": 41.05555555555556,
+  "accounting": {
+    "4539375": {
+      "state": "FAILED",
+      "exit_code": "1:0",
+      "allocated_seconds": 9,
+      "node": "compute-0-5"
+    },
+    "4539376": {
+      "state": "FAILED",
+      "exit_code": "1:0",
+      "allocated_seconds": 7,
+      "node": "compute-0-6"
+    },
+    "4539377": {
+      "state": "FAILED",
+      "exit_code": "1:0",
+      "allocated_seconds": 7,
+      "node": "compute-0-7"
+    },
+    "4539379": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 43136,
+      "node": "compute-0-5"
+    },
+    "4539380": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 43097,
+      "node": "compute-0-6"
+    },
+    "4539381": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 43196,
+      "node": "compute-0-7"
+    },
+    "4539385": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 276,
+      "node": "compute-0-4"
+    },
+    "4539386": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 252,
+      "node": "compute-0-4"
+    },
+    "4539387": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 252,
+      "node": "compute-0-4"
+    },
+    "4539388": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 252,
+      "node": "compute-0-4"
+    },
+    "4539389": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 251,
+      "node": "compute-0-4"
+    },
+    "4539390": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 254,
+      "node": "compute-0-4"
+    },
+    "4539391": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 473,
+      "node": "compute-0-4"
+    },
+    "4539392": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 472,
+      "node": "compute-0-4"
+    },
+    "4539393": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 478,
+      "node": "compute-0-4"
+    },
+    "4539394": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 468,
+      "node": "compute-0-4"
+    },
+    "4539395": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 467,
+      "node": "compute-0-4"
+    },
+    "4539396": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 466,
+      "node": "compute-0-4"
+    },
+    "4539935": {
+      "state": "FAILED",
+      "exit_code": "1:0",
+      "allocated_seconds": 7,
+      "node": "compute-0-6"
+    },
+    "4539936": {
+      "state": "FAILED",
+      "exit_code": "1:0",
+      "allocated_seconds": 7,
+      "node": "compute-0-7"
+    },
+    "4539937": {
+      "state": "FAILED",
+      "exit_code": "1:0",
+      "allocated_seconds": 1,
+      "node": "compute-0-4"
+    },
+    "4539938": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 345,
+      "node": "compute-0-6"
+    },
+    "4539939": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 249,
+      "node": "compute-0-4"
+    },
+    "4539940": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 248,
+      "node": "compute-0-4"
+    },
+    "4539941": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 253,
+      "node": "compute-0-4"
+    },
+    "4539942": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 253,
+      "node": "compute-0-4"
+    },
+    "4539943": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 258,
+      "node": "compute-0-4"
+    },
+    "4539944": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 479,
+      "node": "compute-0-4"
+    },
+    "4539945": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 474,
+      "node": "compute-0-4"
+    },
+    "4539946": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 478,
+      "node": "compute-0-4"
+    },
+    "4539947": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 469,
+      "node": "compute-0-4"
+    },
+    "4539948": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 469,
+      "node": "compute-0-4"
+    },
+    "4539949": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 464,
+      "node": "compute-0-4"
+    },
+    "4539950": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 247,
+      "node": "compute-0-6"
+    },
+    "4539951": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 248,
+      "node": "compute-0-6"
+    },
+    "4539952": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 249,
+      "node": "compute-0-6"
+    },
+    "4539953": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 251,
+      "node": "compute-0-6"
+    },
+    "4539954": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 249,
+      "node": "compute-0-6"
+    },
+    "4539955": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 253,
+      "node": "compute-0-6"
+    },
+    "4539956": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 475,
+      "node": "compute-0-6"
+    },
+    "4539957": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 466,
+      "node": "compute-0-6"
+    },
+    "4539958": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 470,
+      "node": "compute-0-6"
+    },
+    "4539959": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 462,
+      "node": "compute-0-6"
+    },
+    "4539960": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 458,
+      "node": "compute-0-6"
+    },
+    "4539961": {
+      "state": "CANCELLED by 1278",
+      "exit_code": "0:0",
+      "allocated_seconds": 0,
+      "node": "None assigned"
+    },
+    "4539962": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 249,
+      "node": "compute-0-7"
+    },
+    "4539963": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 244,
+      "node": "compute-0-7"
+    },
+    "4539964": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 247,
+      "node": "compute-0-7"
+    },
+    "4539965": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 248,
+      "node": "compute-0-7"
+    },
+    "4539966": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 255,
+      "node": "compute-0-7"
+    },
+    "4539967": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 250,
+      "node": "compute-0-7"
+    },
+    "4539968": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 471,
+      "node": "compute-0-7"
+    },
+    "4539969": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 469,
+      "node": "compute-0-7"
+    },
+    "4539970": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 475,
+      "node": "compute-0-7"
+    },
+    "4539971": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 462,
+      "node": "compute-0-7"
+    },
+    "4539972": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 464,
+      "node": "compute-0-7"
+    },
+    "4539973": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 462,
+      "node": "compute-0-7"
+    },
+    "4539974": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 342,
+      "node": "compute-0-6"
+    },
+    "4539975": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 340,
+      "node": "compute-0-7"
+    },
+    "4539976": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 256,
+      "node": "compute-0-4"
+    },
+    "4539985": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "allocated_seconds": 471,
+      "node": "compute-0-4"
+    }
+  },
+  "all_8_CPU_jobs_still_registered": true,
+  "k_star": null,
+  "no_new_scientific_selection": true,
+  "final_closed_full_settlement": {
+    "job": 4539985,
+    "allocated_file_bytes": 290402304,
+    "NFS_future_before": 13835247616,
+    "NFS_future_after": 13544845312,
+    "deleted_bytes": 0
+  },
+  "all_GPU_future_RAM_tmp_released": true
+}

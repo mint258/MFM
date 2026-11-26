@@ -1,0 +1,107 @@
+{
+  "schema": "P_ANALYSIS_NEW_LOGIC_VALIDATION_20261122_V1",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+  "scientific_runs_started": 0,
+  "full_historical_regression_repeated": false,
+  "canonical_guard": {
+    "job": 4538586,
+    "tests": 7,
+    "passed": 7,
+    "seconds": 0.029,
+    "executions": 1,
+    "log": "/tmp/p_guard_shared_4538586.log",
+    "resident_returncode": 0,
+    "remaining_children": []
+  },
+  "new_logic": {
+    "first": {
+      "job": 4538600,
+      "passed": 17,
+      "failed": 1,
+      "seconds": 14.87,
+      "failed_case": "test_deadline_comes_from_the_actual_job_and_reserves_cleanup",
+      "log": "/tmp/p_new_science_4538600.log",
+      "remaining_children": []
+    },
+    "targeted": {
+      "job": 4538619,
+      "passed": 4,
+      "failed": 0,
+      "seconds": 0.14,
+      "tests": [
+        "real Slurm deadline case",
+        "affected real native-query reap case",
+        "draining CPU candidate exclusion",
+        "unavailable CPU candidate queuing"
+      ],
+      "log": "/tmp/p_new_science_fix_4538619.log",
+      "remaining_children": []
+    },
+    "unique_current_passes": 20,
+    "basis": "16 unaffected original passes retained plus4 latest; no whole-suite replay"
+  },
+  "provider": {
+    "lifecycle_blob": "c337117c4d8b154859bef5e9f73d16aaeaa682f7",
+    "resident_blob": "b70aaf9bdd01bb0d42e5c82a49c9370f0b6fb533",
+    "copied_verbatim": true
+  },
+  "custom_supervisor": {
+    "status": "UNRESOLVED",
+    "attempts": [
+      {
+        "job": 4538576,
+        "state": "FAILED",
+        "elapsed_seconds": 200,
+        "exit_code": "0:12",
+        "original_tests_executed": 0
+      },
+      {
+        "job": 4538579,
+        "state": "FAILED",
+        "elapsed_seconds": 2,
+        "exit_code": "1:0",
+        "original_tests_executed": 0
+      }
+    ],
+    "files_retained_outside_repository": "runs/p_recipe_20261113/fixed_20261115/unresolved_custom_entry_20261122",
+    "activated": false,
+    "additional_repairs": false
+  },
+  "architecture_footprint": {
+    "job": 4538619,
+    "encoder_state_bytes": 89411372,
+    "head_state_bytes": 1318916,
+    "atomic_complete_state_peak_bound_bytes": 994277760,
+    "basis": "8*(encoder_state+head_state)+256MiB; no data fitting or GPU"
+  },
+  "scoped_source_check": {
+    "job": 4538634,
+    "status": "PASS",
+    "requested_paths": 106,
+    "existing_files": 104,
+    "python_files": 22,
+    "errors": 0,
+    "private_publisher_compile": "PASS",
+    "missing_documents_mirrored": [
+      "docs/p_recipe/USER_DIRECTIVE_20261122.md",
+      "docs/interfaces/STORAGE_GUARD_20261122.md"
+    ],
+    "raw_result": "sourcecheck_4538634.json",
+    "first_attempt": {
+      "job": 4538628,
+      "elapsed_seconds": 4,
+      "status": "FAILED",
+      "reason": "Private publisher path used fixed_20261115 instead of its parent; actual path located with rg; no science executed"
+    },
+    "followup_metadata_check": {
+      "job": 4538635,
+      "status": "PASS",
+      "files": 6,
+      "private_observer_compile": "PASS",
+      "F1_configurations": 120,
+      "F2_configurations": 60,
+      "remaining_children": []
+    }
+  },
+  "recorded_at_utc": "2026-11-22T11:45:00Z"
+}

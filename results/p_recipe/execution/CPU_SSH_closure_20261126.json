@@ -1,0 +1,1150 @@
+{
+  "rows": [
+    {
+      "key": "A5_handoff_control_tests",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_A5_handoff_control_tests_20261126",
+      "node": "compute-0-11",
+      "cores": [
+        63
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_A5_handoff_control_tests_20261126",
+        "node": "compute-0-11",
+        "supervisor": {
+          "pid": 246962,
+          "start_ticks": 2278735200,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-575.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 246961,
+          "start_ticks": 2278735200,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-575.scope\n",
+          "state": "S"
+        },
+        "session_id": 246960,
+        "cores": [
+          63
+        ],
+        "idle_fraction": {
+          "63": 1.0
+        },
+        "MemAvailable": 398359523328,
+        "started_at": 1795666352.7632108,
+        "hard_end_epoch": 1795668142.7632108,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": null,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "-q",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/test_a5_handoff_runtime.py"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795666357.709503,
+        "wall_seconds": 4.946292400360107,
+        "user_cpu_seconds": 0.46415999999999996,
+        "system_cpu_seconds": 0.07987799999999999,
+        "actual_cpu_seconds": 0.5440379999999999,
+        "peak_child_RSS_KiB": 46204,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.327111,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v3.py --configuration /tmp/P_CPU_SSH_20261126/A5_handoff_control_tests.json\"\n\tUser time (seconds): 0.51\n\tSystem time (seconds): 0.09\n\tPercent of CPU this job got: 6%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:10.02\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 46204\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 13\n\tMinor (reclaiming a frame) page faults: 15639\n\tVoluntary context switches: 3851\n\tInvoluntary context switches: 49\n\tSwaps: 0\n\tFile system inputs: 8096\n\tFile system outputs: 96\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 0.6
+    },
+    {
+      "key": "A5_common_UFF_statistics",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_A5_common_UFF_statistics_20261126",
+      "node": "compute-0-11",
+      "cores": [
+        63
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_A5_common_UFF_statistics_20261126",
+        "node": "compute-0-11",
+        "supervisor": {
+          "pid": 251745,
+          "start_ticks": 2279026396,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-616.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 251744,
+          "start_ticks": 2279026396,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-616.scope\n",
+          "state": "S"
+        },
+        "session_id": 251743,
+        "cores": [
+          63
+        ],
+        "idle_fraction": {
+          "63": 1.0
+        },
+        "MemAvailable": 391292280832,
+        "started_at": 1795669263.744675,
+        "hard_end_epoch": 1795671053.744675,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": null,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/a5_statistics_entry.py",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/A5_statistics_20261126_ssh.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795669273.2841513,
+        "wall_seconds": 9.5394766330719,
+        "user_cpu_seconds": 7.222023,
+        "system_cpu_seconds": 0.615176,
+        "actual_cpu_seconds": 7.837199,
+        "peak_child_RSS_KiB": 711124,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.3278105,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v3.py --configuration /tmp/P_CPU_SSH_20261126/A5_common_UFF_statistics.json\"\n\tUser time (seconds): 7.28\n\tSystem time (seconds): 0.62\n\tPercent of CPU this job got: 54%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:14.61\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 711124\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 315753\n\tVoluntary context switches: 16127\n\tInvoluntary context switches: 310\n\tSwaps: 0\n\tFile system inputs: 43792\n\tFile system outputs: 616\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 7.9
+    },
+    {
+      "key": "E1_k2_full12_primary",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_E1_k2_full12_primary_20261126",
+      "node": "compute-0-11",
+      "cores": [
+        63
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_E1_k2_full12_primary_20261126",
+        "node": "compute-0-11",
+        "supervisor": {
+          "pid": 245853,
+          "start_ticks": 2278655132,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-562.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 245852,
+          "start_ticks": 2278655132,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-562.scope\n",
+          "state": "S"
+        },
+        "session_id": 245851,
+        "cores": [
+          63
+        ],
+        "idle_fraction": {
+          "63": 1.0
+        },
+        "MemAvailable": 398367166464,
+        "started_at": 1795665552.0857399,
+        "hard_end_epoch": 1795667342.0857399,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": 4540099,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune_statistics_entry.py",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k2_F_primary_seed0_cpu15_ssh_20261126_cpu11.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795665560.871491,
+        "wall_seconds": 8.785751104354858,
+        "user_cpu_seconds": 6.642312,
+        "system_cpu_seconds": 0.561238,
+        "actual_cpu_seconds": 7.203550000000001,
+        "peak_child_RSS_KiB": 715764,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.328498,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v3.py --configuration /tmp/P_CPU_SSH_20261126/E1_k2_full12_primary.json\"\n\tUser time (seconds): 6.70\n\tSystem time (seconds): 0.57\n\tPercent of CPU this job got: 52%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:13.84\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 715764\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 1\n\tMinor (reclaiming a frame) page faults: 223029\n\tVoluntary context switches: 15331\n\tInvoluntary context switches: 298\n\tSwaps: 0\n\tFile system inputs: 101656\n\tFile system outputs: 11824\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 7.2700000000000005
+    },
+    {
+      "key": "E1_k5_original_R1_R3_statistics",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_E1_k5_original_R1_R3_statistics_20261126",
+      "node": "compute-0-11",
+      "cores": [
+        62
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_E1_k5_original_R1_R3_statistics_20261126",
+        "node": "compute-0-11",
+        "supervisor": {
+          "pid": 245924,
+          "start_ticks": 2278655728,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-563.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 245923,
+          "start_ticks": 2278655728,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-563.scope\n",
+          "state": "S"
+        },
+        "session_id": 245922,
+        "cores": [
+          62
+        ],
+        "idle_fraction": {
+          "62": 1.0
+        },
+        "MemAvailable": 397959192576,
+        "started_at": 1795665558.0661855,
+        "hard_end_epoch": 1795667348.0661855,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": 4540100,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/e1_statistics_entry.py",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k5_statistics_seed0_cpu15_ssh_20261126_cpu11.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795665688.8201742,
+        "wall_seconds": 130.75398921966553,
+        "user_cpu_seconds": 99.755673,
+        "system_cpu_seconds": 15.377788,
+        "actual_cpu_seconds": 115.133461,
+        "peak_child_RSS_KiB": 1495808,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.3292797,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v3.py --configuration /tmp/P_CPU_SSH_20261126/E1_k5_original_R1_R3_statistics.json\"\n\tUser time (seconds): 100.07\n\tSystem time (seconds): 15.46\n\tPercent of CPU this job got: 85%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 2:15.84\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 1495808\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 1600725\n\tVoluntary context switches: 79654\n\tInvoluntary context switches: 4275\n\tSwaps: 0\n\tFile system inputs: 1532032\n\tFile system outputs: 4320\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 115.53
+    },
+    {
+      "key": "E1_k5_full12_primary",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_E1_k5_full12_primary_20261126",
+      "node": "compute-0-11",
+      "cores": [
+        61
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_E1_k5_full12_primary_20261126",
+        "node": "compute-0-11",
+        "supervisor": {
+          "pid": 245999,
+          "start_ticks": 2278656323,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-564.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 245998,
+          "start_ticks": 2278656323,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-564.scope\n",
+          "state": "S"
+        },
+        "session_id": 245997,
+        "cores": [
+          61
+        ],
+        "idle_fraction": {
+          "61": 1.0
+        },
+        "MemAvailable": 397802864640,
+        "started_at": 1795665563.9968455,
+        "hard_end_epoch": 1795667353.9968455,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": 4540101,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune_statistics_entry.py",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k5_F_primary_seed0_cpu15_ssh_20261126_cpu11.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795665572.0291815,
+        "wall_seconds": 8.032336235046387,
+        "user_cpu_seconds": 6.581319,
+        "system_cpu_seconds": 0.36217099999999997,
+        "actual_cpu_seconds": 6.94349,
+        "peak_child_RSS_KiB": 711200,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.3299754,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v3.py --configuration /tmp/P_CPU_SSH_20261126/E1_k5_full12_primary.json\"\n\tUser time (seconds): 6.64\n\tSystem time (seconds): 0.37\n\tPercent of CPU this job got: 53%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:13.08\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 711200\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 178275\n\tVoluntary context switches: 5170\n\tInvoluntary context switches: 274\n\tSwaps: 0\n\tFile system inputs: 3064\n\tFile system outputs: 11824\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 7.01
+    },
+    {
+      "key": "E1_seed0_original_decision",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_E1_seed0_original_decision_20261126",
+      "node": "compute-0-11",
+      "cores": [
+        63
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_E1_seed0_original_decision_20261126",
+        "node": "compute-0-11",
+        "supervisor": {
+          "pid": 246825,
+          "start_ticks": 2278699753,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-573.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 246824,
+          "start_ticks": 2278699753,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-573.scope\n",
+          "state": "S"
+        },
+        "session_id": 246823,
+        "cores": [
+          63
+        ],
+        "idle_fraction": {
+          "63": 0.99800796812749
+        },
+        "MemAvailable": 398345494528,
+        "started_at": 1795665998.2926168,
+        "hard_end_epoch": 1795667788.2926168,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": 4540102,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/e1_decision_entry.py",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/decision_seed0_cpu15_ssh_20261126_cpu11.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795666003.3151166,
+        "wall_seconds": 5.022500038146973,
+        "user_cpu_seconds": 2.994244,
+        "system_cpu_seconds": 0.44949,
+        "actual_cpu_seconds": 3.443734,
+        "peak_child_RSS_KiB": 667140,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.3306463,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v3.py --configuration /tmp/P_CPU_SSH_20261126/E1_seed0_original_decision.json\"\n\tUser time (seconds): 3.04\n\tSystem time (seconds): 0.46\n\tPercent of CPU this job got: 34%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:10.08\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 667140\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 107140\n\tVoluntary context switches: 13366\n\tInvoluntary context switches: 230\n\tSwaps: 0\n\tFile system inputs: 10144\n\tFile system outputs: 160\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 3.5
+    },
+    {
+      "key": "runtime_contract_tests",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_runtime_contract_tests_20261126",
+      "node": "compute-0-15",
+      "cores": [
+        1
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_runtime_contract_tests_20261126",
+        "node": "compute-0-15",
+        "supervisor": {
+          "pid": 1135302,
+          "start_ticks": 4788198320,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1474.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 1135301,
+          "start_ticks": 4788198320,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1474.scope\n",
+          "state": "S"
+        },
+        "session_id": 1135300,
+        "cores": [
+          1
+        ],
+        "idle_fraction": {
+          "1": 1.0
+        },
+        "MemAvailable": 392240537600,
+        "started_at": 1795664407.325451,
+        "hard_end_epoch": 1795666197.325451,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": null,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "-q",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/test_cpu_ssh_runtime.py"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795664418.6353838,
+        "wall_seconds": 11.309932947158813,
+        "user_cpu_seconds": 0.423919,
+        "system_cpu_seconds": 0.116078,
+        "actual_cpu_seconds": 0.539997,
+        "peak_child_RSS_KiB": 45256,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.244732,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v1.py --configuration /tmp/P_CPU_SSH_20261126/runtime_contract_tests.json\"\n\tUser time (seconds): 0.48\n\tSystem time (seconds): 0.13\n\tPercent of CPU this job got: 3%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:16.36\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 45256\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 172\n\tMinor (reclaiming a frame) page faults: 15712\n\tVoluntary context switches: 4045\n\tInvoluntary context switches: 30\n\tSwaps: 0\n\tFile system inputs: 47920\n\tFile system outputs: 48\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 0.61,
+      "log_tail": "{\"phase\": \"SSH_RESIDENT_STARTED\", \"schema\": \"P_CPU_SSH_RUNTIME_20261126_V1\", \"status\": \"RUNNING\", \"execution_id\": \"ssh:P_runtime_contract_tests_20261126\", \"node\": \"compute-0-15\", \"supervisor\": {\"pid\": 1135302, \"start_ticks\": 4788198320, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-1474.scope\\n\", \"state\": \"R\"}, \"parent\": {\"pid\": 1135301, \"start_ticks\": 4788198320, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-1474.scope\\n\", \"state\": \"S\"}, \"session_id\": 1135300, \"cores\": [1], \"idle_fraction\": {\"1\": 1.0}, \"MemAvailable\": 392240537600, \"started_at\": 1795664407.325451, \"hard_end_epoch\": 1795666197.325451, \"timeout_seconds\": 1800, \"cleanup_seconds\": 180, \"original_pending_job\": null, \"worker_argv\": [\"/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python\", \"-B\", \"-m\", \"pytest\", \"-q\", \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/test_cpu_ssh_runtime.py\"], \"scientific_code_and_outputs_preserved\": true}\n....                                                                     [100%]\n4 passed in 3.59s\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 1135321, \"root_returncode\": 0}\n{\"phase\": \"SSH_RESIDENT_TERMINAL\", \"schema\": \"P_CPU_SSH_RUNTIME_20261126_V1\", \"status\": \"COMPLETE\", \"execution_id\": \"ssh:P_runtime_contract_tests_20261126\", \"node\": \"compute-0-15\", \"supervisor\": {\"pid\": 1135302, \"start_ticks\": 4788198320, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-1474.scope\\n\", \"state\": \"R\"}, \"parent\": {\"pid\": 1135301, \"start_ticks\": 4788198320, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-1474.scope\\n\", \"state\": \"S\"}, \"session_id\": 1135300, \"cores\": [1], \"idle_fraction\": {\"1\": 1.0}, \"MemAvailable\": 392240537600, \"started_at\": 1795664407.325451, \"hard_end_epoch\": 1795666197.325451, \"timeout_seconds\": 1800, \"cleanup_seconds\": 180, \"original_pending_job\": null, \"worker_argv\": [\"/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python\", \"-B\", \"-m\", \"pytest\", \"-q\", \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/test_cpu_ssh_runtime.py\"], \"scientific_code_and_outputs_preserved\": true, \"returncode\": 0, \"ended_at\": 1795664418.6353838, \"wall_seconds\": 11.309932947158813, \"user_cpu_seconds\": 0.423919, \"system_cpu_seconds\": 0.116078, \"actual_cpu_seconds\": 0.539997, \"peak_child_RSS_KiB\": 45256, \"remaining_children\": [], \"owned_tree_reaped\": true}\n"
+    },
+    {
+      "key": "runtime_contract_tests_v2",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_runtime_contract_tests_v2_20261126",
+      "node": "compute-0-15",
+      "cores": [
+        1
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_runtime_contract_tests_v2_20261126",
+        "node": "compute-0-15",
+        "supervisor": {
+          "pid": 1135536,
+          "start_ticks": 4788208496,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1478.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 1135535,
+          "start_ticks": 4788208496,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1478.scope\n",
+          "state": "S"
+        },
+        "session_id": 1135534,
+        "cores": [
+          1
+        ],
+        "idle_fraction": {
+          "1": 1.0
+        },
+        "MemAvailable": 392255057920,
+        "started_at": 1795664509.0950701,
+        "hard_end_epoch": 1795666299.0950701,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": null,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "-q",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/test_cpu_ssh_runtime.py"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795664510.8656652,
+        "wall_seconds": 1.7705950736999512,
+        "user_cpu_seconds": 0.379223,
+        "system_cpu_seconds": 0.082582,
+        "actual_cpu_seconds": 0.46180499999999997,
+        "peak_child_RSS_KiB": 45360,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.2454236,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v2.py --configuration /tmp/P_CPU_SSH_20261126/runtime_contract_tests_v2.json\"\n\tUser time (seconds): 0.42\n\tSystem time (seconds): 0.09\n\tPercent of CPU this job got: 7%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:06.84\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 45360\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 15812\n\tVoluntary context switches: 2703\n\tInvoluntary context switches: 39\n\tSwaps: 0\n\tFile system inputs: 40\n\tFile system outputs: 48\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 0.51,
+      "log_tail": "{\"phase\": \"SSH_RESIDENT_STARTED\", \"schema\": \"P_CPU_SSH_RUNTIME_20261126_V1\", \"status\": \"RUNNING\", \"execution_id\": \"ssh:P_runtime_contract_tests_v2_20261126\", \"node\": \"compute-0-15\", \"supervisor\": {\"pid\": 1135536, \"start_ticks\": 4788208496, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-1478.scope\\n\", \"state\": \"R\"}, \"parent\": {\"pid\": 1135535, \"start_ticks\": 4788208496, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-1478.scope\\n\", \"state\": \"S\"}, \"session_id\": 1135534, \"cores\": [1], \"idle_fraction\": {\"1\": 1.0}, \"MemAvailable\": 392255057920, \"started_at\": 1795664509.0950701, \"hard_end_epoch\": 1795666299.0950701, \"timeout_seconds\": 1800, \"cleanup_seconds\": 180, \"original_pending_job\": null, \"worker_argv\": [\"/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python\", \"-B\", \"-m\", \"pytest\", \"-q\", \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/test_cpu_ssh_runtime.py\"], \"scientific_code_and_outputs_preserved\": true}\n....                                                                     [100%]\n4 passed in 1.08s\n{\"phase\": \"OWNED_TREE_REAPED\", \"root\": 1135549, \"root_returncode\": 0}\n{\"phase\": \"SSH_RESIDENT_TERMINAL\", \"schema\": \"P_CPU_SSH_RUNTIME_20261126_V1\", \"status\": \"COMPLETE\", \"execution_id\": \"ssh:P_runtime_contract_tests_v2_20261126\", \"node\": \"compute-0-15\", \"supervisor\": {\"pid\": 1135536, \"start_ticks\": 4788208496, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-1478.scope\\n\", \"state\": \"R\"}, \"parent\": {\"pid\": 1135535, \"start_ticks\": 4788208496, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-1478.scope\\n\", \"state\": \"S\"}, \"session_id\": 1135534, \"cores\": [1], \"idle_fraction\": {\"1\": 1.0}, \"MemAvailable\": 392255057920, \"started_at\": 1795664509.0950701, \"hard_end_epoch\": 1795666299.0950701, \"timeout_seconds\": 1800, \"cleanup_seconds\": 180, \"original_pending_job\": null, \"worker_argv\": [\"/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python\", \"-B\", \"-m\", \"pytest\", \"-q\", \"/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/test_cpu_ssh_runtime.py\"], \"scientific_code_and_outputs_preserved\": true, \"returncode\": 0, \"ended_at\": 1795664510.8656652, \"wall_seconds\": 1.7705950736999512, \"user_cpu_seconds\": 0.379223, \"system_cpu_seconds\": 0.082582, \"actual_cpu_seconds\": 0.46180499999999997, \"peak_child_RSS_KiB\": 45360, \"remaining_children\": [], \"owned_tree_reaped\": true}\n"
+    },
+    {
+      "key": "E1_final_training_hardware",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_E1_final_training_hardware_20261126",
+      "node": "compute-0-15",
+      "cores": [
+        1
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_E1_final_training_hardware_20261126",
+        "node": "compute-0-15",
+        "supervisor": {
+          "pid": 1135951,
+          "start_ticks": 4788236579,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1486.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 1135950,
+          "start_ticks": 4788236579,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1486.scope\n",
+          "state": "S"
+        },
+        "session_id": 1135949,
+        "cores": [
+          1
+        ],
+        "idle_fraction": {
+          "1": 0.9940239043824701
+        },
+        "MemAvailable": 392264519680,
+        "started_at": 1795664789.9053254,
+        "hard_end_epoch": 1795666579.9053254,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": 4540095,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/e1_hardware_entry.py",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/training_hardware_seed0_cpu15_ssh_20261126.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795664862.153203,
+        "wall_seconds": 72.24787783622742,
+        "user_cpu_seconds": 3.288554,
+        "system_cpu_seconds": 0.759424,
+        "actual_cpu_seconds": 4.047978,
+        "peak_child_RSS_KiB": 695240,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.2460186,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v2.py --configuration /tmp/P_CPU_SSH_20261126/E1_final_training_hardware.json\"\n\tUser time (seconds): 3.45\n\tSystem time (seconds): 0.81\n\tPercent of CPU this job got: 5%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 1:17.29\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 695240\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 4617\n\tMinor (reclaiming a frame) page faults: 159220\n\tVoluntary context switches: 19623\n\tInvoluntary context switches: 195\n\tSwaps: 0\n\tFile system inputs: 607608\n\tFile system outputs: 72\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 4.26
+    },
+    {
+      "key": "E1_k1_original_R1_R3_statistics",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_E1_k1_original_R1_R3_statistics_20261126",
+      "node": "compute-0-15",
+      "cores": [
+        3
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_E1_k1_original_R1_R3_statistics_20261126",
+        "node": "compute-0-15",
+        "supervisor": {
+          "pid": 1136022,
+          "start_ticks": 4788237168,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1487.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 1136021,
+          "start_ticks": 4788237168,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1487.scope\n",
+          "state": "S"
+        },
+        "session_id": 1136020,
+        "cores": [
+          3
+        ],
+        "idle_fraction": {
+          "3": 0.9659318637274549
+        },
+        "MemAvailable": 392233988096,
+        "started_at": 1795664795.7959023,
+        "hard_end_epoch": 1795666585.7959023,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": 4540096,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/e1_statistics_entry.py",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k1_statistics_seed0_cpu15_ssh_20261126.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795664956.353461,
+        "wall_seconds": 160.5575590133667,
+        "user_cpu_seconds": 85.156367,
+        "system_cpu_seconds": 15.495524,
+        "actual_cpu_seconds": 100.651891,
+        "peak_child_RSS_KiB": 1458324,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.246594,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v2.py --configuration /tmp/P_CPU_SSH_20261126/E1_k1_original_R1_R3_statistics.json\"\n\tUser time (seconds): 85.49\n\tSystem time (seconds): 15.59\n\tPercent of CPU this job got: 61%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 2:45.60\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 1458324\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 3738\n\tMinor (reclaiming a frame) page faults: 1307860\n\tVoluntary context switches: 92621\n\tInvoluntary context switches: 3221\n\tSwaps: 0\n\tFile system inputs: 2126672\n\tFile system outputs: 4312\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 101.08
+    },
+    {
+      "key": "E1_k1_full12_primary",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_E1_k1_full12_primary_20261126",
+      "node": "compute-0-15",
+      "cores": [
+        7
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_E1_k1_full12_primary_20261126",
+        "node": "compute-0-15",
+        "supervisor": {
+          "pid": 1136663,
+          "start_ticks": 4788274096,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1497.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 1136662,
+          "start_ticks": 4788274096,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1497.scope\n",
+          "state": "S"
+        },
+        "session_id": 1136661,
+        "cores": [
+          7
+        ],
+        "idle_fraction": {
+          "7": 0.986
+        },
+        "MemAvailable": 391832854528,
+        "started_at": 1795665165.080553,
+        "hard_end_epoch": 1795666955.080553,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": 4540097,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune_statistics_entry.py",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k1_F_primary_seed0_cpu15_ssh_20261126.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795665172.8601046,
+        "wall_seconds": 7.7795515060424805,
+        "user_cpu_seconds": 5.877304,
+        "system_cpu_seconds": 0.46304399999999996,
+        "actual_cpu_seconds": 6.340348,
+        "peak_child_RSS_KiB": 713328,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.2472012,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v3.py --configuration /tmp/P_CPU_SSH_20261126/E1_k1_full12_primary.json\"\n\tUser time (seconds): 5.92\n\tSystem time (seconds): 0.47\n\tPercent of CPU this job got: 49%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:12.83\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 713328\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 178229\n\tVoluntary context switches: 7301\n\tInvoluntary context switches: 247\n\tSwaps: 0\n\tFile system inputs: 101464\n\tFile system outputs: 11832\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 6.39
+    },
+    {
+      "key": "E1_k2_original_R1_R3_statistics",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_E1_k2_original_R1_R3_statistics_20261126",
+      "node": "compute-0-15",
+      "cores": [
+        2
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_E1_k2_original_R1_R3_statistics_20261126",
+        "node": "compute-0-15",
+        "supervisor": {
+          "pid": 1136741,
+          "start_ticks": 4788274688,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1498.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 1136740,
+          "start_ticks": 4788274688,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1498.scope\n",
+          "state": "S"
+        },
+        "session_id": 1136739,
+        "cores": [
+          2
+        ],
+        "idle_fraction": {
+          "2": 0.9718875502008032
+        },
+        "MemAvailable": 391347601408,
+        "started_at": 1795665170.9956236,
+        "hard_end_epoch": 1795666960.9956236,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": 4540098,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/e1_statistics_entry.py",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k2_statistics_seed0_cpu15_ssh_20261126.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795665282.6224353,
+        "wall_seconds": 111.62681198120117,
+        "user_cpu_seconds": 86.141459,
+        "system_cpu_seconds": 14.464887,
+        "actual_cpu_seconds": 100.606346,
+        "peak_child_RSS_KiB": 1519012,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.247802,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v3.py --configuration /tmp/P_CPU_SSH_20261126/E1_k2_original_R1_R3_statistics.json\"\n\tUser time (seconds): 86.37\n\tSystem time (seconds): 14.54\n\tPercent of CPU this job got: 86%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 1:56.67\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 1519012\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 1564658\n\tVoluntary context switches: 78940\n\tInvoluntary context switches: 3188\n\tSwaps: 0\n\tFile system inputs: 1531216\n\tFile system outputs: 4320\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 100.91
+    },
+    {
+      "key": "A5_shared_UFF_cohort_attempt2",
+      "state": "CLOSED_SUCCESS",
+      "preflight_returncode": null,
+      "preflight_wall_seconds": null,
+      "worker_never_created": false,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": false,
+      "execution_id": "ssh:P_A5_shared_UFF_cohort_attempt2_20261126",
+      "node": "compute-0-15",
+      "cores": [
+        1
+      ],
+      "supervisor_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_A5_shared_UFF_cohort_attempt2_20261126",
+        "node": "compute-0-15",
+        "supervisor": {
+          "pid": 1136589,
+          "start_ticks": 4788273506,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1495.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 1136588,
+          "start_ticks": 4788273506,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1495.scope\n",
+          "state": "S"
+        },
+        "session_id": 1136587,
+        "cores": [
+          1
+        ],
+        "idle_fraction": {
+          "1": 1.0
+        },
+        "MemAvailable": 392241094656,
+        "started_at": 1795665159.1791127,
+        "hard_end_epoch": 1795666949.1791127,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": 4540103,
+        "worker_argv": [
+          "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+          "-B",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/a5_prepare_entry.py",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/A5_cohort_20261125_cpu15_ssh_20261126_attempt2.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795665450.199472,
+        "wall_seconds": 291.0203592777252,
+        "user_cpu_seconds": 27.622248,
+        "system_cpu_seconds": 4.191857,
+        "actual_cpu_seconds": 31.814104999999998,
+        "peak_child_RSS_KiB": 844388,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "observed_at": 1795669769.248465,
+      "actual_time_report": "\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v3.py --configuration /tmp/P_CPU_SSH_20261126/A5_shared_UFF_cohort_attempt2.json\"\n\tUser time (seconds): 28.20\n\tSystem time (seconds): 4.38\n\tPercent of CPU this job got: 11%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 4:56.07\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 844388\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 539\n\tMinor (reclaiming a frame) page faults: 607149\n\tVoluntary context switches: 57768\n\tInvoluntary context switches: 1543\n\tSwaps: 0\n\tFile system inputs: 388112\n\tFile system outputs: 545872\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n",
+      "total_process_tree_CPU_seconds": 32.58
+    },
+    {
+      "key": "A5_shared_UFF_cohort",
+      "state": "PREFLIGHT_REJECTED_NO_WORKER_EXIT_PROVEN",
+      "preflight_returncode": 1,
+      "preflight_wall_seconds": 5.05,
+      "worker_never_created": true,
+      "original_session_members": [],
+      "first_preflight_supervisor_identity_missing": true,
+      "execution_id": "ssh:P_A5_shared_UFF_cohort_20261126",
+      "node": "compute-0-15",
+      "cores": [
+        1
+      ],
+      "supervisor_current": null,
+      "launcher_current": {
+        "exists": false,
+        "same_start": false
+      },
+      "runtime": null,
+      "observed_at": 1795669769.2488937,
+      "actual_time_report": "Command exited with non-zero status 1\n\tCommand being timed: \"/usr/bin/python3 -B /tmp/P_CPU_SSH_20261126/resident_v2.py --configuration /tmp/P_CPU_SSH_20261126/A5_shared_UFF_cohort.json\"\n\tUser time (seconds): 0.03\n\tSystem time (seconds): 0.00\n\tPercent of CPU this job got: 0%\n\tElapsed (wall clock) time (h:mm:ss or m:ss): 0:05.05\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 13752\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 0\n\tMinor (reclaiming a frame) page faults: 2036\n\tVoluntary context switches: 25\n\tInvoluntary context switches: 1\n\tSwaps: 0\n\tFile system inputs: 0\n\tFile system outputs: 8\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 1\n",
+      "total_process_tree_CPU_seconds": 0.03,
+      "log_tail": "Traceback (most recent call last):\n  File \"/tmp/P_CPU_SSH_20261126/resident_v2.py\", line 6, in <module>\n    raise SystemExit(r.main())\n  File \"<resident-ssh>\", line 162, in main\n  File \"<resident-ssh>\", line 103, in run\nValueError: Selected core is no longer actually idle\n"
+    }
+  ],
+  "nodes": [
+    "compute-0-11",
+    "compute-0-15"
+  ],
+  "observed_at": 1795669769.3306603,
+  "monitor": {
+    "cycle": 256,
+    "next_due": 1795670883.160136,
+    "errors": {},
+    "actual_identity_verified": true
+  },
+  "own_claim_scope_matches": true
+}

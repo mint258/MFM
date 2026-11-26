@@ -1,0 +1,147 @@
+{
+  "schema": "P_RECIPE_RESTART_APPROVAL_PROPOSAL_V1",
+  "status": "DECLINED_ZERO_RESTART_LOSSLESS_RESUME_AUTHORIZED",
+  "authorized": false,
+  "created_from_observed_at": 1794769350.000416,
+  "reason": "A4 continued training but dropped to 8.8455 samples/s; a bounded read-only observation found 16 UID1275 gmx contexts on the same node7 GPU. No running task has been stopped for this proposal.",
+  "authority_required": "User previously required not stopping running training without a specific instruction. This proposal requires explicit approval for one stop and one from-zero replacement, after destination readiness; no reply means source continues.",
+  "source": {
+    "run": "fixed_20261115_round1_A4_non21_restart",
+    "node": "compute-0-7",
+    "job_id": 4532642,
+    "pid": 2499989,
+    "uid": 1278,
+    "start_ticks": 1953132907,
+    "gpu_uuid": "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+    "configuration": "configs/p_recipe/fixed_20261115/round1/A4.json",
+    "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round1_A4_non21_restart",
+    "samples": 1824768,
+    "budget": 3000000,
+    "recent_samples_per_second": 8.845493012942871,
+    "top_level_pt_checkpoints_observed": [],
+    "handoff_request_configured": false,
+    "handoff_ack_configured": false
+  },
+  "destination": {
+    "node": "compute-0-22",
+    "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+    "gpu_type": "5090",
+    "currently_used_by": {
+      "arm": "A1",
+      "job_id": 4532596,
+      "samples": 2774976,
+      "budget": 3000000,
+      "recent_samples_per_second": 94.5820072264389
+    },
+    "must_wait_for_A1_training_and_evaluation_complete": true,
+    "cpu_request": 16,
+    "exclusive": false,
+    "submission_policy": "Fresh CPU/GPU/disk/quota admission, then Slurm if 16 CPUs allocatable; otherwise existing authorized native_SSH plus same-task sbatch takeover policy. Never overlap own GPU runs."
+  },
+  "conditional_time_estimate": {
+    "source_remaining_training_hours_at_recent_rate": 36.90617728776242,
+    "replacement_full_training_hours_if_matching_current_A1_rate": 8.810696217709241,
+    "qualification": "Conditional estimates only: exclude evaluation/validation and waiting for A1; different arms/shared conditions can change throughput, and source cohosts may finish. No new benchmark was run."
+  },
+  "execution_after_approval": [
+    "Continue source until A1 actually completes training AND evaluation, releases its own GPU lock and process tree, and new destination passes fresh physical filesystem bytes/inodes, account quota/concurrent peak and GPU/CPU admission.",
+    "Verify source identity/job ownership; stop only source job4532642 and any verified unused same-task takeover reservation. Keep every source output, exit status, configuration and cost. Do not modify other users.",
+    "Archive source canonical configuration and actual final source cursor/cost, then update canonical A4 plan/configuration and receipt to the approved new run. No source output deletion, no baseline/P0/D4 re-evaluation.",
+    "Launch exactly one from-zero A4 replacement with identical scientific fields: full B32 forward, no accumulation/recomputation, AdamW3e-4/betas.9,.95/wd.01, cosine3M/warmup2%, original11-07 normalizations and registered sampling. Fit its own fixed60k–150k p99 window, initial281.7; preserve3M budget and downstream protocols.",
+    "Verify actual newly committed training steps and publish actual source stop/archive and destination runtime handles; never report a queued task as running."
+  ],
+  "planned_configuration": {
+    "arm": "A4",
+    "weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "p_recipe": {
+      "family_equal": true
+    },
+    "pooling": "registry",
+    "lr": 0.0003,
+    "k": 10,
+    "root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+    "condition": "P",
+    "order": "fixed_random",
+    "training_view": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/repository/configs/data_v1/training_view_v1.json",
+    "distance_bias": "C1-0",
+    "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round1_A4_node22_restart",
+    "run": "fixed_20261115_round1_A4_node22_restart",
+    "subset_seed": 20261112,
+    "source": "PM7",
+    "schedule": "cosine",
+    "workers": 14,
+    "microbatch_size": 32,
+    "stage": 2,
+    "head_form": "H1",
+    "batch_size": 32,
+    "round": 1,
+    "normalizations": "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json",
+    "clip_reference": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/P_clip.json",
+    "corpus": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/corpus/corpus.json",
+    "subset_molecules": null,
+    "seed": 0,
+    "mean_labels": false,
+    "views": "three",
+    "warmup_fraction": 0.02,
+    "schema": "P_RECIPE_BASE_V1",
+    "samples": 3000000,
+    "persist_features": false,
+    "activation_checkpointing": false,
+    "screening_samples": 3000000,
+    "confirmation_multiplier": 3,
+    "confirmation_samples": 9000000,
+    "gradient_accumulation_steps": 1,
+    "lr_sample_axis": "completed_samples",
+    "clip_calibration": {
+      "calibration_samples": 150000,
+      "window_start_samples": 60000,
+      "initial_clip": 281.7,
+      "quantile": 0.99,
+      "sample_axis": "optimizer_step_start"
+    },
+    "study_revision": "fixed_20261115",
+    "run_prefix": "fixed_20261115_",
+    "results_directory": "results/p_recipe/fixed_20261115",
+    "control_directory": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115",
+    "checkpoint_policy": "screen_final_confirmation_milestones",
+    "fixed_user_protocol": "20261114_supplement",
+    "confirmation_checkpoint_interval": 1000000,
+    "components": [
+      "A4"
+    ],
+    "checkpoint_samples": [
+      3000000
+    ],
+    "attempt": 4,
+    "required_gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+    "replaces_run": "fixed_20261115_round1_A4_non21_restart",
+    "user_approved_restart_from_zero": false
+  },
+  "no_approval_behavior": "Do not submit or signal anything for this proposal. Current A4 continues unchanged, and normal half-hour monitoring and the full registered P study continue.",
+  "lossless_resume_authorized": true,
+  "user_decision": "Do not restart from zero or move to node22. Save a normal full checkpoint, exit, select fastest idle4090 then3090, resume samecodeFP32 to3M. Preserveoutputs/cost; afterA4eval R1paireddecision, mergePR8, thenR2B1first.",
+  "migration_status": "UNRESOLVED_SAFE_CHECKPOINT_TRIGGER_SOURCE_CONTINUES",
+  "actual_A4_attached": false,
+  "actual_A4_stopped": false,
+  "checkpoint_trigger_note": "Loaded A4 has final-only checkpoint policy and no request/ack paths. CPU-only bridge failed twice; discontinued per taskbook2.8. No live injection into A4, no zero restart, no new A4 job.",
+  "current_execution": {
+    "run": "fixed_20261115_round1_A4_non21_restart",
+    "node": "compute-0-7",
+    "job_id": 4532642,
+    "pid": 2499989,
+    "uid": 1278,
+    "start_ticks": 1953132907,
+    "samples": 1894848,
+    "budget": 3000000,
+    "observed_at_utc": "2026-11-15 21:14 UTC"
+  },
+  "after_A4_evaluation": [
+    "round1 paired decision",
+    "merge PR #8",
+    "start round2 with B1 first"
+  ]
+}

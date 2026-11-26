@@ -1,0 +1,90 @@
+{
+  "run": "composition_T1_22C_descriptive",
+  "kind": "COMPOSITION_T1_22C_DESCRIPTIVE",
+  "ready": true,
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261122C.md",
+  "node": "compute-0-11",
+  "excluded_nodes": [
+    "compute-0-8",
+    "compute-0-10",
+    "compute-0-14",
+    "compute-0-15",
+    "compute-0-16",
+    "compute-0-17",
+    "compute-0-18"
+  ],
+  "cpus": 4,
+  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T1_descriptive",
+  "output_mount": "/lfshome",
+  "forward_summary": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T1_forwards/summary.json",
+  "panel": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_panel/panel.npz",
+  "weights": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_mean_statistics/weights.npy",
+  "sources": [
+    {
+      "label": "T1_1M",
+      "source_binding": {
+        "arm": "T1",
+        "samples": 1000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T1.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T1_sbatch/samples_1000000.pt",
+        "bytes": 220304873,
+        "source_training_budget": 9000000
+      },
+      "checkpoint_mtime_ns": "1795192440000000000"
+    },
+    {
+      "label": "T1_3M",
+      "source_binding": {
+        "arm": "T1",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T1.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T1_sbatch/samples_3000000.pt",
+        "bytes": 220309417,
+        "source_training_budget": 9000000
+      },
+      "checkpoint_mtime_ns": "1795227070000000000"
+    },
+    {
+      "label": "T1_6M",
+      "source_binding": {
+        "arm": "T1",
+        "samples": 6000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T1.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T1_sbatch/samples_6000000.pt",
+        "bytes": 220307113,
+        "source_training_budget": 9000000
+      },
+      "checkpoint_mtime_ns": "1795275919000000000"
+    },
+    {
+      "label": "T1_9M",
+      "source_binding": {
+        "arm": "T1",
+        "samples": 9000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T1.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T1_sbatch/samples_9000000.pt",
+        "bytes": 220304873,
+        "source_training_budget": 9000000
+      },
+      "checkpoint_mtime_ns": "1795321627000000000"
+    }
+  ],
+  "cleanup_seconds": 180,
+  "work_unit_seconds": 120,
+  "ram_peak_bytes": 8589934592,
+  "remaining_output_bytes": 671088640,
+  "reservation_ids": [
+    "P_T1_composition_CPU_RAM",
+    "P_T1_composition_CPU_tmp",
+    "P_T1_composition_stats_remaining"
+  ],
+  "source_validation": {
+    "new_tests_job": "4539063",
+    "new_tests": 3,
+    "resource_groups": 24015,
+    "original_statistic_module": "d3bce7a954f01443860c2ce1c8fb6d2663c05f67"
+  },
+  "new_GPU_forwards": 0,
+  "old_mean_primary_recomputed": false,
+  "decisions_changed": false
+}

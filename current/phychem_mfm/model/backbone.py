@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import torch
 import torch.nn as nn
@@ -58,7 +58,7 @@ class RealCoordTransformerBackbone(nn.Module):
         )
         self.out_norm = nn.LayerNorm(self.dim)
 
-    def forward(self, data: Data) -> Tensor:
+    def forward(self, data: Data, *, return_intermediates=False) -> Tensor:
         require_distance_bias_backbone(self,expected=self.distance_bias_projection_bias)
         if getattr(data, "pos", None) is None:
             raise ValueError("RealCoordTransformerBackbone requires data.pos")
@@ -74,6 +74,7 @@ class RealCoordTransformerBackbone(nn.Module):
         x_dense, mask = to_dense_batch(x, batch, fill_value=0.0)
         pos_dense, _ = to_dense_batch(data.pos.to(torch.float32), batch, fill_value=0.0)
 
+        intermediate = []
         for layer in self.layers:
             if self.activation_checkpointing and self.training and torch.is_grad_enabled():
                 # Recompute the large distance-bias intermediates during backward.
@@ -81,6 +82,11 @@ class RealCoordTransformerBackbone(nn.Module):
                 x_dense = checkpoint(layer, x_dense, pos_dense, mask, use_reentrant=False)
             else:
                 x_dense = layer(x_dense, pos_dense, mask)
+            if return_intermediates:
+                intermediate.append(x_dense[mask])
 
         x_dense = self.out_norm(x_dense) * mask.unsqueeze(-1).to(x_dense.dtype)
+        if return_intermediates:
+            intermediate[-1] = x_dense[mask]
+            return x_dense[mask], tuple(intermediate)
         return x_dense[mask]

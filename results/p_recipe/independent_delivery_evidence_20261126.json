@@ -1,0 +1,726 @@
+{
+  "schema": "P_WHOLE27_INDEPENDENT_DELIVERY_INDEX_V1",
+  "status": "P_INDEPENDENT_PARTS_COMPLETE_WAIT_EXTERNAL_A4",
+  "items": [
+    {
+      "id": "protocol_and_legacy_rescore",
+      "requirement": "Root\u00a71/4 revised R1/R3 protocol, one legacy calibration and requested old checkpoint table",
+      "state": "existing_evidence_located",
+      "original_evidence": [
+        {
+          "source": "configs/p_recipe/protocol.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/protocol.json",
+          "exists": true,
+          "bytes": 5300
+        },
+        {
+          "source": "results/p_recipe/scores.csv",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/scores.csv",
+          "exists": true,
+          "bytes": 191638
+        },
+        {
+          "source": "docs/p_recipe/LOG.md Nov13 legacy calibration4530434/4530435 and14T0/T1closure",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/LOG.md",
+          "exists": true,
+          "bytes": 259675
+        }
+      ]
+    },
+    {
+      "id": "P0",
+      "requirement": "Root\u00a71/5 P0 one-page summary+D1-D5 CSV+D6 conclusions",
+      "state": "existing_artifacts_read",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/P0_SUMMARY.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/P0_SUMMARY.md",
+          "exists": true,
+          "bytes": 1839
+        },
+        {
+          "source": "results/p_recipe/diagnostics/D1_fields.csv",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/diagnostics/D1_fields.csv",
+          "exists": true,
+          "bytes": 17872
+        },
+        {
+          "source": "results/p_recipe/diagnostics/D2_family_gradients.csv",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/diagnostics/D2_family_gradients.csv",
+          "exists": true,
+          "bytes": 602
+        },
+        {
+          "source": "results/p_recipe/diagnostics/D3_target_correlation.csv",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/diagnostics/D3_target_correlation.csv",
+          "exists": true,
+          "bytes": 2542
+        },
+        {
+          "source": "results/p_recipe/diagnostics/D4_spectrum.csv",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/diagnostics/D4_spectrum.csv",
+          "exists": true,
+          "bytes": 69175
+        },
+        {
+          "source": "results/p_recipe/diagnostics/D5_layers.csv",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/diagnostics/D5_layers.csv",
+          "exists": true,
+          "bytes": 1716
+        },
+        {
+          "source": "runs/p_recipe_20261113/D6_identity.json",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/D6_identity.json",
+          "exists": true,
+          "bytes": 96603
+        }
+      ]
+    },
+    {
+      "id": "required_regression",
+      "requirement": "Root\u00a72.4/8.5 one full regression beforefirstscreen/PR6 adoption",
+      "state": "verified_existing_scope",
+      "original_evidence": [
+        {
+          "source": "runs/p_recipe_20261113/full_regression.json",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/full_regression.json",
+          "exists": true,
+          "bytes": 2925
+        },
+        {
+          "source": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/regression_pR1/summary.json",
+          "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/regression_pR1/summary.json",
+          "exists": true,
+          "bytes": 13894
+        },
+        {
+          "source": "docs/p_recipe/LOG.md Nov13PR6and3566passed4skipped",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/LOG.md",
+          "exists": true,
+          "bytes": 259675
+        }
+      ]
+    },
+    {
+      "id": "R1_to_R3_screening",
+      "requirement": "Originalthree3Mrounds and final registered R4, correct decisions/merge/conflicts",
+      "state": "COMPLETE_VERIFIED",
+      "original_evidence": [
+        {
+          "source": "configs/p_recipe/fixed_20261115/round1_decision.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1_decision.json",
+          "exists": true,
+          "bytes": 5264
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/round2_decision.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2_decision.json",
+          "exists": true,
+          "bytes": 7249
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/round3_decision.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3_decision.json",
+          "exists": true,
+          "bytes": 43931
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/round4/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/plan.json",
+          "exists": true,
+          "bytes": 6895
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/round4_decision.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4_decision.json",
+          "exists": true,
+          "bytes": 60358
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/round4/F1_screening_evidence.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/F1_screening_evidence.json",
+          "exists": true,
+          "bytes": 1667
+        }
+      ]
+    },
+    {
+      "id": "side_lines_and_freeze",
+      "requirement": "18B/19 all round3/4 and both side-line final scientific decisions beforefreeze",
+      "state": "COMPLETE_VERIFIED",
+      "original_evidence": [
+        {
+          "source": "configs/p_recipe/fixed_20261115/external_line_decisions.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/external_line_decisions.json",
+          "exists": true,
+          "bytes": 12139
+        },
+        {
+          "source": "configs/p_recipe/CURRENT_BEST.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/CURRENT_BEST.json",
+          "exists": true,
+          "bytes": 2106
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/FROZEN_P.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/FROZEN_P.json",
+          "exists": true,
+          "bytes": 7263
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/round4_decision.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4_decision.json",
+          "exists": true,
+          "bytes": 60358
+        }
+      ]
+    },
+    {
+      "id": "five9M_runs",
+      "requirement": "18B/19 exactlyT1/T2/T4/T5/T6;9M eachseed0;T3/T7canceled;ALL_OFF16CPU14readersB32FP32",
+      "state": "FIVE_GPU_AND_CPU_COMPLETE_VERIFIED",
+      "original_evidence": [
+        {
+          "source": "tools/p_recipe/prepare_confirmation.py",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/prepare_confirmation.py",
+          "exists": true,
+          "bytes": 10359
+        },
+        {
+          "source": "configs/p_recipe/confirmation_switches_20261118.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/confirmation_switches_20261118.json",
+          "exists": true,
+          "bytes": 4358
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/round4/PP_T4_decision.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4/PP_T4_decision.json",
+          "exists": true,
+          "bytes": 29883
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/confirmation/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/plan.json",
+          "exists": true,
+          "bytes": 47485
+        },
+        {
+          "source": "runs/p_recipe_20261113/fixed_20261115/confirmation_actual_nodes_current.json",
+          "path": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/confirmation_actual_nodes_current.json",
+          "exists": true,
+          "bytes": 9107
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/confirmation/T1_handoff_4537552.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T1_handoff_4537552.json",
+          "exists": true,
+          "bytes": 3562
+        }
+      ]
+    },
+    {
+      "id": "final_tables",
+      "requirement": "Root\u00a77/10 confirmationtable +P-PprimepertaskR1/R3CI +250k/500k/fullmoleculecurve",
+      "state": "ORIGINAL_PRIMARY_26COMPARISONS_AND_3POINT_SCALING_COMPLETE",
+      "original_evidence": [
+        {
+          "source": "tools/p_recipe/final_comparisons.py",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/final_comparisons.py",
+          "exists": true,
+          "bytes": 12230
+        },
+        {
+          "source": "tools/p_recipe/render_report.py",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/render_report.py",
+          "exists": true,
+          "bytes": 32324
+        }
+      ]
+    },
+    {
+      "id": "final_recipe_parameters_methods",
+      "requirement": "Runnable finalconfig +component CSVlineevidence +A1/A2/A5 definitionsandfullprecisionfittedparameters +evaluationmethods",
+      "state": "P_METHODS_FULLPRECISION_PARAMETERS_AND_BODY_SEALED",
+      "original_evidence": [
+        {
+          "source": "configs/p_recipe/label_parameters/PM7_A1.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/label_parameters/PM7_A1.json",
+          "exists": true,
+          "bytes": 16444
+        },
+        {
+          "source": "configs/p_recipe/label_parameters/PM7_A2.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/label_parameters/PM7_A2.json",
+          "exists": true,
+          "bytes": 33954
+        },
+        {
+          "source": "configs/p_recipe/label_parameters/PM7_A5.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/label_parameters/PM7_A5.json",
+          "exists": true,
+          "bytes": 8558
+        },
+        {
+          "source": "tools/p_recipe/render_report.py parameter_appendix",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/render_report.py",
+          "exists": true,
+          "bytes": 32324
+        }
+      ]
+    },
+    {
+      "id": "accounting_hardware",
+      "requirement": "Daily\u2264onepage, weekly/finalcost, actualsamples/sec andwholeboardaverageW bycard",
+      "state": "CURRENT_COST_AND_E1_ORIGINAL_TELEMETRY_COMPLETE",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/daily/2026-11-20.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/daily/2026-11-20.md",
+          "exists": true,
+          "bytes": 4338
+        },
+        {
+          "source": "docs/p_recipe/COST.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/COST.md",
+          "exists": true,
+          "bytes": 19980
+        },
+        {
+          "source": "results/p_recipe/fixed_20261115/round4/hardware_round4.csv",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/fixed_20261115/round4/hardware_round4.csv",
+          "exists": true,
+          "bytes": 344
+        },
+        {
+          "source": "results/p_recipe/fixed_20261115/cost_current.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/fixed_20261115/cost_current.json",
+          "exists": true,
+          "bytes": 21819
+        },
+        {
+          "source": "results/p_recipe/fixed_20261115/hardware_confirmation.csv",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/fixed_20261115/hardware_confirmation.csv",
+          "exists": true,
+          "bytes": 445
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/storage_confirmation_20261120.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/storage_confirmation_20261120.json",
+          "exists": true,
+          "bytes": 43788
+        },
+        {
+          "source": "results/p_recipe/E1/GPU_cost_extension_20261125.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/E1/GPU_cost_extension_20261125.json",
+          "exists": true,
+          "bytes": 3651
+        }
+      ]
+    },
+    {
+      "id": "REPORT_and_SHA",
+      "requirement": "Root\u00a710/18B generateREPORT exactlyonce afterall9M; finalcodeSHA andonlyT2/T4CP SHA; T3canceled",
+      "state": "FINAL_ENDPOINT_SHA_COMPLETE_P_SECTIONS_SEALED_FINAL_JOIN_WAIT_A4",
+      "original_evidence": [
+        {
+          "source": "tools/p_recipe/render_report.py",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/render_report.py",
+          "exists": true,
+          "bytes": 32324
+        },
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261118B.md",
+          "exists": true,
+          "bytes": 6305
+        },
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261119.md",
+          "exists": true,
+          "bytes": 2868
+        }
+      ]
+    },
+    {
+      "id": "GitHub_and_close",
+      "requirement": "Publish milestones, ready PR7 and merge finalREPORT; P thenstopsnewGPU",
+      "state": "INDEPENDENT_DELIVERY_PUBLICATION_IN_PROGRESS_FINAL_MERGE_WAIT_A4",
+      "original_evidence": [
+        {
+          "source": "https://github.com/mint258/MFM/pull/7",
+          "external_url": true
+        },
+        {
+          "source": "docs/p_recipe/LOG.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/LOG.md",
+          "exists": true,
+          "bytes": 259675
+        }
+      ]
+    },
+    {
+      "id": "training_family_CSV_final",
+      "requirement": "Root\u00a710 full original family1000step TRAIN/VAL/clippingCSV foreachcanonicalrun at runend",
+      "state": "FIVE_CANONICAL_FAMILY_CSV_AVAILABLE_PUBLISHED",
+      "original_evidence": [
+        {
+          "source": "configs/p_recipe/fixed_20261115/confirmation/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/plan.json",
+          "exists": true,
+          "bytes": 47485
+        },
+        {
+          "source": "results/p_recipe/training/<canonicalrun>/family_losses.csv",
+          "path": null,
+          "exists": true,
+          "bytes": null,
+          "source_template": true,
+          "resolved_paths": [
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/training/fixed_20261115_confirmation_T1_sbatch/family_losses.csv",
+              "bytes": 410548
+            },
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/training/fixed_20261115_confirmation_T2/family_losses.csv",
+              "bytes": 367834
+            },
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/training/fixed_20261115_confirmation_T4_sbatch/family_losses.csv",
+              "bytes": 27666
+            },
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/training/fixed_20261115_confirmation_T5/family_losses.csv",
+              "bytes": 354295
+            },
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/training/fixed_20261115_confirmation_T6/family_losses.csv",
+              "bytes": 354164
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "confirmation_budget_curve_22_readouts",
+      "requirement": "USER_DIRECTIVE_20261121: retain all1M-9M fullcheckpoints; afterown9M T2/T1 checkpoints1M..8M andT4/T5/T6 3M,6M (22new readouts), originalevaluate.py L6H0 sevenpanel, originalR1/R3 1000 molecularbootstrap seed20261025 percentile95CI;pairedT2-T1samecheckpointCI;aligned500kVAL inbudget_curve.csv;plotR1/R3/VAL anddescriptive tau discussion;no9Mendpointrepeat.",
+      "state": "COMPLETE_22_NEW_READOUTS_AND_5_ENDPOINTS",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261121.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261121.md",
+          "exists": true,
+          "bytes": 3120
+        },
+        {
+          "source": "tools/p_recipe/evaluate.py",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/evaluate.py",
+          "exists": true,
+          "bytes": 10900
+        },
+        {
+          "source": "tools/p_recipe/checkpoint_paths.py",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/checkpoint_paths.py",
+          "exists": true,
+          "bytes": 624
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/confirmation/budget_curve_plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/budget_curve_plan.json",
+          "exists": true,
+          "bytes": 18785
+        }
+      ]
+    },
+    {
+      "id": "budget_curve_task_scores_27points",
+      "requirement": "USER_DIRECTIVE_20261122\u00a71: verbatim nine-task R1/R3 score/error/E_ref for22intermediate+5original9Mpoints; no refit or new task CI",
+      "state": "COMPLETE_27_POINTS_486_ROWS",
+      "original_evidence": [
+        {
+          "source": "results/p_recipe/fixed_20261115/confirmation/budget_curve_tasks.csv",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/fixed_20261115/confirmation/budget_curve_tasks.csv",
+          "exists": true,
+          "bytes": 39500
+        },
+        {
+          "source": "618a1531712aac1740aca590e29fe2a03b08d137",
+          "path": null,
+          "bytes": null,
+          "external_commit": true,
+          "url": "https://github.com/mint258/MFM/commit/618a1531712aac1740aca590e29fe2a03b08d137"
+        }
+      ]
+    },
+    {
+      "id": "Hcomp_composition_8checkpoints",
+      "requirement": "22C corrects22section2-4: T2/T1 1M3M6M9M, fixed5000VALseed20261112,L6H0; meanCEV/CEV_size/CVF/CVF_res/PR, atomicEEVonly; F64/1000molecularbootstrapseed20261025; onlymeanCEV decidesH-comp; U0 descriptive",
+      "state": "COMPLETE_ALL22C_METRICS_HCOMP_NOT_SUPPORT",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261122.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261122.md",
+          "exists": true,
+          "bytes": 3286
+        },
+        {
+          "source": "tools/p_followup/collapse_composition.py",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/tools/p_followup/collapse_composition.py",
+          "exists": true,
+          "bytes": 21848,
+          "source_worktree": "MFM_p_followup_20261117"
+        }
+      ]
+    },
+    {
+      "id": "Nov22_shared_guard_migration_and_exit_entry",
+      "requirement": "Canonical own-only24h shared registry renewed eachpoll; newentry check_with_timeout startup and>1GiBphase, fixed reserves; prescribed single shared_guard tests; newentry healthy-node gate,>=180s cleanup, exact own child identities/reap",
+      "state": "CANONICAL_UID_QUOTA_GUARD19_TESTS_PASS_NFS_RESUMES_ACTIVE",
+      "original_evidence": [
+        {
+          "source": "docs/interfaces/STORAGE_GUARD_20261122.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/interfaces/STORAGE_GUARD_20261122.md",
+          "exists": true,
+          "bytes": 4796
+        },
+        {
+          "source": "tools/shared_guard.py",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/shared_guard.py",
+          "exists": true,
+          "bytes": 12308
+        },
+        {
+          "source": "tools/test_shared_guard.py",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/test_shared_guard.py",
+          "exists": true,
+          "bytes": 6399
+        }
+      ]
+    },
+    {
+      "id": "F1_finetuning_120",
+      "requirement": "F1 highestpriority: full7CPs*4tasks*3seeds84 +top2 T2_1M/9M24 +scratch12; fixed50epoch cosine5%warmup, encoder1e-4/head1e-3, B32FP32TF32off; frozenexistingR3 reused; paired1000molecularbootstrap on3seedaverage predictions; perseedmean distinct",
+      "state": "COMPLETE_TABLE68_AND_FIRST_INTERPRETATION",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "exists": true,
+          "bytes": 9935
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "exists": true,
+          "bytes": 20335
+        }
+      ]
+    },
+    {
+      "id": "F2_finetuning_60_and_interventions",
+      "requirement": "AfterF1: round2M1/B4/B3 andround3M2 3M +T4_9M full4tasks3seeds=60; each applicableI1/I2 adds12 fullfinetunes",
+      "state": "COMPLETE_BASE60_PLUS_I1_FULL12_AND_F116",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "exists": true,
+          "bytes": 9935
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "exists": true,
+          "bytes": 20335
+        }
+      ]
+    },
+    {
+      "id": "A1_readout_noise_16",
+      "requirement": "T2_1M/6M/9M andround4F2_3M: R3seeds1..4; seed0reuse; perTask/sevenpanel5seedmean,std andstd/bootstrapHalfwidth; noise>=tau/2 only userdecisionproposal",
+      "state": "COMPLETE",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "exists": true,
+          "bytes": 9935
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "exists": true,
+          "bytes": 20335
+        }
+      ]
+    },
+    {
+      "id": "A2_B4_composition",
+      "requirement": "H-B4 round2M1/B4/B3+round3M2 3M, L6H0 fixed5000VALseed20261112; exacttwopairedCEV contrasts; originalF64/1000seed20261025; applicableI1/I2diagnostics",
+      "state": "COMPLETE_INITIAL4_AND_I1_OWN3M_ALL22C_METRICS",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "exists": true,
+          "bytes": 9935
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "exists": true,
+          "bytes": 20335
+        }
+      ]
+    },
+    {
+      "id": "A3_B4_penalty_size",
+      "requirement": "T2_1/3/6/9M fixedVAL: frozen hinge/decorrelation terms and0.1B4/P_loss ratio; bind existingloss/batch semantics; no refit",
+      "state": "COMPLETE",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "exists": true,
+          "bytes": 9935
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "exists": true,
+          "bytes": 20335
+        }
+      ]
+    },
+    {
+      "id": "A4_descriptor_upper_controls",
+      "requirement": "Copy D-line section5 delivered descriptors/composition controls besideT2pertaskR3, markinferiortasks; nonewcompute",
+      "state": "WAITING_EXTERNAL_D_SECTION5",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "exists": true,
+          "bytes": 9935
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "exists": true,
+          "bytes": 20335
+        }
+      ]
+    },
+    {
+      "id": "A5_common_UFF_geometry",
+      "requirement": "T2/T4_9M ExpansionRx3tasks only, sealedbenchmarkSprimeUFF exactfullInChIKey join/sourceatomorder; commonavailablepopulation+exclusioncounts, pairedCI; QM9unchangedDFT",
+      "state": "COMPLETE_5106_COMMON_COHORT_8_ORIGINAL_ROWS",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "exists": true,
+          "bytes": 9935
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "exists": true,
+          "bytes": 20335
+        }
+      ]
+    },
+    {
+      "id": "A6_QM9_30000_TRAIN_groups",
+      "requirement": "Nestedfirst30000fold0TRAINgroups sameSHA256ranking/split, original2048eval; T5/T6/T2_9M+random frozenR3seed0,QM9fourtasks; materialization4h/2fail UNRESOLVEDskip",
+      "state": "COMPLETE_16R3_CELLS_32ROWS_16_WITHIN_COUNT_CONTRASTS",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "exists": true,
+          "bytes": 9935
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "exists": true,
+          "bytes": 20335
+        }
+      ]
+    },
+    {
+      "id": "I1_disable_B4_3M",
+      "requirement": "AfterF1started/freecard: onlydisableB4 fromfrozenrecipe,3Mseed0, reuseexistinground4F2baseline; originaldeletionarmrules/conditionalseed1; userdecidesfutureadoption",
+      "state": "COMPLETE_ORIGINAL3M_R1_R3_TIE_NO_SEED1_ALL_FOLLOWUPS",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "exists": true,
+          "bytes": 9935
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "exists": true,
+          "bytes": 20335
+        }
+      ]
+    },
+    {
+      "id": "I2_dynamic_B4_3M_conditional",
+      "requirement": "OnlyifA3 ratio9M/1M>=2: coefficient0.1*currentP.detach/first150kPmean; resolveinitial150kpolicyonlyiftriggered; originaladditionrule, conditionalconfirmation; userdecidesfutureadoption",
+      "state": "CLOSED_NOT_TRIGGERED",
+      "original_evidence": [
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+          "exists": true,
+          "bytes": 9935
+        },
+        {
+          "source": "configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/plan.json",
+          "exists": true,
+          "bytes": 20335
+        }
+      ]
+    },
+    {
+      "id": "E1_conformer_k_star",
+      "requirement": "USER_DIRECTIVE_20261123: full cohort k1/2/5 fresh3M and k10 own3M reuse; original frozenR1/R3 and full4tasks x3seeds; original paired decisions and local kstar",
+      "state": "COMPLETE_K_STAR_1_NO_SEED1",
+      "original_evidence": [
+        {
+          "source": "configs/p_recipe/E1_k_star.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_k_star.json",
+          "exists": true,
+          "bytes": 52294
+        },
+        {
+          "source": "docs/p_recipe/USER_DIRECTIVE_20261123.md",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/docs/p_recipe/USER_DIRECTIVE_20261123.md",
+          "exists": true,
+          "bytes": 3782
+        },
+        {
+          "source": "results/p_recipe/E1/all_GPU_completion_20261125.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/E1/all_GPU_completion_20261125.json",
+          "exists": true,
+          "bytes": 28761
+        },
+        {
+          "source": "results/p_recipe/E1/CPU_pipeline_20261125.json",
+          "path": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/E1/CPU_pipeline_20261125.json",
+          "exists": true,
+          "bytes": 8409
+        }
+      ]
+    }
+  ],
+  "source_scope": 27,
+  "scientific_replay": false,
+  "metadata_inventory_only": true,
+  "final_REPORT_generated": false
+}

@@ -1,0 +1,63 @@
+{
+    "schema":  "P_F1_RUN_20261122_V1",
+    "authority":  "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+    "kind":  "F",
+    "batch":  "E1_k1_full12",
+    "run":  "E1FT_full_k1_3M_exp_LogS_s2",
+    "task":  "exp.LogS",
+    "mode":  "full",
+    "seed":  2,
+    "seed_role":  "finetuning",
+    "pretraining_seed":  0,
+    "bootstrap_seed":  20261025,
+    "internal_split_seed":  20261112,
+    "source_binding":  {
+                           "samples":  3000000,
+                           "pretraining_seed":  0,
+                           "bytes":  null,
+                           "arm":  "E1_k1",
+                           "label":  "E1_k1_3M",
+                           "run":  "fixed_20261115_E1_k1_seed0",
+                           "components":  [
+                                              "A1",
+                                              "B3",
+                                              "B4",
+                                              "F2"
+                                          ],
+                           "checkpoint":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k1_seed0/samples_3000000.pt",
+                           "configuration":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k1_seed0/configuration.json",
+                           "source_training_budget":  3000000
+                       },
+    "store":  "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json",
+    "reference_manifest":  "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/predictions.json",
+    "output":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/E1FT_full_k1_3M_exp_LogS_s2",
+    "output_mount":  "/share",
+    "cleanup_seconds":  900,
+    "entry_provider":  "unchanged_shared_exit_lifecycle",
+    "ready":  false,
+    "node":  null,
+    "gpu_uuid":  null,
+    "nvidia_smi":  "/usr/bin/nvidia-smi",
+    "reservation_ids":  [
+                            "P_E1_NFS_future"
+                        ],
+    "uid_quota_snapshot":  null,
+    "cpus":  16,
+    "ram_peak_bytes":  68719476736,
+    "requested_memory_mib":  65536,
+    "remaining_output_bytes":  994277760,
+    "local_output_peak_bytes":  33619968,
+    "minimum_free_gpu_mib":  22000,
+    "work_unit_seconds":  120,
+    "unit_duration_basis":  "Initial conservative bound; refine from actual first-run units",
+    "proposed_time_limit_minutes":  35,
+    "configured_hyperparameters":  "Unchanged plan.protocol and finetune.py constants",
+    "source_validation":  {
+                              "actual_terminal_bytes_pending":  true,
+                              "training_job":  null,
+                              "E1_authority":  "docs/p_recipe/USER_DIRECTIVE_20261123.md"
+                          },
+    "scientific_configuration_immutable":  true,
+    "start_after":  "Actual E1 k1 own3M native closure and managed process exit; registered full finetuning only",
+    "activation_basis":  "DRAFT: no actual3M checkpoint yet; bind true bytes and managed native receipt before activation"
+}

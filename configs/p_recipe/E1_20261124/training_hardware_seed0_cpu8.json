@@ -1,0 +1,52 @@
+{
+    "work_unit_seconds":  15,
+    "node":  "compute-0-8",
+    "authority":  "docs/p_recipe/USER_DIRECTIVE_20261123.md",
+    "ram_peak_bytes":  67108864,
+    "ready":  true,
+    "cleanup_seconds":  180,
+    "reservation_ids":  [
+                            "P_E1_CPU8_RAM",
+                            "P_E1_CPU8_tmp",
+                            "P_E1_NFS_future"
+                        ],
+    "output":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/results/p_recipe/E1/training_hardware",
+    "remaining_output_bytes":  8388608,
+    "output_mount":  "/share",
+    "excluded_nodes":  [
+                           "compute-0-10",
+                           "compute-0-14",
+                           "compute-0-15",
+                           "compute-0-16",
+                           "compute-0-17",
+                           "compute-0-18"
+                       ],
+    "repo":  "/share/home/zixiao/descriptor_analysis/MFM_p_recipe",
+    "training_runs":  [
+                          {
+                              "output":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k1_seed0",
+                              "run":  "fixed_20261115_E1_k1_seed0",
+                              "node":  "compute-0-5",
+                              "gpu_uuid":  "GPU-dac07d74-6269-c7db-8832-340dd3c0b377",
+                              "k":  1,
+                              "job":  4539379
+                          },
+                          {
+                              "output":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k2_seed0",
+                              "run":  "fixed_20261115_E1_k2_seed0",
+                              "node":  "compute-0-6",
+                              "gpu_uuid":  "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+                              "k":  2,
+                              "job":  4539380
+                          },
+                          {
+                              "output":  "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_seed0",
+                              "run":  "fixed_20261115_E1_k5_seed0",
+                              "node":  "compute-0-7",
+                              "gpu_uuid":  "GPU-9db54192-dd3f-3177-e56f-dcd161ff932c",
+                              "k":  5,
+                              "job":  4539381
+                          }
+                      ],
+    "activation_basis":  "CPU8 recovered: current Slurm MIXED and healthy actual storage/RAM, historical manager PID absent; GPU source jobs gated by afterok"
+}

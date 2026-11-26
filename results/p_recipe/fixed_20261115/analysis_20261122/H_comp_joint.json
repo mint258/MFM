@@ -1,0 +1,72 @@
+{
+  "status": "COMPLETE",
+  "authority": "USER_DIRECTIVE_20261122C",
+  "H_comp": {
+    "T2_9M_minus_1M": {
+      "value": 0.16736028533904856,
+      "ci95": [
+        0.16138959382362847,
+        0.17299646038406616
+      ],
+      "valid_bootstrap_replicates": 1000,
+      "reason": null
+    },
+    "T1_9M_minus_1M": {
+      "value": -0.7227267502851589,
+      "ci95": [
+        -0.754368342261555,
+        -0.6907310021975824
+      ],
+      "valid_bootstrap_replicates": 1000,
+      "reason": null
+    },
+    "T2_change_minus_T1_change": {
+      "value": 0.8900870356242074,
+      "ci95": [
+        0.8542576593325597,
+        0.9242513299427725
+      ],
+      "valid_bootstrap_replicates": 1000,
+      "reason": null
+    },
+    "decision": "NOT_SUPPORT"
+  },
+  "H_B4": {
+    "B4_minus_M1": {
+      "value": -0.5046983524596587,
+      "ci95": [
+        -0.5220793840777614,
+        -0.48217259516454974
+      ],
+      "valid_bootstrap_replicates": 1000,
+      "reason": null
+    },
+    "M2_minus_B3": {
+      "value": -0.026906254858710565,
+      "ci95": [
+        -0.02960702662323408,
+        -0.024051083070182243
+      ],
+      "valid_bootstrap_replicates": 1000,
+      "reason": null
+    },
+    "decision": "SUPPORT",
+    "representation": "mean(H)",
+    "layer": 6,
+    "mechanism_claim": false
+  },
+  "decision_metric": "mean(H) CEV only",
+  "atomic_metrics": [
+    "EEV"
+  ],
+  "mean_descriptive_metrics": [
+    "CEV_size",
+    "CVF",
+    "CVF_res",
+    "PR"
+  ],
+  "old_primaries_recomputed": false,
+  "new_bootstrap_weight_generations": 0,
+  "retained_draws": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_joint/new_paired_draws.npz",
+  "mechanism_claim": false
+}

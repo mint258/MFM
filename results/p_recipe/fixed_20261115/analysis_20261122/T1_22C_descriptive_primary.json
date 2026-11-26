@@ -1,0 +1,80 @@
+{
+  "status": "COMPLETE",
+  "authority": "USER_DIRECTIVE_20261122C",
+  "rows": [
+    {
+      "source": "T1_1M",
+      "samples": 1000000,
+      "source_training_budget": 9000000,
+      "molecules": 5000,
+      "records": 47698,
+      "layer": 6,
+      "CEV_size": 0.5336520752459544,
+      "CEV_size_CI_low": 0.5010125188593935,
+      "CEV_size_CI_high": 0.5613340455232851,
+      "EEV": 0.9992221205973354,
+      "EEV_CI_low": 0.9992144275430022,
+      "EEV_CI_high": 0.9992295936561889
+    },
+    {
+      "source": "T1_3M",
+      "samples": 3000000,
+      "source_training_budget": 9000000,
+      "molecules": 5000,
+      "records": 47698,
+      "layer": 6,
+      "CEV_size": 0.48077509410862906,
+      "CEV_size_CI_low": 0.446695567896122,
+      "CEV_size_CI_high": 0.5097730578570102,
+      "EEV": 0.9943569414002674,
+      "EEV_CI_low": 0.9943140976002303,
+      "EEV_CI_high": 0.9943983864517157
+    },
+    {
+      "source": "T1_6M",
+      "samples": 6000000,
+      "source_training_budget": 9000000,
+      "molecules": 5000,
+      "records": 47698,
+      "layer": 6,
+      "CEV_size": 0.11638577568820818,
+      "CEV_size_CI_low": 0.08897723529042506,
+      "CEV_size_CI_high": 0.1375806281388494,
+      "EEV": 0.9196567329413357,
+      "EEV_CI_low": 0.9183001610261824,
+      "EEV_CI_high": 0.9209131148201393
+    },
+    {
+      "source": "T1_9M",
+      "samples": 9000000,
+      "source_training_budget": 9000000,
+      "molecules": 5000,
+      "records": 47698,
+      "layer": 6,
+      "CEV_size": 0.1279268980163365,
+      "CEV_size_CI_low": 0.09839457385718978,
+      "CEV_size_CI_high": 0.15080687652629346,
+      "EEV": 0.9000457827735441,
+      "EEV_CI_low": 0.8981776519948221,
+      "EEV_CI_high": 0.9018904974975179
+    }
+  ],
+  "retained": {
+    "T1_1M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T1_descriptive/T1_1M/primary_draws.npz",
+    "T1_3M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T1_descriptive/T1_3M/primary_draws.npz",
+    "T1_6M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T1_descriptive/T1_6M/primary_draws.npz",
+    "T1_9M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T1_descriptive/T1_9M/primary_draws.npz"
+  },
+  "mean_metrics_added": [
+    "CEV_size"
+  ],
+  "atomic_metrics": [
+    "EEV"
+  ],
+  "original_M1_two_primaries_reused": false,
+  "old_mean_primaries_recomputed": false,
+  "new_bootstrap_weight_generations": 0,
+  "H_comp_H_B4_decisions_changed": false,
+  "T1_four_sources_still_required": false,
+  "no_new_training": true
+}

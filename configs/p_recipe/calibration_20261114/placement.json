@@ -1,0 +1,36 @@
+{
+  "observed_speed_utc": "2026-11-14 10:55:41 UTC",
+  "placements": [
+    {
+      "arm": "G1_B32_lr3e4",
+      "board": "5090_21b",
+      "batch_size": 32,
+      "gpu_uuid": "GPU-c35f2434-9137-9723-1af5-dc69b6295243",
+      "observed_samples_per_second": 46.269195261198924
+    },
+    {
+      "arm": "G2_B128_lr3e4",
+      "board": "5090_21a",
+      "batch_size": 128,
+      "gpu_uuid": "GPU-22e21021-e572-4562-fc51-cd8c83e74141",
+      "observed_samples_per_second": 49.57359819799141
+    },
+    {
+      "arm": "G3_B128_lr6e4",
+      "board": "5090_22",
+      "batch_size": 128,
+      "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+      "observed_samples_per_second": 38.728162475456614
+    },
+    {
+      "arm": "G4_B128_lr12e4",
+      "board": "4090_20b",
+      "batch_size": 128,
+      "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "observed_samples_per_second": 43.754206107202485
+    }
+  ],
+  "rule": "Use all three eligible RTX5090s before4090; assign B32 to fastest measured5090 and remaining B128 to other5090s plus faster4090. Shared-node conditions can change; no pure hardware/batch causal inference.",
+  "speed_updates_each": 1000,
+  "calibration_samples_each": 3000000
+}

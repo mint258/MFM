@@ -1,0 +1,24 @@
+{
+  "schema": "P_BUDGET_CURVE_NFS_RESERVATION_V1",
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261121.md",
+  "output_root": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/budget_curve_20261122",
+  "additional_NFS_peak_bytes": 3221225472,
+  "readouts": 22,
+  "per_readout_cap_bytes": 134217728,
+  "control_logs_temporaries_bytes": 268435456,
+  "checkpoint_copies": 0,
+  "feature_caches": 0,
+  "shared_registry": "/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/configs/data_d_descriptors/storage_reservations.json",
+  "component": "P_confirmation_budget_curve",
+  "status": "REGISTERED_AND_FRESH_ACTUAL_CPU8_ADMITTED",
+  "preserves_existing_P_model_S_D_benchmark_B0_claims": true,
+  "delete_existing": false,
+  "admission": {
+    "node": "compute-0-8",
+    "NFS_quota_available": 356165890048,
+    "required": 312424370909,
+    "source": "confirmation_admission_compute-0-8.json",
+    "includes_current_D_S_B0_benchmark": true,
+    "root_and_inode_checks_passed": true
+  }
+}

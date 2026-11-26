@@ -1,0 +1,87 @@
+{
+  "schema": "P_COMPOSITION_NEW_LOGIC_VALIDATION_V1",
+  "status": "PASS",
+  "panel": {
+    "job": 4539032,
+    "elapsed_seconds": 5,
+    "root": 4164914,
+    "actual_root_absent": true,
+    "status": "PASS",
+    "new_tests": 3,
+    "sourcecheck": {
+      "status": "PASS",
+      "files": 4,
+      "bytes": 15812,
+      "python_files": 3,
+      "server_sources_verified": 0,
+      "export_verification_required": false,
+      "errors": []
+    },
+    "manifest": [
+      {
+        "path": "tools/p_recipe/composition_statistics.py",
+        "bytes": 4137,
+        "git_blob_sha": "d3bce7a954f01443860c2ce1c8fb6d2663c05f67"
+      },
+      {
+        "path": "tools/p_recipe/composition_panel.py",
+        "bytes": 6546,
+        "git_blob_sha": "7ff9e1b7eadd1de9a5e80802baec4f9775d121d6"
+      },
+      {
+        "path": "tools/p_recipe/test_composition_panel.py",
+        "bytes": 1609,
+        "git_blob_sha": "d0e16f529abc06bd5a174d3edb038f0c57426a9e"
+      },
+      {
+        "path": "configs/p_recipe/fixed_20261115/analysis_20261122/composition_panel.json",
+        "bytes": 3520,
+        "git_blob_sha": "efa97149f06d5f85465c7c74f475ddbd281ff455"
+      }
+    ]
+  },
+  "forward": {
+    "job": 4539037,
+    "elapsed_seconds": 6,
+    "root": 4166048,
+    "actual_root_absent": true,
+    "status": "PASS",
+    "new_tests": 2,
+    "sourcecheck": {
+      "status": "PASS",
+      "files": 3,
+      "bytes": 11969,
+      "python_files": 3,
+      "server_sources_verified": 0,
+      "export_verification_required": false,
+      "errors": []
+    },
+    "manifest": [
+      {
+        "path": "tools/p_recipe/composition_encoder.py",
+        "bytes": 700,
+        "git_blob_sha": "b3b193d7f282c09911194f7550b0257b7a3c9031"
+      },
+      {
+        "path": "tools/p_recipe/composition_forward.py",
+        "bytes": 9702,
+        "git_blob_sha": "1ae0f4cdb517e67fa044203758fe7fa9068c1199"
+      },
+      {
+        "path": "tools/p_recipe/test_composition_forward.py",
+        "bytes": 1567,
+        "git_blob_sha": "9a492f10f5d5f2248ccb3b5386f1c218c60ad578"
+      }
+    ]
+  },
+  "unstarted_tests_launcher_failure": {
+    "job": 4539036,
+    "state": "FAILED",
+    "elapsed_seconds": 2,
+    "root": 4165815,
+    "actual_root_absent": true,
+    "reason": "Worker command selected '-c' instead of Python code; no tests/science ran; fixed in4539037"
+  },
+  "tests_unique": 5,
+  "old_statistics_tests_replayed": false
+}

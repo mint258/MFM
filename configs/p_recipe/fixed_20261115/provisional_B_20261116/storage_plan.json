@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "p_recipe_peak_bytes": 61000000000,
+  "global_peak_bytes": 114569896448,
+  "allocation": "20 periodic1M/2M screening saves plus5 first32-sample B saves,15 handoff slots(including7 existing),6 temporary slots:46 slots at<=300MB=13.8GB within the existing14GB safety pool. The prior44-slot count used13.2GB, leaving enough room for two additional handoffs. Preserve all existing outputs; later extra migrations require a refreshed forecast.",
+  "root": {
+    "total": 954159071232,
+    "available": 311153946624,
+    "inodes": 464398526,
+    "total_inodes": 465915904,
+    "root": true
+  },
+  "share": {
+    "total": 32001943928832,
+    "available": 7268275847168,
+    "inodes": 2965633515,
+    "total_inodes": 3125398528,
+    "root": false
+  },
+  "output": {
+    "total": 95197504794624,
+    "available": 40558588850176,
+    "inodes": 47178624,
+    "total_inodes": 92927767,
+    "root": false
+  },
+  "model_allocated_bytes": 61330313216,
+  "model_remaining_bytes": 53239583232,
+  "lustre": {
+    "filesystem": "/lfshome",
+    "available": 169465044992,
+    "required": 167829517824,
+    "age": 3.1764585971832275
+  },
+  "nfs": {
+    "filesystem": "/share",
+    "available": 453615271936,
+    "required": 131836912640,
+    "age": 1.5487477779388428
+  }
+}

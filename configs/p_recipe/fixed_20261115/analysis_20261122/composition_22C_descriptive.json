@@ -1,0 +1,180 @@
+{
+  "run": "composition_22C_first8_descriptive",
+  "kind": "COMPOSITION_22C_DESCRIPTIVE",
+  "ready": true,
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261122C.md",
+  "node": "compute-0-11",
+  "excluded_nodes": [
+    "compute-0-8",
+    "compute-0-10",
+    "compute-0-14",
+    "compute-0-15",
+    "compute-0-16",
+    "compute-0-17",
+    "compute-0-18"
+  ],
+  "cpus": 4,
+  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_22C_descriptive",
+  "output_mount": "/lfshome",
+  "forward_summary": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_T2_A2_forwards/summary.json",
+  "panel": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_panel/panel.npz",
+  "weights": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/composition_mean_statistics/weights.npy",
+  "sources": [
+    {
+      "label": "T2_1M",
+      "source_binding": {
+        "arm": "T2",
+        "samples": 1000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/samples_1000000.pt",
+        "bytes": 231766305,
+        "source_training_budget": 9000000
+      },
+      "checkpoint_mtime_ns": "1795191015000000000"
+    },
+    {
+      "label": "T2_3M",
+      "source_binding": {
+        "arm": "T2",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/samples_3000000.pt",
+        "bytes": 231770849,
+        "source_training_budget": 9000000
+      },
+      "checkpoint_mtime_ns": "1795218306000000000"
+    },
+    {
+      "label": "T2_6M",
+      "source_binding": {
+        "arm": "T2",
+        "samples": 6000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/samples_6000000.pt",
+        "bytes": 231768609,
+        "source_training_budget": 9000000
+      },
+      "checkpoint_mtime_ns": "1795258293000000000"
+    },
+    {
+      "label": "T2_9M",
+      "source_binding": {
+        "arm": "T2",
+        "samples": 9000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T2/samples_9000000.pt",
+        "bytes": 231766305,
+        "source_training_budget": 9000000
+      },
+      "checkpoint_mtime_ns": "1795298623000000000"
+    },
+    {
+      "label": "round2_M1",
+      "source_binding": {
+        "label": "round2_M1",
+        "arm": "M1",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2/M1.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_M1_infra_recovery_20261116/samples_3000000.pt",
+        "bytes": 220308969,
+        "run": "fixed_20261115_provisional_B_20261116_round2_M1_infra_recovery_20261116",
+        "components": [
+          "A1"
+        ],
+        "pretraining_seed": 0,
+        "source_training_budget": 3000000
+      },
+      "checkpoint_mtime_ns": "1794853023000000000"
+    },
+    {
+      "label": "round2_B4",
+      "source_binding": {
+        "label": "round2_B4",
+        "arm": "B4",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2/B4.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_B4/samples_3000000.pt",
+        "bytes": 220308329,
+        "run": "fixed_20261115_provisional_B_20261116_round2_B4",
+        "components": [
+          "A1",
+          "B4"
+        ],
+        "pretraining_seed": 0,
+        "source_training_budget": 3000000
+      },
+      "checkpoint_mtime_ns": "1794845948000000000"
+    },
+    {
+      "label": "round2_B3",
+      "source_binding": {
+        "label": "round2_B3",
+        "arm": "B3",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2/B3.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117/samples_3000000.pt",
+        "bytes": 232058429,
+        "run": "fixed_20261115_provisional_B_20261116_round2_B3_5090_resumed_20261117",
+        "components": [
+          "A1",
+          "B3"
+        ],
+        "pretraining_seed": 0,
+        "source_training_budget": 3000000
+      },
+      "checkpoint_mtime_ns": "1794867984000000000"
+    },
+    {
+      "label": "round3_M2",
+      "source_binding": {
+        "label": "round3_M2",
+        "arm": "M2",
+        "samples": 3000000,
+        "configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3/M2.json",
+        "checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_round3_M2_infra_recovery_20261117_sbatch/samples_3000000.pt",
+        "bytes": 232058045,
+        "run": "fixed_20261115_round3_M2_infra_recovery_20261117_sbatch",
+        "components": [
+          "A1",
+          "B3",
+          "B4"
+        ],
+        "pretraining_seed": 0,
+        "source_training_budget": 3000000
+      },
+      "checkpoint_mtime_ns": "1794916117000000000"
+    }
+  ],
+  "reuse_original_M1": {
+    "label": "round2_M1",
+    "original_summary": "/share/home/zixiao/descriptor_analysis/MFM_p_followup_20261117/results/p_followup/A_collapse_composition/summary.json",
+    "original_condition": "R2-M1",
+    "bootstrap": "/share/home/zixiao/descriptor_analysis/runs/p_followup_20261116/A_bootstrap_R2-M1.npz",
+    "metrics": [
+      "6_CEV",
+      "6_CVF",
+      "6_CVF_res"
+    ],
+    "source_checkpoint": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_provisional_B_20261116_round2_M1_infra_recovery_20261116/samples_3000000.pt",
+    "original_records": 47698,
+    "original_molecules": 5000
+  },
+  "cleanup_seconds": 180,
+  "work_unit_seconds": 120,
+  "ram_peak_bytes": 8589934592,
+  "remaining_output_bytes": 1024458752,
+  "reservation_ids": [
+    "P_COMPOSITION_22C_RAM",
+    "P_COMPOSITION_22C_tmp",
+    "P_COMPOSITION_22C_remaining"
+  ],
+  "source_validation": {
+    "new_tests_job": "4539063",
+    "new_tests": 3,
+    "resource_groups": 24015,
+    "original_statistic_module": "d3bce7a954f01443860c2ce1c8fb6d2663c05f67"
+  },
+  "new_GPU_forwards": 0,
+  "old_mean_primary_recomputed": false,
+  "decisions_changed": false
+}

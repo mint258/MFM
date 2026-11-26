@@ -1,0 +1,45 @@
+{
+  "schema": "P_ENGINEERING_TIMEBOX_SELF_AUDIT_20261125_V1",
+  "authority": "docs/interfaces/TIMEBOX_RULE_20261125.md",
+  "P_authority": "docs/p_recipe/USER_DIRECTIVE_20261125.md",
+  "inspection_scope": [
+    "results/p_recipe/**/*.json",
+    "results/p_recipe/**/*.md",
+    "docs/p_recipe/**/*.json",
+    "docs/p_recipe/**/*.md"
+  ],
+  "method": "Text inventory of UNRESOLVED metadata/documents only; no original scientific output recomputation or independent numeric QA",
+  "items": [
+    {
+      "item": "A5_common_UFF_geometry",
+      "old_jobs": [
+        4539196,
+        4539197
+      ],
+      "category": "engineering_calling_contract",
+      "old_skip_revoked": true,
+      "status": "CPU_PREPARATION_QUEUED",
+      "current_job": 4540060,
+      "tests_executed": false,
+      "closed_key_matches_recomputed": false,
+      "old_outputs_and_costs_retained": true
+    },
+    {
+      "item": "inactive_custom_supervisor",
+      "old_jobs": [
+        4538576,
+        4538579
+      ],
+      "category": "engineering_infrastructure_alternative",
+      "activated": false,
+      "status": "SUPERSEDED_BY_VALIDATED_EXISTING_PROVIDER",
+      "requirement": "Actual protected process cleanup, fulfilled by the unchanged reviewed provider used by the registered scientific entries",
+      "source": "results/p_recipe/fixed_20261115/analysis_20261122/runtime_validation_20261122.json",
+      "historical_result_changed": false,
+      "new_redundant_provider_implementation": false
+    }
+  ],
+  "additional_unresolved_registered_scientific_items_found": [],
+  "final_report_gate": "E1 and reopened A5 plus original external D section5 A4 still required; all27 requirements remain; original scientific decisions not reopened",
+  "old_regression_or_science_repeated": false
+}

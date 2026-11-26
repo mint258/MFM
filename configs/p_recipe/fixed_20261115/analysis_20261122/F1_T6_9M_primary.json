@@ -1,0 +1,123 @@
+{
+  "run": "F1_T6_9M_primary",
+  "ready": true,
+  "authority": "USER_DIRECTIVE_20261122B",
+  "node": "compute-0-11",
+  "excluded_nodes": [
+    "compute-0-8",
+    "compute-0-10",
+    "compute-0-14",
+    "compute-0-15",
+    "compute-0-16",
+    "compute-0-17",
+    "compute-0-18"
+  ],
+  "output": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F_statistics/F1_T6_9M_primary",
+  "output_mount": "/lfshome",
+  "cleanup_seconds": 180,
+  "work_unit_seconds": 60,
+  "ram_peak_bytes": 4294967296,
+  "remaining_output_bytes": 67108864,
+  "reservation_ids": [
+    "P_F_remaining_CPU11_RAM",
+    "P_F_remaining_CPU11_tmp",
+    "P_F1_T6_9M_primary_remaining"
+  ],
+  "required_complete_summaries": [
+    "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_qm9_U0_atom_s0/summary.json",
+    "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_qm9_U0_atom_s1/summary.json",
+    "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_qm9_U0_atom_s2/summary.json",
+    "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_qm9_homo_s0/summary.json",
+    "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_qm9_homo_s1/summary.json",
+    "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_qm9_homo_s2/summary.json",
+    "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_exp_LogD_s0/summary.json",
+    "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_exp_LogD_s1/summary.json",
+    "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_exp_LogD_s2/summary.json",
+    "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_exp_LogS_s0/summary.json",
+    "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_exp_LogS_s1/summary.json",
+    "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_exp_LogS_s2/summary.json"
+  ],
+  "groups": {
+    "full_T6_9M": {
+      "qm9.U0_atom": [
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_qm9_U0_atom_s0/prediction.pt",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_qm9_U0_atom_s1/prediction.pt",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_qm9_U0_atom_s2/prediction.pt"
+      ],
+      "qm9.homo": [
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_qm9_homo_s0/prediction.pt",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_qm9_homo_s1/prediction.pt",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_qm9_homo_s2/prediction.pt"
+      ],
+      "exp.LogD": [
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_exp_LogD_s0/prediction.pt",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_exp_LogD_s1/prediction.pt",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_exp_LogD_s2/prediction.pt"
+      ],
+      "exp.LogS": [
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_exp_LogS_s0/prediction.pt",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_exp_LogS_s1/prediction.pt",
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_full_T6_9M_exp_LogS_s2/prediction.pt"
+      ]
+    }
+  },
+  "scratch": {
+    "qm9.U0_atom": [
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_U0_atom_s0/prediction.pt",
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_U0_atom_s1/prediction.pt",
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_U0_atom_s2/prediction.pt"
+    ],
+    "qm9.homo": [
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_homo_s0/prediction.pt",
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_homo_s1/prediction.pt",
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_homo_s2/prediction.pt"
+    ],
+    "exp.LogD": [
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_exp_LogD_s0/prediction.pt",
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_exp_LogD_s1/prediction.pt",
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_exp_LogD_s2/prediction.pt"
+    ],
+    "exp.LogS": [
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_exp_LogS_s0/prediction.pt",
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_exp_LogS_s1/prediction.pt",
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_exp_LogS_s2/prediction.pt"
+    ]
+  },
+  "reference": {
+    "qm9.U0_atom": [
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/qm9_U0_atom__R3.pt"
+    ],
+    "qm9.homo": [
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/qm9_homo__R3.pt"
+    ],
+    "exp.LogD": [
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/exp_LogD__R3.pt"
+    ],
+    "exp.LogS": [
+      "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/exp_LogS__R3.pt"
+    ]
+  },
+  "frozen": {
+    "frozen_T6_9M": {
+      "qm9.U0_atom": [
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T6/readout/qm9_U0_atom__R3.pt"
+      ],
+      "qm9.homo": [
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T6/readout/qm9_homo__R3.pt"
+      ],
+      "exp.LogD": [
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T6/readout/exp_LogD__R3.pt"
+      ],
+      "exp.LogS": [
+        "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/fixed_20261115_confirmation_T6/readout/exp_LogS__R3.pt"
+      ]
+    }
+  },
+  "frozen_head_refit": false,
+  "new_GPU_computation": false,
+  "point_score_denominator": "mean_three_scratch_seed_MAE",
+  "bootstrap_estimand": "score_of_mean_prediction",
+  "original7_guard_tests_repeated": false,
+  "submission_dependency": "afterok:4538859",
+  "kind": "F_STATS"
+}

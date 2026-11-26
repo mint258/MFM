@@ -1,0 +1,7 @@
+# F第二批：原注册60次拟合
+
+原M1、B4、B3、M2各自预算内3M和T4 9M的四任务、三种子full微调全部完成；冻结R3直接复用。F.csv合计108行，末批新增24行；132个累计配对中本批最后28个、模式差分8个均消费原保留的分子draws，无新拟合或bootstrap。
+
+B4对U0的两处对照逐项见F2_full60_complete.json；full点差、阈值及均预测CI分别报告。不把CI跨0当作等效性证明，也不由此推断信息未丢失。原冻结1种子/30轮/常数学习率与full三种子/50轮/cosine存在协议差异。H-B4仍只按mean(H)CEV判定。
+
+T2与T4逐任务full及冻结配对、差分见F2_remaining_pairs.json和F2_remaining_mode_interactions.json。原legacy函数输出中的molecule_count字段名不用于本处因素命名；本处因素是B4添加或P相对Pprime。I1的注册full12次及组成诊断另待其实际3M断点，未提前启动。

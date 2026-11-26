@@ -1,0 +1,450 @@
+{
+  "authority": "docs/p_recipe/USER_DIRECTIVE_20261121.md",
+  "expected_readouts": 22,
+  "closed_readouts": 22,
+  "missing_readouts": [],
+  "closed_original_9M_arms": [
+    "T1",
+    "T2",
+    "T4",
+    "T5",
+    "T6"
+  ],
+  "closed_readout_points": [
+    [
+      "T2",
+      1000000
+    ],
+    [
+      "T2",
+      2000000
+    ],
+    [
+      "T2",
+      3000000
+    ],
+    [
+      "T2",
+      4000000
+    ],
+    [
+      "T2",
+      5000000
+    ],
+    [
+      "T2",
+      6000000
+    ],
+    [
+      "T2",
+      7000000
+    ],
+    [
+      "T2",
+      8000000
+    ],
+    [
+      "T1",
+      1000000
+    ],
+    [
+      "T1",
+      2000000
+    ],
+    [
+      "T1",
+      3000000
+    ],
+    [
+      "T1",
+      4000000
+    ],
+    [
+      "T1",
+      5000000
+    ],
+    [
+      "T1",
+      6000000
+    ],
+    [
+      "T1",
+      7000000
+    ],
+    [
+      "T1",
+      8000000
+    ],
+    [
+      "T4",
+      3000000
+    ],
+    [
+      "T4",
+      6000000
+    ],
+    [
+      "T5",
+      3000000
+    ],
+    [
+      "T5",
+      6000000
+    ],
+    [
+      "T6",
+      3000000
+    ],
+    [
+      "T6",
+      6000000
+    ]
+  ],
+  "status": "COMPLETE",
+  "plot_complete": true,
+  "first_readout_timing": {
+    "arm": "T2",
+    "samples": 1000000,
+    "run": "fixed_20261115_budget_T2_1M_L6_H0",
+    "statistics_completed_at": 1795308356.5706232,
+    "measured_compute_seconds": 1011.5453425049782,
+    "estimate_all_22_compute_seconds": 22253.99753510952,
+    "queue_time_included": false,
+    "excess_1p5_estimate_action": "REPORT_AND_CONTINUE"
+  },
+  "descriptive_only": true,
+  "new_training": false,
+  "new_seeds": false,
+  "no_3M_screening_comparison": true,
+  "VAL_losses": "Original per-family values, no invented aggregate",
+  "bootstrap": "Original 1000 retained molecular draws, seed20261025, percentile95CI",
+  "interpretation": {
+    "T1": {
+      "tau": 0.02211927457338999,
+      "earliest_observed_plateau_samples": 5000000,
+      "interpretation": "Descriptive observed checkpoints only; not proof of convergence",
+      "R3_falls_while_VAL_decreases": [
+        {
+          "from_samples": 7000000,
+          "to_samples": 8000000,
+          "R3_before": 0.44001780607690594,
+          "R3_after": 0.43678739930266025,
+          "VAL_families_still_decreasing": [
+            "bonding",
+            "charge",
+            "energy",
+            "frontier/IP-EA",
+            "multipole",
+            "off-equilibrium",
+            "reactivity",
+            "response",
+            "size",
+            "solvation"
+          ],
+          "all_comparable_VAL_families_decreasing": true,
+          "mechanism_inferred": false,
+          "extra_diagnostics_performed": false
+        }
+      ]
+    },
+    "T2": {
+      "tau": 0.023875022404212524,
+      "earliest_observed_plateau_samples": 4000000,
+      "interpretation": "Descriptive observed checkpoints only; not proof of convergence",
+      "R3_falls_while_VAL_decreases": [
+        {
+          "from_samples": 2000000,
+          "to_samples": 3000000,
+          "R3_before": 0.4641271280225051,
+          "R3_after": 0.45935111716127036,
+          "VAL_families_still_decreasing": [
+            "bonding",
+            "charge",
+            "energy",
+            "frontier/IP-EA",
+            "multipole",
+            "off-equilibrium",
+            "reactivity",
+            "response",
+            "size"
+          ],
+          "all_comparable_VAL_families_decreasing": false,
+          "mechanism_inferred": false,
+          "extra_diagnostics_performed": false
+        },
+        {
+          "from_samples": 6000000,
+          "to_samples": 7000000,
+          "R3_before": 0.4907493185730752,
+          "R3_after": 0.47594968607253285,
+          "VAL_families_still_decreasing": [
+            "bonding",
+            "charge",
+            "energy",
+            "frontier/IP-EA",
+            "multipole",
+            "off-equilibrium",
+            "reactivity",
+            "response",
+            "size"
+          ],
+          "all_comparable_VAL_families_decreasing": false,
+          "mechanism_inferred": false,
+          "extra_diagnostics_performed": false
+        }
+      ]
+    },
+    "T4": {
+      "tau": 0.022282240285468394,
+      "earliest_observed_plateau_samples": 3000000,
+      "interpretation": "Descriptive observed checkpoints only; not proof of convergence",
+      "R3_falls_while_VAL_decreases": [
+        {
+          "from_samples": 6000000,
+          "to_samples": 9000000,
+          "R3_before": 0.45974242121910436,
+          "R3_after": 0.4456448057093678,
+          "VAL_families_still_decreasing": [
+            "bonding",
+            "charge",
+            "energy",
+            "frontier/IP-EA",
+            "multipole",
+            "off-equilibrium",
+            "reactivity",
+            "response",
+            "size",
+            "solvation"
+          ],
+          "all_comparable_VAL_families_decreasing": true,
+          "mechanism_inferred": false,
+          "extra_diagnostics_performed": false
+        }
+      ]
+    },
+    "T5": {
+      "tau": 0.02336209038744861,
+      "earliest_observed_plateau_samples": 3000000,
+      "interpretation": "Descriptive observed checkpoints only; not proof of convergence",
+      "R3_falls_while_VAL_decreases": [
+        {
+          "from_samples": 3000000,
+          "to_samples": 6000000,
+          "R3_before": 0.4691887578548547,
+          "R3_after": 0.45577406623297334,
+          "VAL_families_still_decreasing": [
+            "bonding",
+            "charge",
+            "energy",
+            "frontier/IP-EA",
+            "multipole",
+            "off-equilibrium",
+            "reactivity",
+            "response",
+            "size",
+            "solvation"
+          ],
+          "all_comparable_VAL_families_decreasing": true,
+          "mechanism_inferred": false,
+          "extra_diagnostics_performed": false
+        }
+      ]
+    },
+    "T6": {
+      "tau": 0.024071552979462188,
+      "earliest_observed_plateau_samples": 3000000,
+      "interpretation": "Descriptive observed checkpoints only; not proof of convergence",
+      "R3_falls_while_VAL_decreases": [
+        {
+          "from_samples": 3000000,
+          "to_samples": 6000000,
+          "R3_before": 0.47608134605225577,
+          "R3_after": 0.4717470119824093,
+          "VAL_families_still_decreasing": [
+            "bonding",
+            "charge",
+            "energy",
+            "frontier/IP-EA",
+            "multipole",
+            "off-equilibrium",
+            "reactivity",
+            "response",
+            "size",
+            "solvation"
+          ],
+          "all_comparable_VAL_families_decreasing": true,
+          "mechanism_inferred": false,
+          "extra_diagnostics_performed": false
+        }
+      ]
+    }
+  },
+  "observed_new_readouts_compute_seconds": 43725.65968587808,
+  "exceeds_1p5_initial_total_estimate": true,
+  "excess_action": "REPORT_AND_CONTINUE",
+  "pending_user_decision": [
+    "Budget curve: later R3 falls while recorded VAL family loss decreases; any extra diagnosis requires user decision and has not been run."
+  ],
+  "endpoints": {
+    "T1": {
+      "R1": {
+        "mean": 0.2961333868873693,
+        "ci_lower": 0.2804705308714784,
+        "ci_upper": 0.3098399866981168,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      },
+      "R3": {
+        "mean": 0.44238549146779976,
+        "ci_lower": 0.4288921731801633,
+        "ci_upper": 0.45552996445348576,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      }
+    },
+    "T2": {
+      "R1": {
+        "mean": 0.3761972191273991,
+        "ci_lower": 0.36180766520949986,
+        "ci_upper": 0.3887319921229812,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      },
+      "R3": {
+        "mean": 0.47750044808425046,
+        "ci_lower": 0.46363012954692784,
+        "ci_upper": 0.49027973151495596,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      }
+    },
+    "T4": {
+      "R1": {
+        "mean": 0.3410208429438418,
+        "ci_lower": 0.3269985750877886,
+        "ci_upper": 0.3542848943392793,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      },
+      "R3": {
+        "mean": 0.4456448057093678,
+        "ci_lower": 0.4326127243766828,
+        "ci_upper": 0.4581234059406711,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      }
+    },
+    "T5": {
+      "R1": {
+        "mean": 0.33656161082660396,
+        "ci_lower": 0.3220965691432854,
+        "ci_upper": 0.3506676575327199,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      },
+      "R3": {
+        "mean": 0.46724180774897217,
+        "ci_lower": 0.4530879814446309,
+        "ci_upper": 0.48067202129950803,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      }
+    },
+    "T6": {
+      "R1": {
+        "mean": 0.3454504915105701,
+        "ci_lower": 0.3296650804228175,
+        "ci_upper": 0.358941984505113,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      },
+      "R3": {
+        "mean": 0.48143105958924376,
+        "ci_lower": 0.468286590049798,
+        "ci_upper": 0.49368167854992034,
+        "included_tasks": [
+          "exp.LogD",
+          "exp.LogS",
+          "exp.Log_HLM_CLint",
+          "qm9.U0_atom",
+          "qm9.alpha",
+          "qm9.homo",
+          "qm9.lumo"
+        ],
+        "bootstrap_seed": 20261025
+      }
+    }
+  }
+}

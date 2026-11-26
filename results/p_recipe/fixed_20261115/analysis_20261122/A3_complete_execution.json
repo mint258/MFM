@@ -1,0 +1,121 @@
+{
+  "schema": "P_A3_COMPLETE_NATIVE_EVIDENCE_V1",
+  "status": "COMPLETE",
+  "forward": {
+    "status": "COMPLETE",
+    "kind": "A3_FORWARD",
+    "job_id": "4539035",
+    "node": "compute-0-6",
+    "card": {
+      "uuid": "GPU-bdb3e139-15a8-755e-2e80-f2b8abaf66ef",
+      "name": "NVIDIA GeForce RTX 3090",
+      "memory_used_mib": 8,
+      "memory_total_mib": 24576
+    },
+    "sources": {
+      "T2_1M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/A3_forwards/T2_1M/batches.json",
+      "T2_3M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/A3_forwards/T2_3M/batches.json",
+      "T2_6M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/A3_forwards/T2_6M/batches.json",
+      "T2_9M": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/A3_forwards/T2_9M/batches.json"
+    },
+    "source_count": 4,
+    "fixed_VAL_molecules": 2000,
+    "batch_size": 32,
+    "workers": 14,
+    "CPU_statistics_pending": true,
+    "new_training": false,
+    "new_optimizer_updates": 0,
+    "gamma_refitted": false,
+    "normalization_changed": false,
+    "TF32": false,
+    "seconds_this_attempt": 109.94706845283508,
+    "peak_GPU_allocated_bytes": 2720565248
+  },
+  "primary_receipt": {
+    "status": "COMPLETE",
+    "job_id": "4539018",
+    "rows": 4,
+    "I2_condition": {
+      "ratio_9M_over_1M": 1.1136516854146152,
+      "I2_triggered": false,
+      "interpretation": "Trigger only; no intervention or recipe adoption performed",
+      "I2_initial150k_policy_resolved": false
+    },
+    "new_model_forwards": 0,
+    "new_training": false,
+    "statistics_precision": "F64"
+  },
+  "source_repair": {
+    "status": "PASS",
+    "sourcecheck": {
+      "status": "PASS",
+      "files": 2,
+      "bytes": 15543,
+      "python_files": 1,
+      "server_sources_verified": 0,
+      "export_verification_required": false,
+      "errors": []
+    },
+    "manifest": [
+      {
+        "path": "tools/p_recipe/penalty_entry.py",
+        "bytes": 11333,
+        "git_blob_sha": "f438baeae797ac07591f411fcc6f0c88b2637e59"
+      },
+      {
+        "path": "configs/p_recipe/fixed_20261115/analysis_20261122/A3_forwards.json",
+        "bytes": 4210,
+        "git_blob_sha": "e36cb8e8d18f988cf5754b0e4f26a4b64b14c7b6"
+      }
+    ],
+    "old8tests_reused": true
+  },
+  "closed_jobs": [
+    {
+      "job": 4539017,
+      "node": "compute-0-6",
+      "state": "FAILED",
+      "exit_code": "1:0",
+      "elapsed_seconds": 24,
+      "cpus": 16,
+      "root": 2097019,
+      "owned_tree_reaped": true,
+      "actual_root_absent": true,
+      "reason": "Per-source output directory missing before first atomic cursor"
+    },
+    {
+      "job": 4539035,
+      "node": "compute-0-6",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 117,
+      "cpus": 16,
+      "root": 2097411,
+      "owned_tree_reaped": true,
+      "actual_root_absent": true
+    },
+    {
+      "job": 4539018,
+      "node": "compute-0-11",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed_seconds": 5,
+      "cpus": 1,
+      "root": 4165665,
+      "owned_tree_reaped": true,
+      "actual_root_absent": true
+    }
+  ],
+  "GPU_all_attempts_seconds": 141,
+  "allocated_CPU_seconds_all_attempts_and_primary": 2261,
+  "TotalCPU": null,
+  "all_original_outputs_preserved": true,
+  "old8_math_tests_reused": true,
+  "closed_primary_recomputed": false,
+  "I2_condition": {
+    "ratio_9M_over_1M": 1.1136516854146152,
+    "I2_triggered": false,
+    "interpretation": "Trigger only; no intervention or recipe adoption performed",
+    "I2_initial150k_policy_resolved": false
+  }
+}
