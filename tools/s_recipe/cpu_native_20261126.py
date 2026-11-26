@@ -1,5 +1,6 @@
 """Finite owned CPU execution under the user's Nov26 direct-SSH rule."""
 import argparse
+import contextlib
 import fcntl
 import json
 import os
@@ -8,6 +9,7 @@ import resource
 import runpy
 import shlex
 import socket
+import stat
 import subprocess
 import sys
 import threading
@@ -23,6 +25,9 @@ AUTHORITY = 'docs/interfaces/SCHEDULING_RULE_20261126.md'
 def worker(c):
     from cpu_execution_20261126 import execution_fields, native_record
     native_record()
+    if c['stage'] == 'fullft_statistics':
+        from finetune_statistics_extension_20261124 import run as statistics
+        return statistics(json.loads(Path(c['source_configuration']).read_text()))
     if c['stage'] == 'terminal':
         import readouts
         import s_statistics
@@ -48,7 +53,10 @@ def worker(c):
     scripts = {'matrix':'prepare_matrix_only_20261125.py',
                'population':'prepare_extensions_and_register_20261125.py',
                'publish':'prepare_merge_publish_20261122.py',
-               'import':'import_published_commit_20261122.py'}
+               'import':'import_published_commit_20261122.py',
+               'extension_progress':'report_extensions_startup_20261126.py',
+               'extension_daily':'refresh_extension_daily_20261126.py',
+               'generic_publish':'prepare_status_milestone_20261126.py'}
     if c['stage'] not in scripts:
         raise ValueError('No unregistered CPU stage')
     if c['stage'] == 'population':
@@ -101,8 +109,17 @@ def main(configuration, child=False):
                 guard.request('resource_observation_failed')
 
     observer = threading.Thread(target=observe, daemon=False)
-    with (directory/'owner.lock').open('a') as lock, guard:
+    with contextlib.ExitStack() as core_leases, (directory/'owner.lock').open('a') as lock, guard:
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        # Coordinate with the P short-CPU runtime's existing UID/core leases.
+        for core in c['cores']:
+            fd=os.open('/tmp/P_CPU_SSH_1278_core'+str(core)+'.lock',
+                       os.O_RDWR|os.O_CREAT|os.O_NOFOLLOW,0o600)
+            stream=core_leases.enter_context(os.fdopen(fd,'a'))
+            observed=os.fstat(stream.fileno())
+            if observed.st_uid!=os.getuid() or not stat.S_ISREG(observed.st_mode) or observed.st_nlink!=1:
+                raise ValueError('CPU core lease must be a single owned regular file')
+            fcntl.flock(stream,fcntl.LOCK_EX|fcntl.LOCK_NB)
         if filename.exists():
             raise ValueError('Inspect the existing actual execution; never double-run this handle')
         try:

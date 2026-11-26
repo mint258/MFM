@@ -21,6 +21,11 @@ from seal_finetune_20261124 import seal
 
 def run(c):
     node = socket.gethostname().split('.')[0]
+    native = bool(os.environ.get('S_NATIVE_CPU_RECORD'))
+    native_context = None
+    if native:
+        from cpu_execution_20261126 import native_record
+        native_context = native_record()
     if (c.get('invoking_authority') != 'docs/s_recipe/USER_DIRECTIVE_20261123B.md'
             or c.get('ready') is not True or os.environ.get('CUDA_VISIBLE_DEVICES') != ''
             or node != c['node'] or node not in {'compute-0-'+str(i) for i in range(8,20)}
@@ -36,11 +41,14 @@ def run(c):
     sys.path.insert(0,str(REPO/'current'))
     provider = importlib.import_module('finetune_statistics_entry')
     stop = SimpleNamespace(requested=False)
-    original_ft.set_actual_deadline(c,stop)
+    if native:
+        os.environ['P_MANAGED_HARD_END']=str(native_context['hard_end_epoch'])
+    else:
+        original_ft.set_actual_deadline(c,stop)
     guard = life.Guard(float(os.environ['P_MANAGED_HARD_END']),c['cleanup_seconds'])
     guard.phase = 'cpu_statistics'
     done = threading.Event()
-    record = dict(run=c['run'],job_id=int(os.environ['SLURM_JOB_ID']),node=node,
+    record = dict(run=c['run'],job_id=None if native else int(os.environ['SLURM_JOB_ID']),node=node,
         started_at=time.time(),actual_deadline_epoch=guard.end_epoch,
         status='RUNNING',producer=vars(life.identity(os.getpid())))
 
@@ -81,8 +89,18 @@ def run(c):
             provider.CooperativeStop=cooperative_stop
             provider.set_actual_deadline=deadline
             provider.require_cpu_admission=resources
+            if native:
+                provider.execution_handle=lambda: None
+                record['native_handle']=native_context['handle']
+                record['native_record']=os.environ['S_NATIVE_CPU_RECORD']
             observer.start()
             code=provider.run(c)
+            if native and code==0:
+                summary_path=Path(c['output'])/'primary_complete.json'
+                summary=json.loads(summary_path.read_text())
+                summary['native_execution']=dict(handle=native_context['handle'],
+                    record=os.environ['S_NATIVE_CPU_RECORD'],job_id=None)
+                write(summary_path,summary)
             record.update(status='COMPLETE' if code==0 else 'CONTINUATION_REQUIRED',exit_code=code)
             return code
         except BaseException as error:
@@ -96,7 +114,8 @@ def run(c):
             life.close_children(180)
             record.update(ended_at=time.time(),owned_descendants_exited=True,
                           observer_joined=not observer.is_alive())
-            write(CONTROL/(c['run']+'_guarded_'+os.environ['SLURM_JOB_ID']+'.json'),record)
+            suffix=(native_context['handle'] if native else os.environ['SLURM_JOB_ID'])
+            write(CONTROL/(c['run']+'_guarded_'+suffix+'.json'),record)
 
 
 if __name__=='__main__':
