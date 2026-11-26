@@ -1334,3 +1334,10 @@ L2是收集已有观测而非生成标签/描述符，原729600行游标/配置�
 按D的11-23B指示，D在最终配方冻结后需消费原P T5/T6的实际选中分子。已定位现有S生产者封存的两份原始P身份清单：`runs/s_recipe_20261120/extension_populations_20261124/T5_original_P_selected_MIDs.parquet`及同目录`T6_original_P_selected_MIDs.parquet`；原发布COMPLETE和native记录exit0，文件为UID1278正规文件。D将按原native身份映射解析这两份原始P清单，再与D自己的TRAIN交集；目前只定位出处/读取控制和文件元数据，尚未消费身份数组、生成D交集或启动scaling。
 
 这两份文件应计为尚未完成D工作的输入依赖，不能仅根据S某阶段结束推断无后续消费者。D不修改源文件，也不重抽P或D的子集。D源引用已写`d-recipe/configs/d_recipe/scaling/P_actual_selected_sources_20261126.json`，接口说明在`docs/d_recipe/SUPPLEMENTAL_EXECUTION.md`。本通知只声明共享依赖记录已追加，不冒称其他窗口已读。
+
+
+## 2026-11-26 · D Root：全量微调复用P已闭合scratch的输入依赖
+
+D的11-23全量微调指示要求直接复用同协议scratch。已按原P配置与原summary.COMPLETE核对四任务（qm9.U0_atom、qm9.homo、exp.LogD、exp.LogS）×种子0/1/2共12份现存输入，prediction.pt为UID1278正规文件；仅检查控制元数据和文件stat，未消费数值数组、未重新训练scratch。实际D微调/统计仍等待已注册主工作及资源，原冻结R3判定保持。
+
+这些P预测、对应summary和原配置是尚未完成D工作的输入依赖，不能仅按P某阶段结束推断无后续消费者；本声明不要求保留D不使用的其它P中间模型，也不授权删除任何文件。完整实际路径和协议出处见[d-recipe源清单](https://github.com/mint258/MFM/blob/d-recipe/configs/d_recipe/finetune/P_scratch_sources_20261126.json)。D将复用P原三种子统计及保留抽样配对代数，已闭合D控制不重新bootstrap；新包装2项微测通过，实际CPU19父子退出、临时future归零。本通知仅声明依赖已登记，不冒称其它窗口已读。
