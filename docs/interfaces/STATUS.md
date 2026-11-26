@@ -520,3 +520,5 @@ D1双方设计冻结仍有效；数据方当前STATUS明确D2–D6实际交付/�
 C4按用户v3为PASS；r674保持LOSS_DISABLED。3090/5090 C1-a、原438复核及
 Native四条20k曲线仍受实际GPU资源阻塞；等待进程存活不代表已执行或科学完成。
 详见[当日唯一汇总](../model_v3/DAILY_20261030.md)。正式预训练未启动。
+
+[全线 用户指示 2026-11-26 11:30 CST] 新增 docs/interfaces/SCHEDULING_RULE_20261126.md，立即生效：CPU≤16 且预计≤4 小时的短 CPU 任务按实测空闲核直接 SSH 到 CPU 节点运行（setsid+taskset+timeout，记录 PID/退出码/CPU 时间），不再 sbatch 排队；超 4 小时但可按游标切段的切成≤4 小时段；只有大批量数据集生成或 CPU>16 才排队。GPU 微调/读出/训练照 GPU 规则有合规空闲卡立即启动。现有 PENDING 短作业（P 4540095–4540103、存储 4540114–4540121、D 4539987 等）确认 0 秒后 scancel 并改 SSH 运行，不双跑。
