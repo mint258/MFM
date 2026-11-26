@@ -56,7 +56,8 @@ def worker(c):
                'import':'import_published_commit_20261122.py',
                'extension_progress':'report_extensions_startup_20261126.py',
                'extension_daily':'refresh_extension_daily_20261126.py',
-               'generic_publish':'prepare_status_milestone_20261126.py'}
+               'generic_publish':'prepare_status_milestone_20261126.py',
+               'writer_admission_check':'check_gpu_writer_admission_20261126.py'}
     if c['stage'] not in scripts:
         raise ValueError('No unregistered CPU stage')
     if c['stage'] == 'population':

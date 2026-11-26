@@ -1,0 +1,79 @@
+{
+  "status": "COMPLETE",
+  "new_tests": 2,
+  "job_id": null,
+  "native_handle": "S_writer_admission_native_20261126_attempt0",
+  "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_writer_admission_native_20261126_attempt0/record.json",
+  "old_scientific_results_loaded": false,
+  "execution": {
+    "execution": "native_cpu",
+    "handle": "S_writer_admission_native_20261126_attempt0",
+    "stage": "writer_admission_check",
+    "job_id": null,
+    "node": "compute-0-11",
+    "cores": [
+      50
+    ],
+    "producer": {
+      "pid": 250797,
+      "uid": 1278,
+      "start_ticks": 2278998656,
+      "ppid": 250796,
+      "state": "R"
+    },
+    "started_at": 1795668981.3570108,
+    "hard_end_epoch": 1795670776.0,
+    "cleanup_seconds": 180,
+    "status": "COMPLETE",
+    "owned_descendants_exited": true,
+    "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_writer_admission_native_20261126_attempt0/configuration.json",
+    "admission": {
+      "root": {
+        "line": "s-recipe",
+        "kind": "node_disk",
+        "node": "compute-0-11",
+        "path": "/",
+        "own": 150994944,
+        "peers": 7835402636,
+        "reserve": 10737418240,
+        "available": 57127985152,
+        "probe_target": "/"
+      },
+      "shared": {
+        "line": "s-recipe",
+        "kind": "shared_fs",
+        "node": null,
+        "path": "/share",
+        "own": 57912270848,
+        "peers": 9308045184,
+        "reserve": 108589934592,
+        "available": 5673232367616,
+        "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+      },
+      "ram": {
+        "line": "s-recipe",
+        "kind": "node_ram",
+        "node": "compute-0-11",
+        "path": "None",
+        "own": 51539607552,
+        "peers": 60129542144,
+        "reserve": 40446522572,
+        "available": 391343685632
+      }
+    },
+    "worker": {
+      "pid": 250802,
+      "uid": 1278,
+      "start_ticks": 2278998687,
+      "ppid": 250797,
+      "state": "R"
+    },
+    "exit_code": 0,
+    "ended_at": 1795668981.713763,
+    "wall_seconds": 0.3567523956298828,
+    "cpu_user_seconds": 0.26394399999999996,
+    "cpu_system_seconds": 0.076732,
+    "peak_child_RSS_bytes": 21819392,
+    "observer_joined": true
+  }
+}
