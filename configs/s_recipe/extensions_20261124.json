@@ -1,0 +1,142 @@
+{
+  "schema": "S_REGISTERED_EXTENSIONS_20261124_V1",
+  "authorities": [
+    "docs/s_recipe/USER_DIRECTIVE_20261123.md",
+    "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+    "docs/s_recipe/USER_DIRECTIVE_20261123C.md"
+  ],
+  "status": "REGISTERED_IMPLEMENTATION_READY",
+  "frozen_recipe": "S-R1",
+  "original_registration_unchanged": true,
+  "formal_representation": "layer6 encode_atoms H0",
+  "e1": {
+    "new_k": [
+      1,
+      2,
+      5
+    ],
+    "reference_k": 10,
+    "reference": "original S_R1_s0_3M, own3M cosine; never a9M snapshot",
+    "samples": 3000000,
+    "seed": 0,
+    "TRAIN_molecules": 1192951,
+    "selection": "prefix of original PM7 fixed_random allowed list, D5 already excluded; no padding",
+    "validation": "original unmodified fixed5000 population and original allowed conformers",
+    "views": "three S inputs share one selected conformer",
+    "evaluation": "original seven-task R1/R3 and fullFT four tasks x three seeds",
+    "decision": "smallest k with neither frozen R3 nor four-task mean scratch-referenced fullFT seed-mean improvement LOSS against k10; original tau and molecule-paired CI",
+    "conditional_seed1": "only k<10 seed0 WIN intended for adoption; no other new seeds",
+    "output": "configs/s_recipe/E1_k_star.json"
+  },
+  "finetune": {
+    "protocol_provider": "MFM_p_recipe/tools/p_recipe/finetune.py",
+    "protocol_authority": "docs/p_recipe/USER_DIRECTIVE_20261122B.md",
+    "mode": "full",
+    "tasks": [
+      "qm9.U0_atom",
+      "qm9.homo",
+      "exp.LogD",
+      "exp.LogS"
+    ],
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "epochs": 50,
+    "batch_size": 32,
+    "encoder_lr": 0.0001,
+    "head_lr": 0.001,
+    "weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "warmup_fraction": 0.05,
+    "schedule": "cosine to0",
+    "precision": "FP32",
+    "TF32": false,
+    "selection": "best original-unit MAE on internal10percent molecule split seed20261112",
+    "scratch": "reuse original P F1_scratch_random_0M four-task seeds0,1,2 after protocol binding; no new scratch fits",
+    "priority": [
+      "S-B0_3M",
+      "S-G1_3M",
+      "S-N1_3M",
+      "S-N2_3M",
+      "S-R1_3M",
+      "S-R2_3M"
+    ],
+    "other_points": "original9M endpoints; E1 k1,2,5 (k10 reuses S-R1_3M); final9M-run1M,3M,6M snapshots; two subset9M endpoints",
+    "decision_role": "descriptive except explicitly registered E1 k-star; no frozen recipe change or FT-triggered pretraining seed1"
+  },
+  "scaling": {
+    "original9M_frozen_readouts": [
+      1000000,
+      2000000,
+      3000000,
+      4000000,
+      5000000,
+      6000000,
+      7000000,
+      8000000,
+      9000000
+    ],
+    "read_original_snapshots_after_full9M_closure": true,
+    "snapshot_interpretation": "one9M cosine trajectory, never independent budgets or3M-screening equivalence",
+    "new_subset_sources": [
+      "configs/p_recipe/fixed_20261115/confirmation/T5.json",
+      "configs/p_recipe/fixed_20261115/confirmation/T6.json"
+    ],
+    "nominal_molecules": [
+      250000,
+      500000
+    ],
+    "subset_seed": 20261112,
+    "selection": "actual saved P selected MIDs intersect original S common TRAIN; no resampling",
+    "recipe": "S-final",
+    "samples": 9000000,
+    "seed": 0,
+    "frozen_readouts": [
+      3000000,
+      6000000,
+      9000000
+    ],
+    "finetune_at": [
+      9000000
+    ],
+    "clip": "own60k..150k p99",
+    "normalization": "fixed20261107 fullTRAIN",
+    "validation": "original fixed5000, every500k; full checkpoint every1M",
+    "role": "descriptive; no recipe selection or seed1",
+    "output": "results/s_recipe/budget_curve.csv"
+  },
+  "bootstrap": {
+    "unit": "molecule",
+    "draws": 1000,
+    "seed": 20261025,
+    "reuse_retained_draws": true
+  },
+  "output_budget": {
+    "line_peak_bytes": 68719476736,
+    "unfinished_fullFT_pool_bytes": 8589934592,
+    "fullFT_phase_peak_bytes": 1073741824,
+    "checkpoint_forecast_bytes_each": 268435456,
+    "policy": "Before new GPU producers, account physical inodes and only unallocated in-flight peaks plus remaining registered checkpoints and the next possible handoff; wait for CPU sealing when the unfinished pool fills",
+    "closed_diagnostic_raw_H": "Retire only the three completed3M diagnostic scratch caches after consumer C0/owned-exit and delivered NPZ checks; keep manifests, failed partials, final results and all checkpoints"
+  },
+  "scheduling": "existing registered work first; fullFT B0/G1 first on empty24GB0..7; E1 before scaling if competing; pretraining only actual eligible large cards, no paid server",
+  "repair_timebox": "docs/interfaces/TIMEBOX_RULE_20261125.md: engineering failures are repaired and resumed without failure-count or UNRESOLVED limits; only scientific/method failures of the same root cause count, after2 unsuccessful repairs or4h active diagnosis/repair; queue waits and normal computation are excluded",
+  "activation": "default off; new logic tested once on admitted CPU8..19 before first new sample; immutable active original9M modules",
+  "validation": {
+    "job_id": 4539778,
+    "new_tests": 14,
+    "source_receipt": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/extension_logic_check_20261124.json"
+  },
+  "prepared_matrix": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/configs/s_recipe/full_finetune_matrix_20261124.json",
+  "prepared_populations": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/extension_populations_20261124/COMPLETE.json",
+  "fullFT_matrix_ready": true,
+  "supplementary_population_ready": true,
+  "matrix_preparation_native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_matrix_native_20261126_attempt0/record.json",
+  "preparation_stage_job_id": null,
+  "preparation_native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_population_native_20261126_attempt2/record.json"
+}

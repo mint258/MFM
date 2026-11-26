@@ -1,0 +1,59 @@
+{
+  "schema": "S_RECIPE_TRAINING_V1",
+  "run": "S_E1_k2_s0_3M",
+  "arm": "S-R1",
+  "seed": 0,
+  "samples": 3000000,
+  "stage": "S",
+  "round": 1,
+  "source": "PM7",
+  "noise": "baseline",
+  "disabled": [
+    "s_element"
+  ],
+  "components": [
+    "S-R1"
+  ],
+  "batch_size": 32,
+  "microbatch_size": 32,
+  "gradient_accumulation": false,
+  "activation_checkpointing": false,
+  "distance_bias": "C1-0",
+  "views": "three",
+  "precision": "FP32",
+  "tf32": false,
+  "lr": 0.0003,
+  "betas": [
+    0.9,
+    0.95
+  ],
+  "weight_decay": 0.01,
+  "clip_calibration": {
+    "initial_clip": 281.7,
+    "window_start_samples": 60000,
+    "calibration_samples": 150000,
+    "quantile": 0.99
+  },
+  "root": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/export/D6_full_v31_20261105_v1/compact",
+  "population": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/configs/s_recipe/extensions_20261124/k2_population.json",
+  "initialization": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/initialization_seed0.pt",
+  "rotor_index": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/rotors.sqlite",
+  "workers": 14,
+  "normalization": "/lfshome/zixiao/data_v1_20261025/window2_TRAIN_normalization_parameters_20261107_v1/routes.json",
+  "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_E1_k2_s0_3M",
+  "evaluation_samples": [
+    3000000
+  ],
+  "evaluation_store": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_train_store_4520421/native_store/training_store.json",
+  "reference_manifest": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/predictions.json",
+  "statistics_backend": "slurm_cpu",
+  "speed_switches": {
+    "activation_checkpointing": false,
+    "tf32": false,
+    "mixed_precision": false,
+    "gradient_accumulation": false
+  },
+  "extension_kind": "E1",
+  "conformer_cap": 2,
+  "extension_authority": "docs/s_recipe/USER_DIRECTIVE_20261123.md"
+}

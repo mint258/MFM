@@ -1,0 +1,238 @@
+{
+  "schema": "S_RECIPE_9M_ENDPOINT_RESULT_20261126_V1",
+  "status": "COMPLETE",
+  "run": "S_B0_s0_9M",
+  "seed": 0,
+  "samples": 9000000,
+  "layer": 6,
+  "formal_H": "encode_atoms output",
+  "source_scores": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_9M/readout/scores.json",
+  "source_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_9M/summary.json",
+  "source_configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_B0_s0_9M/configuration.json",
+  "readouts": {
+    "R1": {
+      "complete": true,
+      "mean_normalized_improvement": 0.2099801769339335,
+      "bootstrap_ci": [
+        0.19367864925363645,
+        0.22588836773198587
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_defined": 1000,
+      "bootstrap_unit": "molecule",
+      "bootstrap_seed": 20261025,
+      "included_tasks": [
+        "exp.LogD",
+        "exp.Log_HLM_CLint",
+        "exp.LogS",
+        "qm9.U0_atom",
+        "qm9.homo",
+        "qm9.lumo",
+        "qm9.alpha"
+      ]
+    },
+    "R3": {
+      "complete": true,
+      "mean_normalized_improvement": 0.4704119829895567,
+      "bootstrap_ci": [
+        0.45730021200735643,
+        0.48290309671571585
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_defined": 1000,
+      "bootstrap_unit": "molecule",
+      "bootstrap_seed": 20261025,
+      "included_tasks": [
+        "exp.LogD",
+        "exp.Log_HLM_CLint",
+        "exp.LogS",
+        "qm9.U0_atom",
+        "qm9.homo",
+        "qm9.lumo",
+        "qm9.alpha"
+      ]
+    }
+  },
+  "training": {
+    "status": "COMPLETE",
+    "samples": 9000000,
+    "updates": 281250,
+    "seconds": 110211.34058266203,
+    "gpu_readout_seconds_this_process": 332.8798067159951,
+    "gpu_readout_job": "4539993",
+    "gpu_readout_node": "compute-0-6",
+    "statistics_complete": true,
+    "feature_cache": {
+      "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+      "files": 3,
+      "bytes": 770775642,
+      "failed_partials_preserved": true
+    },
+    "statistics_job": null,
+    "statistics_node": "compute-0-11",
+    "statistics_memory_at_start": {
+      "MemTotal": 404465225728,
+      "MemAvailable": 397977563136
+    },
+    "statistics_peak_RSS_bytes": 1563561984,
+    "statistics_seconds": 117.33976198360324,
+    "statistics_execution": {
+      "job_id": null,
+      "native_handle": "S_B0_9M_statistics_native_20261126_attempt0",
+      "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_9M_statistics_native_20261126_attempt0/record.json"
+    }
+  },
+  "clip": {
+    "calibration_samples": 150000,
+    "quantile": 0.99,
+    "initial_clip": 281.7,
+    "threshold": 43.51122390747073,
+    "observed_updates": 2813,
+    "fitted": true,
+    "window_start_samples": 60000,
+    "sample_axis": "optimizer_step_start",
+    "effective_freeze_samples": 150016
+  },
+  "final_VAL": {
+    "samples": 9000000,
+    "losses": {
+      "s_element": 0.7567159632184487,
+      "s_noise": 0.16321762538357915,
+      "s_bond": 0.0006178888761095444
+    },
+    "counts": {
+      "s_element": 12545,
+      "s_noise": 266894,
+      "s_bond": 277104
+    },
+    "predicted_displacement_error_relative_to_zero": 0.16318084838344016,
+    "displacement_error_sums": {
+      "predicted_squared_error": 1306.8541951179504,
+      "zero_squared_error": 8008.624835968018,
+      "atoms": 266894
+    },
+    "descriptive_denoising_groups": {}
+  },
+  "producer_exit": {
+    "run": "S_B0_s0_9M",
+    "job_id": null,
+    "standby_job_id": 4539348,
+    "node": "compute-0-22",
+    "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+    "producer": {
+      "pid": 163055,
+      "uid": 1278,
+      "start_ticks": 56816353,
+      "ppid": 1,
+      "state": "R"
+    },
+    "mode": "native_with_standby",
+    "started_at": 1795449915.374547,
+    "actual_deadline_epoch": 1795622711.6122222,
+    "deadline_basis": "explicit_native_contract",
+    "closing_reserve_seconds": 900,
+    "status": "TRAINING_COMPLETE_READOUT_PENDING",
+    "resume": null,
+    "gpu_metadata_at_start": [
+      "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+      "NVIDIA GeForce RTX 5090",
+      "1109",
+      "32607",
+      "396.56",
+      "94"
+    ],
+    "result": {
+      "status": "TRAINING_COMPLETE_READOUT_PENDING",
+      "samples": 9000000,
+      "updates": 281250,
+      "seconds": 110211.34058266203
+    },
+    "ended_at": 1795560116.0877535,
+    "owned_descendants_exited": true,
+    "observer_joined": true
+  },
+  "producer_exit_source": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_B0_s0_9M_native_confirmation_20261123.json",
+  "statistics_exit": {
+    "execution": "native_cpu",
+    "handle": "S_B0_9M_statistics_native_20261126_attempt0",
+    "stage": "terminal",
+    "job_id": null,
+    "node": "compute-0-11",
+    "cores": [
+      48
+    ],
+    "producer": {
+      "pid": 244711,
+      "uid": 1278,
+      "start_ticks": 2278597151,
+      "ppid": 244710,
+      "state": "R"
+    },
+    "started_at": 1795664967.29331,
+    "hard_end_epoch": 1795672162.0,
+    "cleanup_seconds": 900,
+    "status": "COMPLETE",
+    "owned_descendants_exited": true,
+    "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_9M_statistics_native_20261126_attempt0/configuration.json",
+    "admission": {
+      "root": {
+        "line": "s-recipe",
+        "kind": "node_disk",
+        "node": "compute-0-11",
+        "path": "/",
+        "own": 150994944,
+        "peers": 67108864,
+        "reserve": 10737418240,
+        "available": 57268801536,
+        "probe_target": "/"
+      },
+      "shared": {
+        "line": "s-recipe",
+        "kind": "shared_fs",
+        "node": null,
+        "path": "/share",
+        "own": 33321754624,
+        "peers": 7278996992,
+        "reserve": 108589934592,
+        "available": 5598367186944,
+        "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+      },
+      "ram": {
+        "line": "s-recipe",
+        "kind": "node_ram",
+        "node": "compute-0-11",
+        "path": "None",
+        "own": 51539607552,
+        "peers": 8589934592,
+        "reserve": 40446522572,
+        "available": 398354321408
+      }
+    },
+    "worker": {
+      "pid": 244716,
+      "uid": 1278,
+      "start_ticks": 2278597185,
+      "ppid": 244711,
+      "state": "R"
+    },
+    "exit_code": 0,
+    "ended_at": 1795665089.0790045,
+    "wall_seconds": 121.78569483757019,
+    "cpu_user_seconds": 100.633299,
+    "cpu_system_seconds": 14.429806,
+    "peak_child_RSS_bytes": 1563561984,
+    "observer_joined": true,
+    "run": "S_B0_s0_9M",
+    "samples": 9000000,
+    "mode": "cpu",
+    "layer": 6,
+    "original_statistics": true
+  },
+  "statistics_command_exit": {
+    "exit_code": 0,
+    "ended_at": 1795665089
+  },
+  "scope": "Original independent9M endpoint. Same L6 H0 and retained1000 molecular draws; no refits/resampling.",
+  "original_3M_recipe_selection_changed": false,
+  "seed1_triggered": false
+}

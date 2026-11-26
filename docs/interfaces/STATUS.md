@@ -1480,3 +1480,132 @@ S-final=S-R1和G1的指定3M seed0层1–6曲线及F64 PR/CEV/CVF/CVF_res均已�
 冻结已发布2f3a57d7之后，新9M-S-B0已从共同seed0随机初始化在22号5090原生训练，UID1278/PID163055/start_ticks56816353，真实待机4539348；不同的9M-S-final在20号首张48GB4090、真实Slurm4539349，UID1278/PID268494/start_ticks62899419。两条均无resume、各自9M余弦日程、B32/FP32，TF32/混精/累积/逐层重算关闭；14reader/16CPU需求，原生没有已分配Slurm CPU，待机排队不计已分配GPU成本。实际有限48h及900s收尾，未满9M时只从该9M完整状态安全续接。
 
 原首1000真实步分别73.66894113022289和62.102020938520816样本/秒；整卡点采样均功耗425.8221428571428W/14条、299.9923529411765W/17条。各自9M p99=43.51122390747073、48.20804199218751，原2813观测/150016样本冻结，不借3M阈值。来源与开关见9M_STARTUP.md及*s0_9M_initial_hardware.json。00:45实际样本188096/150528，未把起始硬件记录当9M结果。只剩规定两9M及正式配对评测、最终报告/成本、一次完整回归与仓库检查、未合并PR；全S目标ACTIVE，1800秒监控继续。S后续写入均在原/share目录并沿真实UID/同行future/实际字节inode保护，不新增Lustre写入，不改其他线运行或预留。
+
+
+## 2026-11-24 · D Root：L1原A1闭合后的三百万已在GPU5启动
+
+CPU11原L1 A1/4539166 COMPLETED0:0、79720秒×1CPU，完整1194228 TRAIN/197字段原FROZEN_FIT、unresolved=[]、original_D4_modified=false。原参数reference/L1/label_parameters.json与逐字段R²/有效数/±6截断原报告均已闭合；actual resident root4176565 reap0、/proc ABSENT、children=[]。不重拟合旧D4、不重试已UR可选适配器，不读取旧raw数组做独立QA。
+
+实际GPU5 SlurmIDLE/48空CPU、UUID GPU-dac07d74-6269-c7db-8832-340dd3c0b377 RTX3090，24576MiB仅5MiB、零CUDA计算上下文，UID1278、Root57211424768B/total75125227520/inode36540394，/tmp同xfs root。登记D L1自身8GiB+保守同行8GiB+128MiB日志=17314086912B，系统max10GiB/10%另留；已有cache全保留。新L1 fresh seed0/3M/A1+B3+B4/B32/5CPU/3workers入口复制原source-independent resident，48h提前900秒，D3/原子SASA块与原绝对权重/旧D4/±6/新p99窗口不变。源5ded3205已先发布，原GPU5/4539360现RUNNING（5CPU/3workers），原日志1194228 TRAIN/B32/micro32/PM7；真实End26日03:10:57CST、900秒收尾。CPU11统计4539361 afterok4539360→比较4539362 afterok4539361，均PENDING/Dependency、0秒科学执行，未为等待GPU预占CPU；实际入口继续核验健康/UUID/owner和root/NFS/fresh5秒UID/同行future后才执行，不把准入当运行结果。
+
+原CPU主统计/同seed R1配对各1CPU绑定健康CPU11，8h/4h/900秒，依赖新GPU/新统计，原R1控制复用。CPU11/13原future38788923392B仍保守保留，D联合NFS42074762973B不增（已含本seed0模型池）；L2/4539169仍原CPU11全TRAIN，不停或迁移。当前S已公告两9M在20/22、P尾部无活动5声明，实际5无上下文；不动其他owner或视PENDING未来任务为活动预留。G1全部规定结果闭合/TIE保留D3无seed1；最终配方仍未冻结，剩余全TASKBOOK范围不缩减。源见d-recipe/results/d_recipe/L1_A1_closure_and_GPU_admission_20261124.json与L1_original_A1_fit_20261124.json。不声称其它窗口已读或部署。
+
+
+## 2026-11-24 · D Root：L2 A1两次原生失败后按任务书未解决
+
+原CPU11 L2 A1/4539169实际FAILED1:0/81858秒×1CPU，原peer quota守卫在checkpoint发布前拒绝：available313207726080B、required313356249146B（冻结future/底线口径），差148523066B。不是物理ENOSPC/OOM/节点drain或Slurm超时证据，不更改配额算法、同行future或100GB底线。原closed cursor729600/1194228、参数未发布；actual resident root4176838已reap1，remaining_children=[]，实际/proc ABSENT。原rootFS仍57269452800B/inode36569833。失败记录与原traceback见d-recipe/results/d_recipe/L2_A1_unresolved_20261124.json。
+
+连同首次4539164 FAILED1:0/46秒/0收集行，同一L2 A1项已有两次实际失败。依TASKBOOK3.5/failure_policy记UNRESOLVED，对应D-L2及条件seed1不跑，无第三次诊断/修复；不以部分TRAIN替代、不改A1/旧D4/字段统计/目标或阈值。未运行不构成R3 TIE/LOSS或更大库无效结论。原阶段0 L2字段/唯一统计/64头接收及已闭合开发/基准二维源保持，所有局部数组/旧输出保留。
+
+原L1 GPU5/4539360继续（03:44原71488样本/1412.4644965790212循环秒），CPU11统计4539361→比较4539362仍原afterok/PENDING0科学工作，未停止/迁移或修改活跃训练/guard源码。G1原TIE、D3保留/无seed1和全规定诊断闭合不变。虽两A1 writer均已退出，本次仍保守保留CPU11/13各38788923392B Root future、D联合NFS42074762973B及GPU5自身/同行/日志17314086912B；原实存cache不删，实际新任务继续节点/UUID/字节/inode/fresh5秒UID/同行与系统max10GiB10%准入。最终配方未冻结，剩余L1条件种子/K1/冻结后冷9M/最终七任务A-B-C/基准接口/成本报告/一次默认回归与两个未合并PR全范围继续。不声称其它窗口已读/部署。
+
+
+## 2026-11-24 · D Root：退役L2未用三个模型槽，原L1配额守卫自动恢复
+
+L2 A1两次实际失败后已依TASKBOOK3.5未解决，D-L2从未启动且不再补跑。仅退役本线为它预留的1M/2M/3M三个从未写入checkpoint槽：3×250000000=750000000B。Data full_20261120/plan.json的Stage2模型池3221225472→2471225472B、checkpoint_slots12→9、model_checkpoint_bytes3000000000→2250000000；221225472B日志/读出/序列化缓冲和三个额外备用槽全部保留，所有已有实际checkpoint/partial数组/cache不删除。各阶段0库的字段、统计、成员、验收及科学参数不改。
+
+同一本线full峰值35118709120→34368709120B、D live联合NFS峰值42074762973→41324762973B。活跃L1配置保留原42074762973B更保守声明；没有修改运行源码、模型、3M样本预算/随机状态/原D4或其它owner任何预留，100GB/fresh5秒、原quota额外缓冲和根盘max10GiB10%全部不变。只撤回已经确定不会再有writer的本线future，不把物理占用当释放空间。
+
+原L1 Guardian确曾DISK_TRANSPORT_PAUSED：PID1491773，available313209810944B/required313356249146B、样本71488。它在自行读取新live计划并完整通过原准入后自动记录DISK_TRANSPORT_RESUMED，同PID1491773；后续原losses.csv已75456样本/2624.544632997364循环秒，未发人工信号、未重启/重新初始化或加载checkpoint，也未重试L2。原暂停与分配时长全留成本，不伪造正常TIMEOUT。源见d-recipe/results/d_recipe/unused_L2_slots_retired_and_L1_native_resume_20261124.json；真实L1 GPU4539360/原CPU依赖4539361→4539362继续，CPU11/13原root future仍保守保留。最终配方未冻结，所有后续既定关卡/冷9M/最终A-B-C/基准/成本/一次完整回归及两个未合并PR全范围保持。不声称其它窗口已读/部署。
+
+[S线 用户指示 2026-11-24 04:10 CST] 新增 docs/s_recipe/USER_DIRECTIVE_20261123.md：E1 构象数 k* —— 共同人群、k∈{1,2,5,10}、S-final 3M seed0（k=10 复用 S-R1），frozen R3 与全量微调都不判 LOSS 的最小 k 为本线 k*。配方线同步执行同一设计。
+
+[S线 用户指示 2026-11-24 04:20 CST] 新增 docs/s_recipe/USER_DIRECTIVE_20261123B.md：补做全量微调（先 S-B0、S-G1 的 3M，再其余各臂、9M 与 E1 各格），判定规则仍按冻结 R3，不改 S-final。
+
+[S线 用户指示 2026-11-24 04:30 CST] 新增 docs/s_recipe/USER_DIRECTIVE_20261123C.md：scaling 实验——两条 9M 的 1M–8M 断点补冻结读出与全量微调；用 P 的 T5/T6 同一批分子在 25 万、50 万上各跑一条 9M S-final。
+
+
+## 2026-11-24 · D Root：1M原断点与阶段1已闭合空槽退役，原L1守卫恢复
+
+L1原GPU5/4539360在1M正常保存samples_1000000.pt（205549589B，00:48:53 UTC），原固定2000 VAL/198字段已生成。随后在1007360样本因原quota守卫暂停，同PID1491773；available312291291136B/required312397987623B，不把它写作磁盘满或节点故障。只撤回本线已闭合Stage1 seed1注册中的两个从未使用额外模型槽：2×232000000=464000000B。GPU4538566/67、CPU4538568/69及配对4538570早已正常闭合且原实际自有树reap/children=[]；两条各1M/2M/3M的六个现存断点（无partial）全保留，不重复训练共享控制。
+
+Data live plan的stage1池2147483648→1683483648B、槽8→6；134217728B读出/日志和157265920B其余原缓冲均不变，Stage2九槽/2471225472B及221225472B缓冲不变。全D full峰值34368709120→33904709120B、联合NFS live峰值41324762973→40860762973B。活跃L1配置保留原42074762973B保守声明，原guard源码/额外8GiB/100GB/fresh5秒/系统底线及其它owner任何future均不改，所有已存文件不删除。若未来L1 seed0胜出才另登记该臂seed1资源，不借已闭合Stage1控制池启动新臂。
+
+同一原守卫自行读取新计划、通过原准入后已DISK_TRANSPORT_RESUMED，仍PID1491773；无人工信号、无重启/重新初始化/加载checkpoint。暂停和分配时长保留成本。原1M报告与预算证据见d-recipe/results/d_recipe/D-L1_seed0_original_1M_milestone_20261124.json及closed_stage1_unused_slots_and_L1_resume_20261124.json。L2 A1仍按两次失败UNRESOLVED、不重试。完整任务继续、配方尚未冻结；不声称其它窗口已读/部署。
+
+
+## 2026-11-24 · D Root：L1原1M完整状态在GPU20续接，监督器竞态已修复
+
+原GPU5/4539360 FAILED1:0/30323s×5CPU，last1501088；冻结resident读取已消失/proc/1511343/task出现ESRCH，原自有scope实际已空、原root/worker均/proc缺失，节点非drain。后续监督器只补消失进程/线程ESRCH，权限错误仍抛出；CPU12/4539397原13项测试全过、0skip、0.300s，actual root1812247 reap0/ABSENT、children=[]，旧冻结脚本和所有产物保留。
+
+原1M完整checkpoint205549589B不复制，按TASKBOOK3.4续同一L1/seed0至3M。GPU4准入4539399 FAILED1:0/11s×5CPU，未建training/loss/telemetry、实际三根均reap/ABSENT；复核已有上下文时我未阻止提交，记录此判断错误与全部成本，不碰其它进程。小组各卡实际有上下文后，转获准另一组：GPU20第二张RTX4090/UUID GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02，预检423/49140MiB、共用锁AVAILABLE、104CPU已分配80，符合20/22≤30%规则并有5可分配CPU，普通Slurm；其它原400MiB上下文保持。
+
+GPU4539402已RUNNING，CPU12单核统计4539403 afterok402→配对4539404 afterok403，原R1 seed0复用。源b308e5fe6859d25b1ea7564a7d259f22c5a5c95e先于提交封存，实际Start24日12:27:55 CST/End26日12:27:55，900s收尾。原clip13.768829002380377/2813更新已从checkpoint恢复，first1000032/31251，现1005280样本；实际CUDA PID281103/UID1278/start_ticks67356059/job4539402。501088未保存样本重放与全部失败成本保留，未加新臂/seed或重算A1/D4；新native累计timer含旧1M prior，不把它当4090整段FPS，功耗仍整卡点均值含共存上下文。
+
+仅对本线已无writer的12个checkpoint和原structures/native A1/R0 cache整目录按原物理stat计量结算，撤回3535421038B未用future，所有现存文件与全部工作/日志/序列化缓冲及开放槽位保留；释放物理0B。Data full峰值30369288082B、联合live37325341935B，续接配置仍42074762973B保守声明；其它owner任何future、100GB/fresh5秒/额外8GiB/系统max10GiB10%不变。GPU20实际根余924034265088B/inode465749656，另留root17.314GB future与实际954GB盘10%系统底线；CPU12原36GiB+128MiB future保持。源见d-recipe/results/d_recipe/L1_GPU20_continuation_started_20261124.json及两个closed_*physical_settlement_20261124.json。L2 A1仍UR不重试，配方未冻结；完整TASKBOOK的后续关卡/冷9M/最终A-B-C+基准/成本/一次完整检查/两未合并PR全范围继续。不声称其它窗口已读/部署。
+
+
+## 2026-11-24 · D Root：GPU20原守卫配额暂停，R0已完成缓存清理仅提案
+
+13:48 CST：L1原1M完整状态续接4539402在GPU20，原守卫暂停在1076288样本；实际原worker281103/UID1278/start_ticks67356059/原cgroup仍在、状态T。CPU4539403/404等待依赖。原100GB/额外8GiB/fresh5秒及全部其它owner预算保持，未重启/未手工SIGCONT。当前UID余量308075278336B，静态要求309136036573B。Lustre UID余量1067335680B不足原守卫最小116589934592B，未传输。拟仅清理已完成R0 seed0/3M开发层缓存12个.pt、3081236480B；完整checkpoint/预测/读出/统计/原输入保留。**仅提案，尚无删除批准，实际删除0B**。精确清单与依赖闭合见[d-recipe提案](https://github.com/mint258/MFM/blob/d-recipe/docs/d_recipe/R0_CACHE_CLEANUP_PROPOSAL_20261124.md)。如获批，先实删再同字节结算已闭合R0/full/joint，保持所有缓冲/活动槽/peer预算，原进程由原守卫自行恢复。完整任务及冷9M/最终A-B-C仍待完成，最终配方未冻结。
+
+
+## 2026-11-24 · D Root：已批精确12缓存清理完成，同一GPU20原进程自行恢复
+
+16:17 CST：用户已明确批准原7697bbcf提案。仅完成D-R0 seed0/3M已闭合12个开发层特征.pt逐个unlink，实际3081236480B；所有checkpoint/预测/读出/统计/bootstrap/输入及3个manifest保留，无递归清理、无其它owner文件操作。先实际删除，再原闭合R0组件3139026944→57790464B、full30369288082→27288051602B、joint37325341935→34244105455B（plan prepare/produce/finalize的joint peak全部同步）。原缓冲、活动槽、other-owner预算、100GB/fresh5秒/额外8GiB和冻结42074762973B运行配置不变。原守卫自行DISK_TRANSPORT_RESUMED，仍4539402/GPU20/worker281103/start_ticks67356059/原cgroup，1076288→1077344样本；未人工SIGCONT、未重启/重载/新job。CPU4539403/404原afterok链保持。当前available310322528256B、direct required309136036573B、peer required308396853274B均通过。整卡/累计timer含原prefix和配额暂停，成本不剔除；完整任务与全部后续关卡/冷9M/最终A-B-C继续，配方未冻结。[实际记录](https://github.com/mint258/MFM/blob/d-recipe/results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json)。
+
+
+## 2026-11-25 · D Root：续接1.5M原固定VAL已转录，完整任务继续
+
+04:25 CST：用户恢复完整D目标，并明确配额问题由其另行处理；本线不再重复排查配额，推进独立结果与原定后续实验。原GPU20/4539402仍RUNNING，worker281103/start_ticks67356059/原cgroup保留，末1742368样本/累计native46407.724043155555秒；原守卫容量等待，CPU4539403→4539404原afterok链保持，不发恢复信号/改冻结运行配置。原续接1.5M/46875更新固定2000 VAL的198字段与3块loss已直接转录，保留旧GPU5失败前1.5M窗口，不新增前向/数值QA或提前R3判定。[原续接报告](https://github.com/mint258/MFM/blob/d-recipe/results/d_recipe/D-L1_seed0_continuation_fixed_VAL_1500000_20261125.json)。昨日已批12缓存清理/3081236480B事实与full27288051602B/joint34244105455B保持，其它文件/owner预算不动。L2 A1UR不补跑、G1TIE保留D3；完整L1关卡/条件seed1/K1/规定诊断、冻结后冷9M、最终A-B-C与基准/成本/一次完整回归和两PR均继续，不缩减目标。
+
+
+## 2026-11-25 · D Root：例行Slurm发现GPU20/5 drain，现有训练保持
+
+04:50–04:51 CST例行分区元信息及一次scontrol：compute-0-20=MIXED+DRAIN，Reason原文Kill task failed [root@2026-11-24T19:21:42]；compute-0-5=IDLE+DRAIN，Reason原文Kill task failed [root@2026-11-24T19:56:36]。触发job/账户归属未确认，不据同节点有本账号任务作因果结论。原D-L1 GPU4539402仍RUNNING/20，末1742368样本，原CPU4539403→404依赖保持；CPU新逻辑测试4539987在cpu分区Priority等待。保留现有训练，不因新状态停训/迁移；5/20不接新任务、不SSH绕过、不重复故障节点诊断，不操作RESUME/服务/spool或其它任务。配额问题按用户指令另处处理，本线完整目标继续。[原状态](https://github.com/mint258/MFM/blob/d-recipe/results/d_recipe/partition_state_20261125.json)。
+
+
+## 2026-11-25 · D Root：09:50例行Slurm发现GPU4新增drain
+
+2026-11-25 09:50 CST普通sinfo发现compute-0-4由MIXED变为draining；09:50:45一次头节点scontrol回报State=MIXED+DRAIN、CPUAlloc=8/CPUTot=48，Reason原文`Kill task failed [root@2026-11-25T09:43:18]`。触发job/UID及底层原因尚未确认，不能归因到本账号或D线旧GPU4尝试。原GPU5/20仍drain/draining；未进故障节点做硬件或进程诊断。
+
+所有窗口后续新启动/续接先实查State/Reason；4/5/20不接新任务，不绕过drain，不自行RESUME/重启/清理spool/kill其它任务。规则不要求停止现有训练。D原4539402保持RUNNING，09:50原进度1742368；CPU定向测试4539987仍PENDING Priority，原afterok统计/比较链保留。完整目标仍继续；配额处理由用户在其它地方进行。本通知只声明已追加共享文件，不声称其它会话已读。原调度证据见Root results/d_recipe/partition_state_20261125.json。
+
+
+## 2026-11-25 · D Root：10:50 Slurm已清除GPU4/5/20 drain标记
+
+2026-11-25 10:50 CST例行sinfo显示4/5为idle、20为mixed；10:50:36一次头节点scontrol核实compute-0-4 IDLE(0/48CPU)、compute-0-5 IDLE(0/48CPU)、compute-0-20 MIXED(58/104CPU)，均无DRAIN或Reason字段。本线未执行RESUME/重启/节点修复；修复动作及底层根因不据此推断。此前本日drain通知保留作历史，其4/5/20当前调度不可用状态已被本次观察更新。21原用户禁用仍不变。
+
+新启动/安全续接仍先核实际健康状态、GPU UUID/上下文、可分配CPU/内存、目标字节/inode/UID及跨窗口预留，保留真实TimeLimit收尾窗口；恢复Slurm调度不替代这些实际准入。当前D无额外就绪模型，不为恢复状态增加硬件探测或试跑。原4539402继续RUNNING，原worker281103/start_ticks67356059与守卫281058/start_ticks67355699仍同cgroup，10:50原进度1742368、原容量守卫等待保留；测试4539987仍PENDING Priority。配额问题由用户另处处理，不据节点恢复宣称训练已推进。完整D任务未完成。本通知只声明共享文件已追加，不冒称其它窗口已读。原记录：Root results/d_recipe/partition_state_20261125.json。
+
+
+## 2026-11-25 · D Root：连续资源阻塞，代理停止重复轮询，原任务保留
+
+2026-11-25 14:01 CST，D原4539402仍Slurm RUNNING，但原worker281103/start_ticks67356059为T、守卫281058/start_ticks67355699为S，UID1278及原job cgroup未变；最新1742368样本，现有守卫记录扣除已登记预留后UID余量不足。11:50、12:50、13:50连续三轮同一条件，最新原进程复核仍一致，所查日志尾部无新报错。按目标续行的重复阻塞规则，代理goal记为blocked并停止重复轮询；不是D-L1的科学失败或任务书结项。
+
+用户已接手配额处理，本线不重复排查/提案、不改守卫、不新增删除。4539402原训练、4539403→4539404统计/配对链和4539987单核定向测试Priority队列全部保留，未发信号或取消；原守卫和Slurm继续管理这些任务。原EndTime11月26日12:27:55 CST、900秒收尾保持。代理blocked不代表可以退役D预算或删除缓存。独立准备已到冷9M与A/B/C入口，实际后续仍待L1关卡/最终冻结；完整D目标未完成。恢复代理目标后先查原句柄和原结果，不能仅因观察等待重启模型。节点4/5/20的10:50调度恢复记录保持，21用户禁用不变。本通知只声明共享文件已追加，不冒称其它会话已读。
+
+[全线 用户指示 2026-11-25 14:55 CST] 新增 docs/interfaces/TIMEBOX_RULE_20261125.md：时间盒修订——工程失败（参数/接口、路径、额度与 storage guard、调度准入、drain、进程竞态、OOM）修好重跑、不计次数、不得标 UNRESOLVED；只对同一根因的科学/方法失败计数，2 次或 4 小时（不含排队与计算）才标 UNRESOLVED；额度不足先释放已结束任务的未用 future，仍不足写待用户决定并等待。旧规则下根因属工程类的 UNRESOLVED 恢复补做；各线自查本线 UNRESOLVED。
+
+
+## 2026-11-26 · D Root：空间清理后原训练恢复，L2工程续接已排队
+
+用户已恢复完整目标并说明空间清理。11:05 CST原L1 4539402已1861088样本，原worker281103/start_ticks67356059继续，非重启；守卫281058/start_ticks67355699一次D态采样已记录，持续时间/根因未知，训练仍推进。原EndTime12:27:55及900秒收尾保持；等待原fullcheckpoint/ack和自有树退出后续接同3M，不改科学预算/RNG/p99，不强杀其它任务。
+
+依11-25用户新规则，L2 A1/D-L2和R1 F64的工程类UR撤销；闭合科学判定不重开。L2节点11原729600行cursor与配置一致，续接4540186单CPU/48h/900s已提交，仍Priority排队。D-L2三checkpoint future750000000B恢复，Data full28038051602B/joint34994105455B，未删文件，未改原活跃配置或其它owner预留。11-23微调及预算/分子scaling指示纳入完整任务，主R3判定不变。原测试4539987和统计链保留，CPU8–19全满正常排队。本通知仅声明共享文件已追加，不声称其它窗口已读。
+
+[全线 用户指示 2026-11-26 11:30 CST] 新增 docs/interfaces/SCHEDULING_RULE_20261126.md，立即生效：CPU≤16 且预计≤4 小时的短 CPU 任务按实测空闲核直接 SSH 到 CPU 节点运行（setsid+taskset+timeout，记录 PID/退出码/CPU 时间），不再 sbatch 排队；超 4 小时但可按游标切段的切成≤4 小时段；只有大批量数据集生成或 CPU>16 才排队。GPU 微调/读出/训练照 GPU 规则有合规空闲卡立即启动。现有 PENDING 短作业（P 4540095–4540103、存储 4540114–4540121、D 4539987 等）确认 0 秒后 scancel 并改 SSH 运行，不双跑。
+
+
+## 2026-11-24 · D Root：L1原A1全TRAIN闭合与GPU5三百万入口
+
+CPU11原L1 A1/4539166 COMPLETED0:0、79720秒×1CPU，完整1194228 TRAIN/197字段原FROZEN_FIT、unresolved=[]、original_D4_modified=false。原参数reference/L1/label_parameters.json与逐字段R²/有效数/±6截断原报告均已闭合；actual resident root4176565 reap0、/proc ABSENT、children=[]。不重拟合旧D4、不重试已UR可选适配器，不读取旧raw数组做独立QA。
+
+实际GPU5 SlurmIDLE/48空CPU、UUID GPU-dac07d74-6269-c7db-8832-340dd3c0b377 RTX3090，24576MiB仅5MiB、零CUDA计算上下文，UID1278、Root57211424768B/total75125227520/inode36540394，/tmp同xfs root。登记D L1自身8GiB+保守同行8GiB+128MiB日志=17314086912B，系统max10GiB/10%另留；已有cache全保留。新L1 fresh seed0/3M/A1+B3+B4/B32/5CPU/3workers入口复制原source-independent resident，48h提前900秒，D3/原子SASA块与原绝对权重/旧D4/±6/新p99窗口不变。源先发布，此通知时尚未提交；实际入口继续核验健康/UUID/owner和root/NFS/fresh5秒UID/同行future后才执行，不把准入当运行结果。
+
+原CPU主统计/同seed R1配对各1CPU绑定健康CPU11，8h/4h/900秒，依赖新GPU/新统计，原R1控制复用。CPU11/13原future38788923392B仍保守保留，D联合NFS42074762973B不增（已含本seed0模型池）；L2/4539169仍原CPU11全TRAIN，不停或迁移。当前S已公告两9M在20/22、P尾部无活动5声明，实际5无上下文；不动其他owner或视PENDING未来任务为活动预留。G1全部规定结果闭合/TIE保留D3无seed1；最终配方仍未冻结，剩余全TASKBOOK范围不缩减。源见d-recipe/results/d_recipe/L1_A1_closure_and_GPU_admission_20261124.json与L1_original_A1_fit_20261124.json。不声称其它窗口已读或部署。
+
+
+## 2026-11-24 S 补充实验注册及19:54训练进度
+
+截至2026-11-24 19:54 CST，原9M-B0在22号5090已5802816样本，原9M-final在20号4090/4539349已4440192样本，均继续原配方/原随机状态；空卡观察无合规候选、无通道错误。保持半小时监控，不迁移或重启正常训练。
+
+本线已接收上游USER_DIRECTIVE_20261123、20261123B、20261123C，新增E1 k1/2/5各3M（k10复用原S-R1独立3M）、四任务三微调种子fullFT，以及原9M轨迹和T5/T6原P选中MIDs与S共同TRAIN交集各9M。具体注册见configs/s_recipe/extensions_20261124.json及docs/s_recipe/EXTENSIONS_20261124.md；原CURRENT_BEST=S-R1和原3M正式判定不改。去重为16组fullFT检查点/192次拟合，复用12个原P scratch拟合；B0/G1 fullFT优先，E1与scaling竞争时E1优先。
+
+新增入口仅适配授权、人口表和资源/真实截止/自有子树退出，原训练及P微调/统计数学复用。19:54时新逻辑检查4539778在CPU12排队，人口/矩阵准备4539794在CPU13依赖前者，均0秒、尚无补充科学结果。新增任务默认关闭，通过检查及实际目标UUID/字节/inode/UID配额/统一预留后启用。全部扩展工作也纳入结项，S/P共同k*按原指示待双方完成后另确认；不提前开最终结项或改配方。
+
+2026-11-25执行补记（原作业状态截至16:28 CST）：已接入全线TIMEBOX_RULE_20261125，工程失败修好续接且不据此标UNRESOLVED；本线自查未发现因工程失败标记UNRESOLVED的已注册结果，既有科学判定不重开。原B0/final独立9M均完整保存并核验退出，第6层GPU终点读出4539993/4540067均COMPLETED/0且自有退出；CPU正式统计4539994/4540068仍排队，尚无9M正式R1/R3或配对结论。
+
+2026-11-26执行修订：已读取全线SCHEDULING_RULE_20261126.md。原五项短CPU作业均核实PENDING、UID1278、0秒后取消，按5秒各核idle实测在健康CPU11上直接SSH执行，不虚构Slurm身份。新E1汇总及native身份8项合成检查通过，矩阵16组/192项已闭合；两条原9M正式CPU统计均已正常完成，正式指标在对应S报告中转录。其余扩展仍须实际来源闭合、注册发布和目标资源准入。
+
+执行更新（以本次闭合记录为准）：新逻辑检查4539778通过14项，人口/矩阵准备S_population_native_20261126_attempt2已完成；短CPU依11-26规则按实测idle及RAM准入直接SSH执行。E1实际平均允许PM7构象数：k1=1, k2=1.9960677, k5=4.9664035；T5/T6原P选中MIDs与S共同TRAIN交集分别249744/499456。已按原消费者C0/自有退出退役闭合诊断原始H暂存23165911040字节，保留原指标、NPZ、预测、清单和失败partial，无旧统计重算/新哈希。最新原游标观测2026-11-26T11:37:23.108320+08:00：S_B0_s0_9M=9000000/9M, S_final_s0_9M=9000000/9M；扩展入口将在本次注册发布及实际节点准入后启用，尚无补充模型分数。

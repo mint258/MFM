@@ -24,7 +24,7 @@ def cpu_only():
     return memory
 
 
-def finalize(c):
+def finalize(c, *, execution=None):
     memory = cpu_only()
     output = Path(c['output'])
     summary = json.loads((output/'summary.json').read_text())
@@ -58,11 +58,13 @@ def finalize(c):
     from readouts import release_closed_feature_cache
     released = release_closed_feature_cache(c)
     summary.update(status='COMPLETE', statistics_complete=True, feature_cache=released,
-                   statistics_job=os.environ['SLURM_JOB_ID'],
+                   statistics_job=os.environ['SLURM_JOB_ID'] if execution is None else execution['job_id'],
                    statistics_node=socket.gethostname().split('.')[0],
                    statistics_memory_at_start=memory,
                    statistics_peak_RSS_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024,
                    statistics_seconds=time.monotonic()-started)
+    if execution is not None:
+        summary['statistics_execution'] = execution
     write(output/'summary.json', summary)
     return summary
 
