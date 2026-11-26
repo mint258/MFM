@@ -406,13 +406,13 @@
       "observed_at_UTC": "2026-11-26T06:26:31.118Z"
     },
     "latest_short_observation": {
-      "observed_at_UTC": "2026-11-26T06:46:27.036Z",
-      "closed_rows": 795648,
+      "observed_at_UTC": "2026-11-26T06:54:27.662Z",
+      "closed_rows": 799744,
       "collection_status": "COLLECTING",
       "worker": {
         "pid": 248316,
         "start_ticks": "2278851052",
-        "state": "R",
+        "state": "I",
         "uid": 1278
       }
     },
@@ -1239,5 +1239,70 @@
     "original_P_seed_helper_unchanged": true,
     "scientific_configuration_unchanged": true,
     "existing_control_reuse_preserved": true
+  },
+  "remaining_CPU_science_transport": {
+    "source_commit": "b0a3d1ddfcae598810e22f598603ee4c084b7ddf",
+    "status": "AUTHENTICATED_CPU_SSH_WRAPPER_PREPARED_TESTED_ACTUAL_PHASES_NOT_STARTED",
+    "module": "tools.d_recipe.cpu_science_ssh",
+    "operations": [
+      "diagnostic_statistics",
+      "layer_readouts",
+      "development_panel"
+    ],
+    "source_binding": "For GPU/CPU phases read the actual GPU runtime snapshot, change only phase; actual CPU resources stay in a separate transport",
+    "no_fake_Slurm_environment": true,
+    "execution_id": "ssh:D_CPU_science_transport_contracts_20261126",
+    "node": "compute-0-19",
+    "cores": [
+      14
+    ],
+    "idle_fraction": {
+      "14": 0.9979633401221996
+    },
+    "tests": [
+      {
+        "stage": "D_CPU_SCIENCE_TRANSPORT_CONTRACTS",
+        "tests_run": 2,
+        "failures": 0,
+        "errors": 0,
+        "seconds": 7.193476270884275
+      }
+    ],
+    "wall_seconds": 8.02484941482544,
+    "actual_child_CPU_seconds": 3.3521829999999997,
+    "peak_child_RSS_KiB": 794064,
+    "supervisor": {
+      "pid": 2798614,
+      "start_ticks": 2047716491,
+      "uids": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4936.scope\n",
+      "state": "R"
+    },
+    "parent": {
+      "pid": 2798613,
+      "start_ticks": 2047716491,
+      "uids": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4936.scope\n",
+      "state": "S"
+    },
+    "owned_tree_reaped": true,
+    "remaining_children": [],
+    "original_process_alive": {
+      "supervisor": false,
+      "parent": false
+    },
+    "temporary_claims_released": true,
+    "new_actual_diagnostic_or_A_B_C_results": false,
+    "future_outer_timeout": "TERM-only for new own short CPU entries; no auto-KILL. Existing live launchers unchanged."
   }
 }
