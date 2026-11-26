@@ -7,8 +7,10 @@ import unittest
 from unittest.mock import Mock, patch
 
 from tools.d_recipe import reference_segment_guarded
-from tools.d_recipe.reference_runtime_storage import scoped_physical_writes
+from tools.d_recipe.reference_runtime_storage import scoped_physical_writes, shared_runtime_guard
+from tools.d_recipe.reference_fit_ssh import publish_once
 from workflows.data_v1_final.export.v31_stream_v1 import disk_guard
+from workflows.data_v1_final.export.v31_stream_v1 import quota_snapshot
 
 
 class ReferenceRuntimeStorageTests(unittest.TestCase):
@@ -62,6 +64,36 @@ class ReferenceRuntimeStorageTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "original entry failed"):
                 reference_segment_guarded.main()
         self.assertIs(base.scoped_collector_writes, previous)
+
+    def test_shared_original_guard_keeps_100GB_plus_8GiB_and_fresh_uid(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fact = dict(path=str(root), device=os.stat(root).st_dev,
+                mount=dict(source="fixture", fstype="nfs"), total=1000*2**30,
+                available=200*2**30, inodes=20000, root_filesystem=False)
+            fs = SimpleNamespace(f_bavail=200*2**30, f_frsize=1, f_favail=20000)
+            floor = 100_000_000_000 + 8*2**30
+            with patch.object(disk_guard, "inspect", return_value=fact), \
+                    patch.object(disk_guard.os, "statvfs", return_value=fs), \
+                    patch.object(quota_snapshot, "read_available", return_value=floor-1) as read:
+                with self.assertRaisesRegex(disk_guard.DiskUnavailable, "ACCOUNT_QUOTA_RESERVE_REACHED"):
+                    shared_runtime_guard(root, guard_class=disk_guard.Guard,
+                        quota_snapshot="/fixture/quota.json")
+                self.assertEqual(read.call_args.kwargs, dict(expected_uid=os.getuid(),
+                    expected_filesystem="/share", max_age_seconds=5))
+
+    def test_publication_refusal_preserves_committed_local_and_no_new_shared_file(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "label_parameters.json"
+            source.write_text("{}\n")
+            destination = root / "shared" / "label_parameters.json"
+            guard = Mock(side_effect=disk_guard.DiskUnavailable("physical quota pressure"))
+            with self.assertRaisesRegex(disk_guard.DiskUnavailable, "physical quota pressure"):
+                publish_once(source, destination, guard=guard)
+            self.assertEqual(source.read_text(), "{}\n")
+            self.assertFalse(destination.parent.exists())
+            guard.assert_called_once_with(destination, bytes_needed=source.stat().st_size)
 
 
 if __name__ == "__main__":

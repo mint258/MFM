@@ -54,12 +54,14 @@ def fit_or_reuse(configuration, *, build_dataset, fitter, guard, may_start):
         dataset.close()
 
 
-def publish_once(source, destination):
+def publish_once(source, destination, *, guard=None):
     source, destination = Path(source), Path(destination)
     if destination.is_file():
         return "REUSE_PUBLISHED_PARAMETERS"
     if not source.is_file() or source.is_symlink() or source.stat().st_uid != os.getuid():
         raise ValueError("Committed owned original fitter output required")
+    if guard is not None:
+        guard(destination, bytes_needed=source.stat().st_size)
     destination.parent.mkdir(parents=True, exist_ok=True)
     pending = destination.with_name(destination.name + ".partial." + str(os.getpid()) + "." + str(time.time_ns()))
     with source.open("rb") as reader, pending.open("xb") as writer:
@@ -125,7 +127,11 @@ def main():
         local_existed = (output / "label_parameters.json").is_file()
         source = fit_or_reuse(c, build_dataset=build_dataset, fitter=fit_collected, guard=guard,
             may_start=lambda: time.time() + expected < hard_end - transport["cleanup_seconds"])
-        status = publish_once(source, destination)
+        from .reference_runtime_storage import shared_runtime_guard
+        from .shared_admission import shared_guard
+        publication_guard = shared_runtime_guard(destination.parent,
+            guard_class=resources.Guard, quota_snapshot=shared_guard.SHARE_UID_QUOTA)
+        status = publish_once(source, destination, guard=publication_guard.check)
         print(json.dumps(dict(stage="D_A1_SSH_FIT", status=status, path=str(destination),
             local_result_reused=local_existed, fit_role="TRAIN", full_collection_rows=marker["closed_rows"],
             configuration_unchanged=True, original_D4_modified=False)), flush=True)
