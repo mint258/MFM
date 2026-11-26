@@ -4763,14 +4763,19 @@
         "whole_card_power_summary_pending": true
       },
       "latest_original_progress": {
-        "observed_at_UTC": "2026-11-26T03:00:00Z",
-        "samples": 1839776,
-        "training_loop_seconds": 187601.00533778453,
-        "source": "Original losses.csv tail",
-        "same_worker_pid": 281103,
-        "start_ticks": 67356059,
-        "state": "S",
-        "no_restart": true
+        "observed_at_UTC": "2026-11-26T03:05:16Z",
+        "samples": 1861088,
+        "training_loop_seconds": 187950.70841113152,
+        "job": 4539402,
+        "source": "Originallosses.csvtail",
+        "worker_pid": 281103,
+        "worker_start_ticks": 67356059,
+        "worker_state": "S",
+        "guardian_pid": 281058,
+        "guardian_start_ticks": 67355699,
+        "guardian_state_observed_once": "D",
+        "guardian_D_duration": "UNKNOWN",
+        "new_signals_or_restart": false
       },
       "live_joint_NFS_forecast_bytes": 34244105455,
       "active_frozen_configuration_share_upper_bound_bytes": 42074762973,
@@ -5170,16 +5175,27 @@
         "previous_reason_raw": "Kill task failed [root@2026-11-24T19:21:42]",
         "observed_at_UTC": "2026-11-25T02:50:36Z",
         "underlying_repair_or_root_cause_unknown": true
+      },
+      "deadline_continuation_plan": {
+        "actual_EndTime_CST": "2026-11-26T12:27:55",
+        "cleanup_start_CST": "2026-11-26T12:12:55",
+        "existing_cleanup_seconds": 900,
+        "method": "Existing cooperativeSAVE_AND_EXIT fullcheckpoint and ack, then verify ownedtree reaped/absent; materialize same-arm seed0 3M continuation from ack checkpoint/clock withoptimizer/RNG/p99 preserved; no duplicateproducer",
+        "ack": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/exit_control/d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124/job_4539402/ack.json",
+        "pending_stats_to_rebind_after_continuation_submission": 4539403,
+        "comparison_after_statistics": 4539404,
+        "do_not_treat_handoff_exit75_as_scientific_failure": true
       }
     },
     "next_L1_progress_check_UTC": "2026-11-25T03:20:00Z",
     "L2": {
       "arm": "D-L2",
       "status": "PENDING_A1_CURSOR_RESUME",
-      "A1_status": "ENGINEERING_RECOVERY_REQUIRED",
+      "A1_status": "RESUME_JOB_PENDING_PRIORITY",
       "A1_jobs": [
         4539164,
-        4539169
+        4539169,
+        4540186
       ],
       "A1_failures": 0,
       "closed_collection_rows": 729600,
@@ -5196,7 +5212,9 @@
       "resume_cursor": 729600,
       "resume_configuration_binding_identical": true,
       "actual_cursor_node": "compute-0-11",
-      "resume_resident": "configs/d_recipe/launches/L2_stage2_A1_resume729600_20261126_resident.sbatch"
+      "resume_resident": "configs/d_recipe/launches/L2_stage2_A1_resume729600_20261126_resident.sbatch",
+      "A1_recovery_job": 4540186,
+      "source_commit": "a65ad7fd6786b2b44fd73922050eeb79eb4239c4"
     },
     "reference_production_status": "L1_FROZEN_L2_CURSOR_RECOVERY_PENDING",
     "storage_retirement": {
