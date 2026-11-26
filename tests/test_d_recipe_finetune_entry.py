@@ -1,9 +1,17 @@
 """Metadata-only supplemental scope contracts; no P worker import or tensors."""
 import unittest
-from tools.d_recipe.finetune_entry import validate
+from tools.d_recipe.finetune_entry import fallback_card, validate
 
 
 class DFinetuneScopeTests(unittest.TestCase):
+    def test_fallback_memory_boundary_and_required_free_memory(self):
+        row = ["GPU-fixture", "RTX-fixture", "12000", "40000"]
+        self.assertEqual(fallback_card(row, 24000)["memory_used_mib"], 12000.)
+        with self.assertRaisesRegex(ValueError, "memory"):
+            fallback_card([*row[:2], "12001", "40000"], 24000)
+        with self.assertRaisesRegex(ValueError, "memory"):
+            fallback_card(row, 28001)
+
     def config(self):
         return dict(D_authority="docs/d_recipe/USER_DIRECTIVE_20261123.md",
                     authority="docs/p_recipe/USER_DIRECTIVE_20261122B.md",

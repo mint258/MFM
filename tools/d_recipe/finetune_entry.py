@@ -1,13 +1,14 @@
 """D transport wrapper around P's unchanged full fine-tuning worker.
 
 This entry submits nothing. Actual source checkpoints, complete main-work
-dependency, empty24GiB target and own reservations must be bound before launch.
+dependency, compliant GPU and own reservations must be bound before launch.
 P's source extraction, geometry, optimization and complete-state resume stay
 inside the original worker. Scratch predictions are reused separately.
 """
 import argparse
 import importlib.util
 import json
+import math
 import os
 from pathlib import Path
 import sys
@@ -15,6 +16,16 @@ import sys
 
 TASKS = ("qm9.U0_atom", "qm9.homo", "exp.LogD", "exp.LogS")
 MAIN_ARMS = ("D-R0", "D-R1", "D-G1", "D-L1", "D-L2", "D-K1")
+
+
+def fallback_card(row, minimum_free_gpu_mib):
+    uuid, name, used, total = [value.strip() for value in row]
+    used, total = float(used), float(total)
+    if (not all(math.isfinite(x) for x in (used, total, minimum_free_gpu_mib))
+            or used < 0 or total < 24000 or minimum_free_gpu_mib <= 0
+            or used / total > .30 or total - used < minimum_free_gpu_mib):
+        raise ValueError("Actual fallback GPU memory does not meet the registered allowance")
+    return dict(uuid=uuid, name=name, memory_used_mib=used, memory_total_mib=total)
 
 
 def validate(c):
@@ -68,19 +79,43 @@ def main(configuration):
             raise ValueError("Actual allocated, supervised D worker identity required")
         entry.lifecycle.slurm_scope(job)
         node = entry.socket.gethostname().split(".")[0]
-        if node not in {"compute-0-" + str(i) for i in range(8)}:
-            raise ValueError("Supplemental full fine-tuning uses the prescribed spare24GiB nodes")
+        if node not in {"compute-0-" + str(i) for i in (*range(8), 20, 22)}:
+            raise ValueError("Supplemental fine-tuning requires an admitted allowed GPU node")
         admit(config, [config["output"]])
         entry.validate_output_filesystem(config["output"], config["output_mount"])
         return node
 
     old_admission, old_repo = entry.admission, entry.REPO
+    old_card_check = entry.gpu_lock_and_check
+
+    def card_check(config, stop):
+        if entry.socket.gethostname().split(".")[0] not in ("compute-0-20", "compute-0-22"):
+            return old_card_check(config, stop)
+        import csv
+        import fcntl
+        locks = Path("/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks")
+        lock = (locks / (config["gpu_uuid"] + ".lock")).open("a")
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            if not os.path.isabs(config["nvidia_smi"]):
+                raise ValueError("Bind the actual absolute nvidia-smi executable")
+            output = entry.native_query([config["nvidia_smi"], "--id=" + config["gpu_uuid"],
+                "--query-gpu=uuid,name,memory.used,memory.total", "--format=csv,noheader,nounits"], stop)
+            rows = list(csv.reader(output.splitlines()))
+            if len(rows) != 1 or rows[0][0].strip() != config["gpu_uuid"]:
+                raise ValueError("Actual fallback GPU UUID differs")
+            return lock, fallback_card(rows[0], config["minimum_free_gpu_mib"])
+        except BaseException:
+            lock.close()
+            raise
     try:
         entry.admission = own_admission
+        entry.gpu_lock_and_check = card_check
         entry.REPO = Path(__file__).resolve().parents[2]
         return entry.main(configuration)
     finally:
         entry.admission, entry.REPO = old_admission, old_repo
+        entry.gpu_lock_and_check = old_card_check
 
 
 if __name__ == "__main__":
