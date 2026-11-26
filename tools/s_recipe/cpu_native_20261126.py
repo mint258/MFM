@@ -25,6 +25,9 @@ AUTHORITY = 'docs/interfaces/SCHEDULING_RULE_20261126.md'
 def worker(c):
     from cpu_execution_20261126 import execution_fields, native_record
     native_record()
+    if c['stage'] == 'budget_validation_curve':
+        from budget_validation_curve_20261126 import run as report
+        return report()
     if c['stage'] == 'budget_statistics':
         from budget_statistics_native_20261126 import run as statistics
         return statistics(c)

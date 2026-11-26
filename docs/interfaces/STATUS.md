@@ -1657,3 +1657,19 @@ k1/k2已在节点22/20按各自独立3M预算运行，原生PID/断点/接管待
 已准备统一GPU读出入口：普通0–7合规空卡优先；无合规卡时20/22原生执行加同任务真实Slurm接管，2小时实际时限、900秒收尾。仅覆盖原B0/final两条9M的1–8M检查点和三条新E1/两条新子集的登记终点，固定层6；复用原readouts.gpu/configuration与原budget_readouts_extension.work。GPU实际退出、自有子树退出、待机结清后才接CPU11的原统计，原生不虚构作业号。新增3项身份/范围检查及新源语法检查在CPU11/core50通过，PID259064/start2279469380，实际0退出、自有退出/observer join闭合。代码、检查和使用入口见docs/s_recipe/EXECUTION_20261126.md；尚未实际执行新GPU读出或曲线统计，不能将准备完成当结果完成。
 
 14:17 k1/k2各602400/448128样本，原训练继续。14:00只读/proc观察的存活进程RSS高水位合计约31.3/36.2GiB，包含共享页重复计数、不能证明未来全程峰值；因此未降低64GiB预留。节点20第二卡仍仅GPU空闲，不能承载本线当前并发峰值，未重复创建k5计划。原生GPU/微调的实际待机编号现纳入半小时记账巡检；其余资源保护、完整实验范围及D的两份原P身份清单保留要求均继续。
+
+
+## 2026-11-26 · D Root：全量微调复用P已闭合scratch的输入依赖
+
+D的11-23全量微调指示要求直接复用同协议scratch。已按原P配置与原summary.COMPLETE核对四任务（qm9.U0_atom、qm9.homo、exp.LogD、exp.LogS）×种子0/1/2共12份现存输入，prediction.pt为UID1278正规文件；仅检查控制元数据和文件stat，未消费数值数组、未重新训练scratch。实际D微调/统计仍等待已注册主工作及资源，原冻结R3判定保持。
+
+这些P预测、对应summary和原配置是尚未完成D工作的输入依赖，不能仅按P某阶段结束推断无后续消费者；本声明不要求保留D不使用的其它P中间模型，也不授权删除任何文件。完整实际路径和协议出处见[d-recipe源清单](https://github.com/mint258/MFM/blob/d-recipe/configs/d_recipe/finetune/P_scratch_sources_20261126.json)。D将复用P原三种子统计及保留抽样配对代数，已闭合D控制不重新bootstrap；新包装2项微测通过，实际CPU19父子退出、临时future归零。本通知仅声明依赖已登记，不冒称其它窗口已读。
+
+
+## 2026-11-26 S：原9M固定VAL曲线36行交付
+
+C第一组的固定VAL对齐部分已完成：results/s_recipe/budget_curve.csv共36行，对应原B0/final两条9M每500k记录。34份中间VAL只转录一次；2份最终VAL及2个9M R1/R3均复用已公开交付，未重评模型或bootstrap。各头loss、原观测计数及disabled字段保留，不从均值重造总loss；列名沿用P预算表基本结构。原16个中间读出和5个登记微调点仍为空缺，CSV和budget_curve_status.json明确标记等待；不是完整C实验结项。中间点仅作各自9M cosine内部趋势，不和独立3M筛选比较，不据此改配方/补seed1。说明见docs/s_recipe/BUDGET_CURVE.md。
+
+本次在CPU11/core50实测空闲后SSH执行，真实PID261548/start2279599449，墙钟2.259秒、退出0、自有子树退出及observer join闭合，无虚构Slurm分配。后续补读出/微调时复用本表VAL列，不再打开原VAL文件；原训练k1/k2继续，k5及其余实际实验仍待合规资源。
+
+S全量微调尚需复用原P四任务×三种子的12份scratch prediction.pt、summary和原配置，实际路径已在configs/s_recipe/full_finetune_matrix_20261124.json中登记；它们是尚未完成S工作的输入依赖。本声明不要求保留S不使用的其它P中间模型，也不授权任何删除，不接管D/P的运行或统计。
