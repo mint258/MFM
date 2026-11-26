@@ -1,14 +1,14 @@
 # 11-26 执行适配
 
-遵循[统一调度修订](../interfaces/SCHEDULING_RULE_20261126.md)。已有单次50轮全量微调闭合，四任务×三种子的完整评测点仍待汇总；不改变原 S 配方、实验范围、50 轮微调或配对判定。
+遵循[统一调度修订](../interfaces/SCHEDULING_RULE_20261126.md)。S-B0的四任务×三种子完整微调点评测已闭合，S-G1继续；不改变原 S 配方、实验范围、50 轮微调或配对判定。实际已交付点见[微调进展](FULL_FINETUNING_PROGRESS.md)。
 
-- 短 CPU 统计直接 SSH 到健康 CPU 节点，启动前实测 5 秒各核 idle、RAM、磁盘/inode及 UID 配额，记录真实 PID/start_ticks、CPU时间和自有退出。预算曲线的 CPU 统计已接入该入口，数学仍调用原 `budget_readouts_extension.work`，尚未执行新曲线统计。
+- 短 CPU 统计直接 SSH 到健康 CPU 节点，启动前实测 5 秒各核 idle、RAM、磁盘/inode及 UID 配额，记录真实 PID/start_ticks、CPU时间和自有退出。预算曲线的 CPU 统计已接入该入口，数学仍调用原 `budget_readouts_extension.work`，S-B0前缀读出已有真实CPU成功结果；数量以执行进展JSON的快照为准。
 - 微调先用 0–7 的合规空卡；无合规卡时支持 20/22 原生执行及同任务真实 Slurm 接管。保留原16 CPU需求、64 GiB RAM峰值、GPU余量和输出上限，不虚构 Slurm 分配。新写入先只读检查候选加入后的总需求，通过后才登记预留。
 - P 的四个原登记源文件逐项匹配。原生微调仅在加载后的 `main` AST 中替换两处执行元数据：CPU需求读取改为显式16，摘要的作业号改为 `null`；另存真实 PID/start_ticks/原生句柄。优化、归一化、原始几何、采样、损失、内部分割及最佳 epoch 选择均复用原函数体。
 - 每段真实35分钟，提前900秒停止领取新工作并保存原完整状态。接管须核实原生主进程身份消失及自有子树退出；安全续接保持源 checkpoint、数据成员、优化器、RNG及原50轮身份。已完成的拟合不重跑。只在自有待机任务 UID/PENDING/零运行核实并 hold 复核后撤销未用待机，不删除输出文件。
 - 完成判定须科学摘要完成，并有真实原生退出证明或实际 Slurm C0及自有退出。选中模型保存时核对相同执行身份；`null` 作业号相同本身不构成证明。
 
-检查均在 CPU11/core50 上直接 SSH 执行：新增[6项混合节点检查](../../results/s_recipe/mixed_fullft_runtime_check_20261126.json)，路径绑定收紧后仅复查[受影响1项](../../results/s_recipe/mixed_fullft_binding_check_20261126.json)，另有[2项续接检查](../../results/s_recipe/fullft_resume_check_20261126.json)和2项原生输出空间检查。既有科学统计和旧套件未重跑。原 P 入口的两处元数据适配已编译检查；首次真实拟合仍须在合规资源上完成运行验证，B0/G1优先。
+检查均在 CPU11/core50 上直接 SSH 执行：新增[6项混合节点检查](../../results/s_recipe/mixed_fullft_runtime_check_20261126.json)，路径绑定收紧后仅复查[受影响1项](../../results/s_recipe/mixed_fullft_binding_check_20261126.json)，另有[2项续接检查](../../results/s_recipe/fullft_resume_check_20261126.json)和2项原生输出空间检查。既有科学统计和旧套件未重跑。S-B0十二条实际50轮拟合及相应完整状态接管均已成功验证，原P统计生产者在CPU11/core49实际完成；B0/G1优先顺序继续。
 
 统一读出入口 `execution_20261126/launch_readout_20261126.py ROLE RUN SAMPLES NODE UUID`：`budget`仅原B0/final两条9M的1–8M检查点，`terminal`仅三条新E1的3M及两条新子集的9M终点（含登记的3/6/9M读出），全部固定层6。普通GPU与20/22原生加真实Slurm接管复用同一个原读出函数；2小时真实时限、900秒收尾。未完成的单元从原已保存特征/完整probe文件接续；GPU真正退出并结清未用待机后，分别由 `launch_budget_statistics_native_20261126.py`、`launch_terminal_statistics_native_20261126.py` 接续CPU统计。新增[3项身份及范围检查](../../results/s_recipe/readout_runtime_check_20261126.json)通过。首次真实运行已用于k1的3M正式读出：节点22原生PID229438/start82170434、退出0，自有退出及observer join闭合；未用待机4540341核实零运行取消后，CPU11/core50原统计120.157秒完成。完整来源见[k1记录](../../results/s_recipe/S_E1_k1_s0_3M.json)，未进行额外GPU测试或重抽样。
 
@@ -19,3 +19,7 @@
 微调入口的自有读者互斥限定到精确UUID，完整节点RAM仍对所有在跑/候选写入者统一准入，64GiB微调预留未降低。因此合规的不同卡读出可与微调并行。`execution_20261126/advance_closed_gpu_20261127.py`只执行一次显式控制器序列：确认成功结清后接CPU/下一个登记点，不常驻轮询、不启用旧dispatcher。新增[2项边界检查](../../results/s_recipe/controller_sequence_check_20261127.json)确认部分拟合不能推进到别的拟合、最后一个9M前缀后不增GPU点。真实闭合数量及首条已封存最佳编码器/头/归一化工件见[执行进展](../../results/s_recipe/execution_progress_20261127.json)，不据单次拟合选配方或k*。
 
 E1沿用S任务书4.4的冻结判定：WIN需CI下界>0且Δ≥τ，LOSS为CI上界<0，其余TIE。包装器已恢复该规则，仍复用P的原保留抽样Δ/CI/τ代数；不把P主线的额外负向幅度条件移入S。新增2个边界测试并复查4个受影响测试，通过[原S规则检查](../../results/s_recipe/e1_s_rule_check_20261127.json)。k1/k2的既有分数、Δ、CI和判定均未改变，修正仅使用已交付标量，不回读原预测/分数数组、不重新bootstrap或拟合。
+
+S-B0首个完整微调点的原P统计与其余选中模型封存合计14.505秒、真实退出0；统计计算本身2.218秒。交付首次因目标子目录缺失退出1，修复后只复用原已闭合primary，0.532秒成功交付，未重跑统计、拟合或bootstrap。逐种子MAE、四任务三种子均值、平均预测CI以及十二个已封存模型的原退出收据写入`results/s_recipe/full_finetune/`。新增[2项汇总边界检查](../../results/s_recipe/reporting_delivery_check_20261127.json)确认两种CI估计量不混用，且最后一个前缀未闭合时不能提前消费任何原分数。曲线全部16个前缀完成后，`budget_curve_delivery_20261127.py`只填已有CSV的读出/微调列并绘图，既有VAL列原样复用。
+
+登录节点的本地XFS与计算节点NFS上，原`flock`不处于同一互斥域。[实际跨主机检查](../../results/s_recipe/metadata_lock_check_20261127.json)在CPU11/core49持有NFS锁时确认：登录侧单独flock未被阻塞，POSIX lockf被正确阻塞。后续登录控制器在原执行锁外同时取得lockf，兼容计算侧既有NFS锁，不改已加载的训练/微调/读出源码。B0 8M点原生阶段已安全暂停，实际4540365读出成功并自有退出；台账被并发覆盖后，依据完整身份、实际C0与原生PID消失证据，仅恢复对应行，见[单点恢复收据](../../results/s_recipe/B0_8M_takeover_reconciliation_20261127.json)。随后正常结清并接续CPU统计与S-final 1M读出，没有重跑8M科学计算。

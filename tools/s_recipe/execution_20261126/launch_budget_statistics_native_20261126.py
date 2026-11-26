@@ -23,6 +23,7 @@ handle=run+'_budget_'+str(samples)+'_statistics_native_20261126_attempt'+str(att
 controller=C/(handle+'_controller.json')
 with (C/'execution.lock').open('a') as lock:
     fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    fcntl.lockf(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     if controller.exists():
         print(json.dumps(read(controller)),flush=True)
         raise SystemExit(0)

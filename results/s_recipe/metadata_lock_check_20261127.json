@@ -1,0 +1,23 @@
+{
+  "status": "COMPLETE",
+  "job_id": null,
+  "native_handle": "S_metadata_lock_native_20261127_attempt0",
+  "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_metadata_lock_native_20261127_attempt0/record.json",
+  "actual_cross_host_lock_observations": {
+    "flock": {
+      "method": "flock",
+      "blocked": false,
+      "uid": 1278,
+      "host": "sonmi"
+    },
+    "lockf": {
+      "method": "lockf",
+      "blocked": true,
+      "uid": 1278,
+      "host": "sonmi"
+    }
+  },
+  "scope": "Own empty probe file only; NFS-side flock and login-side POSIX lockf interoperate, local flock alone does not",
+  "scientific_files_read": false,
+  "real_job_controls": false
+}

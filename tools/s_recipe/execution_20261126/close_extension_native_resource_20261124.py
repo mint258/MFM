@@ -27,6 +27,7 @@ if os.getuid()!=1278 or len(sys.argv)!=2 or sys.argv[1] not in ('S_E1_k1_s0_3M',
 name=sys.argv[1]
 with (C/'execution.lock').open('a') as lock:
     fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    fcntl.lockf(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     ledger=read(C/'execution.json')
     run=ledger['runs'][name]
     if run.get('full_budget_producer_exit_observed'):

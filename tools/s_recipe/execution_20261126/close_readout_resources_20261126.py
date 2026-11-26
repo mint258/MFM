@@ -20,6 +20,7 @@ if os.getuid()!=1278 or not re.fullmatch(r'S_[A-Za-z0-9_]+_readout_(?:budget|ter
     raise ValueError('Exact registered owned fit handle required')
 with (C/'execution.lock').open('a') as lock:
     fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    fcntl.lockf(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     ledger=read(C/'execution.json')
     row=ledger['statistics'][handle]
     if row.get('resource_closed'):

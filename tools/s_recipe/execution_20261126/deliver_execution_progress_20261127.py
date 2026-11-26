@@ -6,7 +6,11 @@ import time
 from cpu_execution_20261126 import execution_fields
 from storage_20261122 import CONTROL as C,REPO as R,write
 read=lambda path:json.loads(Path(path).read_text())
-for filename in ('e1_s_rule_check_20261127.json','controller_sequence_check_20261127.json'):
+from fullft_delivery_20261127 import progress
+closed_points=sorted((R/'results/s_recipe/full_finetune').glob('*.json'))
+if closed_points:progress([read(path) for path in closed_points])
+for filename in ('e1_s_rule_check_20261127.json','controller_sequence_check_20261127.json',
+        'metadata_lock_check_20261127.json','reporting_delivery_check_20261127.json'):
     check=read(C/filename)
     parent=read(check['native_record'])
     command=read(Path(check['native_record']).with_name('command_exit.json'))
@@ -56,7 +60,15 @@ write(R/'results/s_recipe/execution_progress_20261127.json',value)
 target=R/'tools/s_recipe/execution_20261126'
 for name in ('launch_fullft_20261124.py','launch_cpu_native_20261126.py','seal_closed_fullft_20261127.py',
     'advance_closed_gpu_20261127.py','check_controller_sequence_20261127.py','check_e1_s_rule_20261127.py',
-    'refresh_extension_daily_20261126.py','deliver_execution_progress_20261127.py'):
+    'refresh_extension_daily_20261126.py','deliver_execution_progress_20261127.py',
+    'launch_readout_20261126.py','launch_budget_statistics_native_20261126.py',
+    'launch_terminal_statistics_native_20261126.py','launch_fullft_statistics_native_20261126.py',
+    'launch_extension_training_20261124.py','close_fullft_resources_20261126.py',
+    'close_readout_resources_20261126.py','close_extension_native_resource_20261124.py',
+    'retire_closed_training_reservations_20261122.py','reconcile_B0_8M_takeover_20261127.py',
+    'check_metadata_lock_20261127.py','check_reporting_delivery_20261127.py'):
     shutil.copyfile(C/name,target/name)
+shutil.copyfile(C/'B0_8M_takeover_reconciliation_20261127.json',
+    R/'results/s_recipe/B0_8M_takeover_reconciliation_20261127.json')
 print(json.dumps(dict(status='EXECUTION_PROGRESS_DELIVERED',completed_full_fits=len(fits),
     selected_models=len(selected),completed_prefix_statistics=len(budget))),flush=True)

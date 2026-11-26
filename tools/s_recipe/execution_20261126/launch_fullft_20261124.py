@@ -42,6 +42,7 @@ if node not in {'compute-0-'+str(i) for i in (*range(8),20,22)} or os.getuid() !
     raise ValueError('Ordinary0..7 or explicit mixed20/22 GPU and real owner required')
 with (C/'execution.lock').open('a') as lock:
     fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    fcntl.lockf(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
     metadata = read(C/'current_state.json')
     if not metadata.get('extension_registration_published'):
         raise ValueError('Publish the concrete extension registration before first new fit')

@@ -1709,3 +1709,13 @@ E1保留原P提供者的retained draws、配对Δ/CI与τ计算，但正式判�
 截至本次执行交付，S-B0独立3M的qm9.U0_atom和qm9.homo各3个FT种子均已完成50轮并闭合；exp.LogD开始，尚未完成单个12-fit统计点。首个U0 seed0的最佳encoder/head/归一化已通过真实CPU生产者封存为91,051,267字节selected_model.pt，完整续接状态仅在该自有任务闭合和封存成功后按既有规则退役。原S-B0 9M前缀1–4M的末层冻结读出及CPU统计已完成，5M CPU/6M GPU继续；曲线最终汇总仍待全部登记点。细节以results/s_recipe/execution_progress_20261127.json的真实快照为准，不将部分fit或前缀读出称为完整实验。
 
 k5仍在节点22，节点20两卡分别推进全量微调与曲线；CPU统计在节点11，均沿用真实磁盘/配额与退出保护。A/B/C全范围继续，D所需原P T5/T6 MIDs及P scratch输入依赖继续保留。旧失败与旧成本保留，不重开已闭合科学结果。
+
+## 2026-11-27 S：首个完整微调点闭合，修复跨主机台账互斥
+
+S-B0独立3M的四任务×微调种子0–2共12个fit均完成固定50轮，全部实际Slurm C0及自有退出闭合；选中encoder/head/归一化均已封存，原预测、summary与工件收据保留。原P统计生产者CPU11/core49实际14.505秒退出0（含其余工件封存，统计本身2.218秒），父PID307169/start2284490216，自有退出及observer join闭合；复用原P scratch，不重跑参照。四任务三种子scratch改善均值0.407062604；三种子平均预测的改善0.390610996、分子配对95%CI[0.372918643,0.408782764]，两种估计量明确分列，不用后者替代E1的seed-mean CI。逐种子MAE、每任务指标及12份模型交付收据见results/s_recipe/full_finetune/S_B0_3M.json和rows.csv，说明见docs/s_recipe/FULL_FINETUNING_PROGRESS.md。首次交付因子目录缺失退出1，补建目录后仅复用已闭合primary，0.532秒成功交付；原统计、拟合及bootstrap未重算，失败与成本保留。
+
+新增2项汇总边界检查CPU11/core49通过，父PID306658/start2284399694、退出0：区分三种子分数均值CI与平均预测CI；最后一个前缀未完成时不读取任何原分数。曲线汇总入口只在16个登记前缀均真正完成后消费分数一次，复用原1000次抽样作配对代数并补已有CSV，不重开VAL原文件，不把9M前缀当独立预算。
+
+8M读出交接暴露台账行被并发覆盖。实际跨主机空文件检查CPU11/core49（父PID307615/start2284504153，1.996秒、退出0）证明：计算侧NFS flock持锁时，登录侧本地XFS flock仍可成功，POSIX lockf被正确阻塞。后续登录控制入口在原flock外同时取得lockf，兼容计算侧既有锁，未修改已加载的训练/微调/读出模块。仅对该8M行，核实原生75安全退出、PID消失、实际4540365 COMPLETED/0:0及完整成功producer/phase身份后恢复为真实Slurm来源，再正常结清预留并启动CPU统计；未重跑8M科学计算，恢复收据见results/s_recipe/B0_8M_takeover_reconciliation_20261127.json。
+
+截至本次快照，S-B0 9M轨迹1–8M的GPU读出和CPU统计全部完成，S-final 1M已启动。S-G1首个fit已完成、下一种子继续，k5仍在节点22。当前仅1/16个完整微调点，剩余微调、曲线、k5及两条子集9M训练仍属于A/B/C未完成范围，任务继续，不选择k*、不补seed1、不改冻结S-final。64GiB微调与在跑训练预留未缩减，原P T5/T6 MIDs和P scratch的D后续依赖继续保留。

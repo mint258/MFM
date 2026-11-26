@@ -25,6 +25,7 @@ if node not in {'compute-0-'+str(i) for i in (9,11,12,13,19)} or os.getuid()!=12
     raise ValueError('Use a healthy supported CPU role')
 with (C/'execution.lock').open('a') as lock:
     fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    fcntl.lockf(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     plan=read(C/'finetune_plan_20261124.json')
     cells=[row for row in plan['cells'] if row['point']==point]
     if len(cells)!=12:

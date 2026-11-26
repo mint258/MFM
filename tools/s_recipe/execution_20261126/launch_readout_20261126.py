@@ -40,6 +40,7 @@ configuration=C/(handle+'_configuration.json')
 taskpath=C/(handle+'_task.json')
 with (C/'execution.lock').open('a') as lock:
     fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    fcntl.lockf(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     if controller.exists():
         print(json.dumps(read(controller)),flush=True)
         raise SystemExit(0)

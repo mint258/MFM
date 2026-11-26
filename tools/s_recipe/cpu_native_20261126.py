@@ -25,6 +25,12 @@ AUTHORITY = 'docs/interfaces/SCHEDULING_RULE_20261126.md'
 def worker(c):
     from cpu_execution_20261126 import execution_fields, native_record
     native_record()
+    if c['stage'] == 'fullft_delivery':
+        from fullft_delivery_20261127 import run as report
+        return report()
+    if c['stage'] == 'budget_curve_delivery':
+        from budget_curve_delivery_20261127 import run as report
+        return report()
     if c['stage'] == 'budget_validation_curve':
         from budget_validation_curve_20261126 import run as report
         return report()
@@ -78,7 +84,9 @@ def worker(c):
                'handoff_path_check':'check_handoff_path_20261127.py',
                'fullft_seal':'seal_closed_fullft_20261127.py',
                'controller_sequence_check':'check_controller_sequence_20261127.py',
-               'e1_s_rule_check':'check_e1_s_rule_20261127.py'}
+               'e1_s_rule_check':'check_e1_s_rule_20261127.py',
+               'reporting_delivery_check':'check_reporting_delivery_20261127.py',
+               'metadata_lock_check':'check_metadata_lock_20261127.py'}
     if c['stage'] not in scripts:
         raise ValueError('No unregistered CPU stage')
     if c['stage'] == 'population':

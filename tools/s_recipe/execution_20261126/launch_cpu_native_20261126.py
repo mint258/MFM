@@ -22,7 +22,7 @@ stage,handle,node,core_text=sys.argv[1:5]
 source=sys.argv[5] if len(sys.argv)>5 else None
 cores=[int(item) for item in core_text.split(',')]
 if (os.getuid()!=1278 or node not in {'compute-0-'+str(i) for i in (9,11,12,13,19)}
-        or stage not in ('terminal','budget_statistics','matrix','population','publish','import','fullft_statistics','extension_progress','extension_daily','generic_publish','writer_admission_check','budget_adapter_check','native_output_check','fullft_provider_inspection','mixed_fullft_check','mixed_fullft_binding_check','fullft_resume_check','execution_delivery','readout_runtime_check','readout_delivery','budget_validation_curve','standby_settlement_check','e1_frozen_report','handoff_path_check','fullft_seal','controller_sequence_check','e1_s_rule_check')
+        or stage not in ('terminal','budget_statistics','matrix','population','publish','import','fullft_statistics','fullft_delivery','budget_curve_delivery','extension_progress','extension_daily','generic_publish','writer_admission_check','budget_adapter_check','native_output_check','fullft_provider_inspection','mixed_fullft_check','mixed_fullft_binding_check','fullft_resume_check','execution_delivery','readout_runtime_check','readout_delivery','budget_validation_curve','standby_settlement_check','e1_frozen_report','handoff_path_check','fullft_seal','controller_sequence_check','e1_s_rule_check','reporting_delivery_check','metadata_lock_check')
         or not 1<=len(set(cores))==len(cores)<=16
         or not handle.replace('_','').isalnum() or not handle.startswith('S_')):
     raise ValueError('Explicit owned registered native CPU stage required')

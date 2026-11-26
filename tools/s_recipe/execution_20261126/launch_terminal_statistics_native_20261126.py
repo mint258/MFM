@@ -21,6 +21,7 @@ handle=run+'_terminal_statistics_native_20261126_attempt'+str(attempt)
 controller=C/(handle+'_controller.json')
 with (C/'execution.lock').open('a') as lock:
     fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    fcntl.lockf(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     if controller.exists():
         print(json.dumps(read(controller)),flush=True)
         raise SystemExit(0)
