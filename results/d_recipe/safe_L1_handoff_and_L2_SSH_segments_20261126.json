@@ -84,12 +84,13 @@
     "remaining_samples": 909248,
     "scientific_budget": 3000000,
     "seed": 0,
-    "next_GPU_admission_UTC": "2026-11-26T05:20:30Z",
+    "next_GPU_admission_UTC": "2026-11-26T05:54:22Z",
     "latest_admission": {
-      "observed_at_UTC": "2026-11-26T04:50:30Z",
-      "small_group": "Nodes0/1/4/5/6/7 have enough allocatable CPUs but each actual GPU has a CUDA context; node3 has no allocatable CPU",
-      "node20": "Second4090 has443/49140MiB and own lock free, but canonical64GiB training RAM admission refused; own candidate RAM claim released without writer",
-      "node22": "Actual14430/32607MiB and own common GPU lock busy; not admitted",
+      "observed_at_UTC": "2026-11-26T05:24:22Z",
+      "physical_GPU_probe_UTC": "2026-11-26T05:21:05Z",
+      "small_group": "0/1/4/5/6/7 each have sufficient allocatableCPU but actual CUDA contexts; node3 lacks allocatableCPU",
+      "node20": "Second4090 actual443/49140MiB with free own lock, canonical unchanged64GiB training RAM admission refused; candidate claim returned0",
+      "node22": "Actual14430/32607MiB and own lock busy",
       "new_GPU_job_submitted": false,
       "other_owner_processes_changed": false
     },
@@ -130,31 +131,51 @@
     "claim": "runs/shared_storage_reservations/d-recipe.json",
     "execution_id_namespace_note": "P_ prefix is required by the reused shared provider, metadata line remains D; not a P scientific run and not a Slurm job",
     "last_observed_worker": {
-      "observed_at_UTC": "2026-11-26T04:50:30Z",
+      "observed_at_UTC": "2026-11-26T05:24:22Z",
       "pid": 248316,
       "start_ticks": "2278851052",
-      "state": "D",
-      "wchan": "rpc_wait_bit_killable",
-      "duration_unknown": true,
-      "root_cause_unknown": true,
-      "original_cursor_is_progressing": true
+      "state": "R",
+      "UID": [
+        "Uid:\t1278\t1278\t1278\t1278"
+      ]
     },
     "latest_native_progress": {
-      "observed_at_UTC": "2026-11-26T04:50:30Z",
-      "closed_rows": 737792,
-      "collection_status": "COLLECTING",
+      "observed_at_UTC": "2026-11-26T05:24:22Z",
+      "closed_rows": 754432,
       "original_start_cursor": 729600,
-      "completed_new_rows": 8192,
+      "new_closed_rows": 24832,
+      "collection_status": "COLLECTING",
       "last_attempt": {
         "job_id": null,
         "node": "compute-0-11",
         "start_row": 729600,
         "state": "RUNNING",
-        "closed_rows": 737792,
-        "elapsed_seconds": 966.6925917118788
+        "closed_rows": 754432,
+        "elapsed_seconds": 2976.7050080746412
       },
       "receipt_status": "RUNNING",
-      "original_binding_unchanged": true
+      "actual_processes": {
+        "supervisor": {
+          "pid": 248291,
+          "start_ticks": "2278850548",
+          "state": "S",
+          "UID": [
+            "Uid:\t1278\t1278\t1278\t1278"
+          ]
+        },
+        "worker": {
+          "pid": 248316,
+          "start_ticks": "2278851052",
+          "state": "R",
+          "UID": [
+            "Uid:\t1278\t1278\t1278\t1278"
+          ]
+        }
+      },
+      "actual_root_available": 56949882880,
+      "actual_root_inodes": 36569794,
+      "own_local_allocated": 9705264803,
+      "own_local_remaining_future": 7474604381
     }
   },
   "tiny_callback_test": {
@@ -367,5 +388,235 @@
     "actual_full_finetuning_started": false,
     "scratch": "Reuse existing exact-protocol P scratch at first actual statistics consumption; no new scratch run scheduled",
     "remaining_transport_work": "Native SSH GPU hybrid backend is not implemented in this prepared supplemental wrapper; never fabricate Slurm identity. Bind an actual admitted Slurm slot or complete hybrid support before activation."
+  },
+  "followup_preparation_1324": {
+    "status": "NEW_CONTRACTS_PASSED_ACTUAL_SUPPLEMENTAL_RUNS_NOT_STARTED",
+    "canonical_next_segment_entry": "tools/d_recipe/reference_segment_canonical.py",
+    "next_segment_plan": "configs/d_recipe/reference/L2_cursor_segments_20261126_plan.json",
+    "source_identity_manifest": "configs/d_recipe/scaling/P_actual_selected_sources_20261126.json",
+    "supplemental_interface": "docs/d_recipe/SUPPLEMENTAL_EXECUTION.md",
+    "tests": {
+      "canonical_cursor": {
+        "source_commit": "49a0ddbb151bc2ddc85e15a21536e28cd6f1bbfc",
+        "execution_id": "ssh:D_canonical_cursor_contracts_20261126",
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "idle_fraction": {
+          "65": 1
+        },
+        "tests": [
+          {
+            "stage": "D_CANONICAL_CURSOR_NEW_CONTRACTS",
+            "tests_run": 3,
+            "failures": 0,
+            "errors": 0,
+            "seconds": 0.00426056981086731
+          }
+        ],
+        "wall_seconds": 0.2542715072631836,
+        "child_CPU_seconds": 0.069922,
+        "peak_child_RSS_KiB": 21124,
+        "supervisor": {
+          "pid": 2795168,
+          "start_ticks": 2047022995,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4894.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2795167,
+          "start_ticks": 2047022994,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4894.scope\n",
+          "state": "S"
+        },
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "test_future_released": true
+      },
+      "actual_selection_and_conditional_endpoints": {
+        "source_commit": "7b9725fa76f0746d7df71f7794203aea656f7eb6",
+        "execution_id": "ssh:D_scaling_selection_contracts_20261126",
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "idle_fraction": {
+          "65": 0.998003992015968
+        },
+        "tests": [
+          {
+            "stage": "D_SCALING_AND_ACTUAL_ENDPOINT_CONTRACTS",
+            "tests_run": 4,
+            "failures": 0,
+            "errors": 0,
+            "seconds": 0.5382175520062447
+          }
+        ],
+        "wall_seconds": 2.7628421783447266,
+        "child_CPU_seconds": 0.232572,
+        "peak_child_RSS_KiB": 43372,
+        "supervisor": {
+          "pid": 2795348,
+          "start_ticks": 2047071931,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4896.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2795347,
+          "start_ticks": 2047071930,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4896.scope\n",
+          "state": "S"
+        },
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "test_future_released": true
+      },
+      "budget_readout": {
+        "source_commit": "48308fa36a0cc7d5db7b0469b7cfe609756b43dd",
+        "execution_id": "ssh:D_budget_readout_contracts_20261126",
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "idle_fraction": {
+          "65": 0.998
+        },
+        "tests": [
+          {
+            "stage": "D_BUDGET_READOUT_PLAN_CONTRACTS",
+            "tests_run": 2,
+            "failures": 0,
+            "errors": 0,
+            "seconds": 0.00047093257308006287
+          }
+        ],
+        "wall_seconds": 0.2543785572052002,
+        "child_CPU_seconds": 0.033144999999999994,
+        "peak_child_RSS_KiB": 10872,
+        "supervisor": {
+          "pid": 2795575,
+          "start_ticks": 2047104697,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4899.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2795574,
+          "start_ticks": 2047104697,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4899.scope\n",
+          "state": "S"
+        },
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "test_future_released": true
+      },
+      "saved_P_identity": {
+        "source_commit": "7aa9198deb621cd01de94c645dbcb377ec13ccc9",
+        "execution_id": "ssh:D_saved_P_identity_contract_20261126",
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "idle_fraction": {
+          "65": 1
+        },
+        "tests": [
+          {
+            "stage": "D_SAVED_P_IDENTITY_CONTRACT",
+            "tests_run": 1,
+            "failures": 0,
+            "errors": 0,
+            "seconds": 0.1070050373673439
+          }
+        ],
+        "wall_seconds": 0.7556686401367188,
+        "child_CPU_seconds": 0.19988999999999998,
+        "peak_child_RSS_KiB": 42808,
+        "supervisor": {
+          "pid": 2795796,
+          "start_ticks": 2047128418,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4902.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2795795,
+          "start_ticks": 2047128418,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4902.scope\n",
+          "state": "S"
+        },
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "test_future_released": true
+      }
+    },
+    "original_source_lists_read_for_numeric_QA": false,
+    "actual_D_intersections_generated": false,
+    "new_pretraining_started": false,
+    "full_regression_repeated": false,
+    "same_line_claim_updates": "Serialize all updates to d-recipe.json; candidate RAM shadow released and local remaining reconciled after observation"
   }
 }
