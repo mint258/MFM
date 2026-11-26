@@ -322,7 +322,7 @@ def render(plan, verdict, states, selection, code_commit, *, require_external_A4
                       for count, arm in ((250000, 'T5'), (500000, 'T6'), (full_count, 'T2'))]), '',
                comparison_table(verdict['comparisons'], 'molecule_scaling', delta_source, line_numbers), '',
                '子集种子20261112，250k ⊂ 500k ⊂ 全量。T5/T6及全量缩放点使用seed0，分子数减少会提高重复次数；只作描述，不判胜负、不补种子或作扩量决策。', '',
-               f"![固定预算分子数曲线]({os.path.relpath(results / 'molecule_scaling.svg', REPO / 'docs/p_recipe').replace(os.sep, '/')})", '',
+               f"![固定预算分子数曲线]({os.path.relpath(results / 'confirmation/molecule_count_scaling.png', REPO / 'docs/p_recipe').replace(os.sep, '/')})", '',
                '## 全部筛选臂及组件取舍', '']
     if closeout:content.extend(seed_sections(states,verdict))
     experiment_rows = screening_rows(states, delta_source, line_numbers)
