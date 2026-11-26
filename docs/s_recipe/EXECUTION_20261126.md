@@ -9,3 +9,5 @@
 - 完成判定须科学摘要完成，并有真实原生退出证明或实际 Slurm C0及自有退出。选中模型保存时核对相同执行身份；`null` 作业号相同本身不构成证明。
 
 检查均在 CPU11/core50 上直接 SSH 执行：新增[6项混合节点检查](../../results/s_recipe/mixed_fullft_runtime_check_20261126.json)，路径绑定收紧后仅复查[受影响1项](../../results/s_recipe/mixed_fullft_binding_check_20261126.json)，另有[2项续接检查](../../results/s_recipe/fullft_resume_check_20261126.json)和2项原生输出空间检查。既有科学统计和旧套件未重跑。原 P 入口的两处元数据适配已编译检查；首次真实拟合仍须在合规资源上完成运行验证，B0/G1优先。
+
+统一读出入口 `execution_20261126/launch_readout_20261126.py ROLE RUN SAMPLES NODE UUID`：`budget`仅原B0/final两条9M的1–8M检查点，`terminal`仅三条新E1的3M及两条新子集的9M终点（含登记的3/6/9M读出），全部固定层6。普通GPU与20/22原生加真实Slurm接管复用同一个原读出函数；2小时真实时限、900秒收尾。未完成的单元从原已保存特征/完整probe文件接续；GPU真正退出并结清未用待机后，分别由 `launch_budget_statistics_native_20261126.py`、`launch_terminal_statistics_native_20261126.py` 接续CPU统计。新增[3项身份及范围检查](../../results/s_recipe/readout_runtime_check_20261126.json)通过，尚无真实新读出结果。

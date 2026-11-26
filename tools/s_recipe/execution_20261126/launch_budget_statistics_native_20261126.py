@@ -38,12 +38,21 @@ with (C/'execution.lock').open('a') as lock:
     gpu=read(output/'snapshot_gpu_status.json')
     if (gpu.get('run')!=run or gpu.get('samples')!=samples
             or gpu.get('status')!='GPU_SNAPSHOT_COMPLETE_WAITING_CPU'
-            or not gpu.get('owned_descendants_exited') or not gpu.get('ended_at')
-            or not isinstance(gpu.get('job_id'),int)):
+            or not gpu.get('owned_descendants_exited') or not gpu.get('ended_at')):
         raise ValueError('Wait for a closed actual original GPU readout')
-    actual=subprocess.check_output(['/usr/bin/timeout','15s','/usr/bin/sacct','-X','-n','-P',
-        '-j',str(gpu['job_id']),'--format=State,ExitCode'],text=True).strip()
-    if actual!='COMPLETED|0:0':raise ValueError('Original GPU allocation has not succeeded')
+    if gpu.get('job_id') is not None:
+        actual=subprocess.check_output(['/usr/bin/timeout','15s','/usr/bin/sacct','-X','-n','-P',
+            '-j',str(gpu['job_id']),'--format=State,ExitCode'],text=True).strip()
+        if actual!='COMPLETED|0:0':raise ValueError('Original GPU allocation has not succeeded')
+    else:
+        resource_handle=gpu.get('resource_handle')
+        if not resource_handle or gpu.get('native_handle')!=resource_handle:
+            raise ValueError('Missing actual native readout identity')
+        close=read(C/(resource_handle+'_resource_close.json'))
+        if (close.get('status')!='OWN_RESOURCES_CLOSED' or close.get('exit_code')!=0
+                or close.get('handle')!=resource_handle or close.get('run')!=run
+                or close.get('samples')!=samples or close.get('role')!='budget'):
+            raise ValueError('Native readout and its unused standby must actually settle')
     previous=output/'snapshot_statistics_status.json'
     if previous.exists():
         old=read(previous)

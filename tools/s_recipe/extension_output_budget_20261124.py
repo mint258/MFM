@@ -54,7 +54,7 @@ def phase_live(row,states,read):
         record=read(path)
     except (OSError,ValueError):
         return True
-    if (row.get('mode')=='finetune_native' and record.get('exit_code')==75
+    if (row.get('mode') in ('finetune_native','gpu_native') and record.get('exit_code')==75
             and not row.get('resource_closed')):
         return True
     return not (record.get('ended_at') and record.get('owned_descendants_exited')
@@ -89,7 +89,7 @@ def forecast(ledger,states,*,incoming_bytes,incoming_finetune=False):
             points=row.get('readout_points') or ([row['samples']] if '_budget_' in handle else c['evaluation_samples'])
             current=sum(allocated(CONTROL/'scratch/readout_features'/c['run']/str(n)) for n in points)
             phase_future+=unallocated_peak(len(points)*GiB,current)
-        elif row.get('mode') in ('fullft_cpu','fullft_cpu_native'):
+        elif row.get('mode') in ('fullft_cpu','fullft_cpu_native','budget_cpu_native','terminal_cpu_native'):
             cpu_seal_future+=GiB//4
             phase_future+=GiB//4
     unsealed=0
