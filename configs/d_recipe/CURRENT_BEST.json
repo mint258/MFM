@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_CONTINUING_L2_A1_ENGINEERING_RECOVERY_PENDING",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-26T03:03:03Z",
+  "updated_at_utc": "2026-11-26T03:54:06Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -1463,14 +1463,19 @@
     "seed": 0,
     "samples": 9000000,
     "cold_configuration_planner": {
-      "status": "READY_FOCUSED_TEST_PENDING",
+      "status": "FOCUSED_TEST_PASS",
       "source": "tools/d_recipe/confirmation_plan.py",
       "contract": "docs/d_recipe/COLD_CONFIRMATION_ENTRY.md",
-      "test_source": "results/d_recipe/confirmation_plan_tests_20261125.json",
+      "test_source": "results/d_recipe/confirmation_plan_tests_SSH_20261126.json",
       "test_job": 4539987,
       "actual_configurations_generated": false,
       "actual_9M_jobs_submitted": false,
-      "requires_final_frozen_best": true
+      "requires_final_frozen_best": true,
+      "test_backend": "ssh_cpu",
+      "tests": 10,
+      "failures": 0,
+      "skipped": 0,
+      "old_pending_job_cancelled": 4539987
     }
   },
   "results": "Stage1 bundle bothseedsWIN; G1 TIE KEEP D3. L1 originalrun continues. User20261125 restores engineering-failed L2A1/D-L2 and R1F64; full task includes FT and two scaling studies per20261123 amendments. Final freeze/cold9M/ABC/handoff/report/oncePRregression/two unmergedPRs remain.",
@@ -4735,8 +4740,8 @@
       "statistics_resident": "configs/d_recipe/launches/D-L1_seed0_resume1M_gpu20_20261124_statistics_resident.sbatch",
       "comparison_resident": "configs/d_recipe/launches/D-L1_seed0_resume1M_gpu20_20261124_comparison_resident.sbatch",
       "GPU_job": 4539402,
-      "CPU_statistics_job": 4539403,
-      "CPU_comparison_job": 4539404,
+      "CPU_statistics_job": null,
+      "CPU_comparison_job": null,
       "dependencies": {
         "statistics": "afterok:4539402",
         "comparison": "afterok:4539403"
@@ -5185,6 +5190,17 @@
         "pending_stats_to_rebind_after_continuation_submission": 4539403,
         "comparison_after_statistics": 4539404,
         "do_not_treat_handoff_exit75_as_scientific_failure": true
+      },
+      "CPU_followup": {
+        "backend": "ssh_cpu",
+        "retired_pending_zero_jobs": [
+          4539403,
+          4539404
+        ],
+        "statistics": "After registered3M train/readout true successful completion and original treeexit; handoff75 is notcompletion",
+        "comparison": "After originalCPUstatistics actualsuccess, same R1seed0 control",
+        "scientific_code_and_output_paths_unchanged": true,
+        "actual_target_and_idle_cores_to_admit_at_launch": true
       }
     },
     "next_L1_progress_check_UTC": "2026-11-25T03:20:00Z",
@@ -5787,5 +5803,6 @@
     "budget_curve": "Two native9M checkpoints1M..8M frozenR1/R3, selected1/3/6/9M and R0final fine-tune",
     "molecule_scaling": "Two9M seed0 frozenfinal using actualP T5/T6 selectedmolecule lists intersectD TRAIN; no resampling",
     "no_recipe_decisions_from_supplements": true
-  }
+  },
+  "scheduling_rule": "docs/interfaces/SCHEDULING_RULE_20261126.md"
 }

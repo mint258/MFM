@@ -1,0 +1,85 @@
+{
+  "schema": "D_CONFIRMATION_PLAN_TEST_RESULT_V2",
+  "status": "PASS",
+  "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
+  "source": "configs/d_recipe/launches/confirmation_plan_tests_20261125_resident.sbatch frozen worker argv reused verbatim",
+  "source_commit": "78f115890a8eae016f9235d953f546b71d24a3cc",
+  "new_launch_commit": "359be2558220c928a1ad41e8d5dd39e7e0f8d066",
+  "native_result": {
+    "tests": 10,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "native_seconds": 0.002472810447216034
+  },
+  "native_receipt": {
+    "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+    "status": "COMPLETE",
+    "execution_id": "ssh:D_cold9M_tests_20261126",
+    "node": "compute-0-19",
+    "supervisor": {
+      "pid": 2794161,
+      "start_ticks": 2046640510,
+      "uids": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4883.scope\n",
+      "state": "R"
+    },
+    "parent": {
+      "pid": 2794159,
+      "start_ticks": 2046640509,
+      "uids": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4883.scope\n",
+      "state": "S"
+    },
+    "session_id": 2794159,
+    "cores": [
+      65
+    ],
+    "idle_fraction": {
+      "65": 1
+    },
+    "MemAvailable": 246146174976,
+    "started_at": 1795665204.0091696,
+    "hard_end_epoch": 1795666994.0091696,
+    "timeout_seconds": 1800,
+    "cleanup_seconds": 180,
+    "original_pending_job": 4539987,
+    "scientific_code_and_outputs_preserved": true,
+    "returncode": 0,
+    "ended_at": 1795665204.2635837,
+    "wall_seconds": 0.25441431999206543,
+    "user_cpu_seconds": 0.032056999999999995,
+    "system_cpu_seconds": 0.005833,
+    "actual_cpu_seconds": 0.03788999999999999,
+    "peak_child_RSS_KiB": 12068,
+    "remaining_children": [],
+    "owned_tree_reaped": true
+  },
+  "process_exit": {
+    "supervisor_original_absent": 2794161,
+    "timeout_parent_original_absent": 2794159,
+    "remaining_children": [],
+    "owned_tree_reaped": true
+  },
+  "cost_scope": "Receipt actual_cpu_seconds measures reaped worker children; supervisor overhead not separately measured. No repeated test for timing.",
+  "retired_zero_execution_jobs": [
+    4539987,
+    4539403,
+    4539404
+  ],
+  "worker_rerun_count": 0,
+  "launcher_note": "Trailing CR in shell EOF caused launcher status1 after background PID was returned; receipt and own PID were inspected, not relaunched; worker/native supervisor both0.",
+  "full_regression_repeated": false,
+  "scientific_recipe_frozen": false,
+  "actual9Msubmitted": false
+}
