@@ -1,14 +1,14 @@
 {
   "schema": "D_A1_NEXT_SEGMENT_TRANSPORT_PLAN_V1",
-  "status": "PREPARED_NOT_RUNNABLE_WAITING_ACTUAL_SEGMENT3_EXIT",
+  "status": "PREPARED_NOT_RUNNABLE_WAITING_ACTUAL_SEGMENT4_EXIT",
   "phase": "collect_existing_observations_only",
   "original_configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/reference/L2_stage2.json",
   "canonical_entry": "tools.d_recipe.reference_segment_guarded",
   "source_commit": "ca217517e610fe34332afce955b56cdc186f658f",
   "node": "compute-0-11",
   "predecessor": {
-    "execution_id": "ssh:P_D_L2_A1_segment3_attempt2_20261126",
-    "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment3_attempt2_20261126/receipt.json",
+    "execution_id": "ssh:P_D_L2_A1_segment4_20261126",
+    "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment4_20261126/receipt.json",
     "required_status": "CURSOR_SAVED_NOT_COMPLETE",
     "required_returncode": 75,
     "required_remaining_children": [],
@@ -48,12 +48,11 @@
   "partial_TRAIN_fitting": false,
   "source_arrays_recomputed": false,
   "jobs_submitted": false,
-  "next_segment_number": 4,
-  "current_active_segment_configuration": "configs/d_recipe/launches/L2_A1_segment3_attempt2_20261126.json",
+  "next_segment_number": 5,
+  "current_active_segment_configuration": "configs/d_recipe/launches/L2_A1_segment4_20261126.json",
   "previous_segments_proof": "results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json",
   "preserved_predecessor_and_deadline_entry": "tools.d_recipe.reference_segment_canonical",
   "runtime_physical_guard_preparation": "tools.d_recipe.reference_segment_guarded",
-  "native_SSH_segment3_active": true,
   "provider_launch_argv_template": [
     "setsid",
     "nohup",
@@ -79,5 +78,6 @@
     "actual_scientific_cursor_advanced": true,
     "no_provider_source_modification": true,
     "no_new_scientific_test": true
-  }
+  },
+  "native_SSH_segment4_active": true
 }
