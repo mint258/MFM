@@ -1,0 +1,45 @@
+{
+  "execution_backend": "ssh_cpu",
+  "node": "compute-0-11",
+  "line": "D",
+  "cpu_ssh_provider": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/cpu_ssh_runtime.py",
+  "reference_configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/reference/L2_stage2.json",
+  "local_output_root": "/tmp/d_recipe_20261120_stage2_A1_L2",
+  "collection_only": true,
+  "reservation_ids": [
+    "D_L2_A1_CPU11_RAM",
+    "D_L2_A1_CPU11_local"
+  ],
+  "ram_peak_bytes": 34359738368,
+  "shared_future_bytes": {},
+  "expected_seconds": 10800,
+  "segment_seconds": 10800,
+  "timeout_seconds": 21600,
+  "cleanup_seconds": 180,
+  "work_unit_seconds": 120,
+  "cores": [
+    37
+  ],
+  "execution_id": "ssh:P_D_L2_A1_segment2_20261126",
+  "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment2_20261126/receipt.json",
+  "ssh_execution_id": "ssh:P_D_L2_A1_segment2_20261126",
+  "ssh_runtime_receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment2_20261126/receipt.json",
+  "local_future_bytes": 6661287936,
+  "root_future_bytes": 6661287936,
+  "predecessor_receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment1_20261126/receipt.json",
+  "predecessor_execution_id": "ssh:P_D_L2_A1_segment1_20261126",
+  "scientific_configuration_unchanged": true,
+  "generates_new_labels_descriptors_or_conformers": false,
+  "worker_argv": [
+    "/usr/bin/env",
+    "TMPDIR=/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment2_20261126",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "PYTHONPATH=/share/home/zixiao/descriptor_analysis/MFM_d_recipe:/share/home/zixiao/descriptor_analysis/MFM_d_recipe/current:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/current:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps",
+    "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+    "-B",
+    "-m",
+    "tools.d_recipe.reference_segment_canonical",
+    "--configuration",
+    "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/launches/L2_A1_segment2_20261126.json"
+  ]
+}
