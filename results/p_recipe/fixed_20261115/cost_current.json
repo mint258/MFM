@@ -1,5 +1,5 @@
 {
-  "observed_at": 1795670060.0407712,
+  "observed_at": 1795675525.6871796,
   "local_date": "2026-11-26",
   "physical_ledger_gpu_hours": 746.3337535442317,
   "F1_acceptance_gpu_hours": 0.5911111111111111,
@@ -608,9 +608,35 @@
         "returncode": 0,
         "owned_tree_exit_proven": true,
         "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/A5_common_UFF_statistics_runtime.json"
+      },
+      "ssh:P_P_independent_delivery_20261126": {
+        "execution_id": "ssh:P_P_independent_delivery_20261126",
+        "key": "P_independent_delivery",
+        "node": "compute-0-11",
+        "cores": [
+          63
+        ],
+        "actual_CPU_seconds": 4.359999999999999,
+        "wall_seconds": 6.7785398960113525,
+        "returncode": 1,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/P_independent_delivery_runtime.json"
+      },
+      "ssh:P_P_independent_delivery_attempt2_20261126": {
+        "execution_id": "ssh:P_P_independent_delivery_attempt2_20261126",
+        "key": "P_independent_delivery_attempt2",
+        "node": "compute-0-11",
+        "cores": [
+          63
+        ],
+        "actual_CPU_seconds": 4.46,
+        "wall_seconds": 6.780580520629883,
+        "returncode": 0,
+        "owned_tree_exit_proven": true,
+        "source_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/P_independent_delivery_attempt2_runtime.json"
       }
     },
-    "actual_CPU_seconds": 388.18000000000006,
+    "actual_CPU_seconds": 397.00000000000006,
     "count_scope": "New short CPU SSH executions only, all attempts once; original costs retained"
   }
 }

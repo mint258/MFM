@@ -1,0 +1,38 @@
+{
+  "ready": true,
+  "repo": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe",
+  "node": "compute-0-11",
+  "cpus": 1,
+  "ram_peak_bytes": 8589934592,
+  "remaining_output_bytes": 33554432,
+  "output": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/independent_delivery_20261126",
+  "output_mount": "/share",
+  "cleanup_seconds": 180,
+  "work_unit_seconds": 120,
+  "ordinary_short_CPU": true,
+  "execution_backend": "ssh_cpu",
+  "ssh_execution_id": "ssh:P_P_independent_delivery_20261126",
+  "ssh_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/P_independent_delivery_runtime.json",
+  "reservation_ids": [
+    "P_F_remaining_CPU11_RAM",
+    "P_F_remaining_CPU11_tmp"
+  ],
+  "excluded_nodes": [
+    "compute-0-10",
+    "compute-0-14",
+    "compute-0-16",
+    "compute-0-17",
+    "compute-0-18"
+  ],
+  "plan": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/plan.json",
+  "verdict": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/final_verdict.json",
+  "states": [
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round1_decision.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round2_decision.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round3_decision.json",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/round4_decision.json"
+  ],
+  "selection": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/selection.json",
+  "code_commit": "3d612e61c330081b0dab7b5bca78c66f8fa70d02",
+  "authority": "User2026-11-26 complete independent remaining work before D delivery"
+}

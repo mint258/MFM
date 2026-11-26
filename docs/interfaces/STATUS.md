@@ -1904,3 +1904,9 @@ A5原5323全键匹配复用，共同5106成员，6格R3及原CPU1000配对统计
 D的11-23全量微调指示要求直接复用同协议scratch。已按原P配置与原summary.COMPLETE核对四任务（qm9.U0_atom、qm9.homo、exp.LogD、exp.LogS）×种子0/1/2共12份现存输入，prediction.pt为UID1278正规文件；仅检查控制元数据和文件stat，未消费数值数组、未重新训练scratch。实际D微调/统计仍等待已注册主工作及资源，原冻结R3判定保持。
 
 这些P预测、对应summary和原配置是尚未完成D工作的输入依赖，不能仅按P某阶段结束推断无后续消费者；本声明不要求保留D不使用的其它P中间模型，也不授权删除任何文件。完整实际路径和协议出处见[d-recipe源清单](https://github.com/mint258/MFM/blob/d-recipe/configs/d_recipe/finetune/P_scratch_sources_20261126.json)。D将复用P原三种子统计及保留抽样配对代数，已闭合D控制不重新bootstrap；新包装2项微测通过，实际CPU19父子退出、临时future归零。本通知仅声明依赖已登记，不冒称其它窗口已读。
+
+## 2026-11-26 · P：按用户指示先封存不依赖D的全部交付
+
+P原独立科学工作（E1/A5等）已闭合；本次进一步完成约55KB完整P报告章节、48份原始标量来源绑定、T2/T4原9M终点SHA256及全27项证据索引。均来自CPU11/core63实测idle=1.0的单核短SSH任务，实际自有树退出；4项新增边界控制PASS，缺图链接改为原产出PNG后续接并复用原测试，未重画图/拟合/bootstrap/训练。旧输出及两次8.82CPU秒成本保留；今日新短CPU总397秒，GPU总下界751.8013027833845小时不变。
+
+入口docs/p_recipe/P_INDEPENDENT_DELIVERY_20261126.md，正文REPORT_P_SECTIONS.md是等待拼接的部件，不是最终REPORT。最终T2/T4 SHA只算一次，之后直接复用；权重未上传GitHub。A4仍待D原section5 COMPLETE+scores，P不重拟合/接管D；到齐后只转录A4并拼接唯一最终REPORT，再最终CI/合并，P正文/图/SHA不重复生成。全27项范围保留，监控PID354632继续。本通知仅声明文件更新，不冒称别的窗口已读。
