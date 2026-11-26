@@ -38,4 +38,5 @@ CPU13/4539292原统计COMPLETED0:0，4027秒×1CPU；resident记录root1757811�
 
 原均值、全部95%CI、PR原值及原bootstrap_summary分别原样转录至[原生小摘要](../../results/d_recipe/G1_geometry_native_summary_20261123.json)，[执行闭合记录](../../results/d_recipe/G1_geometry_3M_20261123.json)保留每阶段真实成本与退出。原摘要的eigenvalues数组留在原summary.json，配对抽样留在原bootstrap.npz；首次全文传输受输出上限截断后仅作去除eigenvalues的格式投影，没有重算统计或独立QA。PR两种原数值的微小浮点差异均保留，不作替换。
 
-几何原3288秒失败前缀+50秒同cursor续接+32秒转运+4027秒统计，原父分配累计7397秒；声明入口总上限仍14400秒。失败75不当完成，不抹除其成本；无TIMEOUT/KILL。前向manifest中的statistics_complete=false仍为前向producer原记录，最终统计COMPLETE由独立summary声明。缓存层已闭合，G1全部规定诊断完成；主TIE、CI未跨0、保留D3/无seed1不变，不据诊断选层或追加训练。原R1几何两失败UNRESOLVED不再重试。
+几何原3288秒失败前缀+50秒同cursor续接+32秒转运+4027秒统计，原父分配累计7397秒；声明入口总上限仍14400秒。失败75不当完成，不抹除其成本；无TIMEOUT/KILL。前向manifest中的statistics_complete=false仍为前向producer原记录，最终统计COMPLETE由独立summary声明。缓存层已闭合，G1全部规定诊断完成；主TIE、CI未跨0、保留D3/无seed1不变，不据诊断选层或追加训练。R1几何两次容量准入失败的旧UNRESOLVED已由[11-25指示](USER_DIRECTIVE_20261125.md)撤销，按原§4.8补做、排在D-L2之后；不重开已闭合G1结果。
+

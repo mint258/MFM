@@ -1,10 +1,10 @@
 # D 家族实验报告（执行中）
 
-更新：2026-11-23 05:10 CST。阶段1原seed0/seed1的独立配对均WIN，后续采用A1+B3+B4整包。两个fresh seed1各3M的GPU、CPU统计及配对已C0闭合并有实际退出证据；详见[阶段1报告](STAGE1_TRANSFER_RESULTS.md)。阶段2为L1/L2/G1，原完整TRAIN A1生产已在CPU11进行，G1等待合规GPU。最终配置未冻结，9M/最终A-B-C/C1结果仍待后续原关卡。开发D3已闭合全部15751成员，完整TRAIN截断报告与R1缓存层诊断已闭合；R1 F64原UR保持。
+更新：2026-11-26 22:59 CST。阶段1两个seed分别WIN，后续采用A1+B3+B4整包；[阶段1结果](STAGE1_TRANSFER_RESULTS.md)已闭合。G1为TIE，CI未跨0，保留D3且不触发seed1，规定诊断已闭合。L1已在2,090,752样本安全保存完整状态并回收原进程，等待合规GPU续到3M；L2原全TRAIN收集正在CPU11按保存游标续接，22:57已保存1,128,448/1,194,228行，尚未完成拟合、D-L2训练或判定。根据[11-25补做指示](USER_DIRECTIVE_20261125.md)，L2 A1/D-L2和R1 F64的旧工程类UNRESOLVED已撤销，R1 F64排D-L2之后。最终配置未冻结；两宽库及按规则触发的seed1判定、条件K1、冷9M、最终A/B/C与基准、已授权微调/scaling、一次完整回归与两个未合并PR均仍在范围内。最新进程和资源状态见[执行记录](../../results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json)。
 
 ## 依据与研究问题
 
-科学定义以[任务书](TASKBOOK.md)、[训练预注册](../../configs/d_recipe/preregistration.json)和数据分支`configs/data_d_descriptors/preregistration.json`为准。训练预注册在原生A1与D训练开始前发布于`a3b774dc3218fb91b48d98aa84cbe4f930f9aea8`，保持不变。执行与基础设施记录见[EXECUTION](EXECUTION.md)，每日最新状态见[daily](daily/2026-11-23.md)。本报告不重新分析已关闭的数值数组。
+科学定义以[任务书](TASKBOOK.md)、[训练预注册](../../configs/d_recipe/preregistration.json)和数据分支`configs/data_d_descriptors/preregistration.json`为准。训练预注册在原生A1与D训练开始前发布于`a3b774dc3218fb91b48d98aa84cbe4f930f9aea8`，保持不变。执行与基础设施记录见[EXECUTION](EXECUTION.md)，每日最新状态见[daily](daily/2026-11-26.md)。下方带日期的执行段落保留当时的失败与调度历史；其中旧工程类UNRESOLVED及“不重试”表述不代表当前策略，当前恢复范围以11-25指示和本页首段为准。本报告不重新分析已关闭的数值数组。
 
 研究依次检验：P最终配方中的适用组件能否整包迁移到D；固定三块权重后，宽二维库是否优于D20；去除三维组的影响；仅在采用宽库后，85%二维目标掩码是否改善结果。最后将冻结表示与同一套直接描述符比较。整包迁移结果不解释为任何单组件的因果效应。
 
@@ -38,9 +38,9 @@ B3在所有分子级D标量使用原PMA池化，逐原子SASA头不改；B4复�
 
 主指标为R3七任务均值：exp.LogD、exp.LogS、exp.Log_HLM_CLint、qm9.U0_atom、qm9.alpha、qm9.homo、qm9.lumo；R1及两个CYP任务仅报告。复用既有评测器及其已保存抽样，不另抽一套样本。分子级配对bootstrap1000次、seed20261025，95%百分位CI。Δ=候选R3−对照R3，τ=max(0.01,0.05×两者R3较大值)。WIN要求CI下界>0且Δ≥τ；LOSS要求CI上界<0；其余TIE，写无显著改善。
 
-只有seed0 WIN触发seed1，共享对照seed1只训练一次；两种子各自WIN才采纳，不以合并种子CI替代。宽库均确认WIN时用既有L2/L1配对结果比较，TIE取较便宜L1。D-G1严格按预注册的删除规则：仅CI跨0时采用删除D3；整体负区间保留，整体正区间也不自行扩展删除条件。K1仅在采用宽库后触发。原R1对R0的seed0比较已WIN；必须等待各自seed1确认，尚未采用迁移配方。
+只有seed0 WIN触发seed1，共享对照seed1只训练一次；两种子各自WIN才采纳，不以合并种子CI替代。宽库均确认WIN时用既有L2/L1配对结果比较，TIE取较便宜L1。D-G1严格按预注册的删除规则：仅CI跨0时采用删除D3；整体负区间保留，整体正区间也不自行扩展删除条件。K1仅在采用宽库后触发。原R1对R0的seed0和seed1配对均已WIN，已按两种子规则采用A1+B3+B4；逐seed数值及原CI见[阶段1结果](STAGE1_TRANSFER_RESULTS.md)。
 
-seed0/3M的R0、R1、G1及实际采纳配置执行固定5000 VAL（seed20261112）、F64 PR/CEV/CVF/CVF_res和固定层3–6读出；复用既有前向，层6复用主结果，层3–5只拟合规定探针，不扫描层1–6。bootstrap仍1000次/seed20261025。诊断只描述，不作采用门槛。R0原诊断前向4537579已COMPLETED/0:0：5000 VAL分子、47698构象、层3–6/F64，GPU7/2CPU/3388秒；原manifest位于GPU7的/tmp/d_recipe_20261120_D_R0_seed0_3M/forward/manifest.json。仅该闭合cache的传输4537580已COMPLETED/0:0（CPU17/2CPU/29秒），同一绝对路径供CPU17统计消费。CPU表示统计4537581现已COMPLETED/0:0（CPU17/2分配CPU/4446秒），原完整谱摘要与bootstrap.npz已原样保存在共享盘原运行目录representation_statistics下。缓存3–5层GPU读出4537584（GPU7/2CPU/1177秒）与CPU统计4537585（CPU8/1CPU/95秒）均COMPLETED/0:0，第6层复用原主结果，没有追加编码器前向。几何链3388+29+4446=7863秒；连同逐层读出各作业秒数总和9135秒，均小于4小时。R0规定诊断已全部闭合；R1原3M与GPU读出已闭合，主CPU统计4537593已COMPLETED0:0/5602秒/2分配CPU。R1 F64诊断4537594和续接4538515分别实际FAILED1:0/3715秒与1秒，均为容量快照新鲜度准入失败；可选修复未覆盖上游构造期检查，达到任务书两次实际失败上限后停止修复，F64几何记UNRESOLVED。原部分panel/数组保留，不能视为完整诊断或几何结果。未运行的原传输4537595和表示统计4537596已取消，均0秒；该未解决项不参与采用判定，不使R1主比较提前判负。已完成的缓存3–5层GPU读出4537597仍有效（0:0/1217秒），CPU读出4537598已按新退出保护受控TERM并核实父子进程消失；第3层已完成、第6层沿用主结果；CPU13/4538572由同一原缓存与原scorer补齐层4/5，0:0/81秒，全部四层现已COMPLETE，无额外编码器前向。原GPU1217秒、原部分CPU9837秒及续接81秒合计11135秒，小于单项累计4小时；退出日志确认remaining_children=[]。两次几何失败累计3716秒，连同已关闭逐层GPU读出为4933秒。未生效的可选修复已撤回，6项新增/23项相关资源测试是历史验证记录，不能代替实际成功。
+seed0/3M的R0、R1、G1及实际采纳配置执行固定5000 VAL（seed20261112）、F64 PR/CEV/CVF/CVF_res和固定层3–6读出；复用既有前向，层6复用主结果，层3–5只拟合规定探针，不扫描层1–6。bootstrap仍1000次/seed20261025。诊断只描述，不作采用门槛。R0原诊断前向4537579已COMPLETED/0:0：5000 VAL分子、47698构象、层3–6/F64，GPU7/2CPU/3388秒；原manifest位于GPU7的/tmp/d_recipe_20261120_D_R0_seed0_3M/forward/manifest.json。仅该闭合cache的传输4537580已COMPLETED/0:0（CPU17/2CPU/29秒），同一绝对路径供CPU17统计消费。CPU表示统计4537581现已COMPLETED/0:0（CPU17/2分配CPU/4446秒），原完整谱摘要与bootstrap.npz已原样保存在共享盘原运行目录representation_statistics下。缓存3–5层GPU读出4537584（GPU7/2CPU/1177秒）与CPU统计4537585（CPU8/1CPU/95秒）均COMPLETED/0:0，第6层复用原主结果，没有追加编码器前向。几何链3388+29+4446=7863秒；连同逐层读出各作业秒数总和9135秒，均小于4小时。R0规定诊断已全部闭合；R1原3M与GPU读出已闭合，主CPU统计4537593已COMPLETED0:0/5602秒/2分配CPU。R1 F64诊断4537594和续接4538515分别实际FAILED1:0/3715秒与1秒，均为容量快照新鲜度准入失败；当时可选修复未覆盖上游构造期检查，按旧两次失败规则记录UNRESOLVED；11-25用户明确将这两次容量准入失败归为工程失败、撤销该状态，现按原定义补做，顺序排在D-L2之后。原部分panel/数组保留，不能视为完整诊断或几何结果。未运行的原传输4537595和表示统计4537596已取消，均0秒；该待补做诊断不参与采用判定，不使R1主比较判负。已完成的缓存3–5层GPU读出4537597仍有效（0:0/1217秒），CPU读出4537598已按新退出保护受控TERM并核实父子进程消失；第3层已完成、第6层沿用主结果；CPU13/4538572由同一原缓存与原scorer补齐层4/5，0:0/81秒，全部四层现已COMPLETE，无额外编码器前向。原GPU1217秒、原部分CPU9837秒及续接81秒合计11135秒，小于单项累计4小时；退出日志确认remaining_children=[]。两次几何失败累计3716秒，连同已关闭逐层GPU读出为4933秒。未生效的可选修复已撤回，6项新增/23项相关资源测试是历史验证记录，不能代替实际成功。
 
 原F64表示统计见[原结果转录](../../results/d_recipe/diagnostics/D-R0_seed0_3M/representation_statistics.json)：只省略版本报告中的特征值数组，完整谱和1000次配对抽样保留在原共享盘路径。下表只显示5位小数；CEV/CVF/CVF_res的全部CI及原精度见JSON。原子PR基于265478个首构象原子，分子均值PR基于5000个首构象均值；各指标1000次bootstrap均有效。固定模型、分子配对抽样不重复拟合表示或选择层。
 
@@ -337,3 +337,6 @@ Data plan的Stage2池3221225472→2471225472B、full峰值35118709120→34368709
 用户已明确批准12个已完成R0特征缓存清理，实际3081236480B，其余checkpoint/预测/读出/原统计与bootstrap保留；先实删后结算full27288051602B、joint34244105455B，原GPU20 worker281103由守卫自行恢复。[实际执行](../../results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json)。
 
 续接后的原1.5M固定VAL已生成198字段，保留[原窗口](../../results/d_recipe/D-L1_seed0_continuation_fixed_VAL_1500000_20261125.json)与[逐字段CSV](../../results/d_recipe/D-L1_seed0_continuation_VAL_original_units_1500000_20261125.csv)。本窗口是原训练恢复后的固定观测，旧失败前窗口保留；未做额外计算，不作3M/R3、seed1或配方选择依据。最新原进度1742368样本；用户现另行处理配额，完整研究继续，最终配方、冷9M、最终A/B/C与两个PR仍未完成。
+
+
+

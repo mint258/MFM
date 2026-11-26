@@ -1,21 +1,20 @@
 # 阶段2目标报告来源
 
-任务书4.2、6、9要求的宽库逐字段截断比例，直接使用原通用A1拟合器的首次生产输出；没有另起数组扫描或复核作业。
+任务书§4.2、§6、§9要求的逐字段截断比例，直接使用原通用A1拟合器的首次全TRAIN生产输出；不另起数组扫描或复核作业。当前执行遵守[11-25补做指示](USER_DIRECTIVE_20261125.md)，L2 A1/D-L2的旧工程类UNRESOLVED已撤销。
 
-| 库 | 原作业与实际终态 | 分子字段 | 原报告与状态 |
-| --- | --- | ---: | --- |
-| L1 | 4539166 / CPU11，COMPLETED0:0，79720秒×1CPU | 197 | [原完整拟合报告](../../results/d_recipe/L1_original_A1_fit_20261124.json)，FROZEN_FIT / unresolved=[]，原fit.fields已转录 |
-| L2 | 4539164 FAILED1:0 / 46秒；4539169 FAILED1:0 / 81858秒，均1CPU | 1320 | [两次失败与原退出记录](../../results/d_recipe/L2_A1_unresolved_20261124.json)，UNRESOLVED；完整A1参数与逐字段拟合报告未生成，D-L2不运行 |
+| 库 | 已有生产证据 | 原报告与当前状态 |
+| --- | --- | --- |
+| L1 | 4539166 / CPU11，COMPLETED0:0，79720秒×1CPU，197分子字段 | [原完整拟合报告](../../results/d_recipe/L1_original_A1_fit_20261124.json)，FROZEN_FIT / unresolved=[]；沿用原fit.fields |
+| L2 | 两次旧失败及分段续接记录，1320分子字段 | [旧失败记录](../../results/d_recipe/L2_A1_unresolved_20261124.json)保留为历史；[当前续接](../../results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json)RUNNING，2026-11-26 22:57 CST保存1128448/1194228行，尚未生成完整A1参数与逐字段报告 |
 
-L1原完整TRAIN人口为1194228，冻结参数保留在`/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L1/label_parameters.json`。实际root4176565已reap0、children=[]、/proc缺失；本页只引用已关闭报告，未重新拟合或重扫数组，原D4未改。
+L1原完整TRAIN人口1194228，冻结参数在`/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L1/label_parameters.json`。原root4176565已reap0、children=[]、/proc缺失；这里只引用闭合报告，不重新拟合或重扫数组，原D4不改。
 
-L2原完整采集游标为729600/1194228，原peer配额守卫拒绝新增写入（available313207726080B，required313356249146B）；实际root4176838已reap1、children=[]、/proc缺失。依TASKBOOK3.5的连续两次失败规则停止此项，保留原partial数组且不以部分人口拟合、不第三次修复。L2的Stage0字段、统计、64样本逐头接收及完整二维导出仍有效；本项缺少A1报告和神经臂结果，不构成R3 TIE/LOSS或更大库无效的证据。未曾发布的L2参数路径不能作为已存在产物使用。
+L2旧4539164在首次收集前因路径作用域准入失败（FAILED1:0/46秒）；4539169在729600行时被原额度守卫拒绝（FAILED1:0/81858秒，available313207726080B/required313356249146B），原root4176838已reap1、children=[]、/proc缺失。上述两次是用户已明确分类的工程失败，不据此停止L2或将其判为R3 TIE/LOSS。原局部数组与失败成本保留，当前从同一游标继续，原字段、数据、配置和拟合规则均不变。
 
-`tools/d_recipe/fit_reference.py:fit_collected` 调用既有`element_reference.make_label_parameters`，在同一全TRAIN拟合流程中首次输出每字段`field_name`、`target_policy`、`oof_r2`、`n_valid`、`clipped_TRAIN_count`和`clipping_fraction`；阈值为损失截断前标准化目标绝对值>6。L1沿用原报告精度与来源，不改写成独立原生标准化复核；L2这些结果如实缺报。
+只在原全量COLLECTION_COMPLETE、1194228行、实际最后收集器COMPLETE/0且自有树回收并消失后，运行原完整TRAIN拟合与冻结；不拟合部分TRAIN。之后运行原D-L2 3M/seed0，对照复用D-R1，只有seed0 WIN触发seed1。目标库选择等待L1/L2及各自按规则触发的seed1判定，D-K1、冻结、冷9M及A/B/C依序后移。不能把尚未存在的L2参数路径当已交付产物。
 
-已有原D20/D3及逐原子SASA报告仍引用[原全TRAIN报告](../../results/d_recipe/native_TRAIN_clipping_20261122.json)，由4538573完成。旧字段、D4、存储值与原报告计数不改；不为新库重读旧SASA数组。最终报告区分原拟合器分子计数与既有原生报告来源，不重复生成旧统计。
+`tools/d_recipe/fit_reference.py:fit_collected`调用原`element_reference.make_label_parameters`，同一全TRAIN拟合流程首次输出每字段`field_name`、`target_policy`、`oof_r2`、`n_valid`、`clipped_TRAIN_count`、`clipping_fraction`；阈值是损失截断前标准化目标绝对值>6。L1保留原精度与来源；L2这些数值在完整原拟合前缺报。
 
+旧D20/D3及逐原子SASA继续引用4538573闭合的[原全TRAIN报告](../../results/d_recipe/native_TRAIN_clipping_20261122.json)。旧定义、D4、存储值及原计数不变，不为宽库重读旧SASA数组。最终报告区分原A1拟合器分子计数与既有原生报告来源。
 
-## 2026-11-25 · 原续接1.5M固定验证（报告，不作判定）
-
-原GPU4539402在GPU20由原1M完整状态续接后自然到达1500000样本/46875更新，原固定2000 VAL写出198字段原单位误差。[续接原窗口](../../results/d_recipe/D-L1_seed0_continuation_fixed_VAL_1500000_20261125.json)、[原CSV转录](../../results/d_recipe/D-L1_seed0_continuation_VAL_original_units_1500000_20261125.csv)。三块loss及梯度裁剪更新fraction逐字符串保留原生产值；未做额外前向/统计/重采样或校验。旧GPU4539360失败前1.5M报告独立保留，不覆盖、不据两窗口数值差选择配方。L1的R3门仍等待原3M、统计和同seed原R1配对；累计native秒含原1M prior和配额暂停，不标成整段4090吞吐。用户接手配额问题，本线推进已具备的独立工作，原进程/依赖/科学参数保持。
+L1固定VAL和完整断点是原训练观测，不作3M/R3判定或目标截断比例。原1.5M续接窗口及旧失败前窗口各自保留，累计native秒包含旧1M prior及额度暂停，不能当作4090整段吞吐。[续接VAL转录](../../results/d_recipe/D-L1_seed0_continuation_fixed_VAL_1500000_20261125.json)。
