@@ -32,7 +32,8 @@
     "segment_seconds": 10800,
     "timeout_seconds": 21600,
     "cleanup_seconds": 180,
-    "work_unit_seconds": 120
+    "work_unit_seconds": 120,
+    "provider_python_flags": "-SB"
   },
   "must_materialize_after_predecessor_closes": [
     "Unique next SSH execution_id/receipt/output log; retain provider-required ssh:P_D_ namespace",
@@ -52,5 +53,31 @@
   "previous_segments_proof": "results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json",
   "preserved_predecessor_and_deadline_entry": "tools.d_recipe.reference_segment_canonical",
   "runtime_physical_guard_preparation": "tools.d_recipe.reference_segment_guarded",
-  "native_SSH_segment3_active": true
+  "native_SSH_segment3_active": true,
+  "provider_launch_argv_template": [
+    "setsid",
+    "nohup",
+    "taskset",
+    "-c",
+    "<fresh admitted core list>",
+    "timeout",
+    "--signal=TERM",
+    "<timeout_seconds>s",
+    "/usr/bin/python3",
+    "-SB",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/cpu_ssh_runtime.py",
+    "--configuration",
+    "<unique frozen transport configuration>"
+  ],
+  "provider_import_policy": {
+    "reason": "The original provider is a script importing sibling exit_lifecycle. Preserve the script directory with -SB; -ISB is only for explicitly self-contained or stdin metadata entries.",
+    "proved_by_execution_id": "ssh:P_D_L2_A1_segment3_attempt2_20261126",
+    "configuration_source_commit": "1f280f6666e5897065350a3cc9ec5d9ed26aead5",
+    "actual_supervisor_pid": 276941,
+    "actual_supervisor_start_ticks": 2281013380,
+    "actual_worker_pid": 276961,
+    "actual_scientific_cursor_advanced": true,
+    "no_provider_source_modification": true,
+    "no_new_scientific_test": true
+  }
 }

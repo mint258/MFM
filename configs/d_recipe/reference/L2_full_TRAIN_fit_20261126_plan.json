@@ -30,7 +30,9 @@
     "work_unit_seconds": 10800,
     "expected_seconds": 10800,
     "timeout_seconds": 21600,
-    "cleanup_seconds": 900
+    "cleanup_seconds": 900,
+    "provider_python_flags": "-SB",
+    "cpu_ssh_provider": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/cpu_ssh_runtime.py"
   },
   "runtime_resource_basis": "At most16 fresh actually idle CPU cores; original grouped Gram solves and target chunks32, original collection16GiB bound;64GiB RAM forecast covers mapped/eligible/observed F64 copies, original native reader, design and BLAS workspaces. No performance benchmark or source-array QA.",
   "must_materialize_before_launch": [
@@ -90,5 +92,31 @@
     "parallel_speedup_assumed": false,
     "partial_TRAIN_fits_or_benchmarks_performed": false,
     "source_parameters_values_recomputed": false
+  },
+  "provider_launch_argv_template": [
+    "setsid",
+    "nohup",
+    "taskset",
+    "-c",
+    "<fresh admitted core list>",
+    "timeout",
+    "--signal=TERM",
+    "<timeout_seconds>s",
+    "/usr/bin/python3",
+    "-SB",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/cpu_ssh_runtime.py",
+    "--configuration",
+    "<unique frozen transport configuration>"
+  ],
+  "provider_import_policy": {
+    "reason": "The original provider is a script importing sibling exit_lifecycle. Preserve the script directory with -SB; -ISB is only for explicitly self-contained or stdin metadata entries.",
+    "proved_by_execution_id": "ssh:P_D_L2_A1_segment3_attempt2_20261126",
+    "configuration_source_commit": "1f280f6666e5897065350a3cc9ec5d9ed26aead5",
+    "actual_supervisor_pid": 276941,
+    "actual_supervisor_start_ticks": 2281013380,
+    "actual_worker_pid": 276961,
+    "actual_scientific_cursor_advanced": true,
+    "no_provider_source_modification": true,
+    "no_new_scientific_test": true
   }
 }
