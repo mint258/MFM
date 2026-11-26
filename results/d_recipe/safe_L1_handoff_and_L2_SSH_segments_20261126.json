@@ -87,9 +87,10 @@
     "next_GPU_admission_UTC": "2026-11-26T04:50:00Z",
     "latest_admission": {
       "small_group": "All fresh UUIDs on nodes0/1/5/6 with enough allocatable CPUs have other CUDA contexts; nodes3/4/7 lack CPU allocation",
-      "node20": "Second4090 passes CUDA threshold and own lock, but canonical combined RAM admission refused (own64GiB+peers96GiB+reserve16GiB exceeds actual availability)",
+      "node20": "Second4090 passes CUDA threshold and own lock, but canonical combined RAM admission refused; other-line details are not copied into configuration",
       "node22": "Actual memory12394/32607MiB >30%; no allocatableCPU"
-    }
+    },
+    "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json"
   },
   "L2": {
     "status": "SSH_SUPERVISOR_RUNNING_READER_INITIALIZING",
@@ -112,10 +113,8 @@
     "cleanup_seconds": 180,
     "canonical_admission": {
       "ram_own": 34359738368,
-      "ram_peers": 77309411328,
       "ram_reserve": 40446522572,
       "disk_own_with_original_peer_future": 38788923392,
-      "disk_peers": 226492416,
       "disk_reserve": 10737418240,
       "disk_available": 57268232192
     },
@@ -126,7 +125,17 @@
     "scientific_data_generation": false,
     "partial_TRAIN_fitting": false,
     "claim": "runs/shared_storage_reservations/d-recipe.json",
-    "execution_id_namespace_note": "P_ prefix is required by the reused shared provider, metadata line remains D; not a P scientific run and not a Slurm job"
+    "execution_id_namespace_note": "P_ prefix is required by the reused shared provider, metadata line remains D; not a P scientific run and not a Slurm job",
+    "last_observed_worker": {
+      "observed_at_UTC": "2026-11-26T04:34:00Z",
+      "pid": 248316,
+      "start_ticks": 2278851052,
+      "state": "D",
+      "wchan": "wait_on_page_bit_common",
+      "duration_unknown": true,
+      "root_cause_unknown": true,
+      "no_relaunch_or_signal": true
+    }
   },
   "tiny_callback_test": {
     "tests_run": 1,
@@ -200,5 +209,56 @@
     "full_regression_repeated": false
   },
   "full_TASKBOOK_remains_active": true,
-  "final_recipe_frozen": false
+  "final_recipe_frozen": false,
+  "canonical_admission_preparation": {
+    "source_commit": "cb30014fe7cb0e0665534f24f7abbcbf1e978546",
+    "status": "PREPARED_ENDPOINT_WRAPPER_NOT_EXECUTED",
+    "module": "tools/d_recipe/cpu_postprocess_ssh.py",
+    "admission_module": "tools/d_recipe/shared_admission.py",
+    "canonical_module": "tools/shared_guard.py",
+    "original_shared_guard_copied_unchanged": true,
+    "tests": {
+      "source": "Original SSH receipt and runtime log /tmp/d_recipe_20261126_unified_guard_tests",
+      "tests_run": 11,
+      "failures": 0,
+      "errors": 0,
+      "microtest_seconds": 0.0480792298913002,
+      "wall_seconds": 0.254406213760376,
+      "actual_child_CPU_seconds": 0.113257,
+      "supervisor": {
+        "pid": 2794619,
+        "start_ticks": 2046921883,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4887.scope\n",
+        "state": "R"
+      },
+      "parent": {
+        "pid": 2794618,
+        "start_ticks": 2046921883,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4887.scope\n",
+        "state": "S"
+      },
+      "cores": [
+        65
+      ],
+      "idle_fraction": 1,
+      "owned_tree_reaped": true,
+      "remaining_children": [],
+      "actual_supervisor_and_parent_absent": true,
+      "test_node_claims_released": true
+    },
+    "claim_refresh": "Canonical claim() default24h TTL; original L2 owned allocated9419964020B, local remaining7759905164B; current metadata future150000000B; other-line files unchanged",
+    "phase_rule": "New entries use canonical timed admission at phase start and >1GiB writes; original running L2 remains frozen until its safe segment boundary"
+  }
 }

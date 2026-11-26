@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_SAFE_HANDOFF_WAIT_GPU_L2_SSH_CURSOR_RECOVERY",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-26T04:32:01Z",
+  "updated_at_utc": "2026-11-26T04:45:00Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -5214,7 +5214,8 @@
         "actual_original_PIDs_absent": true,
         "old_cgroup_absent": true,
         "source": "results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json"
-      }
+      },
+      "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json"
     },
     "next_L1_progress_check_UTC": null,
     "L2": {
@@ -5266,10 +5267,8 @@
         "cleanup_seconds": 180,
         "canonical_admission": {
           "ram_own": 34359738368,
-          "ram_peers": 77309411328,
           "ram_reserve": 40446522572,
           "disk_own_with_original_peer_future": 38788923392,
-          "disk_peers": 226492416,
           "disk_reserve": 10737418240,
           "disk_available": 57268232192
         },
@@ -5280,9 +5279,29 @@
         "scientific_data_generation": false,
         "partial_TRAIN_fitting": false,
         "claim": "runs/shared_storage_reservations/d-recipe.json",
-        "execution_id_namespace_note": "P_ prefix is required by the reused shared provider, metadata line remains D; not a P scientific run and not a Slurm job"
+        "execution_id_namespace_note": "P_ prefix is required by the reused shared provider, metadata line remains D; not a P scientific run and not a Slurm job",
+        "last_observed_worker": {
+          "observed_at_UTC": "2026-11-26T04:34:00Z",
+          "pid": 248316,
+          "start_ticks": 2278851052,
+          "state": "D",
+          "wchan": "wait_on_page_bit_common",
+          "duration_unknown": true,
+          "root_cause_unknown": true,
+          "no_relaunch_or_signal": true
+        }
       },
-      "operational_update_source": "results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json"
+      "operational_update_source": "results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json",
+      "last_observed_worker": {
+        "observed_at_UTC": "2026-11-26T04:34:00Z",
+        "pid": 248316,
+        "start_ticks": 2278851052,
+        "state": "D",
+        "wchan": "wait_on_page_bit_common",
+        "duration_unknown": true,
+        "root_cause_unknown": true,
+        "no_relaunch_or_signal": true
+      }
     },
     "reference_production_status": "L1_FROZEN_L2_CURSOR_RECOVERY_PENDING",
     "storage_retirement": {
@@ -5856,5 +5875,62 @@
     "molecule_scaling": "Two9M seed0 frozenfinal using actualP T5/T6 selectedmolecule lists intersectD TRAIN; no resampling",
     "no_recipe_decisions_from_supplements": true
   },
-  "scheduling_rule": "docs/interfaces/SCHEDULING_RULE_20261126.md"
+  "scheduling_rule": "docs/interfaces/SCHEDULING_RULE_20261126.md",
+  "scheduling_implementation": {
+    "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
+    "cold_confirmation_tests": "10PASS in original single SSH execution",
+    "L2_cursor_segment": "Single original configured3h SSH segment, no label/descriptor generation; current reader initializing, oneD sample retained",
+    "L1_followup": "tools/d_recipe/cpu_postprocess_ssh.py prepared; original statistics/compare APIs, only after actual3M success",
+    "canonical_storage_guard": {
+      "source_commit": "cb30014fe7cb0e0665534f24f7abbcbf1e978546",
+      "status": "PREPARED_ENDPOINT_WRAPPER_NOT_EXECUTED",
+      "module": "tools/d_recipe/cpu_postprocess_ssh.py",
+      "admission_module": "tools/d_recipe/shared_admission.py",
+      "canonical_module": "tools/shared_guard.py",
+      "original_shared_guard_copied_unchanged": true,
+      "tests": {
+        "source": "Original SSH receipt and runtime log /tmp/d_recipe_20261126_unified_guard_tests",
+        "tests_run": 11,
+        "failures": 0,
+        "errors": 0,
+        "microtest_seconds": 0.0480792298913002,
+        "wall_seconds": 0.254406213760376,
+        "actual_child_CPU_seconds": 0.113257,
+        "supervisor": {
+          "pid": 2794619,
+          "start_ticks": 2046921883,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4887.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2794618,
+          "start_ticks": 2046921883,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4887.scope\n",
+          "state": "S"
+        },
+        "cores": [
+          65
+        ],
+        "idle_fraction": 1,
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "actual_supervisor_and_parent_absent": true,
+        "test_node_claims_released": true
+      },
+      "claim_refresh": "Canonical claim() default24h TTL; original L2 owned allocated9419964020B, local remaining7759905164B; current metadata future150000000B; other-line files unchanged",
+      "phase_rule": "New entries use canonical timed admission at phase start and >1GiB writes; original running L2 remains frozen until its safe segment boundary"
+    }
+  }
 }
