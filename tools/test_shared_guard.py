@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import shared_guard as g
@@ -14,6 +15,8 @@ GIB = g.GIB
 class SharedGuardTests(unittest.TestCase):
     def setUp(self):
         self.dir = Path(tempfile.mkdtemp())
+        quota = patch.object(g, 'uid_quota_status', return_value=dict(available=10**15, source='test fixture', uid=os.getuid(), observed_time=0))
+        quota.start(); self.addCleanup(quota.stop)
 
     def disk(self, available, total=100 * GIB, inodes=10**6):
         return dict(total=total, available=available, inodes=inodes, total_inodes=10**7)
@@ -89,6 +92,29 @@ class SharedGuardTests(unittest.TestCase):
                 g.check_with_timeout("p", "node_disk", 0, path="/", timeout=0.0001)
         finally:
             del os.environ["MFM_RESERVATION_DIR"]
+
+
+class AutofsTargetTests(unittest.TestCase):
+    def test_share_probe_uses_existing_project_directory_not_autofs_root(self):
+        from unittest.mock import patch
+        with patch.object(g, '__file__', '/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools/shared_guard.py'):
+            self.assertEqual(g.disk_probe_target('/share'),
+                '/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools')
+            self.assertEqual(g.disk_probe_target('/'), '/')
+            self.assertEqual(g.disk_probe_target('/tmp'), '/tmp')
+
+    @patch.object(g, 'uid_quota_status', return_value=dict(available=10**15, source='test fixture', uid=os.getuid(), observed_time=0))
+    def test_share_key_stays_canonical_for_peer_accounting(self, quota):
+        with tempfile.TemporaryDirectory() as registry:
+            g.claim('peer', [dict(id='write', kind='shared_fs', path='/share', bytes=7*GIB)],
+                    registry=Path(registry), now=0)
+            status=dict(total=1000*GIB, available=500*GIB, inodes=100000,
+                        total_inodes=1000000, probe_target='/share/home/x/project')
+            result=g.check('s', 'shared_fs', GIB, path='/share',
+                           registry=Path(registry), status=status, now=0)
+            self.assertEqual(result['peers'], 7*GIB)
+            self.assertEqual(result['path'], '/share')
+            self.assertEqual(result['probe_target'], '/share/home/x/project')
 
 
 if __name__ == "__main__":

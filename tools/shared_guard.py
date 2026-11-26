@@ -106,10 +106,25 @@ def others(line, kind, node=None, path=None, registry=REGISTRY, now=None, paths=
     return total
 
 
+def disk_probe_target(path):
+    """Probe an actual file-system directory behind the canonical autofs key."""
+    if str(path) == '/share':
+        directory = Path(__file__).absolute().parent
+        if str(directory).startswith('/share/'):
+            return str(directory)
+    if str(path) == '/lfshome':
+        import pwd
+        directory = Path('/lfshome')/pwd.getpwuid(os.getuid()).pw_name
+        if directory.is_dir():
+            return str(directory)
+    return str(path)
+
+
 def disk_status(path):
-    s = os.statvfs(path)
+    target = disk_probe_target(path)
+    s = os.statvfs(target)
     return dict(total=s.f_blocks * s.f_frsize, available=s.f_bavail * s.f_frsize,
-                inodes=s.f_favail, total_inodes=s.f_files)
+                inodes=s.f_favail, total_inodes=s.f_files, probe_target=target)
 
 
 def ram_status():
@@ -128,6 +143,77 @@ def reserve_for(kind, total):
     return max(10 * GIB, total // 10)
 
 
+
+SHARE_UID_QUOTA = Path("/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/control/window2_20261105/share_quota_available_v3.json")
+UID_QUOTA_MAX_AGE = 5.0
+
+
+def quota_remaining(used, soft, hard):
+    values = (used, soft, hard)
+    if any(isinstance(x, bool) or not isinstance(x, int) or x < 0 for x in values):
+        raise AdmissionRefused("Invalid actual UID quota counters")
+    limits = [x for x in (soft, hard) if x > 0]
+    if not limits:
+        raise AdmissionRefused("Actual UID quota limit is unknown")
+    return max(0, min(limits) - used) * 1024
+
+
+def parse_lustre_uid_quota(text, uid, path="/lfshome"):
+    import re
+    match = re.search(r"\(uid\s+(\d+)\)", text)
+    if match is None or int(match.group(1)) != uid or "kbytes" not in text:
+        raise AdmissionRefused("Lustre quota UID or KiB units do not match")
+    lines = text.splitlines()
+    for index, line in enumerate(lines):
+        fields = line.split()
+        if not fields or fields[0] != path:
+            continue
+        if len(fields) == 1 and index + 1 < len(lines):
+            fields += lines[index + 1].split()
+        try:
+            used, soft, hard = (int(x.rstrip("*")) for x in fields[1:4])
+        except (ValueError, TypeError):
+            raise AdmissionRefused("Invalid Lustre UID quota row")
+        if len(fields) < 4:
+            raise AdmissionRefused("Incomplete Lustre UID quota row")
+        return dict(uid=uid, filesystem=path, used_KiB=used, soft_KiB=soft,
+                    hard_KiB=hard, available=quota_remaining(used, soft, hard),
+                    source="native lfs quota -u", observed_time=time.time())
+    raise AdmissionRefused("Actual Lustre UID quota row is absent")
+
+
+def uid_quota_status(path, now=None):
+    uid = os.getuid()
+    now = time.time() if now is None else now
+    try:
+        if path == "/lfshome":
+            result = subprocess.run(
+                ["/usr/bin/lfs", "quota", "-u", str(uid), path],
+                capture_output=True, text=True, timeout=5)
+            if result.returncode:
+                raise AdmissionRefused("Native Lustre UID quota query failed")
+            return parse_lustre_uid_quota(result.stdout, uid, path)
+        if path == "/share":
+            row = json.loads(SHARE_UID_QUOTA.read_text())
+            if (row.get("uid") != uid or row.get("filesystem") != path
+                    or row.get("schema") != "XFS_USER_QUOTA_AVAILABLE_V1"):
+                raise AdmissionRefused("Actual NFS UID quota identity does not match")
+            age = now - float(row["observed_time"])
+            if not 0 <= age <= UID_QUOTA_MAX_AGE:
+                raise AdmissionRefused("Actual NFS UID quota snapshot is stale or future")
+            available = quota_remaining(row["used_KiB"], row["soft_KiB"], row["hard_KiB"])
+            if row.get("available_bytes") != available:
+                raise AdmissionRefused("Actual NFS UID quota arithmetic does not match")
+            return dict(uid=uid, filesystem=path, available=available,
+                        used_KiB=row["used_KiB"], soft_KiB=row["soft_KiB"],
+                        hard_KiB=row["hard_KiB"], source=str(SHARE_UID_QUOTA),
+                        observed_time=row["observed_time"])
+        raise AdmissionRefused("Actual shared UID quota filesystem is unknown")
+    except (OSError, ValueError, KeyError, TypeError, subprocess.TimeoutExpired) as exc:
+        if isinstance(exc, AdmissionRefused):
+            raise
+        raise AdmissionRefused("Actual UID quota is unavailable: " + str(exc)) from exc
+
 def check(line, kind, own_bytes, path=None, node=None, new_inodes=1000,
           quota_available=None, registry=REGISTRY, status=None, now=None):
     """Raise AdmissionRefused unless own_bytes fits. Returns the numbers used."""
@@ -143,11 +229,24 @@ def check(line, kind, own_bytes, path=None, node=None, new_inodes=1000,
     need = reserve + own_bytes + peers
     report = dict(line=line, kind=kind, node=node, path=str(path), own=own_bytes,
                   peers=peers, reserve=reserve, available=status["available"])
+    if 'probe_target' in status:
+        report['probe_target'] = status['probe_target']
     if status["total"] <= 0 or status["available"] < need:
         raise AdmissionRefused(f"insufficient {kind}: {report}")
     if kind != "node_ram" and status["inodes"] <= new_inodes:
         raise AdmissionRefused(f"insufficient inodes: {report}, inodes={status['inodes']}")
-    if quota_available is not None and quota_available < SHARED_RESERVE + own_bytes + peers:
+    if kind == "shared_fs":
+        actual = uid_quota_status(path, now=now)
+        effective = actual["available"]
+        if quota_available is not None:
+            effective = min(effective, quota_available)
+        report.update(filesystem_available=status["available"],
+                      quota_available=effective, quota_source=actual["source"],
+                      quota_uid=actual["uid"], quota_observed_time=actual["observed_time"],
+                      available=min(status["available"], effective))
+        if effective < need:
+            raise AdmissionRefused(f"insufficient actual UID quota: {report}")
+    elif quota_available is not None and quota_available < SHARED_RESERVE + own_bytes + peers:
         raise AdmissionRefused(f"insufficient UID quota: {report}, quota={quota_available}")
     return report
 
