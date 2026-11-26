@@ -73,7 +73,8 @@ def worker(c):
                'execution_delivery':'deliver_execution_adapters_20261126.py',
                'readout_runtime_check':'check_readout_runtime_20261126.py',
                'readout_delivery':'deliver_readout_adapters_20261126.py',
-               'standby_settlement_check':'check_standby_settlement_20261126.py'}
+               'standby_settlement_check':'check_standby_settlement_20261126.py',
+               'e1_frozen_report':'report_E1_frozen_components_20261126.py'}
     if c['stage'] not in scripts:
         raise ValueError('No unregistered CPU stage')
     if c['stage'] == 'population':
