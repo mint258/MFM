@@ -334,7 +334,7 @@
   "arm_decisions": {
     "D-R0": "BASELINE_COMPLETE_WAITING_CANDIDATE_COMPARISONS",
     "D-R1": "CONFIRMED_WIN_BOTH_SEEDS_ADOPT_TRANSFERRED_BUNDLE",
-    "D-L1": "A1_PRODUCTION_RUNNING_TRANSFERRED_RECIPE_WAITING_FROZEN_PARAMETERS_AND_COMPLIANT_GPU",
+    "D-L1": "SAME_3M_SEED0_SAFE_HANDOFF_2090752_WAIT_COMPLIANT_GPU_NO_FINAL_R3",
     "D-L2": {
       "status": "PENDING",
       "reason": "Engineering UNRESOLVED revoked by user20261125; originalA1 cursor followed by D-L2 required",
@@ -5555,16 +5555,14 @@
       "canonical_next_segment_entry": "tools/d_recipe/reference_segment_canonical.py",
       "A1_status": "ORIGINAL_FULL_TRAIN_CURSOR_COLLECTION_RECOVERING",
       "latest_short_observation": {
-        "observed_at_UTC": "2026-11-26T06:20:58.993Z",
-        "closed_rows": 782848,
+        "observed_at_UTC": "2026-11-26T06:46:27.036Z",
+        "closed_rows": 795648,
         "collection_status": "COLLECTING",
         "worker": {
           "pid": 248316,
           "start_ticks": "2278851052",
           "state": "R",
-          "UID": [
-            "Uid:\t1278\t1278\t1278\t1278"
-          ]
+          "uid": 1278
         }
       },
       "latest_native_progress": {
@@ -5601,7 +5599,7 @@
         "own_local_remaining_future": 7072829440,
         "observed_at_UTC": "2026-11-26T06:26:31.118Z"
       },
-      "closed_collection_rows": 785664,
+      "closed_collection_rows": 795648,
       "collection_forecast": {
         "observed_at_UTC": "2026-11-26T06:26:31.118Z",
         "source": "Original current collection marker/attempt elapsed plus actual live SSH identity",
@@ -6881,9 +6879,66 @@
       },
       "actual_training_integration_verified": false,
       "prior_prelaunch_refusal": "Original attempt did not create a runtime receipt or scientific worker: selectedcore becamebusy; originallauncher gone andownfuture released. Freshattempt2 passedactual5sidle1.0."
+    },
+    "fresh_confirmation_and_seed1_runtime": {
+      "source_commit": "a17e42ad44aeff66eff84fcee7e711b06c367a82",
+      "status": "FRESH_RUNTIME_BINDING_TESTS_PASSED_NO_NEW_TRAINING",
+      "execution_id": "ssh:D_fresh_runtime_plan_contracts_20261126",
+      "node": "compute-0-19",
+      "cores": [
+        14
+      ],
+      "idle_fraction": {
+        "14": 0.998
+      },
+      "tests": [
+        {
+          "stage": "D_FRESH_RUNTIME_PLAN_CONTRACTS",
+          "tests_run": 2,
+          "failures": 0,
+          "errors": 0,
+          "seconds": 0.0013332255184650421
+        }
+      ],
+      "wall_seconds": 42.36709499359131,
+      "actual_child_CPU_seconds": 3.954162,
+      "peak_child_RSS_KiB": 788952,
+      "supervisor": {
+        "pid": 2798361,
+        "start_ticks": 2047660177,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4933.scope\n",
+        "state": "R"
+      },
+      "parent": {
+        "pid": 2798360,
+        "start_ticks": 2047660177,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4933.scope\n",
+        "state": "S"
+      },
+      "owned_tree_reaped": true,
+      "remaining_children": [],
+      "original_process_alive": {
+        "supervisor": false,
+        "parent": false
+      },
+      "temporary_claims_released": true,
+      "original_P_seed_helper_unchanged": true,
+      "scientific_configuration_unchanged": true,
+      "existing_control_reuse_preserved": true
     }
   },
-  "updated_at_utc": "2026-11-26T06:35:06.182Z",
   "stage2_execution_preparation": {
     "status": "HISTORICAL_OPTIONAL_ADAPTER_UNADOPTED_ORIGINAL_FITTER_ACTIVE",
     "failure_count": 2,
@@ -6929,5 +6984,6 @@
     "status_scope": "This optional reuse optimization was never registered or adopted. Its old two engineering fixture failures are history; the mandatory original fullTRAIN fitter and D-L2 recovery continue under Nov25. This is not a scientific UNRESOLVED or a ban on original recovery.",
     "historical_engineering_failure_count": 2,
     "scientific_failure_count": 0
-  }
+  },
+  "updated_at_utc": "2026-11-26T06:46:27.036Z"
 }

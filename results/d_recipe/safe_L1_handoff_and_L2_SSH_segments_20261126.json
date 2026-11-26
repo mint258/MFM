@@ -406,16 +406,14 @@
       "observed_at_UTC": "2026-11-26T06:26:31.118Z"
     },
     "latest_short_observation": {
-      "observed_at_UTC": "2026-11-26T06:20:58.993Z",
-      "closed_rows": 782848,
+      "observed_at_UTC": "2026-11-26T06:46:27.036Z",
+      "closed_rows": 795648,
       "collection_status": "COLLECTING",
       "worker": {
         "pid": 248316,
         "start_ticks": "2278851052",
         "state": "R",
-        "UID": [
-          "Uid:\t1278\t1278\t1278\t1278"
-        ]
+        "uid": 1278
       }
     },
     "collection_forecast": {
@@ -1183,5 +1181,63 @@
       },
       "temporary_claims_released": true
     }
+  },
+  "fresh_runtime_preparation": {
+    "source_commit": "a17e42ad44aeff66eff84fcee7e711b06c367a82",
+    "status": "FRESH_RUNTIME_BINDING_TESTS_PASSED_NO_NEW_TRAINING",
+    "execution_id": "ssh:D_fresh_runtime_plan_contracts_20261126",
+    "node": "compute-0-19",
+    "cores": [
+      14
+    ],
+    "idle_fraction": {
+      "14": 0.998
+    },
+    "tests": [
+      {
+        "stage": "D_FRESH_RUNTIME_PLAN_CONTRACTS",
+        "tests_run": 2,
+        "failures": 0,
+        "errors": 0,
+        "seconds": 0.0013332255184650421
+      }
+    ],
+    "wall_seconds": 42.36709499359131,
+    "actual_child_CPU_seconds": 3.954162,
+    "peak_child_RSS_KiB": 788952,
+    "supervisor": {
+      "pid": 2798361,
+      "start_ticks": 2047660177,
+      "uids": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4933.scope\n",
+      "state": "R"
+    },
+    "parent": {
+      "pid": 2798360,
+      "start_ticks": 2047660177,
+      "uids": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4933.scope\n",
+      "state": "S"
+    },
+    "owned_tree_reaped": true,
+    "remaining_children": [],
+    "original_process_alive": {
+      "supervisor": false,
+      "parent": false
+    },
+    "temporary_claims_released": true,
+    "original_P_seed_helper_unchanged": true,
+    "scientific_configuration_unchanged": true,
+    "existing_control_reuse_preserved": true
   }
 }
