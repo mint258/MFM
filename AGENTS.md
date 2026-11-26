@@ -1,3 +1,27 @@
+## 2026-11-26 调度修订（所有窗口）
+
+短CPU任务（CPU≤16且预计≤4小时）按5秒实测空闲核直接SSH到健康CPU节点8–19；compute-0-2仅现场sinfo确属CPU分区时可用。MemAvailable≥需求+4GiB，taskset绑空闲核、OMP/MKL/OPENBLAS同核数，setsid/nohup/timeout及真实自有树退出/CPU成本记录保持；不依据Slurm分配核数，不超订。可切段的长任务按≤4小时游标段，大批量数据集生成或CPU>16仍sbatch。无空闲核先减半再查，仍无再排队。
+
+本线指定PENDING短作业核对真实UID/PENDING/0秒后取消旧句柄并改SSH，不双跑；原afterok改为上游真实成功后依次启动。在跑训练不因新规则停止/重启。GPU按原任务规模/UUID/CPU准入规则，有合规空卡立即启动，21禁用；不在GPU节点做CPU-only，不动其他线或他人任务。真实磁盘/UID/预留、健康隔离、11-22收尾及11-25工程失败续接保持。重读huagong_hpc_requirement顶部11-26修订，详见[SCHEDULING_RULE_20261126.md](https://github.com/mint258/MFM/blob/p-recipe/docs/interfaces/SCHEDULING_RULE_20261126.md)。
+
+
+## 2026-11-25 时间盒修订（所有窗口）
+
+按 [用户共享规则](https://github.com/mint258/MFM/blob/p-recipe/docs/interfaces/TIMEBOX_RULE_20261125.md)，调用/路径/额度与storage guard/调度准入/drain/竞态/OOM/网络等工程失败修好后从完整断点或游标续接，不计次数，不能据此标UNRESOLVED。只对同一根因的科学/方法失败计数：修复2次仍失败，或诊断修复本身累计4小时；排队和正常计算不计，根因改变重新计数。旧工程类UNRESOLVED按原注册设计恢复补做，已闭合科学判定不重开。
+
+额度不足先退役本线已结束任务的未用future登记，不删文件；仍不足写明缺少字节并等待/保持可续接，不算失败。CPU满则正常排队；不绕过磁盘、drain、节点禁用或退出保护，不因新规则停止/重启当前训练。重读huagong_hpc_requirement顶部11-25修订及11-22退出保护；原任务授权和停止条件保持。
+
+## 2026-11-22 drain防复发：结束收尾与故障节点隔离
+
+用户要求核查并修复本账号任务导致的drain，且向所有Codex持久发布预防指令。已核实2026-11-21节点14的4537147和2026-11-22节点16的4538440均TIMEOUT，batch结束与Kill task failed drain同秒；这是直接触发关联，不等于底层根因已查明。节点17的归属未确认，不能把同节点有本账号任务当作因果证据。原11-06真实磁盘/字节/inode/配额保护继续。
+
+- 新任务使用前实查Slurm节点State/Reason；DRAIN/DOWN/NOT_RESPONDING或诊断通道持续无响应的节点不启动新任务，不改用SSH绕开。compute-0-21原禁用继续。CPU计算仅8–19，按需CPU、不exclusive；不因本规则停止/重启在跑训练。
+- 不能靠Slurm TIMEOUT/scancel作为正常收尾机制。按实测单工作单元耗时与真实TimeLimit安排任务；新任务在硬截止前预留收尾时间（长时原生计算至少180秒，并覆盖实际保存/退出耗时；短只读任务按其总时限预留可用退出窗口，不因此扩大时限），停止领取新单元，在科学安全边界保存已完成结果。原科学预算、模型、标签、随机状态与已批准的续接规则不变；不能为赶截止而伪造完成或改变科学阈值。
+- 主进程显式管理全部自有worker/子进程/数据加载器；处理SIGTERM与异常退出，停止派发并join/reap。正常可中止的子进程先TERM、核对退出；仅在已有授权且核实精确UID/PID/start_ticks/job/cgroup后才考虑KILL。不得用shell退出码或batch终态代替进程树已退出的证明，不让后台子进程脱离Slurm/cgroup成为孤儿。
+- 诊断也必须可收尾：普通Slurm记账/队列查询在登录节点轻量执行，不占一个长时间空等的sbatch容器。节点只读诊断同时限制连接及命令等待；超时只说明观察失败，不说明远端命令已退出。连续通道失败后不反复追加srun/诊断作业，不对同一任务重复启动。
+- 若观察到D态、不可终止进程、Kill task failed或共享文件系统异常，保留真实PID/UID/start_ticks、job/batch/step、节点和时间；不能把D态直接写成OOM/磁盘满/确定NFS根因。禁止循环kill/pkill/killall、反复scancel、卸载共享盘、删除Slurm spool、重启服务/节点或强制RESUME。无法通过当前权限安全恢复时交管理员核查kernel/slurmd/slurmctld/文件系统，并待健康核验后恢复调度。
+- 新规则从后续启动/安全续接生效；不改冻结运行源码，不删除旧输出，不动他人/其他窗口作业。各窗口在下一次新提交/续接前重读本条，并把涉及自身工作线的退出保护落实到入口；共享通知不冒称其他会话已经已读或现有程序已经具备该保护。
+
 ## 2026-11-18 用户新规则：GPU 按规模分配，不让显卡空着
 
 适用于所有使用 GPU 的工作线、Codex 窗口和子 agent。本条覆盖以前"空闲卡按 5090 > 4090 > 3090 选择"的全局优先级，以及混合调度只看 compute-0-20/22 的做法。
