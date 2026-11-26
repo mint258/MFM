@@ -1,0 +1,23 @@
+{
+  "execution_id": "ssh:P_D_reference_runtime_storage_20261126",
+  "node": "compute-0-19",
+  "cores": [
+    14
+  ],
+  "expected_seconds": 60,
+  "timeout_seconds": 1800,
+  "cleanup_seconds": 180,
+  "ram_peak_bytes": 536870912,
+  "root_future_bytes": 1048576,
+  "receipt": "/tmp/d_recipe_20261126_reference_runtime_storage/receipt.json",
+  "line": "D",
+  "worker_argv": [
+    "/usr/bin/env",
+    "TMPDIR=/tmp/d_recipe_20261126_reference_runtime_storage",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/usr/bin/python3",
+    "-ISB",
+    "-c",
+    "import json,sys,time,unittest\nfrom pathlib import Path\nrepo=Path(\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\")\nsys.path[:0]=[str(repo),str(repo.parent/\"MFM_p_recipe/tools/p_recipe\")]\nimport cpu_ssh_runtime as provider\nc=json.loads((repo/\"configs/d_recipe/launches/reference_runtime_storage_20261126_ssh.json\").read_text())\nt=dict(execution_backend=\"ssh_cpu\",ssh_execution_id=c[\"execution_id\"],ssh_runtime_receipt=c[\"receipt\"],node=c[\"node\"],cleanup_seconds=180,work_unit_seconds=30,ram_peak_bytes=c[\"ram_peak_bytes\"],local_future_bytes=c[\"root_future_bytes\"],reservation_ids=[\"D_new_CPU19_tests_RAM\",\"D_new_CPU19_tests_tmp\"],local_output_root=str(Path(c[\"receipt\"]).parent),shared_future_bytes={})\nprovider.verified_deadline(t)\nfrom tools.d_recipe.shared_admission import admit\nadmit(t,[Path(c[\"receipt\"]).parent])\nstart=time.monotonic()\nsuite=unittest.defaultTestLoader.discover(str(repo/\"tests\"),pattern=\"test_d_recipe_reference_runtime_storage.py\")\nresult=unittest.TextTestRunner(verbosity=2).run(suite)\nprint(json.dumps(dict(stage=\"D_REFERENCE_RUNTIME_STORAGE\",tests_run=result.testsRun,failures=len(result.failures),errors=len(result.errors),seconds=time.monotonic()-start)),flush=True)\nraise SystemExit(not result.wasSuccessful())\n"
+  ]
+}

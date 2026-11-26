@@ -106,10 +106,14 @@ def main():
         sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "current"))
         sys.path.insert(0, c["data_repository"])
         from .fit_reference import fit_collected
+        from . import resources
+        from .reference_runtime_storage import local_runtime_guard
+        physical = local_runtime_guard(root, guard_class=resources.Guard)
 
         def guard(path, peak):
             if not Path(path).resolve().is_relative_to(root):
                 raise ValueError("Original fitter write escaped its admitted local phase")
+            return physical.check(path)
 
         def build_dataset():
             from phychem_mfm.phase1.p_recipe_data import dataset_configuration
