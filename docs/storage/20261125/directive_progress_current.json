@@ -1,0 +1,74 @@
+{
+  "epoch": 1795652875.711533,
+  "state": "IN_PROGRESS_RESOURCE_WAIT",
+  "capacity": {
+    "observed_epoch": 1795652875.711533,
+    "NFS": {
+      "used_bytes": 4094999584768,
+      "limit_bytes": 4398046511104,
+      "free_bytes": 303046926336,
+      "target_free_bytes": 2199023255552,
+      "remaining_gap_bytes": 1895976329216
+    },
+    "Lustre": {
+      "used_bytes": 2195310899200,
+      "limit_bytes": 2199023255552,
+      "free_bytes": 3712356352,
+      "target_free_bytes": 536870912000,
+      "remaining_gap_bytes": 533158555648
+    },
+    "jobs": {
+      "directive_discovery": {
+        "job": "4540114",
+        "status": "PENDING",
+        "scheduler_snapshot_epoch": 1795652875.711533
+      },
+      "A_cleanup_prior_passed_B5": {
+        "job": "4540115",
+        "status": "PENDING",
+        "scheduler_snapshot_epoch": 1795652875.711533
+      },
+      "B2_B4_schema_samples": {
+        "job": "4540116",
+        "status": "PENDING",
+        "scheduler_snapshot_epoch": 1795652875.711533
+      },
+      "B5_cursor_resume": {
+        "job": "4540117",
+        "status": "PENDING",
+        "scheduler_snapshot_epoch": 1795652875.711533
+      },
+      "checkpoint_compression_retry": {
+        "job": "4540118",
+        "status": "PENDING",
+        "scheduler_snapshot_epoch": 1795652875.711533
+      },
+      "B5_passed_cleanup": {
+        "job": "4540119",
+        "status": "PENDING",
+        "scheduler_snapshot_epoch": 1795652875.711533
+      },
+      "NFS_outside_depth3": {
+        "job": "4540120",
+        "status": "PENDING",
+        "scheduler_snapshot_epoch": 1795652875.711533
+      },
+      "Lustre_outside_D6_depth3": {
+        "job": "4540121",
+        "status": "PENDING",
+        "scheduler_snapshot_epoch": 1795652875.711533
+      }
+    },
+    "goals": {
+      "NFS_free_bytes": 2199023255552,
+      "Lustre_free_bytes": 536870912000
+    },
+    "goals_status": "NOT_MET"
+  },
+  "additional_deleted_files": 0,
+  "additional_freed_bytes": 0,
+  "categories": {},
+  "B1_gate": "NOT_YET_RUN",
+  "B2_B4_gate": "WAITING_SCHEMA",
+  "original_index_required": false
+}

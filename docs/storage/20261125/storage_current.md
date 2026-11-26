@@ -1,24 +1,24 @@
 # 服务器空间与清理记录
-更新：2026-11-25 15:17:25 CST。状态：目标尚未达成，清理进行中。
+更新：2026-11-26 08:27:55 CST。状态：目标尚未达成，清理进行中。
 
 完整基线：102个主目录、1042个重要子目录；3,060.713 GiB。基线扣已知清理：3,050.122 GiB，未计活动及新增写入。
 
 |账号|限额 GiB|最新可用 GiB|目标 GiB|尚缺 GiB|
 |---|---:|---:|---:|---:|
-|/share/home/zixiao|4,096.000|283.156|2,048.000|1,764.844|
+|/share/home/zixiao|4,096.000|282.234|2,048.000|1,765.766|
 |/lfshome/zixiao|2,048.000|3.457|500.000|496.543|
 
 ## 当前保留与删除规则
 
-KEEP：数据与标签、几何、split/子集索引、下游预生成构象、指标/配置/日志及仓库；保留各 label-family、采用配方、250k/500k 子集与 E1 终点、9M scaling 需要的中间点及任何已引用 checkpoint。COMPRESS：仅结束且不需完整续训状态的保留 checkpoint 去 optimizer/scheduler，真实模型加载成功才替换。DELETE：未受保护的其他 checkpoint；原始计算输出须先通过字段与成功 ID/缺失值检查。未知旧 DELETE/ASK 项不扩权。
+KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索引、当前training_inputs与配套Arrow、已验收WP5 family parquet、P′最终标签/catalog/成功失败清单、正式及下游S′/S构象、benchmark_B0/B1标签与参考结果、D阶段0字段统计导出和D20/D3；未闭合扩充批次；指标、配置、日志、报告和Git仓库；各分支配置/manifest/corpus、在跑或排队任务及future引用路径。checkpoint保留规则照旧。COMPRESS：已结束的KEEP checkpoint去optimizer/scheduler，经真实模型加载后替换；可能续训者保留最新完整状态。DELETE：A1–A8和第4节已批准类别中非白名单、无引用、无在用的内容；B类须先通过指定门槛。失败只保留该工作区并继续；第2/4节之外的新删除范围列ASK，不等待旧索引。
 
 ## 执行与待核实事项
 
-- 已删除277个模型 checkpoint，文件分配块净减少13.054 GiB；配额快照另计。
+- 已删除277个文件（含checkpoint与批准产物），文件分配块净减少13.054 GiB；配额快照另计。
 - 已检查79个有效 Git 仓库，另3个历史源码目录用当前文件补查；明确引用的 checkpoint 保留。
 - 模型 checkpoint 与特征/预测张量分开；仅扩展名不能作为删除依据。
 - WP5原始档案396个，126.844 GiB。大型 Parquet 标签/几何保留。
-- 原始输出的字段、成功 ID 与缺失值检查尚未完成，不删除；旧 DELETE/ASK 索引位置仍待补充。
+- 原始输出的字段、成功 ID 与缺失值检查尚未完成，不删除；按补充指令继续其他项。
 - 四条研究线的精确字段清单见 `raw_required_fields.json`。清单已建立，不代表分子 ID/数值完整性已通过。
 - 已验证瘦身0个 checkpoint；只有新文件真实模型严格加载成功后才替换原文件。
 
@@ -31,10 +31,17 @@ KEEP：数据与标签、几何、split/子集索引、下游预生成构象、�
 |WP5原始档案396个|126.844|原始计算、状态、来源与失败/分层审计记录；检查未通过前保留；不得与标签Parquet混删|
 |初始真实模型checkpoint 724个|98.070|13.054 GiB已释放；剩余含保留/引用权重，不能全作为可清理量|
 
-以上为不同保留/候选范围，不能全部计为可释放空间。917 GiB TRAIN库的主数据库页面基本占满文件，尚未发现靠收缩空白页即可释放的数百GiB。当前明确的ckpt/原始输出范围不足以达到两个目标，旧DELETE/ASK索引仍待补充。LMDB元数据证据见 `lmdb_allocation_metadata.json`。
+以上为不同保留/候选范围，不能全部计为可释放空间。917 GiB TRAIN库的主数据库页面基本占满文件，尚未发现靠收缩空白页即可释放的数百GiB。原ckpt/原始输出范围不足以达到两个目标；新指令已扩大范围，已按补充指令扩展执行范围。LMDB元数据证据见 `lmdb_allocation_metadata.json`。
 
-- S_checkpoint_compression：Slurm 4540054，PENDING||(Priority)。
-- raw_output_gate：Slurm 4540058，PENDING||(Dependency)。
+- directive_discovery：Slurm 4540114，PENDING。
+- A_cleanup_prior_passed_B5：Slurm 4540115，PENDING。
+- B2_B4_schema_samples：Slurm 4540116，PENDING。
+- B5_cursor_resume：Slurm 4540117，PENDING。
+- checkpoint_compression_retry：Slurm 4540118，PENDING。
+- B5_passed_cleanup：Slurm 4540119，PENDING。
+- NFS_outside_depth3：Slurm 4540120，PENDING。
+- Lustre_outside_D6_depth3：Slurm 4540121，PENDING。
+- 原始输出一次性检查：STOPPED_UNFINISHED；Stopped at bounded row-batch boundary with job cleanup time remaining
 
 ## 完整主目录总表
 
@@ -45,9 +52,9 @@ KEEP：数据与标签、几何、split/子集索引、下游预生成构象、�
 |`runs`|2,774.289|2,764.929|数据生产与模型实验的总入口：数据线 v1、WP5、历史模型/修复/筛查，以及当前 P/S/D、头部与后续研究。|混合目录按子项处理；未知项 ASK|
 |`docs`|236.169|236.169|文档之外还包含历史几何帧暂存、Stage61 数据审计候选/统计分块、运行环境；最大载荷为 staged_geom_frames 和 Stage61 scan_v2。|混合目录按子项处理；未知项 ASK|
 |`results`|11.964|11.964|旧竞赛/模型结果入口；下级按项目与实验阶段保存预测、指标和模型产物。|混合目录按子项处理；未知项 ASK|
-|`MFM_step_overhead_20261114`|11.167|11.167|每步开销/数值一致性源码工作树；主要载荷是 numerical_final_4532640 下 random_seed0 与 G1_3M 的梯度对照数组。|KEEP 仓库；仓库内运行产物继续按类拆分|
-|`.perf_sync_scratch_20261117`|9.852|9.852|性能验证暂存：baseline_gradients、测试输入、TorchInductor/Triton 编译缓存和临时 W&B 等。|ASK：等待旧 DELETE/ASK 索引或具体用途核实，不整目录删除|
-|`MFM_precision_20261115`|6.649|5.418|历史精度研究源码工作树；大头为 school_wheels 离线安装包和 TF32/BF16 对照实验产物。|KEEP 仓库；仓库内运行产物继续按类拆分|
+|`MFM_step_overhead_20261114`|11.167|11.167|每步开销/数值一致性源码工作树；主要载荷是 numerical_final_4532640 下 random_seed0 与 G1_3M 的梯度对照数组。|A3：指定缓存/梯度/精度对照产物删除；仓库、指标配置日志报告及引用/在用项保留|
+|`.perf_sync_scratch_20261117`|9.852|9.852|性能验证暂存：baseline_gradients、测试输入、TorchInductor/Triton 编译缓存和临时 W&B 等。|A3：指定缓存/梯度/精度对照产物删除；仓库、指标配置日志报告及引用/在用项保留|
+|`MFM_precision_20261115`|6.649|5.418|历史精度研究源码工作树；大头为 school_wheels 离线安装包和 TF32/BF16 对照实验产物。|A3：指定缓存/梯度/精度对照产物删除；仓库、指标配置日志报告及引用/在用项保留|
 |`ckpt`|3.070|3.070|公开 CheMeleon/UniMol/MACE 权重、自训 MFM 权重和 waste 下的实验权重混合。|按 checkpoint 明细分 KEEP / COMPRESS / DELETE / ASK；指标、配置、日志保留|
 |`MFM_p_followup_20261117`|0.971|0.971|P/S/D 及头部/后续研究：训练、检查点、读出模型、预测、bootstrap、测试与报告混合。|按 checkpoint 明细分 KEEP / COMPRESS / DELETE / ASK；指标、配置、日志保留|
 |`MFM_p_heads_20261117`|0.815|0.815|P/S/D 及头部/后续研究：训练、检查点、读出模型、预测、bootstrap、测试与报告混合。|按 checkpoint 明细分 KEEP / COMPRESS / DELETE / ASK；指标、配置、日志保留|
@@ -58,7 +65,7 @@ KEEP：数据与标签、几何、split/子集索引、下游预生成构象、�
 |`MFM_perf_sync_20261117`|0.106|0.106|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|KEEP 仓库；仓库内运行产物继续按类拆分|
 |`MFM_p_recipe`|0.102|0.102|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|KEEP 仓库；仓库内运行产物继续按类拆分|
 |`reports`|0.086|0.086|空间审计、迁移、故障等报告与证据；本轮统计文件也在此。|混合目录按子项处理；未知项 ASK|
-|`MFM_precision_rebased_20261116`|0.085|0.085|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|KEEP 仓库；仓库内运行产物继续按类拆分|
+|`MFM_precision_rebased_20261116`|0.085|0.085|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|A3：指定缓存/梯度/精度对照产物删除；仓库、指标配置日志报告及引用/在用项保留|
 |`data`|0.079|0.079|本项目数据输入、划分与处理用小型数据目录；具体以当前样本为准。|混合目录按子项处理；未知项 ASK|
 |`MFM_model_v3_cpu_perf_20261112`|0.076|0.076|CPU 性能改进、回归与等价性验证的独立输出，可能含合成模型/数据和 benchmark。|KEEP 仓库；仓库内运行产物继续按类拆分|
 |`MFM_d_descriptors_20261120`|0.071|0.071|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|KEEP 仓库；仓库内运行产物继续按类拆分|
@@ -86,7 +93,7 @@ KEEP：数据与标签、几何、split/子集索引、下游预生成构象、�
 |`MFM_model_v3_residual_fp32_candidate_v1`|0.030|0.030|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|KEEP 仓库；仓库内运行产物继续按类拆分|
 |`MFM_model_v3_ffn_fp32_candidate_v1`|0.030|0.030|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|KEEP 仓库；仓库内运行产物继续按类拆分|
 |`MFM_model_v3_geometry_fp32_candidate_v1`|0.030|0.030|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|KEEP 仓库；仓库内运行产物继续按类拆分|
-|`MFM_model_v3_projection_fp32_candidate_v1`|0.030|0.030|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|ASK：等待旧 DELETE/ASK 索引或具体用途核实，不整目录删除|
+|`MFM_model_v3_projection_fp32_candidate_v1`|0.030|0.030|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|A8/第4节：保留白名单、引用与在用内容，已闭合缓存删除|
 |`MFM_model_v3_attention_core64_diagnostic_v1`|0.030|0.030|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|KEEP 仓库；仓库内运行产物继续按类拆分|
 |`MFM_model_v3_attention_centering_v1`|0.030|0.030|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|KEEP 仓库；仓库内运行产物继续按类拆分|
 |`MFM_model_v3_recipe_readiness_v1`|0.030|0.030|模型/数据开发源码工作树；包含源码、configs、tests、docs 等；若存在 results、环境或大二进制，下面另列重要子目录。|KEEP 仓库；仓库内运行产物继续按类拆分|
@@ -144,3 +151,37 @@ KEEP：数据与标签、几何、split/子集索引、下游预生成构象、�
 |`.pq_1614545`|0.000|0.000|隔离测试/性能/任务运行的临时工作目录；以本次样本核对具体配置、环境、日志与二进制。|混合目录按子项处理；未知项 ASK|
 |`.pq_1614634`|0.000|0.000|隔离测试/性能/任务运行的临时工作目录；以本次样本核对具体配置、环境、日志与二进制。|混合目录按子项处理；未知项 ASK|
 |`.pq_1652602`|0.000|0.000|隔离测试/性能/任务运行的临时工作目录；以本次样本核对具体配置、环境、日志与二进制。|混合目录按子项处理；未知项 ASK|
+
+## 2026-11-25 B 指令执行
+
+已采用根目录 CLEANUP_DIRECTIVE_20261125B.md：A类不等待旧索引；B类门槛失败只保留该工作区，继续其他项。只在CPU8–19执行，不修改其他线任务，不使用付费服务器。
+
+|类别|本轮实际释放 GiB|状态|
+|---|---:|---|
+|A1|0.000|等待CPU/执行结果；未计预计释放量|
+|A2|0.000|等待CPU/执行结果；未计预计释放量|
+|A3|0.000|等待CPU/执行结果；未计预计释放量|
+|A4|0.000|等待CPU/执行结果；未计预计释放量|
+|A5|0.000|等待CPU/执行结果；未计预计释放量|
+|A6|0.000|等待CPU/执行结果；未计预计释放量|
+|A7|0.000|等待CPU/执行结果；未计预计释放量|
+|A8|0.000|等待CPU/执行结果；未计预计释放量|
+|OUTSIDE_CACHE|0.000|等待CPU/执行结果；未计预计释放量|
+|LUSTRE_DIAGNOSTIC|0.000|等待CPU/执行结果；未计预计释放量|
+|LUSTRE_CLOSED_CACHE|0.000|等待CPU/执行结果；未计预计释放量|
+|B5|0.000|等待CPU/执行结果；未计预计释放量|
+|B1|0.000|几何身份与正式源尚待绑定；未判通过、未删除|
+|B2–B4|0.000|等待schema小样本，再按工作区做全量成功ID覆盖、字段覆盖、分层10000对数值比较；未判通过、未删除|
+
+### 检查与工程续接
+
+原B5已通过9个批次，第10批次在收尾窗口保存进度。续接不重做已通过批次。原ckpt瘦身因节点quota RPC失败而未改写，已增加登录节点配额回退并重试。
+
+### 门槛失败和 ASK
+
+本轮尚无新门槛结论，等待CPU不等于覆盖失败。A类内未明确的模型存档仅查小metadata，留待checkpoint分类完成；不按扩展名把特征当作模型。第2/4节之外的新删除范围才进入ASK；不阻塞已批准项目。
+
+### 未完成项
+
+两个目标尚未达成。B1、B2–B4的实际门槛仍待执行；不能把脚本部署或排队记为清理完成。项目外和Lustre非D6深度3计量已安排在A类后，避免本线删除竞态。
+
