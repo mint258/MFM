@@ -22,6 +22,8 @@ D20原20字段中，NumBridgeheadAtoms与NumSpiroAtoms沿原选择禁用，MolMR
 
 三块权重固定为二维17/24、分子三维6/24、原子SASA1/24；各块内部按实际有效项归一化，空块为零。宽库增加二维字段不稀释D3份额；G1关闭D3时不放大剩余块。K1只随机屏蔽有效二维损失项85%，缺失与随机mask独立；seed0/seed1使用独立CPU生成器20261119/20261120并随完整状态恢复。
 
+L2的对齐范围是作者[二维计算器](https://github.com/JacksonBurns/how-to-train-your-chemeleon/blob/main/features/_mordred.py)中的`Calculator(descriptors, ignore_3D=True)`字段构造；本线输入、软件版本、过滤、归一化和3D主干遵守自己的冻结定义。CheMeleon原论文将模型表述为D-MPNN描述符基础模型（[原论文v2](https://arxiv.org/abs/2506.15792v2)），[原固定提交](https://github.com/JacksonBurns/chemeleon/blob/60ea323cf278286e3fee1232f223a077ec3604c0/chemprop_foundation.py)使用BondMessagePassing。作者[重写仓库说明](https://github.com/JacksonBurns/how-to-train-your-chemeleon/blob/main/README.md)明确区分原训练脚本和含实现变化的便利版本；因此本线报告的是CheMeleon式目标家族在本书协议下的结果，训练全流程及跨架构性能另作界定。
+
 ## 迁移与共同训练条件
 
 P官方配方于2026-11-20T12:25:52.908698Z冻结为FROZEN_P，其规定五条9M已提交。D只迁移A1/B3/B4；P专属F2无对应D标签删项，不迁移。D-R1为冷启动，不能从R0继续训练来代替配对比较。
