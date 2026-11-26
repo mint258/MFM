@@ -12,6 +12,7 @@ C=ROOT/'runs/s_recipe_20261120'
 R=ROOT/'MFM_s_recipe'
 sys.path.insert(0,str(R/'tools/s_recipe'))
 from storage_20261122 import claim_current,write
+from control_metadata_io_20261127 import write
 read=lambda path:json.loads(Path(path).read_text())
 def call(*args):return subprocess.check_output(['/usr/bin/timeout','15s',*map(str,args)],text=True).strip()
 def fields(raw):return dict(re.findall(r'(?:^| )(\w+)=([^ ]*)',raw))

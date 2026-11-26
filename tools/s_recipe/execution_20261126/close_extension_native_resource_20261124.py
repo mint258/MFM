@@ -12,6 +12,7 @@ ROOT=Path('/share/home/zixiao/descriptor_analysis')
 C=ROOT/'runs/s_recipe_20261120'
 sys.path.insert(0,str(ROOT/'MFM_s_recipe/tools/s_recipe'))
 from runtime import write
+from control_metadata_io_20261127 import write
 from storage_20261122 import claim_current
 
 def read(path):

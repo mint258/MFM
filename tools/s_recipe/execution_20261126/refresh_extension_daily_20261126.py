@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import time
 from storage_20261122 import CONTROL as C, REPO as R, write
+from control_metadata_io_20261127 import write
 
 read=lambda path:json.loads(Path(path).read_text())
 zone=datetime.timezone(datetime.timedelta(hours=8))
@@ -61,7 +62,7 @@ lines=['# S 配方研究 · '+stamp.date().isoformat()+' · '+stamp.strftime('%H
     '/192个fit，选中模型'+str(len(execution['selected_models']))+'份；原9M新增前缀读出/CPU统计'+
     str(len(execution['completed_original9M_prefix_statistics']))+'/16点。详情见[微调](../FULL_FINETUNING_PROGRESS.md)及[执行进展](../../../results/s_recipe/execution_progress_20261127.json)。', '',
     '在跑与预计：'+'；'.join(progress(row) for row in active)+
-    '。微调及前缀按登记顺序补位；训练结束估计取原首1000步速度，读出/统计另计。', '',
+    '。微调在登记范围内按E1优先补位；训练结束估计取原首1000步速度，读出/统计另计。', '',
     '人群：E1 TRAIN=1192951；原P T5/T6与S交集249744/499456，不重抽。两条子集9M及其评测仍在登记范围内，E1争卡优先。', '',
     '真实首1000步（样本/秒；整卡点均W，非整段能耗）：']
 for row in rows:

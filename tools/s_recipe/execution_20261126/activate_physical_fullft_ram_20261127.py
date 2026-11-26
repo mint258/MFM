@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT=Path('/share/home/zixiao/descriptor_analysis')
 sys.path.insert(0,str(ROOT/'MFM_s_recipe/tools/s_recipe'))
 from storage_20261122 import CONTROL as C,REPO as R,write
+from control_metadata_io_20261127 import write
 from fullft_ram_envelope_20261127 import read
 from fullft_physical_ram_20261127 import SCHEMA,require_physical_proof
 if os.getuid()!=1278:raise ValueError('Exact own account')

@@ -13,6 +13,7 @@ R=ROOT/'MFM_s_recipe'
 C=ROOT/'runs/s_recipe_20261120'
 sys.path.insert(0,str(R/'tools/s_recipe'))
 from storage_20261122 import claim_current,write
+from control_metadata_io_20261127 import write
 read=lambda p:json.loads(Path(p).read_text())
 def call(*argv):
     return subprocess.check_output(['/usr/bin/timeout','15s',*argv],text=True,
@@ -107,11 +108,13 @@ with (C/'execution.lock').open('a') as lock:
     state=dict(phase='NATIVE_STARTED',run=handle,point=point,mode='fullft_cpu_native',node=node,
         configuration=str(config),job_id=None,native_handle=native_handle,
         lifecycle_record=str(record),native_controller=launched,
-        source_fit_jobs=[row['job_id'] for row in ledger['statistics'].values()
-            if row.get('run') in {cell['run'] for cell in cells} and row.get('mode')=='finetune' and row.get('job_id')],
-        source_native_fits=[dict(run=row['run'],lifecycle_record=row['lifecycle_record'])
-            for row in ledger['statistics'].values() if row.get('run') in {cell['run'] for cell in cells}
-            and row.get('mode')=='finetune_native'])
+        source_fit_jobs=[read(item['lifecycle_record'])['job_id'] for item in completed
+            if read(item['lifecycle_record']).get('job_id') is not None],
+        source_native_fits=[dict(output=item['output'],lifecycle_record=item['lifecycle_record'])
+            for item in completed if read(item['lifecycle_record']).get('job_id') is None],
+        retained_prior_safe_pause_jobs=[row['job_id'] for row in ledger['statistics'].values()
+            if row.get('run') in {cell['run'] for cell in cells}
+            and row.get('status')=='PAUSED_SAFE_CONTINUATION' and row.get('job_id')])
     write(state_path,state)
     ledger['statistics'][handle]=dict(state,status='RUNNING_NATIVE')
     write(C/'execution.json',ledger)

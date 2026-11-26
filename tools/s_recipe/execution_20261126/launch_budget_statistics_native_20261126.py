@@ -11,6 +11,7 @@ R=ROOT/'MFM_s_recipe'
 PY='/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python'
 sys.path.insert(0,str(R/'tools/s_recipe'))
 from storage_20261122 import write
+from control_metadata_io_20261127 import write
 from budget_readouts_extension_20261124 import registered
 read=lambda path:json.loads(Path(path).read_text())
 run,sample_text,node,cores=sys.argv[1:5]

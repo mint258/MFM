@@ -100,6 +100,8 @@ def worker(c):
                'future_fullft_resources_check':'check_future_fullft_resources_20261127.py',
                'fullft_physical_ram':'construct_fullft_physical_ram_20261127.py',
                'physical_fullft_integration_check':'check_physical_fullft_integration_20261127.py',
+               'point_only_sequence_check':'check_point_only_sequence_20261127.py',
+               'control_metadata_io_check':'check_control_metadata_io_20261127.py',
                'e1_s_rule_check':'check_e1_s_rule_20261127.py',
                'reporting_delivery_check':'check_reporting_delivery_20261127.py',
                'metadata_lock_check':'check_metadata_lock_20261127.py',

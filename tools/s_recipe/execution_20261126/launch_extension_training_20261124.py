@@ -15,6 +15,7 @@ R=ROOT/'MFM_s_recipe'
 C=ROOT/'runs/s_recipe_20261120'
 sys.path.insert(0,str(R/'tools/s_recipe'))
 from runtime import write
+from control_metadata_io_20261127 import write
 from dispatch import authorized, gate, existing_scheduling, OLD, NEW
 from storage_20261122 import claim_current
 from extension_training_20261124 import validate as validate_extension

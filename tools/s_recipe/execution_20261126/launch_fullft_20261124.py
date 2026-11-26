@@ -16,6 +16,7 @@ R = ROOT/'MFM_s_recipe'
 C = ROOT/'runs/s_recipe_20261120'
 sys.path.insert(0, str(R/'tools/s_recipe'))
 from storage_20261122 import write, claim_current
+from control_metadata_io_20261127 import write
 from finetune_extension_20261124 import validate, AUTHORITY, PROTOCOL
 from extension_output_budget_20261124 import forecast as raw_output_forecast,job_states,GiB
 from gpu_writer_admission_20261126 import register_after_admission

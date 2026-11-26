@@ -13,6 +13,7 @@ R=ROOT/'MFM_s_recipe'
 C=ROOT/'runs/s_recipe_20261120'
 sys.path.insert(0,str(R/'tools/s_recipe'))
 from storage_20261122 import claim_current,write
+from control_metadata_io_20261127 import write,acquire_control_lock
 
 PY='/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python'
 PATHS=':'.join(map(str,(R/'current',R/'tools/s_recipe',
@@ -22,7 +23,7 @@ stage,handle,node,core_text=sys.argv[1:5]
 source=sys.argv[5] if len(sys.argv)>5 else None
 cores=[int(item) for item in core_text.split(',')]
 if (os.getuid()!=1278 or node not in {'compute-0-'+str(i) for i in (9,11,12,13,19)}
-        or stage not in ('terminal','budget_statistics','matrix','population','publish','import','fullft_statistics','fullft_delivery','fullft_contrasts','fullft_contrast_check','e1_local_decision','e1_cached_components_check','budget_curve_delivery','extension_progress','extension_daily','generic_publish','writer_admission_check','budget_adapter_check','native_output_check','fullft_provider_inspection','mixed_fullft_check','mixed_fullft_binding_check','fullft_resume_check','execution_delivery','readout_runtime_check','readout_delivery','budget_validation_curve','standby_settlement_check','e1_frozen_report','handoff_path_check','fullft_seal','controller_sequence_check','point_sequence_check','molecule_scaling_check','molecule_scaling_delivery','fullft_ram_envelope','extension_spawn_clock_check','future_fullft_resources_check','fullft_physical_ram','physical_fullft_integration_check','e1_s_rule_check','reporting_delivery_check','metadata_lock_check','native_clock_anchor_check')
+        or stage not in ('terminal','budget_statistics','matrix','population','publish','import','fullft_statistics','fullft_delivery','fullft_contrasts','fullft_contrast_check','e1_local_decision','e1_cached_components_check','budget_curve_delivery','extension_progress','extension_daily','generic_publish','writer_admission_check','budget_adapter_check','native_output_check','fullft_provider_inspection','mixed_fullft_check','mixed_fullft_binding_check','fullft_resume_check','execution_delivery','readout_runtime_check','readout_delivery','budget_validation_curve','standby_settlement_check','e1_frozen_report','handoff_path_check','fullft_seal','controller_sequence_check','point_sequence_check','molecule_scaling_check','molecule_scaling_delivery','fullft_ram_envelope','extension_spawn_clock_check','future_fullft_resources_check','fullft_physical_ram','physical_fullft_integration_check','point_only_sequence_check','control_metadata_io_check','e1_s_rule_check','reporting_delivery_check','metadata_lock_check','native_clock_anchor_check')
         or not 1<=len(set(cores))==len(cores)<=16
         or not handle.replace('_','').isalnum() or not handle.startswith('S_')):
     raise ValueError('Explicit owned registered native CPU stage required')
@@ -62,6 +63,7 @@ with (C/'native_cpu_launch_20261126.lock').open('a') as lock:
             raise ValueError('Bind the existing owned terminal CPU configuration')
     elif source is not None:
         raise ValueError('This metadata stage does not take a source override')
+    control_lock,control_lock_role=acquire_control_lock(stage)
     budget=C/'storage_additional_entries.json'
     forecast=json.loads(budget.read_text())
     active_peak=0
@@ -84,6 +86,7 @@ with (C/'native_cpu_launch_20261126.lock').open('a') as lock:
             if path is not None:entry['path']=path
             forecast['entries'].append(entry)
     write(budget,forecast)
+    if control_lock is not None:control_lock.close()
     claim_current()
     # Run this observation on the actual target CPU node, never the login node.
     probe='''import json,os,time,socket
