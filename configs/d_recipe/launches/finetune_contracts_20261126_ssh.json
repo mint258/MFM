@@ -1,0 +1,23 @@
+{
+  "execution_id": "ssh:D_finetune_contracts_20261126",
+  "node": "compute-0-19",
+  "cores": [
+    65
+  ],
+  "expected_seconds": 60,
+  "timeout_seconds": 1800,
+  "cleanup_seconds": 180,
+  "ram_peak_bytes": 4294967296,
+  "root_future_bytes": 1048576,
+  "receipt": "/tmp/d_recipe_20261126_finetune_contracts/receipt.json",
+  "line": "D",
+  "worker_argv": [
+    "/usr/bin/env",
+    "TMPDIR=/tmp/d_recipe_20261126_finetune_contracts",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/usr/bin/python3",
+    "-SB",
+    "-c",
+    "import ast,json,os,sys,time,unittest;from pathlib import Path;os.chdir(\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\");sys.path[:0]=[\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\",\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tests\"];ast.parse(Path('tools/d_recipe/finetune_entry.py').read_text());s=unittest.defaultTestLoader.loadTestsFromName('test_d_recipe_finetune_entry');t=time.monotonic();r=unittest.TextTestRunner(verbosity=1).run(s);print(json.dumps(dict(stage='D_FINETUNE_SCOPE_CONTRACTS',tests_run=r.testsRun,failures=len(r.failures),errors=len(r.errors),seconds=time.monotonic()-t)),flush=True);sys.exit(not r.wasSuccessful())"
+  ]
+}
