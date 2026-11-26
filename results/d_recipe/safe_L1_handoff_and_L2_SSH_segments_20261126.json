@@ -1,6 +1,6 @@
 {
   "schema": "D_OPERATIONAL_SCHEDULING_UPDATE_20261126_V1",
-  "observed_at_UTC": "2026-11-26T07:33:05.131Z",
+  "observed_at_UTC": "2026-11-26T07:56:39.258Z",
   "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
   "L1": {
     "status": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
@@ -84,11 +84,11 @@
     "remaining_samples": 909248,
     "scientific_budget": 3000000,
     "seed": 0,
-    "next_GPU_admission_UTC": "2026-11-26T07:56:19.000Z",
+    "next_GPU_admission_UTC": "2026-11-26T08:26:39.000Z",
     "latest_admission": {
-      "observed_at_UTC": "2026-11-26T07:26:19Z",
+      "observed_at_UTC": "2026-11-26T07:56:39.258Z",
       "GPU20_target_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-      "used_MiB": 18,
+      "used_MiB": 441,
       "total_MiB": 49140,
       "own_lock_free": true,
       "allocated_CPUs": 97,
@@ -96,12 +96,12 @@
       "required_CPUs": 5,
       "required_own_RAM_bytes": 68719476736,
       "RAM_admission": "REFUSED",
-      "available_RAM_bytes": 90471477248,
+      "available_RAM_bytes": 90345693184,
       "own_candidate_RAM_released_to_zero": true,
       "new_GPU_job_submitted": false,
-      "preferred_group": "0/1/3 allocated with no CPU;4/5/6/7 retained CUDA contexts",
+      "preferred_group": "0/1/3/4 allocated with no CPU;5/6/7 retained CUDA contexts",
       "node22": "26152/32607MiB,own_lock_busy,no allocated CPU available",
-      "next_GPU_admission_UTC": "2026-11-26T07:56:19.000Z"
+      "next_GPU_admission_UTC": "2026-11-26T08:26:39.000Z"
     },
     "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json",
     "closed_attempt_costs": {
@@ -475,58 +475,37 @@
       ]
     },
     "latest_native_progress": {
-      "observed_at_epoch": 1795678385.1314564,
-      "closed_rows": 818432,
-      "collection_status": "COLLECTING",
+      "observed_at_epoch": 1795679799.258307,
       "receipt_status": "RUNNING",
       "returncode": null,
-      "supervisor": {
+      "started_at_epoch": 1795678292.5871775,
+      "hard_end_epoch": 1795699882.5871775,
+      "closed_rows": 835072,
+      "collection_status": "COLLECTING",
+      "last_attempt": {
+        "job_id": null,
+        "node": "compute-0-11",
+        "start_row": 817920,
+        "state": "RUNNING",
+        "closed_rows": 835072,
+        "elapsed_seconds": 1464.8167907074094
+      },
+      "actual_supervisor": {
         "pid": 267997,
         "start_ticks": 2279929583,
         "state": "S",
         "uid": 1278
       },
-      "worker": {
+      "actual_worker": {
         "pid": 268017,
         "start_ticks": 2279930088,
         "state": "R",
         "uid": 1278
       },
-      "parent": {
-        "pid": 267996,
-        "start_ticks": 2279929583,
-        "state": "S",
-        "uid": 1278
-      },
-      "owned_tree_reaped": null,
-      "remaining_children": null,
-      "actual_cpu_seconds": null,
-      "wall_seconds": null,
-      "ended_at": null,
-      "bound_supervisor": {
-        "pid": 267997,
-        "start_ticks": 2279929583,
-        "uids": [
-          1278,
-          1278,
-          1278,
-          1278
-        ],
-        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-703.scope\n",
-        "state": "R"
-      },
-      "bound_parent": {
-        "pid": 267996,
-        "start_ticks": 2279929583,
-        "uids": [
-          1278,
-          1278,
-          1278,
-          1278
-        ],
-        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-703.scope\n",
-        "state": "S"
-      }
+      "actual_root_available": 55914795008,
+      "actual_root_inodes": 36569782,
+      "own_local_allocated": 10739859456,
+      "own_local_remaining_future": 6440009728
     },
     "original_scientific_binding_unchanged": true,
     "partial_TRAIN_fitting": false,
