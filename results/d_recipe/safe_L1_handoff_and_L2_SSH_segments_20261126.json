@@ -1,0 +1,204 @@
+{
+  "schema": "D_OPERATIONAL_SCHEDULING_UPDATE_20261126_V1",
+  "observed_at_UTC": "2026-11-26T04:32:01Z",
+  "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
+  "L1": {
+    "status": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
+    "original_job": 4539402,
+    "sacct": {
+      "state": "FAILED",
+      "exit_code": "75:0",
+      "elapsed_seconds": 171930,
+      "allocated_CPUs": 5,
+      "node": "compute-0-20"
+    },
+    "ack_exists": true,
+    "ack": {
+      "request_id": "3d732f41-1a09-45cd-ae7a-de27f7ec1842",
+      "job_id": 4539402,
+      "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M_resume1M_gpu20_20261124/training/samples_2090752.pt",
+      "clock": {
+        "schema": "model_v3_consumed_sample_clock_v1",
+        "sample_budget": 3000000,
+        "milestones": [
+          500000,
+          1000000,
+          1500000,
+          2000000,
+          2500000,
+          3000000
+        ],
+        "samples_consumed": 2090752,
+        "optimizer_updates": 65336,
+        "saved_milestones": []
+      },
+      "run": "d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124"
+    },
+    "checkpoint_stat": {
+      "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M_resume1M_gpu20_20261124/training/samples_2090752.pt",
+      "UID": 1278,
+      "bytes": 205552213,
+      "regular": true
+    },
+    "events": [
+      {
+        "phase": "OWNED_TREE_REAPED",
+        "root": 281022,
+        "root_returncode": 0
+      },
+      {
+        "phase": "STOP_DISPATCH_REQUESTED",
+        "reason": "SIGNAL_10"
+      },
+      {
+        "phase": "STOP_DISPATCH_REQUESTED",
+        "reason": "SIGNAL_10"
+      },
+      {
+        "phase": "OWNED_TREE_REAPED",
+        "root": 281058,
+        "root_returncode": 0
+      },
+      {
+        "phase": "OWNED_TREE_REAPED",
+        "root": 281019,
+        "root_returncode": 75
+      },
+      {
+        "phase": "RESIDENT_TERMINAL",
+        "job_id": "4539402",
+        "returncode": 75,
+        "remaining_children": []
+      }
+    ],
+    "errors": [],
+    "original_proc": {
+      "281019": "ABSENT",
+      "281022": "ABSENT",
+      "281058": "ABSENT",
+      "281103": "ABSENT"
+    },
+    "job_cgroup_exists": false,
+    "scientific_failure": false,
+    "independent_checkpoint_tensor_QA": false,
+    "remaining_samples": 909248,
+    "scientific_budget": 3000000,
+    "seed": 0,
+    "next_GPU_admission_UTC": "2026-11-26T04:50:00Z",
+    "latest_admission": {
+      "small_group": "All fresh UUIDs on nodes0/1/5/6 with enough allocatable CPUs have other CUDA contexts; nodes3/4/7 lack CPU allocation",
+      "node20": "Second4090 passes CUDA threshold and own lock, but canonical combined RAM admission refused (own64GiB+peers96GiB+reserve16GiB exceeds actual availability)",
+      "node22": "Actual memory12394/32607MiB >30%; no allocatableCPU"
+    }
+  },
+  "L2": {
+    "status": "SSH_SUPERVISOR_RUNNING_READER_INITIALIZING",
+    "source_commit": "a55469c55c4b02b95093ac196c8046a682a1858f",
+    "configuration": "configs/d_recipe/launches/L2_A1_segment1_20261126.json",
+    "execution_id": "ssh:P_D_L2_A1_segment1_20261126",
+    "start_cursor": 729600,
+    "full_TRAIN_rows": 1194228,
+    "original_scientific_binding_unchanged": true,
+    "original_pending_job": 4540186,
+    "retired_old_job": "CANCELLED by1278,0:0,ElapsedRaw0 after UID/PENDING/0 verification and hold",
+    "node": "compute-0-11",
+    "cores": [
+      37
+    ],
+    "measured_idle_fraction": 1,
+    "MemAvailable": 398354911232,
+    "segment_seconds": 10800,
+    "timeout_seconds": 21600,
+    "cleanup_seconds": 180,
+    "canonical_admission": {
+      "ram_own": 34359738368,
+      "ram_peers": 77309411328,
+      "ram_reserve": 40446522572,
+      "disk_own_with_original_peer_future": 38788923392,
+      "disk_peers": 226492416,
+      "disk_reserve": 10737418240,
+      "disk_available": 57268232192
+    },
+    "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment1_20261126/receipt.json",
+    "supervisor_pid": 248291,
+    "supervisor_start_ticks": 2278850548,
+    "timeout_parent_pid": 248290,
+    "scientific_data_generation": false,
+    "partial_TRAIN_fitting": false,
+    "claim": "runs/shared_storage_reservations/d-recipe.json",
+    "execution_id_namespace_note": "P_ prefix is required by the reused shared provider, metadata line remains D; not a P scientific run and not a Slurm job"
+  },
+  "tiny_callback_test": {
+    "tests_run": 1,
+    "failures": 0,
+    "errors": 0,
+    "microtest_seconds": 0.22382277995347977,
+    "receipt": {
+      "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+      "status": "COMPLETE",
+      "execution_id": "ssh:D_A1_segment_test_20261126",
+      "node": "compute-0-11",
+      "supervisor": {
+        "pid": 247874,
+        "start_ticks": 2278843593,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-590.scope\n",
+        "state": "R"
+      },
+      "parent": {
+        "pid": 247873,
+        "start_ticks": 2278843593,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-590.scope\n",
+        "state": "S"
+      },
+      "session_id": 247873,
+      "cores": [
+        37
+      ],
+      "idle_fraction": {
+        "37": 1
+      },
+      "MemAvailable": 398358876160,
+      "started_at": 1795667435.6888628,
+      "hard_end_epoch": 1795669225.6888628,
+      "timeout_seconds": 1800,
+      "cleanup_seconds": 180,
+      "original_pending_job": 4540186,
+      "worker_argv": [
+        "/usr/bin/env",
+        "TMPDIR=/tmp/d_recipe_20261126_A1_segment_test",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+        "-B",
+        "-c",
+        "import ast,json,os,sys,time,unittest; from pathlib import Path; sys.path[:0]=[\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\",\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/current\",\"/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120\",\"/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/current\",\"/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps\",\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tests\"]; os.chdir(\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\"); ast.parse(Path('tools/d_recipe/reference_segment.py').read_text()); suite=unittest.defaultTestLoader.loadTestsFromName('test_d_recipe_fit_reference.FitReferenceCollectorTests.test_cooperative_stop_observes_committed_cursor_and_preserves_resume'); started=time.monotonic(); result=unittest.TextTestRunner(verbosity=2).run(suite); print(json.dumps(dict(stage='D_A1_SEGMENT_TINY_TEST',tests_run=result.testsRun,failures=len(result.failures),errors=len(result.errors),elapsed_seconds=time.monotonic()-started)),flush=True); sys.exit(not result.wasSuccessful())"
+      ],
+      "scientific_code_and_outputs_preserved": true,
+      "returncode": 0,
+      "ended_at": 1795667436.1941726,
+      "wall_seconds": 0.50531005859375,
+      "user_cpu_seconds": 0.147525,
+      "system_cpu_seconds": 0.029550999999999997,
+      "actual_cpu_seconds": 0.17707599999999998,
+      "peak_child_RSS_KiB": 43460,
+      "remaining_children": [],
+      "owned_tree_reaped": true
+    },
+    "supervisor_proc_exists": false,
+    "parent_proc_exists": false,
+    "full_regression_repeated": false
+  },
+  "full_TASKBOOK_remains_active": true,
+  "final_recipe_frozen": false
+}

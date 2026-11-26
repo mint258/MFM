@@ -13,3 +13,5 @@
 输入优先使用CURRENT.stage2.original_training_configurations所指的原冷配置，之后合入已经冻结的最终科学决定；不得拿当前1M基础设施续接配置直接作为可运行9M配置。
 
 新增定向测试覆盖冻结门、只允许规定1/2条seed0运行、无旧resume/cache/硬件预算、重新校准、最终H0实际路径、条件mask seed和几何决定的最终组合。测试只用微型配置，不做训练/前向/数组读取。[测试状态](../../results/d_recipe/confirmation_plan_tests_20261125.json)。完整默认回归和check_repository仍只在最终PR前一次。
+
+2026-11-26按最新短CPU调度规则取消原零运行排队作业4539987后，复用原冻结测试命令在node19/core65单次执行，10项全部通过；[实际SSH测试结果](../../results/d_recipe/confirmation_plan_tests_SSH_20261126.json)取代旧排队状态。未冻结最终配方或启动9M。

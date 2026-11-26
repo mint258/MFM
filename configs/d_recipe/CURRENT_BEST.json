@@ -1,8 +1,8 @@
 {
   "schema": "D_RECIPE_CURRENT_BEST_V1",
-  "status": "STAGE2_L1_CONTINUING_L2_A1_ENGINEERING_RECOVERY_PENDING",
+  "status": "STAGE2_L1_SAFE_HANDOFF_WAIT_GPU_L2_SSH_CURSOR_RECOVERY",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-26T03:56:30Z",
+  "updated_at_utc": "2026-11-26T04:32:01Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -3953,7 +3953,7 @@
     "G1_include_3d": false,
     "remaining_block_weights_rescaled": false,
     "models_started": true,
-    "GPU_admission_status": "All G1 main, layer and geometry forward GPU writers are closed; original geometry CPU statistics is live; wide original A1 still collecting, no new model ready",
+    "GPU_admission_status": "NO_COMPLIANT_UUID_AND_MEMORY_ADMISSION",
     "proposed_joint_NFS_bytes": 37325341935,
     "capacity_registration_pending": false,
     "joint_NFS_forecast_bytes": 34244105455,
@@ -4095,7 +4095,7 @@
       "scientific_configuration_unchanged": true
     },
     "reference_entry_status": "Original entry scope initialization repaired; both current original collectors positive closed cursor",
-    "next_GPU_check_UTC": "2026-11-25T03:20:00Z",
+    "next_GPU_check_UTC": "2026-11-26T04:50:00Z",
     "next_reference_progress_check_UTC": null,
     "last_GPU_capacity_check_UTC": "2026-11-22T22:51:36Z",
     "cost_accounting_root_log_forecast": "Same128MiB joint future: two original reference logs<=2MiB each, six prospective Stage2 statistics/comparison logs<=8MiB each, total<=52MiB. Closed cost/old logs remain charged by actual df. Actual node guard retains conservative36GiB+128MiB CPU-root upper bound.",
@@ -4722,7 +4722,7 @@
       }
     },
     "L1": {
-      "status": "ORIGINAL_PROCESS_PRESERVED_NATIVE_CAPACITY_WAIT",
+      "status": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
       "configuration": "configs/d_recipe/screening/D-L1_seed0_resume1M_gpu20_20261124.json",
       "resident": "configs/d_recipe/launches/D-L1_seed0_resume1M_gpu20_20261124_resident.sbatch",
       "CPU_node": "compute-0-12",
@@ -4743,8 +4743,8 @@
       "CPU_statistics_job": null,
       "CPU_comparison_job": null,
       "dependencies": {
-        "statistics": "afterok:4539402",
-        "comparison": "afterok:4539403"
+        "statistics": "Actual registered3M training and final readout success, then SSH",
+        "comparison": "Actual original CPU statistics success, then SSH"
       },
       "source_commit": "b308e5fe6859d25b1ea7564a7d259f22c5a5c95e",
       "actual_GPU_EndTime_CST": "2026-11-26T12:27:55",
@@ -4768,10 +4768,10 @@
         "whole_card_power_summary_pending": true
       },
       "latest_original_progress": {
-        "observed_at_UTC": "2026-11-26T03:56:30Z",
-        "samples": 2035456,
-        "training_loop_seconds": 191024.07991708058,
-        "source": "Original losses.csv last complete row"
+        "samples": 2090752,
+        "updates": 65336,
+        "source": "Original complete handoff acknowledgment and sample clock",
+        "observed_at_UTC": "2026-11-26T04:32:01Z"
       },
       "live_joint_NFS_forecast_bytes": 34244105455,
       "active_frozen_configuration_share_upper_bound_bytes": 42074762973,
@@ -4977,13 +4977,13 @@
         "from_samples": 1000000,
         "original_unsaved_replay": 501088,
         "record": {
-          "status": "RUNNING_RESTORED_ORIGINAL_1M_STATE",
+          "status": "CLOSED_SAFE_COOPERATIVE_HANDOFF_75",
           "observed_at_UTC": "2026-11-24T04:34:06Z",
           "prelaunch_source_commit": "b308e5fe6859d25b1ea7564a7d259f22c5a5c95e",
           "prelaunch_record": "results/d_recipe/L1_GPU20_same_1M_continuation_prelaunch_20261124.json",
           "GPU_job": 4539402,
-          "CPU_statistics_job": 4539403,
-          "CPU_pair_job": 4539404,
+          "CPU_statistics_job": null,
+          "CPU_pair_job": null,
           "GPU_node": "compute-0-20",
           "CPU_node": "compute-0-12",
           "dependencies": {
@@ -5097,7 +5097,11 @@
           "all_native_guards_and_other_owner_forecasts_unchanged": true,
           "new_NFS_checkpoint_slots": 0,
           "full_TASKBOOK_remaining_unchanged": true,
-          "final_recipe_frozen": false
+          "final_recipe_frozen": false,
+          "retired_CPU_pending_jobs": [
+            4539403,
+            4539404
+          ]
         }
       },
       "formal_first1000_scope": "Original cold RTX3090 prefix source retained; not a new benchmark or RTX4090 rate",
@@ -5161,7 +5165,7 @@
         "full_peak": 27288051602,
         "joint_peak": 34244105455
       },
-      "current_runtime_state": "ORIGINAL_GUARD_RESUMED_SAME_WORKER",
+      "current_runtime_state": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
       "current_runtime_node_state": {
         "source": "results/d_recipe/partition_state_20261125.json",
         "state": "MIXED",
@@ -5199,13 +5203,24 @@
         "bytes": 205553749,
         "UID": 1278,
         "samples": 2000000
+      },
+      "original_GPU_closed": {
+        "job": 4539402,
+        "exit_code": "75:0",
+        "scientific_failure": false,
+        "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M_resume1M_gpu20_20261124/training/samples_2090752.pt",
+        "samples": 2090752,
+        "owned_tree_reaped": true,
+        "actual_original_PIDs_absent": true,
+        "old_cgroup_absent": true,
+        "source": "results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json"
       }
     },
-    "next_L1_progress_check_UTC": "2026-11-25T03:20:00Z",
+    "next_L1_progress_check_UTC": null,
     "L2": {
       "arm": "D-L2",
-      "status": "PENDING_A1_CURSOR_RESUME",
-      "A1_status": "RESUME_JOB_PENDING_PRIORITY",
+      "status": "SSH_CURSOR_SEGMENT_RUNNING",
+      "A1_status": "SSH_SUPERVISOR_RUNNING_READER_INITIALIZING",
       "A1_jobs": [
         4539164,
         4539169,
@@ -5227,8 +5242,47 @@
       "resume_configuration_binding_identical": true,
       "actual_cursor_node": "compute-0-11",
       "resume_resident": "configs/d_recipe/launches/L2_stage2_A1_resume729600_20261126_resident.sbatch",
-      "A1_recovery_job": 4540186,
-      "source_commit": "a65ad7fd6786b2b44fd73922050eeb79eb4239c4"
+      "A1_recovery_job": null,
+      "source_commit": "a65ad7fd6786b2b44fd73922050eeb79eb4239c4",
+      "retired_pending_job": 4540186,
+      "SSH_execution": {
+        "status": "SSH_SUPERVISOR_RUNNING_READER_INITIALIZING",
+        "source_commit": "a55469c55c4b02b95093ac196c8046a682a1858f",
+        "configuration": "configs/d_recipe/launches/L2_A1_segment1_20261126.json",
+        "execution_id": "ssh:P_D_L2_A1_segment1_20261126",
+        "start_cursor": 729600,
+        "full_TRAIN_rows": 1194228,
+        "original_scientific_binding_unchanged": true,
+        "original_pending_job": 4540186,
+        "retired_old_job": "CANCELLED by1278,0:0,ElapsedRaw0 after UID/PENDING/0 verification and hold",
+        "node": "compute-0-11",
+        "cores": [
+          37
+        ],
+        "measured_idle_fraction": 1,
+        "MemAvailable": 398354911232,
+        "segment_seconds": 10800,
+        "timeout_seconds": 21600,
+        "cleanup_seconds": 180,
+        "canonical_admission": {
+          "ram_own": 34359738368,
+          "ram_peers": 77309411328,
+          "ram_reserve": 40446522572,
+          "disk_own_with_original_peer_future": 38788923392,
+          "disk_peers": 226492416,
+          "disk_reserve": 10737418240,
+          "disk_available": 57268232192
+        },
+        "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment1_20261126/receipt.json",
+        "supervisor_pid": 248291,
+        "supervisor_start_ticks": 2278850548,
+        "timeout_parent_pid": 248290,
+        "scientific_data_generation": false,
+        "partial_TRAIN_fitting": false,
+        "claim": "runs/shared_storage_reservations/d-recipe.json",
+        "execution_id_namespace_note": "P_ prefix is required by the reused shared provider, metadata line remains D; not a P scientific run and not a Slurm job"
+      },
+      "operational_update_source": "results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json"
     },
     "reference_production_status": "L1_FROZEN_L2_CURSOR_RECOVERY_PENDING",
     "storage_retirement": {
