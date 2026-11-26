@@ -72,7 +72,8 @@ def worker(c):
                'fullft_resume_check':'check_fullft_resume_20261126.py',
                'execution_delivery':'deliver_execution_adapters_20261126.py',
                'readout_runtime_check':'check_readout_runtime_20261126.py',
-               'readout_delivery':'deliver_readout_adapters_20261126.py'}
+               'readout_delivery':'deliver_readout_adapters_20261126.py',
+               'standby_settlement_check':'check_standby_settlement_20261126.py'}
     if c['stage'] not in scripts:
         raise ValueError('No unregistered CPU stage')
     if c['stage'] == 'population':
