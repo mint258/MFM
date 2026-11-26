@@ -93,7 +93,99 @@
       "new_GPU_job_submitted": false,
       "other_owner_processes_changed": false
     },
-    "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json"
+    "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json",
+    "closed_attempt_costs": {
+      "source": "results/d_recipe/L1_closed_attempt_costs_20261126.json",
+      "observed_at_UTC": "2026-11-26T06:14:20.240Z",
+      "parents": [
+        {
+          "job": 4539360,
+          "elapsed_seconds": 30323,
+          "allocated_CPUs": 5,
+          "state": "FAILED",
+          "exit": "1:0",
+          "GPU_model": "NVIDIA GeForce RTX 3090",
+          "whole_card_sample_mean_watts": 196.1332731137088,
+          "power_samples": 941,
+          "timer_point_window_samples_per_second": 49.7904196152214
+        },
+        {
+          "job": 4539399,
+          "elapsed_seconds": 11,
+          "allocated_CPUs": 5,
+          "state": "FAILED",
+          "exit": "1:0",
+          "GPU_model": null,
+          "whole_card_sample_mean_watts": null,
+          "power_samples": 0,
+          "timer_point_window_samples_per_second": null
+        },
+        {
+          "job": 4539402,
+          "elapsed_seconds": 171930,
+          "allocated_CPUs": 5,
+          "state": "FAILED",
+          "exit": "75:0",
+          "GPU_model": "NVIDIA GeForce RTX 4090",
+          "whole_card_sample_mean_watts": 174.04517910447763,
+          "power_samples": 670,
+          "timer_point_window_samples_per_second": 6.343998067446253
+        }
+      ],
+      "parent_GPU_node_allocation_wall_hours": 56.184444444444445,
+      "allocated_CPU_hours": 280.9222222222222,
+      "TotalCPU": "UNREPORTED_NOT_MEASURED_ZERO",
+      "MaxRSS": "UNREPORTED",
+      "sampler_mean_not_time_integrated_or_attributed": true,
+      "timer_window_includes_pauses_not_hardware_throughput": true,
+      "source_telemetry_consumed_once": true,
+      "producer": {
+        "execution_id": "ssh:P_D_L1_closed_costs_20261126",
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "idle_fraction": {
+          "65": 1
+        },
+        "wall_seconds": 0.5055930614471436,
+        "actual_child_CPU_seconds": 0.182673,
+        "peak_child_RSS_KiB": 19276,
+        "supervisor": {
+          "pid": 2797196,
+          "start_ticks": 2047486304,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4918.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2797195,
+          "start_ticks": 2047486303,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4918.scope\n",
+          "state": "S"
+        },
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "temporary_claims_released": true,
+        "source_entry": "configs/d_recipe/launches/L1_closed_costs_20261126_ssh.json",
+        "source_commit": "834a2399ddaea1e4052cd3f4765b594ac0f07f4c"
+      }
+    }
   },
   "L2": {
     "status": "RUNNING_PROGRESSING",
