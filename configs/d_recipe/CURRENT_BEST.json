@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_CONTINUING_L2_A1_ENGINEERING_RECOVERY_PENDING",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-26T03:54:06Z",
+  "updated_at_utc": "2026-11-26T03:56:30Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -4768,19 +4768,10 @@
         "whole_card_power_summary_pending": true
       },
       "latest_original_progress": {
-        "observed_at_UTC": "2026-11-26T03:05:16Z",
-        "samples": 1861088,
-        "training_loop_seconds": 187950.70841113152,
-        "job": 4539402,
-        "source": "Originallosses.csvtail",
-        "worker_pid": 281103,
-        "worker_start_ticks": 67356059,
-        "worker_state": "S",
-        "guardian_pid": 281058,
-        "guardian_start_ticks": 67355699,
-        "guardian_state_observed_once": "D",
-        "guardian_D_duration": "UNKNOWN",
-        "new_signals_or_restart": false
+        "observed_at_UTC": "2026-11-26T03:56:30Z",
+        "samples": 2035456,
+        "training_loop_seconds": 191024.07991708058,
+        "source": "Original losses.csv last complete row"
       },
       "live_joint_NFS_forecast_bytes": 34244105455,
       "active_frozen_configuration_share_upper_bound_bytes": 42074762973,
@@ -4846,7 +4837,8 @@
           "infrastructure_continuation": true,
           "failed_attempt_prefix": false,
           "decision_input": false
-        }
+        },
+        "results/d_recipe/D-L1_seed0_continuation_fixed_VAL_2000000_20261126.json"
       ],
       "first_registered_checkpoint": {
         "checkpoint_path": "X:\\runs\\d_recipe_20261120\\full\\stage2\\D-L1_seed0_3M\\training\\samples_1000000.pt",
@@ -5187,9 +5179,8 @@
         "existing_cleanup_seconds": 900,
         "method": "Existing cooperativeSAVE_AND_EXIT fullcheckpoint and ack, then verify ownedtree reaped/absent; materialize same-arm seed0 3M continuation from ack checkpoint/clock withoptimizer/RNG/p99 preserved; no duplicateproducer",
         "ack": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/exit_control/d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124/job_4539402/ack.json",
-        "pending_stats_to_rebind_after_continuation_submission": 4539403,
-        "comparison_after_statistics": 4539404,
-        "do_not_treat_handoff_exit75_as_scientific_failure": true
+        "do_not_treat_handoff_exit75_as_scientific_failure": true,
+        "postprocessing": "After true3M/GPUreadout success, SSH CPUstatistics then original R1 comparison; old4539403/404 retired Pending0 under newrule."
       },
       "CPU_followup": {
         "backend": "ssh_cpu",
@@ -5201,6 +5192,13 @@
         "comparison": "After originalCPUstatistics actualsuccess, same R1seed0 control",
         "scientific_code_and_output_paths_unchanged": true,
         "actual_target_and_idle_cores_to_admit_at_launch": true
+      },
+      "second_registered_checkpoint": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M_resume1M_gpu20_20261124/training/samples_2000000.pt",
+        "exists": true,
+        "bytes": 205553749,
+        "UID": 1278,
+        "samples": 2000000
       }
     },
     "next_L1_progress_check_UTC": "2026-11-25T03:20:00Z",

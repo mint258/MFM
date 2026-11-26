@@ -1,0 +1,55 @@
+{
+  "schema": "D_L1_ORIGINAL_CONTINUATION_FIXED_VAL_2M_V1",
+  "status": "NATIVE_REPORT_CLOSED_TRANSCRIBED",
+  "run": "d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124",
+  "job": 4539402,
+  "node": "compute-0-20",
+  "samples": 2000000,
+  "updates": 62500,
+  "native_checkpoint": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L1_seed0_3M_resume1M_gpu20_20261124/training/samples_2000000.pt",
+    "exists": true,
+    "bytes": 205553749,
+    "UID": 1278
+  },
+  "fixed_VAL_molecules": 2000,
+  "fields": 198,
+  "native_family_rows": [
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124",
+      "kind": "VAL_fixed2000",
+      "samples": "2000000",
+      "updates": "62500",
+      "family": "atom_sasa",
+      "loss": "0.006749767228960991",
+      "clipped_fraction": "0.003344",
+      "seconds": "190390.26407692255"
+    },
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124",
+      "kind": "VAL_fixed2000",
+      "samples": "2000000",
+      "updates": "62500",
+      "family": "graph_2d",
+      "loss": "0.018618068501353262",
+      "clipped_fraction": "0.003344",
+      "seconds": "190390.26408565254"
+    },
+    {
+      "run": "d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124",
+      "kind": "VAL_fixed2000",
+      "samples": "2000000",
+      "updates": "62500",
+      "family": "molecule_3d",
+      "loss": "0.008729440476745367",
+      "clipped_fraction": "0.003344",
+      "seconds": "190390.2640867855"
+    }
+  ],
+  "field_report_source": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/results/d_recipe/training/d_recipe_20261120_D_L1_seed0_3M_resume1M_gpu20_20261124/VAL_original_units_2000000.csv",
+  "original_units_csv": "results/d_recipe/D-L1_seed0_continuation_VAL_original_units_2000000_20261126.csv",
+  "gradient_clipped_fraction_scope": "Gradient updates, not target +-6 label clipping",
+  "native_timer_scope": "Includes original prefix and guard waits, not standalone GPU20 throughput",
+  "main_R3_decision": false,
+  "metrics_recomputed": false
+}
