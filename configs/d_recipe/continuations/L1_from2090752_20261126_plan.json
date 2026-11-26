@@ -140,7 +140,8 @@
       "same_budget": true,
       "complete_optimizer_sampler_Torch_and_CUDA_RNG_and_clip_state_preserved": true,
       "scientific_failure": false
-    }
+    },
+    "canonical_admission": true
   },
   "operational_fields_must_bind_before_launch": [
     "Actual healthy node and assigned GPU UUID",
@@ -154,5 +155,71 @@
   ],
   "launch_submitted": false,
   "scientific_recipe_frozen": false,
-  "independent_checkpoint_QA": false
+  "independent_checkpoint_QA": false,
+  "canonical_transport": {
+    "source_commit": "5a0e7d2270adaa46303ce4fd9606926c376a9cf3",
+    "managed_entry": "tools/d_recipe/managed_entry.py",
+    "resource_module": "tools.d_recipe.canonical_resources",
+    "scope": "Original NFSoutput; new owned localroot tobind onactualadmittednode",
+    "ram_peak_bytes": 68719476736,
+    "new_local_future_bytes": 8724152320,
+    "shared_future_bytes": "BIND_CURRENT_OWN_REMAINING_PHASE_BEFORE_LAUNCH",
+    "reservation_ids": "BIND_ACTUAL_NODE_AND_OWN_D_CLAIMS",
+    "startup_own_registry_and_actual_UID_required": true,
+    "test": {
+      "source_commit": "5a0e7d2270adaa46303ce4fd9606926c376a9cf3",
+      "execution_id": "ssh:D_canonical_GPU_transport_contracts_20261126_attempt2",
+      "node": "compute-0-19",
+      "cores": [
+        65
+      ],
+      "idle_fraction": {
+        "65": 1
+      },
+      "tests": [
+        {
+          "stage": "D_CANONICAL_GPU_TRANSPORT_CONTRACTS",
+          "tests_run": 5,
+          "failures": 0,
+          "errors": 0,
+          "seconds": 0.015276886522769928
+        }
+      ],
+      "wall_seconds": 0.2543821334838867,
+      "child_CPU_seconds": 0.064356,
+      "peak_child_RSS_KiB": 19176,
+      "supervisor": {
+        "pid": 2796701,
+        "start_ticks": 2047392136,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4912.scope\n",
+        "state": "R"
+      },
+      "parent": {
+        "pid": 2796700,
+        "start_ticks": 2047392135,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4912.scope\n",
+        "state": "S"
+      },
+      "owned_tree_reaped": true,
+      "remaining_children": [],
+      "original_process_alive": {
+        "supervisor": false,
+        "parent": false
+      },
+      "test_future_released": true
+    },
+    "actual_GPU_integration_performed": false
+  }
 }

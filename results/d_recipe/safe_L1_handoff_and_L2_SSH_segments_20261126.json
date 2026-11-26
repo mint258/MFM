@@ -1,6 +1,6 @@
 {
   "schema": "D_OPERATIONAL_SCHEDULING_UPDATE_20261126_V1",
-  "observed_at_UTC": "2026-11-26T04:32:01Z",
+  "observed_at_UTC": "2026-11-26T05:59:52.943Z",
   "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
   "L1": {
     "status": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
@@ -84,20 +84,19 @@
     "remaining_samples": 909248,
     "scientific_budget": 3000000,
     "seed": 0,
-    "next_GPU_admission_UTC": "2026-11-26T05:54:22Z",
+    "next_GPU_admission_UTC": "2026-11-26T06:29:52.943Z",
     "latest_admission": {
-      "observed_at_UTC": "2026-11-26T05:24:22Z",
-      "physical_GPU_probe_UTC": "2026-11-26T05:21:05Z",
-      "small_group": "0/1/4/5/6/7 each have sufficient allocatableCPU but actual CUDA contexts; node3 lacks allocatableCPU",
-      "node20": "Second4090 actual443/49140MiB with free own lock, canonical unchanged64GiB training RAM admission refused; candidate claim returned0",
-      "node22": "Actual14430/32607MiB and own lock busy",
+      "observed_at_UTC": "2026-11-26T05:59:52.943Z",
+      "small_group": "GPU0/4/5/6/7 have actual CUDA contexts;1/3 have no allocatable CPUs. No compliant empty UUID.",
+      "node20": "Second4090 actual443/49140MiB, own lock free; unchanged64GiB own RAM phase refused by canonical combined admission. Candidate claim returned0, no writer.",
+      "node22": "Actual26154/32607MiB and own lock busy; no allocatable CPUs.",
       "new_GPU_job_submitted": false,
       "other_owner_processes_changed": false
     },
     "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json"
   },
   "L2": {
-    "status": "SSH_CURSOR_SEGMENT_PROGRESSING",
+    "status": "RUNNING_PROGRESSING",
     "source_commit": "a55469c55c4b02b95093ac196c8046a682a1858f",
     "configuration": "configs/d_recipe/launches/L2_A1_segment1_20261126.json",
     "execution_id": "ssh:P_D_L2_A1_segment1_20261126",
@@ -140,20 +139,19 @@
       ]
     },
     "latest_native_progress": {
-      "observed_at_UTC": "2026-11-26T05:24:22Z",
-      "closed_rows": 754432,
-      "original_start_cursor": 729600,
-      "new_closed_rows": 24832,
+      "observed_at_epoch": 1795672792.9436924,
+      "closed_rows": 772352,
       "collection_status": "COLLECTING",
+      "receipt_status": "RUNNING",
+      "returncode": null,
       "last_attempt": {
         "job_id": null,
         "node": "compute-0-11",
         "start_row": 729600,
         "state": "RUNNING",
-        "closed_rows": 754432,
-        "elapsed_seconds": 2976.7050080746412
+        "closed_rows": 772352,
+        "elapsed_seconds": 5108.108613777906
       },
-      "receipt_status": "RUNNING",
       "actual_processes": {
         "supervisor": {
           "pid": 248291,
@@ -166,16 +164,19 @@
         "worker": {
           "pid": 248316,
           "start_ticks": "2278851052",
-          "state": "R",
+          "state": "I",
           "UID": [
             "Uid:\t1278\t1278\t1278\t1278"
           ]
         }
       },
-      "actual_root_available": 56949882880,
+      "actual_root_available": 56719761408,
       "actual_root_inodes": 36569794,
-      "own_local_allocated": 9705264803,
-      "own_local_remaining_future": 7474604381
+      "own_local_allocated": 9935646720,
+      "own_local_remaining_future": 7244222464,
+      "observed_at_UTC": "2026-11-26T05:59:52.943Z",
+      "original_start_cursor": 729600,
+      "new_closed_rows": 42752
     }
   },
   "tiny_callback_test": {
@@ -618,5 +619,127 @@
     "new_pretraining_started": false,
     "full_regression_repeated": false,
     "same_line_claim_updates": "Serialize all updates to d-recipe.json; candidate RAM shadow released and local remaining reconciled after observation"
+  },
+  "new_entry_preparation": {
+    "status": "PREPARED_NOT_ACTUAL_FIT_OR_GPU_TRAINING",
+    "full_TRAIN_fit": "tools/d_recipe/reference_fit_ssh.py",
+    "full_TRAIN_fit_plan": "configs/d_recipe/reference/L2_full_TRAIN_fit_20261126_plan.json",
+    "canonical_GPU_transport": [
+      "tools/d_recipe/canonical_runtime.py",
+      "tools/d_recipe/canonical_resources.py"
+    ],
+    "tests": {
+      "full_TRAIN_fit": {
+        "source_commit": "a56f9d0594f3f9828b4bab752356f65e6b99f601",
+        "execution_id": "ssh:D_reference_fit_contracts_20261126",
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "idle_fraction": {
+          "65": 1
+        },
+        "tests": [
+          {
+            "stage": "D_REFERENCE_FIT_SSH_CONTRACTS",
+            "tests_run": 3,
+            "failures": 0,
+            "errors": 0,
+            "seconds": 0.0038617104291915894
+          }
+        ],
+        "wall_seconds": 0.2543985843658447,
+        "child_CPU_seconds": 0.06335099999999999,
+        "peak_child_RSS_KiB": 20236,
+        "supervisor": {
+          "pid": 2796007,
+          "start_ticks": 2047239744,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4904.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2796006,
+          "start_ticks": 2047239744,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4904.scope\n",
+          "state": "S"
+        },
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "test_future_released": true
+      },
+      "GPU_transport": {
+        "source_commit": "5a0e7d2270adaa46303ce4fd9606926c376a9cf3",
+        "execution_id": "ssh:D_canonical_GPU_transport_contracts_20261126_attempt2",
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "idle_fraction": {
+          "65": 1
+        },
+        "tests": [
+          {
+            "stage": "D_CANONICAL_GPU_TRANSPORT_CONTRACTS",
+            "tests_run": 5,
+            "failures": 0,
+            "errors": 0,
+            "seconds": 0.015276886522769928
+          }
+        ],
+        "wall_seconds": 0.2543821334838867,
+        "child_CPU_seconds": 0.064356,
+        "peak_child_RSS_KiB": 19176,
+        "supervisor": {
+          "pid": 2796701,
+          "start_ticks": 2047392136,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4912.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2796700,
+          "start_ticks": 2047392135,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4912.scope\n",
+          "state": "S"
+        },
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "test_future_released": true
+      }
+    },
+    "engineering_note": "First GPUtransport tinytest refused before worker dispatch due actualcore changed; freshattempt2 same sourcepassed. BOM in new attempt config repaired beforelaunch. Oldlog/outputpreserved.",
+    "source_algorithms_unchanged": true,
+    "shared_claims_serialized": true
   }
 }

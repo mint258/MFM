@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_SAFE_HANDOFF_WAIT_GPU_L2_SSH_CURSOR_RECOVERY",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-26T05:24:22Z",
+  "updated_at_utc": "2026-11-26T05:59:52.943Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -3931,7 +3931,7 @@
   },
   "stage1_transfer_decision": "results/d_recipe/stage1_transfer_decision_20261123.json",
   "stage2": {
-    "status": "L1_ORIGINAL_1M_CONTINUATION_RUNNING_GPU20_L2_UR_G1_COMPLETE",
+    "status": "L1_SAFE_HANDOFF_WAIT_GPU_L2_SSH_CURSOR_RECOVERY_G1_CLOSED",
     "selected_stage1_control": "D-R1",
     "recipe_components": [
       "A1",
@@ -4010,8 +4010,8 @@
       },
       "L2": {
         "job_id": 4539169,
-        "status": "UNRESOLVED",
-        "closed_rows": 729600,
+        "status": "ORIGINAL_FULL_TRAIN_CURSOR_RECOVERING",
+        "closed_rows": 772352,
         "total_rows": 1194228,
         "molecular_fields": 1320,
         "producer_elapsed_seconds": 80322.96498950198,
@@ -4095,9 +4095,9 @@
       "scientific_configuration_unchanged": true
     },
     "reference_entry_status": "Original entry scope initialization repaired; both current original collectors positive closed cursor",
-    "next_GPU_check_UTC": "2026-11-26T05:54:22Z",
-    "next_reference_progress_check_UTC": "2026-11-26T05:54:22Z",
-    "last_GPU_capacity_check_UTC": "2026-11-22T22:51:36Z",
+    "next_GPU_check_UTC": "2026-11-26T06:29:52.943Z",
+    "next_reference_progress_check_UTC": "2026-11-26T06:29:52.943Z",
+    "last_GPU_capacity_check_UTC": "2026-11-26T05:59:52.943Z",
     "cost_accounting_root_log_forecast": "Same128MiB joint future: two original reference logs<=2MiB each, six prospective Stage2 statistics/comparison logs<=8MiB each, total<=52MiB. Closed cost/old logs remain charged by actual df. Actual node guard retains conservative36GiB+128MiB CPU-root upper bound.",
     "CPU_continuations": {
       "status": "G1_SUBMITTED_AFTEROK_L1_L2_PREPARED_NOT_SUBMITTED",
@@ -4208,7 +4208,7 @@
       "cleanup_seconds": 900
     },
     "reference_live_queue_observation": {
-      "observed_at_UTC": "2026-11-26T05:24:22Z",
+      "observed_at_UTC": "2026-11-26T05:59:52.943Z",
       "retired_pending_zero_job": 4540186,
       "native_L2_execution_id": "ssh:P_D_L2_A1_segment1_20261126",
       "actual_supervisor": {
@@ -4222,7 +4222,7 @@
       "actual_worker": {
         "pid": 248316,
         "start_ticks": "2278851052",
-        "state": "R",
+        "state": "I",
         "UID": [
           "Uid:\t1278\t1278\t1278\t1278"
         ]
@@ -4230,7 +4230,7 @@
       "status": "RUNNING_PROGRESSING"
     },
     "required_target_reports": {
-      "status": "L1_ORIGINAL_FIT_PUBLISHED_L2_A1_UNRESOLVED_REPORT_UNAVAILABLE",
+      "status": "L1_ORIGINAL_FIT_PUBLISHED_L2_ORIGINAL_FULL_TRAIN_COLLECTION_RECOVERING",
       "taskbook_sections": [
         "4.2",
         "6",
@@ -4265,12 +4265,14 @@
           "producer_job": 4539169,
           "local_original_report": "/tmp/d_recipe_20261120_stage2_A1_L2/collection/label_parameters.json",
           "report_JSON_pointer": "/fit/fields",
-          "status": "UNRESOLVED_FULL_A1_REPORT_UNAVAILABLE",
+          "status": "FULL_TRAIN_COLLECTION_RECOVERING_NOT_YET_FITTED",
           "proposed_frozen_shared_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
           "original_failure_record": "results/d_recipe/L2_A1_unresolved_20261124.json",
           "original_closed_cursor": 729600,
           "original_full_TRAIN_molecules": 1194228,
-          "third_attempt_permitted": false
+          "third_attempt_permitted": true,
+          "authority": "docs/interfaces/TIMEBOX_RULE_20261125.md",
+          "current_closed_rows": 772352
         }
       ],
       "existing_native_D20_D3_and_atomic_SASA_report": "results/d_recipe/native_TRAIN_clipping_20261122.json",
@@ -5234,11 +5236,10 @@
       },
       "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json",
       "latest_GPU_admission": {
-        "observed_at_UTC": "2026-11-26T05:24:22Z",
-        "physical_GPU_probe_UTC": "2026-11-26T05:21:05Z",
-        "small_group": "0/1/4/5/6/7 each have sufficient allocatableCPU but actual CUDA contexts; node3 lacks allocatableCPU",
-        "node20": "Second4090 actual443/49140MiB with free own lock, canonical unchanged64GiB training RAM admission refused; candidate claim returned0",
-        "node22": "Actual14430/32607MiB and own lock busy",
+        "observed_at_UTC": "2026-11-26T05:59:52.943Z",
+        "small_group": "GPU0/4/5/6/7 have actual CUDA contexts;1/3 have no allocatable CPUs. No compliant empty UUID.",
+        "node20": "Second4090 actual443/49140MiB, own lock free; unchanged64GiB own RAM phase refused by canonical combined admission. Candidate claim returned0, no writer.",
+        "node22": "Actual26154/32607MiB and own lock busy; no allocatable CPUs.",
         "new_GPU_job_submitted": false,
         "other_owner_processes_changed": false
       }
@@ -5247,14 +5248,14 @@
     "L2": {
       "arm": "D-L2",
       "status": "SSH_CURSOR_SEGMENT_PROGRESSING",
-      "A1_status": "ORIGINAL_CURSOR_PROGRESSED_UNDER_SSH",
+      "A1_status": "ORIGINAL_FULL_TRAIN_CURSOR_COLLECTION_RECOVERING",
       "A1_jobs": [
         4539164,
         4539169,
         4540186
       ],
       "A1_failures": 0,
-      "closed_collection_rows": 754432,
+      "closed_collection_rows": 772352,
       "required_full_TRAIN_rows": 1194228,
       "parameters_published": false,
       "seed0_started": false,
@@ -5366,20 +5367,19 @@
         ]
       },
       "latest_native_progress": {
-        "observed_at_UTC": "2026-11-26T05:24:22Z",
-        "closed_rows": 754432,
-        "original_start_cursor": 729600,
-        "new_closed_rows": 24832,
+        "observed_at_epoch": 1795672792.9436924,
+        "closed_rows": 772352,
         "collection_status": "COLLECTING",
+        "receipt_status": "RUNNING",
+        "returncode": null,
         "last_attempt": {
           "job_id": null,
           "node": "compute-0-11",
           "start_row": 729600,
           "state": "RUNNING",
-          "closed_rows": 754432,
-          "elapsed_seconds": 2976.7050080746412
+          "closed_rows": 772352,
+          "elapsed_seconds": 5108.108613777906
         },
-        "receipt_status": "RUNNING",
         "actual_processes": {
           "supervisor": {
             "pid": 248291,
@@ -5392,16 +5392,19 @@
           "worker": {
             "pid": 248316,
             "start_ticks": "2278851052",
-            "state": "R",
+            "state": "I",
             "UID": [
               "Uid:\t1278\t1278\t1278\t1278"
             ]
           }
         },
-        "actual_root_available": 56949882880,
+        "actual_root_available": 56719761408,
         "actual_root_inodes": 36569794,
-        "own_local_allocated": 9705264803,
-        "own_local_remaining_future": 7474604381
+        "own_local_allocated": 9935646720,
+        "own_local_remaining_future": 7244222464,
+        "observed_at_UTC": "2026-11-26T05:59:52.943Z",
+        "original_start_cursor": 729600,
+        "new_closed_rows": 42752
       },
       "next_segment_plan": "configs/d_recipe/reference/L2_cursor_segments_20261126_plan.json",
       "canonical_next_segment_entry": "tools/d_recipe/reference_segment_canonical.py"
@@ -6302,7 +6305,7 @@
   "scheduling_implementation": {
     "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
     "cold_confirmation_tests": "10PASS in original single SSH execution",
-    "L2_cursor_segment": "Single original configured3h SSH segment, no label/descriptor generation; current reader initializing, oneD sample retained",
+    "L2_cursor_segment": "Original3h SSH segment actively collecting committed chunks; scientific source/configuration unchanged.",
     "L1_followup": "tools/d_recipe/cpu_postprocess_ssh.py prepared; original statistics/compare APIs, only after actual3M success",
     "canonical_storage_guard": {
       "source_commit": "cb30014fe7cb0e0665534f24f7abbcbf1e978546",
@@ -6352,8 +6355,131 @@
         "actual_supervisor_and_parent_absent": true,
         "test_node_claims_released": true
       },
-      "claim_refresh": "Canonical claim() default24h TTL; original L2 owned allocated9419964020B, local remaining7759905164B; current metadata future150000000B; other-line files unchanged",
+      "claim_refresh": "Serialized own claim() refresh24hTTL; L2 allocated9935646720B, remaininglocalfuture7244222464B. Closed test futures0; no other line registry modified.",
       "phase_rule": "New entries use canonical timed admission at phase start and >1GiB writes; original running L2 remains frozen until its safe segment boundary"
+    },
+    "new_original_full_TRAIN_fitter": {
+      "module": "tools/d_recipe/reference_fit_ssh.py",
+      "plan": "configs/d_recipe/reference/L2_full_TRAIN_fit_20261126_plan.json",
+      "status": "PREPARED_WAIT_COMPLETE_COHORT_AND_COLLECTOR_CLOSURE",
+      "test": {
+        "source_commit": "a56f9d0594f3f9828b4bab752356f65e6b99f601",
+        "execution_id": "ssh:D_reference_fit_contracts_20261126",
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "idle_fraction": {
+          "65": 1
+        },
+        "tests": [
+          {
+            "stage": "D_REFERENCE_FIT_SSH_CONTRACTS",
+            "tests_run": 3,
+            "failures": 0,
+            "errors": 0,
+            "seconds": 0.0038617104291915894
+          }
+        ],
+        "wall_seconds": 0.2543985843658447,
+        "child_CPU_seconds": 0.06335099999999999,
+        "peak_child_RSS_KiB": 20236,
+        "supervisor": {
+          "pid": 2796007,
+          "start_ticks": 2047239744,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4904.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2796006,
+          "start_ticks": 2047239744,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4904.scope\n",
+          "state": "S"
+        },
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "test_future_released": true
+      }
+    },
+    "new_canonical_GPU_transport": {
+      "modules": [
+        "tools/d_recipe/canonical_runtime.py",
+        "tools/d_recipe/canonical_resources.py"
+      ],
+      "default_off": true,
+      "status": "MICROTESTS_PASSED_NO_GPU_JOB_SUBMITTED",
+      "test": {
+        "source_commit": "5a0e7d2270adaa46303ce4fd9606926c376a9cf3",
+        "execution_id": "ssh:D_canonical_GPU_transport_contracts_20261126_attempt2",
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "idle_fraction": {
+          "65": 1
+        },
+        "tests": [
+          {
+            "stage": "D_CANONICAL_GPU_TRANSPORT_CONTRACTS",
+            "tests_run": 5,
+            "failures": 0,
+            "errors": 0,
+            "seconds": 0.015276886522769928
+          }
+        ],
+        "wall_seconds": 0.2543821334838867,
+        "child_CPU_seconds": 0.064356,
+        "peak_child_RSS_KiB": 19176,
+        "supervisor": {
+          "pid": 2796701,
+          "start_ticks": 2047392136,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4912.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2796700,
+          "start_ticks": 2047392135,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4912.scope\n",
+          "state": "S"
+        },
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "test_future_released": true
+      },
+      "actual_training_integration_verified": false,
+      "prior_prelaunch_refusal": "Original attempt did not create a runtime receipt or scientific worker: selectedcore becamebusy; originallauncher gone andownfuture released. Freshattempt2 passedactual5sidle1.0."
     }
   }
 }
