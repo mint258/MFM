@@ -1,4 +1,5 @@
 """Place the existing final bootstrap on CPU nodes after GPU readouts finish."""
+from cpu_ssh_runtime import execution_handle,execution_backend
 import argparse,json,os,socket,subprocess,time
 from pathlib import Path
 from execution_ledger import C,locked_ledger,read,write
@@ -66,8 +67,8 @@ def finalize(configuration):
    raise ValueError('Original R1/R3 bootstrap is incomplete; preserve its output')
  elapsed=time.monotonic()-started
  summary.update(status='COMPLETE',statistics_complete=True,
-   statistics_backend='slurm_cpu',statistics_node=socket.gethostname().split('.')[0],
-   statistics_job_id=os.environ.get('SLURM_JOB_ID'),
+   statistics_backend=execution_backend(),statistics_node=socket.gethostname().split('.')[0],
+   statistics_job_id=execution_handle(),
    statistics_cpu_seconds=summary.get('statistics_cpu_seconds',0.)+elapsed)
  summary['training_and_evaluation_seconds']=summary['training_and_gpu_readout_seconds']+summary['statistics_cpu_seconds']
  if c.get('budget_curve'):summary['statistics_completed_at']=time.time()

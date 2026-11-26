@@ -1,4 +1,5 @@
 """A5 first UFF paired statistics; original-geometry draws are consumed unchanged."""
+from cpu_ssh_runtime import execution_handle
 import argparse,fcntl,json,os,time
 from dataclasses import replace
 from pathlib import Path
@@ -89,7 +90,7 @@ def run(c):
             atomic_json(out/"primary.json",primary)
             atomic_json(Path(c["publication_primary"]),primary)
             atomic_json(out/"paired_mean_draws.json",draws)
-            atomic_json(out/"primary_complete.json",dict(status="COMPLETE",job=os.environ["SLURM_JOB_ID"],
+            atomic_json(out/"primary_complete.json",dict(status="COMPLETE",job=execution_handle(),
                 rows=len(rows),new_model_fits=0,old_geometry_bootstrap_replayed=False))
             print(json.dumps(dict(status="COMPLETE",rows=len(rows),interpretation=interpretation)),flush=True)
             return 0

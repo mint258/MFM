@@ -145,7 +145,7 @@ def native_query(argv, stop):
     return out.decode("utf-8",errors="strict")
 
 
-def set_actual_deadline(c, stop):
+def _set_slurm_actual_deadline(c, stop):
     text = native_query(["/usr/bin/scontrol","show","job",os.environ["SLURM_JOB_ID"],"-o"],stop)
     values = dict(re.findall(r"(\w+)=(\S+)",text))
     node = socket.gethostname().split(".")[0]
@@ -165,6 +165,12 @@ def set_actual_deadline(c, stop):
     os.environ["P_MANAGED_HARD_END"] = str(end)
     os.environ["P_MANAGED_STOP_NEW_UNITS_AT"] = str(end-reserve)
     os.environ["P_MANAGED_UNIT_SECONDS"] = str(unit)
+
+def set_actual_deadline(c, stop):
+    if c.get("execution_backend") == "ssh_cpu":
+        from cpu_ssh_runtime import verified_deadline
+        return verified_deadline(c)
+    return _set_slurm_actual_deadline(c, stop)
 
 def gpu_lock_and_check(c, stop):
     locks = Path("/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage46_shared_gpu_launch/.own_gpu_uuid_locks")

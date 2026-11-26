@@ -1,4 +1,5 @@
 """E1 final training hardware from original telemetry only; no GPU queries."""
+from cpu_ssh_runtime import execution_handle
 import argparse,csv,fcntl,json,os
 from pathlib import Path
 from e1_hardware import summarize_telemetry
@@ -43,7 +44,7 @@ def run(c):
                     samples_per_second=sum(x["samples"] for x in values)/seconds,
                     power_time_weighted_mean_watts=sum(x["power_time_weighted_mean_watts"]*x["power_observation_seconds"] for x in values)/duration,
                     native_seconds=seconds,power_observation_seconds=duration))
-            result=dict(status="COMPLETE",job=os.environ["SLURM_JOB_ID"],rows=rows,by_card_type=cards,
+            result=dict(status="COMPLETE",job=execution_handle(),rows=rows,by_card_type=cards,
                 original_I1_method_reused=True,no_new_GPU_samples=True,
                 window="Original training including original VAL/checkpoints; later readout/FT excluded")
             atomic_json(output/"hardware.json",result)
@@ -51,7 +52,7 @@ def run(c):
             with (output/"by_card_type.csv").open("x",newline="") as stream:
                 writer=csv.DictWriter(stream,fieldnames=cols);writer.writeheader();writer.writerows(cards)
                 stream.flush();os.fsync(stream.fileno())
-            atomic_json(output/"summary.json",dict(status="COMPLETE",job=os.environ["SLURM_JOB_ID"],runs=len(rows)))
+            atomic_json(output/"summary.json",dict(status="COMPLETE",job=execution_handle(),runs=len(rows)))
             return 0
 
 if __name__=="__main__":

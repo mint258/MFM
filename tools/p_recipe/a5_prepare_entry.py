@@ -1,4 +1,5 @@
 """Run only the two repaired calling-contract tests, then the one cohort producer."""
+from cpu_ssh_runtime import execution_handle
 import argparse,json,os
 from pathlib import Path
 from a5_contracts import require_runtime_configuration
@@ -16,7 +17,7 @@ def run(c):
             from finetune_entry import REPO
             status=pytest.main(["-q","-p","no:cacheprovider",str(REPO/"tools/p_recipe/test_a5_contracts.py")])
             if status:return int(status)
-            atomic_json(receipt,dict(status="PASS",tests=2,job=os.environ["SLURM_JOB_ID"],
+            atomic_json(receipt,dict(status="PASS",tests=2,job=execution_handle(),
                 old_regression_repeated=False))
         from a5_cohort_entry import run as cohort
         return cohort(c)

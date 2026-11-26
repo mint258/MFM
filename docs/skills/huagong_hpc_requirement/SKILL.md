@@ -3,11 +3,22 @@ name: huagong_hpc_requirement
 description: 在华工 HPC（sonmi、zixiao@202.38.247.57）或 PhyChem_MFM / descriptor_analysis 项目上连接服务器、编辑代码、短程测试、提交 Slurm 正式任务、监控模型训练、管理存储或纠正运行规范时使用；涉及既有学校服务器的正式预训练时也适用。
 metadata:
   short-description: 华工服务器连接、Slurm 任务、GPU 隔离、训练监控与存储规范
-  version: "1.0.165"
-  updated: "2026-11-25"
+  version: "1.0.166"
+  updated: "2026-11-26"
 ---
 
 # huagong_hpc_requirement
+
+## 2026-11-26 用户调度修订：短CPU按实测空闲核SSH运行
+
+本节覆盖旧的“CPU一律sbatch/仅按Slurm剩余核判断”条款；权威为 [SCHEDULING_RULE_20261126.md](https://github.com/mint258/MFM/blob/p-recipe/docs/interfaces/SCHEDULING_RULE_20261126.md)，适用所有工作线，立即生效。原科学范围、付费服务器授权、真实磁盘/UID配额/跨窗口预留、故障节点隔离及11-22退出保护继续。
+
+- CPU≤16且预计墙钟≤4小时的统计、bootstrap、汇总、测试、门槛/盘点和小拟合，直接SSH到健康CPU节点8–19；compute-0-2仅现场sinfo确认属于CPU分区时可用。用5秒各核idle实测选足够空闲核，MemAvailable≥所需RAM+4GiB；不依据Slurm CPUAlloc，不占实测忙核/不超订。无合规节点时CPU减半再查；仍无则sbatch并记一行。
+- 可按游标切段的>4小时任务切成≤4小时段；大批量构象/标签/描述符/LMDB生成或CPU>16仍sbatch。CPU-only不使用GPU节点；不改他人或别线任务。
+- SSH入口使用setsid、nohup、taskset和timeout；OMP/MKL/OPENBLAS线程数等于所用核数，上限max(2×预计时间,30分钟)且≤8小时。保留真实清理窗口和自有树join/reap证明，不以timeout强杀当正常结束。记录node/PID/start_ticks/核/退出码/墙钟及CPU时间，CPU时间计成本。
+- 原afterok按上游真实成功终态逐项启动。现有本线短CPU队列只在核实UID/PENDING/0秒后取消旧句柄并SSH接续，不能双跑；在跑训练不因新规则停止/重启。工程失败按11-25修好续接，同任务第二次资源超时改sbatch。
+- GPU仍按任务规模：≤3M优先0–7，>3M优先20/22，组内5090>4090>3090，优先组无合规空卡立即用另一组。0–7须目标UUID空闲且可分配CPU足够才普通sbatch立即启动；20/22保留≤30%显存SSH+同任务sbatch完整断点接管。21仍禁用，不提交只能干等的GPU作业。
+
 
 ## 2026-11-25 用户时间盒修订：工程失败修好续接
 

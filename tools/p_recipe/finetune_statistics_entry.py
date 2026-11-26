@@ -1,4 +1,5 @@
 """CPU-only primary F statistics; resume the same molecular draws, never refit."""
+from cpu_ssh_runtime import execution_handle
 import argparse
 import csv
 import fcntl
@@ -128,7 +129,7 @@ def run(c):
                 writer.writeheader();writer.writerows(result["rows"])
                 stream.flush();os.fsync(stream.fileno())
             os.replace(tmp,output/"rows.csv")
-            summary=dict(status="COMPLETE",run=c["run"],job_id=os.environ["SLURM_JOB_ID"],
+            summary=dict(status="COMPLETE",run=c["run"],job_id=execution_handle(),
                 node=c["node"],cpu_seconds_this_attempt=time.time()-started,
                 rows=len(result["rows"]),bootstrap_draws=1000,bootstrap_seed=20261025,
                 estimator="E1_three_seed_point_mean_and_matched_seed_mean_CI" if c.get("E1_seed_mean_draws",False) else "three_seed_point_mean_and_mean_prediction_molecular_CI_separate",

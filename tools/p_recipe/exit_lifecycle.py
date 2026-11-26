@@ -136,7 +136,7 @@ def cleanup_seconds(value):
 
 
 def supervise(command, *, end_epoch, scope, grace_seconds=900,
-              request_stop=None, poll_seconds=.25, stop_state=None, report=print):
+              request_stop=None, poll_seconds=.25, stop_state=None, report=print, ssh_identity=None):
     """Run once, request a safe boundary, then TERM and reap every owned child.
 
     end_epoch must come from the actual allocation, or None for UNLIMITED.
@@ -153,8 +153,16 @@ def supervise(command, *, end_epoch, scope, grace_seconds=900,
     if end_epoch is not None and end_epoch - time.time() <= grace:
         raise RuntimeError("No work may start inside the cleanup window")
     job_id = os.environ.get("SLURM_JOB_ID")
-    if not job_id or scope != slurm_scope(job_id):
-        raise RuntimeError("Use the exact current allocation/step scope")
+    if ssh_identity is None:
+        if not job_id or scope != slurm_scope(job_id):
+            raise RuntimeError("Use the exact current allocation/step scope")
+    else:
+        current = identity(os.getpid())
+        if (job_id or not os.environ.get("P_CPU_SSH_EXECUTION_ID")
+                or not same_process(ssh_identity, current)
+                or current.uids != (os.getuid(),) * 4
+                or scope != next((line for line in current.cgroup.splitlines() if line.startswith("0::")), None)):
+            raise RuntimeError("Actual SSH supervisor UID/start/cgroup required")
     enable_subreaper()
     uid = os.getuid()
     if uid == 0:

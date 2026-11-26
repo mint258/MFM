@@ -1,8 +1,10 @@
 """A5 two frozen L6/H0 sources, identical producer-validated UFF cohort."""
 import argparse,fcntl,json,os,time
+import shared_guard
 from dataclasses import replace
 from pathlib import Path
-from finetune_entry import CooperativeStop,set_actual_deadline,admission,gpu_lock_and_check,REPO
+from finetune_entry import CooperativeStop,REPO
+from a5_runtime import set_actual_deadline,admission,gpu_lock_and_check,execution_handle
 from finetune_statistics_entry import atomic_json,fingerprint
 from a5_contracts import open_native_store,require_runtime_configuration
 
@@ -65,7 +67,11 @@ def run(c):
                     nonlocal last_guard
                     if stop.requested or time.time()+c["work_unit_seconds"]>=float(os.environ["P_MANAGED_STOP_NEW_UNITS_AT"]):return True
                     if time.monotonic()-last_guard>=15:
-                        admission(c);last_guard=time.monotonic()
+                        try:admission(c)
+                        except shared_guard.AdmissionRefused as error:
+                            print(json.dumps(dict(phase="CAPACITY_SAVE_AND_YIELD",reason=str(error))),flush=True)
+                            return True
+                        last_guard=time.monotonic()
                     return False
                 started=time.monotonic()
                 encoder=load_encoder(c["source"])
@@ -102,7 +108,7 @@ def run(c):
                     m["files"][key]=str(p);m["details"][key]={k:v for k,v in saved["detail"].items() if k!="state_dict"}
                     atomic_json(output/"predictions.json",m)
                 atomic_json(output/"primary_complete.json",dict(status="GPU_READOUT_COMPLETE_WAITING_CPU_STATISTICS",
-                    job=os.environ["SLURM_JOB_ID"],source=c["source"]["label"],manifest=str(output/"predictions.json"),
+                    job=execution_handle(),source=c["source"]["label"],manifest=str(output/"predictions.json"),
                     readout_cells=3,readout_seed=0,encoder_updated=False,common_cohort=c["cohort"],
                     alignment_repeated=False,new_geometry=False,seconds=time.monotonic()-started))
                 return 0

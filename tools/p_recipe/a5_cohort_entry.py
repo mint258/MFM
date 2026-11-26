@@ -1,4 +1,5 @@
 """Produce the registered shared UFF cohort once, reusing the closed key join."""
+from cpu_ssh_runtime import execution_handle
 import argparse, csv, fcntl, io, json, os, sys, time
 from collections import Counter
 from pathlib import Path
@@ -121,10 +122,10 @@ def run(c):
                     geometry_policy="First original sealed UFF conformer; explicit sealed atom map projects to unchanged native atom inventory; no isomorphism or geometry generation",
                     source_labels_and_original_inner_split_unchanged=True,
                     matching_recomputed=False,alignment_performed_once_by_producer=True,
-                    new_geometry=False,job=os.environ["SLURM_JOB_ID"])
+                    new_geometry=False,job=execution_handle())
                 atomic_json(out/"common_cohort.json",result)
                 atomic_json(out/"primary_complete.json",dict(status="COMPLETE",common_cohort=str(out/"common_cohort.json"),
-                    accepted_members=result["accepted_members"],exclusion_reasons=counts,job=os.environ["SLURM_JOB_ID"]))
+                    accepted_members=result["accepted_members"],exclusion_reasons=counts,job=execution_handle()))
                 print(json.dumps(dict(status="COMPLETE",accepted=result["accepted_members"],excluded=len(state["excluded"]),reasons=counts)),flush=True)
                 return 0
             finally:

@@ -1,0 +1,38 @@
+{
+  "kind": "E1_STATISTICS",
+  "ready": true,
+  "node": "compute-0-11",
+  "excluded_nodes": [
+    "compute-0-10",
+    "compute-0-14",
+    "compute-0-16",
+    "compute-0-17",
+    "compute-0-18"
+  ],
+  "reservation_ids": [
+    "P_E1_CPU11_RAM",
+    "P_E1_CPU11_tmp",
+    "P_E1_NFS_future"
+  ],
+  "output": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_frozen_seed0",
+  "output_mount": "/share",
+  "ram_peak_bytes": 8589934592,
+  "remaining_output_bytes": 67108864,
+  "cleanup_seconds": 180,
+  "work_unit_seconds": 120,
+  "original_run": "fixed_20261115_E1_k5_seed0_frozen_readout",
+  "original_configuration": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_frozen_seed0/configuration.json",
+  "samples": 3000000,
+  "R1_backend": "slurm_cpu",
+  "source_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/E1_20261124/k5_managed_seed0_attempt2.json",
+  "checkpoint_identity": {
+    "path": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/E1_20261124/k5_seed0/samples_3000000.pt",
+    "bytes": 231769377,
+    "mtime_ns": "1795535240591720110"
+  },
+  "activation_basis": "User20261126 shortCPU SSH; actual5s idle CPU11/RAM/root/inode; only never-started phase, unchanged scientific protocol/output",
+  "execution_backend": "ssh_cpu",
+  "ssh_execution_id": "ssh:P_E1_k5_original_R1_R3_statistics_20261126",
+  "ssh_runtime_receipt": "/share/home/zixiao/descriptor_analysis/runs/p_recipe_20261113/fixed_20261115/CPU_SSH_20261126/E1_k5_original_R1_R3_statistics_runtime.json",
+  "scheduling_authority": "docs/interfaces/SCHEDULING_RULE_20261126.md"
+}

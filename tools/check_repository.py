@@ -138,6 +138,7 @@ def model_summary_csv(name: str, raw: bytes) -> bool:
                  'results/p_recipe/fixed_20261115/confirmation/budget_curve.csv',
                  'results/p_recipe/fixed_20261115/confirmation/budget_curve_tasks.csv',
                  'results/p_recipe/E1/k10_full/rows.csv',
+                 'results/p_recipe/E1/training_hardware/by_card_type.csv',
                  'results/p_recipe/fixed_20261115/analysis_20261122/I1.csv',
                  'results/p_recipe/fixed_20261115/analysis_20261122/hardware_I1.csv',
                  'results/p_recipe/fixed_20261115/analysis_20261122/F.csv',

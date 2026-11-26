@@ -1,3 +1,10 @@
+## 2026-11-26 调度修订（所有窗口）
+
+短CPU任务（CPU≤16且预计≤4小时）按5秒实测空闲核直接SSH到健康CPU节点8–19；compute-0-2仅现场sinfo确属CPU分区时可用。MemAvailable≥需求+4GiB，taskset绑空闲核、OMP/MKL/OPENBLAS同核数，setsid/nohup/timeout及真实自有树退出/CPU成本记录保持；不依据Slurm分配核数，不超订。可切段的长任务按≤4小时游标段，大批量数据集生成或CPU>16仍sbatch。无空闲核先减半再查，仍无再排队。
+
+本线指定PENDING短作业核对真实UID/PENDING/0秒后取消旧句柄并改SSH，不双跑；原afterok改为上游真实成功后依次启动。在跑训练不因新规则停止/重启。GPU按原任务规模/UUID/CPU准入规则，有合规空卡立即启动，21禁用；不在GPU节点做CPU-only，不动其他线或他人任务。真实磁盘/UID/预留、健康隔离、11-22收尾及11-25工程失败续接保持。重读huagong_hpc_requirement顶部11-26修订，详见[SCHEDULING_RULE_20261126.md](https://github.com/mint258/MFM/blob/p-recipe/docs/interfaces/SCHEDULING_RULE_20261126.md)。
+
+
 ## 2026-11-25 时间盒修订（所有窗口）
 
 按 [用户共享规则](https://github.com/mint258/MFM/blob/p-recipe/docs/interfaces/TIMEBOX_RULE_20261125.md)，调用/路径/额度与storage guard/调度准入/drain/竞态/OOM/网络等工程失败修好后从完整断点或游标续接，不计次数，不能据此标UNRESOLVED。只对同一根因的科学/方法失败计数：修复2次仍失败，或诊断修复本身累计4小时；排队和正常计算不计，根因改变重新计数。旧工程类UNRESOLVED按原注册设计恢复补做，已闭合科学判定不重开。

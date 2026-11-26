@@ -1,4 +1,5 @@
 """Registered E1 closure on original primary draws; no fits or resampling."""
+from cpu_ssh_runtime import execution_handle
 import argparse,fcntl,json,os
 from pathlib import Path
 from e1_decision import compare_frozen,compare_full,choose_k,KS
@@ -89,7 +90,7 @@ def run(c):
                 conditional_seed1_required=required,conditional_seed1_complete=False,
                 adoption_intended=c["adoption_intended"],source_identity=identities,
                 original_bootstrap_draws_replayed=0,new_bootstrap_draws=0,
-                final_REPORT_generated=False,job=os.environ["SLURM_JOB_ID"])
+                final_REPORT_generated=False,job=execution_handle())
             for cell in result['cells']:
                 k=cell['k']
                 if rows[k].get('missing'):
@@ -103,7 +104,7 @@ def run(c):
                 validate_closed(result)
             atomic_json(output/"primary.json",result)
             atomic_json(output/"seed0_complete.json",dict(status="COMPLETE_SEED0",source_identity=identities,
-                job=os.environ["SLURM_JOB_ID"],conditional_seed1_required=required))
+                job=execution_handle(),conditional_seed1_required=required))
             print(json.dumps(dict(status=result["status"],k_star=result["k_star"],
                 provisional_k_star=result["provisional_k_star"],conditional_seed1_required=required)),flush=True)
             return 0

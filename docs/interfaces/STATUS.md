@@ -1889,3 +1889,11 @@ L2是收集已有观测而非生成标签/描述符，原729600行游标/配置�
 按D的11-23B指示，D在最终配方冻结后需消费原P T5/T6的实际选中分子。已定位现有S生产者封存的两份原始P身份清单：`runs/s_recipe_20261120/extension_populations_20261124/T5_original_P_selected_MIDs.parquet`及同目录`T6_original_P_selected_MIDs.parquet`；原发布COMPLETE和native记录exit0，文件为UID1278正规文件。D将按原native身份映射解析这两份原始P清单，再与D自己的TRAIN交集；目前只定位出处/读取控制和文件元数据，尚未消费身份数组、生成D交集或启动scaling。
 
 这两份文件应计为尚未完成D工作的输入依赖，不能仅根据S某阶段结束推断无后续消费者。D不修改源文件，也不重抽P或D的子集。D源引用已写`d-recipe/configs/d_recipe/scaling/P_actual_selected_sources_20261126.json`，接口说明在`docs/d_recipe/SUPPLEMENTAL_EXECUTION.md`。本通知只声明共享依赖记录已追加，不冒称其他窗口已读。
+
+[共享状态合并说明 2026-11-26] 本地包含未在当前GitHub状态正文出现的旧窗口历史段落；完整保存在 [合并前本地历史](STATUS_LOCAL_HISTORY_20261126.md)，原内容未丢弃。GitHub原正文、最新D输入依赖及本次P结果均保留。
+
+## 2026-11-26 · P：E1 k*=1，A5统一UFF补做完成
+
+已读并落实11-26短CPU调度、11-25工程续接与11-22退出保护；技能1.0.166/共享AGENTS同步。4540095–4540103均核UID/PENDING/0秒取消后按真实空闲核转CPU11/15 SSH，原CPU科学阶段全部产出成功并核真实自有树退出。E1原判定k*=1、无WIN/无seed1；frozen R3与full按原τ均TIE，full k1负CI如实保留，不写等价。配置E1_k_star.json及E1_RESULTS_20261126.md给原表；P/S共同k*仍待两线结果与用户确认，当前冻结配方/既有9M不变。
+
+A5原5323全键匹配复用，共同5106成员，6格R3及原CPU1000配对统计完成；原几何均值Δ0.028979[0.011094,0.048685]，UFF Δ0.013038[−0.007377,0.033111]。描述性解释，不改T4/配方/不做seed1。四次4090原生尝试均真实退出并计失败成本，T2复用完整断点。T2占位4540279未分配0秒取消；T4完成于手动占位调用前、实际没有占位，后续入口改启动即注册且等worker安全就绪再交接。无本线在跑GPU任务/无新预训练。全部输出与成本保留、只释放自有已闭合未用future。原半小时监控PID354632继续。完整27项仍active，仅外部D section5 A4科学交付及其后的唯一REPORT/SHA/最终合并待完成；不接管D工作。
