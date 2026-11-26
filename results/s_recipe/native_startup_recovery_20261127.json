@@ -1,0 +1,240 @@
+{
+  "status": "BOTH_PRE_GPU_COLD_STARTS_RECOVERED_WITH_ORIGINAL_HELD_JOBS",
+  "recoveries": [
+    {
+      "status": "SAME_HELD_JOB_RELEASED_AFTER_VERIFIED_NEW_NATIVE_START",
+      "handle": "S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0",
+      "original_task": {
+        "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0_configuration.json",
+        "native_handle": "S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0",
+        "standby_job_id": 4540372,
+        "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0_fullft_native_record.json",
+        "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0_fullft_handoff_request.json",
+        "native_log": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0_fullft_native.log",
+        "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+        "contract": {
+          "uid": 1278,
+          "run": "S_FT_S_G1_3M_qm9_U0_atom_s2",
+          "node": "compute-0-20",
+          "created_at": 1795724677.9018698,
+          "duration_seconds": 2100
+        },
+        "producer": {
+          "pid": 471117,
+          "uid": 1278,
+          "start_ticks": 90380119,
+          "ppid": 471083,
+          "state": "R"
+        }
+      },
+      "original_controller": {
+        "phase": "RELEASED",
+        "run": "S_FT_S_G1_3M_qm9_U0_atom_s2",
+        "point": "S_G1_3M",
+        "task": "qm9.U0_atom",
+        "seed": 2,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "mode": "finetune_native",
+        "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0_configuration.json",
+        "resource_ids": [
+          "S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0_node_ram",
+          "S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0_node_disk"
+        ],
+        "source_binding": {
+          "point": "S_G1_3M",
+          "run": "S_G1_s0_3M",
+          "samples": 3000000,
+          "source_training_budget": 3000000,
+          "configuration": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/configs/s_recipe/screening/S-G1.json",
+          "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_G1_s0_3M/samples_3000000.pt",
+          "bytes": 89586699,
+          "producer_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_G1_s0_3M_native22_20261123.json"
+        },
+        "job_id": null,
+        "standby_job_id": 4540372,
+        "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0_fullft_native_record.json",
+        "native_task": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0_fullft_native_task.json",
+        "status": "NATIVE_SPAWN_REQUESTED",
+        "producer": {
+          "pid": 471580,
+          "uid": 1278,
+          "start_ticks": 90418354,
+          "ppid": 471548,
+          "state": "R"
+        },
+        "released_at": 1795725060.1485708,
+        "recovery_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/early_native_startup_recovery_20261127/S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0.json"
+      },
+      "actual_held_job": "4540372|PENDING|0:0|0",
+      "original_native_same_process": false,
+      "original_native_wait_exit_code": null,
+      "original_failure_before_guard_and_model_work": true,
+      "original_stderr": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/early_native_startup_recovery_20261127/S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0_original_stderr.log",
+      "clock_observation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_startup_clock_20261127.json",
+      "new_allocation_submitted": false,
+      "scientific_settings_changed": false,
+      "scientific_work_replayed": false,
+      "new_producer": {
+        "pid": 471580,
+        "uid": 1278,
+        "start_ticks": 90418354,
+        "ppid": 471548,
+        "state": "R"
+      },
+      "new_contract": {
+        "uid": 1278,
+        "run": "S_FT_S_G1_3M_qm9_U0_atom_s2",
+        "node": "compute-0-20",
+        "created_at": 1795725059.2581983,
+        "duration_seconds": 2100
+      },
+      "new_start_lifecycle": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0_fullft_native_record.json",
+      "new_start_identity": {
+        "pid": 471580,
+        "uid": 1278,
+        "start_ticks": 90418354,
+        "ppid": 1,
+        "state": "R"
+      }
+    },
+    {
+      "status": "SAME_HELD_JOB_RELEASED_AFTER_VERIFIED_NEW_NATIVE_START",
+      "handle": "S_final_s0_9M_readout_budget_2000000_attempt0",
+      "original_task": {
+        "handle": "S_final_s0_9M_readout_budget_2000000_attempt0",
+        "run": "S_final_s0_9M",
+        "role": "budget",
+        "samples": 2000000,
+        "native": true,
+        "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_2000000_attempt0_configuration.json",
+        "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_2000000_attempt0_native_record.json",
+        "handoff_request": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_2000000_attempt0_handoff_request.json",
+        "job_id": null,
+        "standby_job_id": 4540371,
+        "contract": {
+          "uid": 1278,
+          "run": "S_final_s0_9M",
+          "node": "compute-0-20",
+          "role": "budget",
+          "samples": 2000000,
+          "created_at": 1795724622.7929392,
+          "duration_seconds": 7200
+        },
+        "producer": {
+          "pid": 470641,
+          "uid": 1278,
+          "start_ticks": 90374609,
+          "ppid": 470606,
+          "state": "R"
+        }
+      },
+      "original_controller": {
+        "run": "S_final_s0_9M",
+        "role": "budget",
+        "samples": 2000000,
+        "mode": "gpu_native",
+        "phase": "RELEASED",
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-8bfd2ba3-f622-24a9-09cf-e30a88e90ad5",
+        "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_2000000_attempt0_configuration.json",
+        "native_task": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_2000000_attempt0_task.json",
+        "resource_ids": [
+          "S_final_s0_9M_readout_budget_2000000_attempt0_node_ram",
+          "S_final_s0_9M_readout_budget_2000000_attempt0_node_disk"
+        ],
+        "readout_points": [
+          2000000
+        ],
+        "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_2000000_attempt0_native_record.json",
+        "job_id": null,
+        "standby_job_id": 4540371,
+        "producer": {
+          "pid": 471788,
+          "uid": 1278,
+          "start_ticks": 90421647,
+          "ppid": 471749,
+          "state": "R"
+        },
+        "released_at": 1795725093.0758176,
+        "recovery_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/early_native_startup_recovery_20261127/S_final_s0_9M_readout_budget_2000000_attempt0.json"
+      },
+      "actual_held_job": "4540371|PENDING|0:0|0",
+      "original_native_same_process": false,
+      "original_native_wait_exit_code": null,
+      "original_failure_before_guard_and_model_work": true,
+      "original_stderr": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/early_native_startup_recovery_20261127/S_final_s0_9M_readout_budget_2000000_attempt0_original_stderr.log",
+      "clock_observation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_startup_clock_20261127.json",
+      "new_allocation_submitted": false,
+      "scientific_settings_changed": false,
+      "scientific_work_replayed": false,
+      "new_producer": {
+        "pid": 471788,
+        "uid": 1278,
+        "start_ticks": 90421647,
+        "ppid": 471749,
+        "state": "R"
+      },
+      "new_contract": {
+        "uid": 1278,
+        "run": "S_final_s0_9M",
+        "node": "compute-0-20",
+        "role": "budget",
+        "samples": 2000000,
+        "created_at": 1795725092.1912248,
+        "duration_seconds": 7200
+      },
+      "new_start_lifecycle": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_2000000_attempt0_native_record.json",
+      "new_start_identity": {
+        "pid": 471788,
+        "uid": 1278,
+        "start_ticks": 90421647,
+        "ppid": 1,
+        "state": "R"
+      }
+    }
+  ],
+  "clock_observation": {
+    "status": "METADATA_OBSERVED",
+    "handles": [
+      "S_final_s0_9M_readout_budget_2000000_attempt0",
+      "S_FT_S_G1_3M_qm9_U0_atom_s2_attempt0"
+    ],
+    "producer_identities": [
+      {
+        "pid": 470641,
+        "uid": 1278,
+        "start_ticks": 90374609,
+        "ppid": 470606,
+        "state": "R"
+      },
+      {
+        "pid": 471117,
+        "uid": 1278,
+        "start_ticks": 90380119,
+        "ppid": 471083,
+        "state": "R"
+      }
+    ],
+    "login_before": 1795724859.5471206,
+    "login_after": 1795724860.4162867,
+    "node_observation": {
+      "now": 1795724859.5187352,
+      "same": [
+        false,
+        false
+      ]
+    },
+    "node_minus_login_seconds_bounds": [
+      -0.8975515365600586,
+      -0.028385400772094727
+    ],
+    "scope": "Current clock/process metadata; original native wait exit status is unavailable, not fabricated"
+  },
+  "original_wait_statuses_unobserved": true,
+  "new_allocations_submitted": 0,
+  "model_updates_or_readout_fits_replayed": 0,
+  "job_id": null,
+  "native_handle": "S_clock_recovery_delivery_native_20261127_attempt0",
+  "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_clock_recovery_delivery_native_20261127_attempt0/record.json"
+}

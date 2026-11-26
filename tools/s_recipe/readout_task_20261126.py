@@ -6,6 +6,7 @@ import socket
 import time
 import lifecycle_20261122 as life
 from storage_20261122 import CONTROL
+from native_clock_anchor_20261127 import native_clock_anchor
 
 EXTENSIONS={**{'S_E1_k'+str(k)+'_s0_3M':3000000 for k in (1,2,5)},
     **{'S_subset_T'+str(k)+'_s0_9M':9000000 for k in (5,6)}}
@@ -45,12 +46,11 @@ def native_guard(task,c):
             or contract.get('uid')!=1278 or contract.get('run')!=c['run']
             or contract.get('node')!=c['node'] or contract.get('role')!=task['role']
             or contract.get('samples')!=task['samples'] or contract.get('duration_seconds')!=7200
-            or not 0<=time.time()-contract['created_at']<=60
             or type(task.get('standby_job_id')) is not int):
         raise ValueError('Fresh exact native readout contract required')
     if not life.same_process(life.Identity(**task['producer']),life.identity(os.getpid())):
         raise ValueError('This native reader is not its published PID identity')
-    return life.Guard(contract['created_at']+7200,900)
+    return life.Guard(native_clock_anchor(contract['created_at'])+7200,900)
 
 
 def native_closed(task,value,current):

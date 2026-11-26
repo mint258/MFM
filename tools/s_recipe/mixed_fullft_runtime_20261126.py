@@ -10,6 +10,7 @@ import time
 
 import lifecycle_20261122 as life
 from storage_20261122 import CONTROL,ROOT
+from native_clock_anchor_20261127 import native_clock_anchor
 
 
 def native_main_source(source,cpus):
@@ -51,7 +52,6 @@ def native_guard(task,c):
             or c['node'] not in ('compute-0-20','compute-0-22')
             or contract.get('uid')!=1278 or contract.get('run')!=c['run']
             or contract.get('node')!=c['node'] or contract.get('duration_seconds')!=2100
-            or not 0<=time.time()-contract['created_at']<=60
             or not re.fullmatch(re.escape(c['run'])+r'_attempt\d+',handle)
             or Path(task['configuration'])!=CONTROL/(handle+'_configuration.json')
             or Path(task['native_record'])!=CONTROL/(handle+'_fullft_native_record.json')
@@ -61,7 +61,7 @@ def native_guard(task,c):
     actual=life.identity(os.getpid())
     if not life.same_process(life.Identity(**task['producer']),actual):
         raise ValueError('Native task producer differs from this real PID identity')
-    guard=life.Guard(contract['created_at']+2100,900)
+    guard=life.Guard(native_clock_anchor(contract['created_at'])+2100,900)
     guard.deadline_basis='explicit_native_fullFT_contract'
     return guard
 

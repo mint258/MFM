@@ -46,14 +46,17 @@ def progress(row):
     return label+'，按原首1000步粗估'+datetime.datetime.fromisoformat(row['rough_finish_CST']).strftime('%m-%d %H:%M')+'训练结束'
 lines=['# S 配方研究 · '+stamp.date().isoformat(),'',
     '已完成：原六条3M及三组指定诊断此前闭合，CURRENT_BEST=S-R1。两条原9M正式统计已闭合：R3的B0=0.470412、final=0.449116；final−B0='+format(point['delta'],'.6f')+
-    '，95%CI['+format(point['ci_lower'],'.6f')+', '+format(point['ci_upper'],'.6f')+']，原规则LOSS。原3M冻结不重开，见[9M报告](../9M_CONFIRMATION.md)。两9M的36个固定VAL记录已对齐[预算表](../BUDGET_CURVE.md)；仅复用9M读出，16个中间读出和5个微调点仍待。', '',
+    '，95%CI['+format(point['ci_lower'],'.6f')+', '+format(point['ci_upper'],'.6f')+']，原规则LOSS。原3M冻结不重开，见[9M报告](../9M_CONFIRMATION.md)。两9M的36个固定VAL记录已对齐[预算表](../BUDGET_CURVE.md)；中间读出及微调完成数量以执行进展JSON的最新快照为准，不提前称完整曲线。', '',
     '准备完成：既有14项检查保留，新增8项合成检查通过；矩阵16组/192项微调、复用12项P scratch。E1共同TRAIN1192951，原P的T5/T6与S交集249744/499456；实际均k见[扩展注册](../EXTENSIONS_20261124.md)。退役闭合诊断H暂存23165911040字节，保留指标/NPZ/预测及失败partial。已推送并导入93a74b93。', '',
     '进度与预计结束（'+stamp.strftime('%H:%M')+'）：'+'；'.join(progress(row) for row in rows)+
         '。活跃运行的读出/统计另计，估计非保证；同任务真实接管待机分别记录，排队不计虚构分配，保留完整状态交接。', '',
     '本轮真实首1000步：'+'；'.join(row['run']+' / '+row['hardware']['gpu_name']+' '+format(row['hardware']['first1000']['samples_per_second'],'.4f')+
         '样本/秒、整卡点均'+format(row['hardware']['whole_card_power_sample_mean_watts'],'.4f')+'W/'+str(row['hardware']['power_records'])+'点' for row in rows)+
         '。无另测，不外推跨卡因果提速或整段能耗；原值见[启动记录](../EXTENSION_STARTUP.md)。', '',
-    '资源与工程：短CPU按[11-26新规](../../interfaces/SCHEDULING_RULE_20261126.md)实测空闲核后SSH执行，记录真实退出和CPU时间。k1训练/读出待机零运行取消；k2在2680448样本处完整接管后由4540278成功完成3M。k2原生读出成功，未用接管4540347因路径类型错误FAILED/1:0，实际确认无自有残留后结清；保留原失败，不重跑已完成读出。路径修复2项受影响检查通过。k5继续节点22，待机4540342；节点20首条B0全量微调及原9M轨迹1M读出已启动，均待各自实际闭合。此前RAM不足拒绝的计划未启动、未改预留；资源释放后才补位，不缩减峰值占卡。旧科学统计/旧套件未重跑，见[执行适配](../EXECUTION_20261126.md)。未触发seed1。', '',
+    '资源与工程：短CPU按[11-26新规](../../interfaces/SCHEDULING_RULE_20261126.md)实测空闲核后SSH执行，记录真实退出和CPU时间。k1训练/读出待机零运行取消；k2在2680448样本处完整接管后由4540278成功完成3M。k2原生读出成功，未用接管4540347因路径类型错误FAILED/1:0，实际确认无自有残留后结清；保留原失败，不重跑已完成读出。路径修复2项受影响检查通过。k5继续节点22，待机4540342；S-B0完整微调点及原9M轨迹1–8M读出/CPU统计已交付，S-G1微调和S-final前缀继续。此前RAM不足拒绝的计划未启动、未改预留；资源释放后才补位，不缩减峰值占卡。旧科学统计/旧套件未重跑，见[执行适配](../EXECUTION_20261126.md)。未触发seed1。', '',
+    '工程一行记账：B0首个完整微调点交付子目录缺失，修复后仅复制已闭合primary，未重做统计；十二个选中模型已封存。', '',
+    '工程一行记账：本地XFS/NFS文件锁互斥域不一致导致8M交接台账被覆盖；实际跨主机检查后给登录控制器同时加POSIX锁，依据原生PID消失及实际C0恢复单行，未重算8M。', '',
+    '工程一行记账：两个原生入口在Guard/模型工作前因严格时间校验拒绝，旧PID均已消失且待机作业保持零运行。时钟偏差有限容差及不延长截止的3项检查通过后，复用原4540371/4540372待机作业恢复；旧stderr/task保留，原生早期wait状态未观测，不伪造退出码。', '',
     '下一步：活跃E1继续各自3M，正式读出后接CPU原统计；合规空卡优先B0/G1全量微调，E1先于T5/T6。半小时监控、磁盘/配额/自有退出守卫及工程续接保持；全部原任务及A/B/C完成后才最终报告、一次完整回归/仓库检查、开PR不合并。当前无待用户决定事项；S/P共同k*后续另待确认。', '']
 daily=R/'docs/s_recipe/daily'/(stamp.date().isoformat()+'.md')
 daily.write_text('\n'.join(lines))

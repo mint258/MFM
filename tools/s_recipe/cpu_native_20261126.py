@@ -86,7 +86,8 @@ def worker(c):
                'controller_sequence_check':'check_controller_sequence_20261127.py',
                'e1_s_rule_check':'check_e1_s_rule_20261127.py',
                'reporting_delivery_check':'check_reporting_delivery_20261127.py',
-               'metadata_lock_check':'check_metadata_lock_20261127.py'}
+               'metadata_lock_check':'check_metadata_lock_20261127.py',
+               'native_clock_anchor_check':'check_native_clock_anchor_20261127.py'}
     if c['stage'] not in scripts:
         raise ValueError('No unregistered CPU stage')
     if c['stage'] == 'population':

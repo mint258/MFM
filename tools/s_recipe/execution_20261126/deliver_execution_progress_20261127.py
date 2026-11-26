@@ -10,7 +10,8 @@ from fullft_delivery_20261127 import progress
 closed_points=sorted((R/'results/s_recipe/full_finetune').glob('*.json'))
 if closed_points:progress([read(path) for path in closed_points])
 for filename in ('e1_s_rule_check_20261127.json','controller_sequence_check_20261127.json',
-        'metadata_lock_check_20261127.json','reporting_delivery_check_20261127.json'):
+        'metadata_lock_check_20261127.json','reporting_delivery_check_20261127.json',
+        'native_clock_anchor_check_20261127.json'):
     check=read(C/filename)
     parent=read(check['native_record'])
     command=read(Path(check['native_record']).with_name('command_exit.json'))
@@ -66,9 +67,19 @@ for name in ('launch_fullft_20261124.py','launch_cpu_native_20261126.py','seal_c
     'launch_extension_training_20261124.py','close_fullft_resources_20261126.py',
     'close_readout_resources_20261126.py','close_extension_native_resource_20261124.py',
     'retire_closed_training_reservations_20261122.py','reconcile_B0_8M_takeover_20261127.py',
-    'check_metadata_lock_20261127.py','check_reporting_delivery_20261127.py'):
+    'check_metadata_lock_20261127.py','check_reporting_delivery_20261127.py',
+    'check_native_clock_anchor_20261127.py','inspect_native_startup_clock_20261127.py',
+    'recover_preGPU_native_starts_20261127.py'):
     shutil.copyfile(C/name,target/name)
 shutil.copyfile(C/'B0_8M_takeover_reconciliation_20261127.json',
     R/'results/s_recipe/B0_8M_takeover_reconciliation_20261127.json')
+recoveries=[read(path) for path in sorted((C/'early_native_startup_recovery_20261127').glob('*.json'))]
+if len(recoveries)!=2 or any(item['status']!='SAME_HELD_JOB_RELEASED_AFTER_VERIFIED_NEW_NATIVE_START' for item in recoveries):
+    raise ValueError('Both exact held-job recoveries must be verified before delivery')
+write(R/'results/s_recipe/native_startup_recovery_20261127.json',dict(
+    status='BOTH_PRE_GPU_COLD_STARTS_RECOVERED_WITH_ORIGINAL_HELD_JOBS',
+    recoveries=recoveries,clock_observation=read(C/'native_startup_clock_20261127.json'),
+    original_wait_statuses_unobserved=True,new_allocations_submitted=0,
+    model_updates_or_readout_fits_replayed=0,**execution_fields()))
 print(json.dumps(dict(status='EXECUTION_PROGRESS_DELIVERED',completed_full_fits=len(fits),
     selected_models=len(selected),completed_prefix_statistics=len(budget))),flush=True)
