@@ -1,6 +1,6 @@
 {
   "schema": "D_OPERATIONAL_SCHEDULING_UPDATE_20261126_V1",
-  "observed_at_UTC": "2026-11-26T09:27:13.449Z",
+  "observed_at_UTC": "2026-11-26T09:58:32.870Z",
   "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
   "L1": {
     "status": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
@@ -84,11 +84,11 @@
     "remaining_samples": 909248,
     "scientific_budget": 3000000,
     "seed": 0,
-    "next_GPU_admission_UTC": "2026-11-26T09:57:14.000Z",
+    "next_GPU_admission_UTC": "2026-11-26T10:28:32.000Z",
     "latest_admission": {
-      "observed_at_UTC": "2026-11-26T09:27:13.449Z",
+      "observed_at_UTC": "2026-11-26T09:58:32.870Z",
       "GPU20_target_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-      "used_MiB": 441,
+      "used_MiB": 18,
       "total_MiB": 49140,
       "own_lock_free": true,
       "allocated_CPUs": 101,
@@ -96,16 +96,17 @@
       "required_CPUs": 5,
       "required_own_RAM_bytes": 68719476736,
       "RAM_admission": "REFUSED",
-      "available_RAM_bytes": 88628420608,
+      "available_RAM_bytes": 88073990144,
       "own_candidate_RAM_released_to_zero": true,
       "new_GPU_job_submitted": false,
       "preferred_group": "0/1/3/4 allocated with no CPU;5/6/7 retained CUDA contexts",
       "node22": "26150/32607MiB,own_lock_busy,no allocated CPU available",
-      "next_GPU_admission_UTC": "2026-11-26T09:57:14.000Z",
+      "next_GPU_admission_UTC": "2026-11-26T10:28:32.000Z",
       "allocatable_CPUs": 3,
       "ordinary_sbatch_candidate_currently_eligible": false,
       "required_transport_if_RAM_admits": "SSH GPU plus matched same-task sbatch checkpoint takeover; original5CPU configuration retained",
-      "native_GPU_transport": "Existing P provider identified; D integration pending; no fake Slurm identity or GPU start"
+      "native_GPU_transport": "PREPARED_TESTED_WITH_REAL_CPU_PROCESS_NO_GPU_RUN",
+      "native_GPU_plan": "configs/d_recipe/continuations/L1_GPU20_native_20261126_plan.json"
     },
     "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json",
     "closed_attempt_costs": {
@@ -340,6 +341,196 @@
         "all_old_attempt_outputs_retained": true,
         "scientific_failure": false
       }
+    },
+    "prepared_native_GPU20_candidate": {
+      "status": "GPU_SSH_AND_MATCHED_REAL_SLURM_TAKEOVER_PREPARED_NOT_ACTIVATED",
+      "source_commit": "a800e373061083df9056173f36e06a49832ebdf1",
+      "contract_source_commit": "26b6806181c7f95e7faf5b1c5e452ab9805a2c84",
+      "templates_commit": "39f12c26240c7c03110315698d298f45ffdf7140",
+      "native_entry": "tools.d_recipe.gpu_native",
+      "takeover_entry": "tools.d_recipe.gpu_takeover",
+      "plan": "configs/d_recipe/continuations/L1_GPU20_native_20261126_plan.json",
+      "frozen_native_provider": "configs/d_recipe/launches/D_L1_GPU20_native_provider_20261126.py",
+      "matched_standby": "configs/d_recipe/launches/D_L1_GPU20_native_takeover_20261126.sbatch",
+      "tests_native": {
+        "receipt": {
+          "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+          "status": "COMPLETE",
+          "execution_id": "ssh:P_D_native_GPU_handoff_contracts_20261126",
+          "node": "compute-0-19",
+          "supervisor": {
+            "pid": 2800036,
+            "start_ticks": 2048760781,
+            "uids": [
+              1278,
+              1278,
+              1278,
+              1278
+            ],
+            "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4946.scope\n",
+            "state": "R"
+          },
+          "parent": {
+            "pid": 2800035,
+            "start_ticks": 2048760781,
+            "uids": [
+              1278,
+              1278,
+              1278,
+              1278
+            ],
+            "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4946.scope\n",
+            "state": "S"
+          },
+          "session_id": 2800035,
+          "cores": [
+            14
+          ],
+          "idle_fraction": {
+            "14": 0.9959349593495935
+          },
+          "MemAvailable": 246161928192,
+          "started_at": 1795686401.7193654,
+          "hard_end_epoch": 1795688191.7193654,
+          "timeout_seconds": 1800,
+          "cleanup_seconds": 180,
+          "original_pending_job": null,
+          "scientific_code_and_outputs_preserved": true,
+          "returncode": 0,
+          "ended_at": 1795686402.2241192,
+          "wall_seconds": 0.504753828048706,
+          "user_cpu_seconds": 0.206558,
+          "system_cpu_seconds": 0.03396,
+          "actual_cpu_seconds": 0.24051799999999998,
+          "peak_child_RSS_KiB": 23520,
+          "remaining_children": [],
+          "owned_tree_reaped": true
+        },
+        "events": [
+          {
+            "stage": "D_NATIVE_GPU_HANDOFF_CONTRACTS",
+            "tests_run": 7,
+            "failures": 0,
+            "errors": 0,
+            "seconds": 0.17033915594220161
+          },
+          {
+            "phase": "OWNED_TREE_REAPED",
+            "root": 2800050,
+            "root_returncode": 0
+          }
+        ],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        }
+      },
+      "metadata_native": {
+        "receipt": {
+          "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+          "status": "COMPLETE",
+          "execution_id": "ssh:P_D_native_GPU_plan_metadata_20261126",
+          "node": "compute-0-19",
+          "supervisor": {
+            "pid": 2800221,
+            "start_ticks": 2048801228,
+            "uids": [
+              1278,
+              1278,
+              1278,
+              1278
+            ],
+            "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4948.scope\n",
+            "state": "R"
+          },
+          "parent": {
+            "pid": 2800220,
+            "start_ticks": 2048801228,
+            "uids": [
+              1278,
+              1278,
+              1278,
+              1278
+            ],
+            "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4948.scope\n",
+            "state": "S"
+          },
+          "session_id": 2800220,
+          "cores": [
+            14
+          ],
+          "idle_fraction": {
+            "14": 0.9960079840319361
+          },
+          "MemAvailable": 246115643392,
+          "started_at": 1795686805.1847227,
+          "hard_end_epoch": 1795688595.1847227,
+          "timeout_seconds": 1800,
+          "cleanup_seconds": 180,
+          "original_pending_job": null,
+          "scientific_code_and_outputs_preserved": true,
+          "returncode": 0,
+          "ended_at": 1795686805.4384744,
+          "wall_seconds": 0.2537517547607422,
+          "user_cpu_seconds": 0.166634,
+          "system_cpu_seconds": 0.024922999999999997,
+          "actual_cpu_seconds": 0.191557,
+          "peak_child_RSS_KiB": 19924,
+          "remaining_children": [],
+          "owned_tree_reaped": true
+        },
+        "events": [
+          {
+            "stage": "D_NATIVE_GPU_PLAN_MATERIALIZED",
+            "status": "PREPARED_NOT_RUNNABLE_WAIT_FRESH_ADMISSION",
+            "plan": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/gpu_native_preparation_20261126/plan.json",
+            "native_resident": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/gpu_native_preparation_20261126/native_resident.py",
+            "standby": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/gpu_native_preparation_20261126/same_task_standby.sbatch",
+            "checks": {
+              "exact_existing_P_provider_and_lifecycle_embedded": true,
+              "exact_existing_resident_bootstrap_reused": true,
+              "real_SSH_handle_and_no_fake_Slurm_identity": true,
+              "changed_provider_source_rejected": true,
+              "actual_provider_and_waiter_interfaces_loaded": true,
+              "original_scientific_binding_identical": true,
+              "only_same_task_standby_after_actual_source_running": true,
+              "compiler_only_no_models_or_GPU": true
+            },
+            "source_hashes": {
+              "expected_P_gpu_sha256": "f567b3f7f98d63417cc531114bd9af776e18783b4fcc711738573dcf68123a09",
+              "expected_P_lifecycle_sha256": "4690acc008225cb554dcf5d504ced0edc418bacf0094bbe49e8cd348af2c874c",
+              "expected_P_takeover_sha256": "431b6612e462932fe0e8e3f6ab5a25a367c6dfceb0782e5de3581eada6d7c574"
+            },
+            "source_dependency_mtimes": {
+              "gpu_ssh_runtime.py": 1795667839.874407,
+              "exit_lifecycle.py": 1795664495.6414583,
+              "a5_takeover_entry.py": 1795669874.3846228
+            }
+          },
+          {
+            "phase": "OWNED_TREE_REAPED",
+            "root": 2800235,
+            "root_returncode": 0
+          }
+        ],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        }
+      },
+      "existing_P_GPU_supervisor_and_waiter_reused": true,
+      "original_scientific_binding_unchanged": true,
+      "original_P_training_checkpoint_and_R1_R3_producers_unchanged": true,
+      "original_workers_retained": 3,
+      "required_CPU": 5,
+      "native_max_seconds": 28800,
+      "cleanup_seconds": 900,
+      "complete_readout_work_unit_seconds": 7200,
+      "actual_native_GPU_configuration_materialized": false,
+      "actual_GPU_integration_run": false,
+      "standby_submitted": false,
+      "temporary_CPU_claims_released": true,
+      "source_checkpoint_tensor_QA": false
     }
   },
   "L2": {
@@ -479,20 +670,20 @@
       ]
     },
     "latest_native_progress": {
-      "observed_at_epoch": 1795685233.4495108,
+      "observed_at_epoch": 1795687112.8700485,
       "receipt_status": "RUNNING",
       "returncode": null,
       "started_at_epoch": 1795678292.5871775,
       "hard_end_epoch": 1795699882.5871775,
-      "closed_rows": 899328,
+      "closed_rows": 921600,
       "collection_status": "COLLECTING",
       "last_attempt": {
         "job_id": null,
         "node": "compute-0-11",
         "start_row": 817920,
         "state": "RUNNING",
-        "closed_rows": 899328,
-        "elapsed_seconds": 6899.437158443034
+        "closed_rows": 921600,
+        "elapsed_seconds": 8786.14438507706
       },
       "actual_supervisor": {
         "pid": 267997,
@@ -516,10 +707,10 @@
       "remaining_children": null,
       "actual_cpu_seconds": null,
       "wall_seconds": null,
-      "actual_root_available": 55088345088,
+      "actual_root_available": 54803103744,
       "actual_root_inodes": 36569782,
-      "own_local_allocated": 11565727744,
-      "own_local_remaining_future": 5614141440
+      "own_local_allocated": 11850752000,
+      "own_local_remaining_future": 5329117184
     },
     "original_scientific_binding_unchanged": true,
     "partial_TRAIN_fitting": false,
@@ -1854,5 +2045,195 @@
     "parallel_speedup_assumed": false,
     "partial_TRAIN_fits_or_benchmarks_performed": false,
     "source_parameters_values_recomputed": false
+  },
+  "native_GPU_transport_preparation": {
+    "status": "GPU_SSH_AND_MATCHED_REAL_SLURM_TAKEOVER_PREPARED_NOT_ACTIVATED",
+    "source_commit": "a800e373061083df9056173f36e06a49832ebdf1",
+    "contract_source_commit": "26b6806181c7f95e7faf5b1c5e452ab9805a2c84",
+    "templates_commit": "39f12c26240c7c03110315698d298f45ffdf7140",
+    "native_entry": "tools.d_recipe.gpu_native",
+    "takeover_entry": "tools.d_recipe.gpu_takeover",
+    "plan": "configs/d_recipe/continuations/L1_GPU20_native_20261126_plan.json",
+    "frozen_native_provider": "configs/d_recipe/launches/D_L1_GPU20_native_provider_20261126.py",
+    "matched_standby": "configs/d_recipe/launches/D_L1_GPU20_native_takeover_20261126.sbatch",
+    "tests_native": {
+      "receipt": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_D_native_GPU_handoff_contracts_20261126",
+        "node": "compute-0-19",
+        "supervisor": {
+          "pid": 2800036,
+          "start_ticks": 2048760781,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4946.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2800035,
+          "start_ticks": 2048760781,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4946.scope\n",
+          "state": "S"
+        },
+        "session_id": 2800035,
+        "cores": [
+          14
+        ],
+        "idle_fraction": {
+          "14": 0.9959349593495935
+        },
+        "MemAvailable": 246161928192,
+        "started_at": 1795686401.7193654,
+        "hard_end_epoch": 1795688191.7193654,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": null,
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795686402.2241192,
+        "wall_seconds": 0.504753828048706,
+        "user_cpu_seconds": 0.206558,
+        "system_cpu_seconds": 0.03396,
+        "actual_cpu_seconds": 0.24051799999999998,
+        "peak_child_RSS_KiB": 23520,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "events": [
+        {
+          "stage": "D_NATIVE_GPU_HANDOFF_CONTRACTS",
+          "tests_run": 7,
+          "failures": 0,
+          "errors": 0,
+          "seconds": 0.17033915594220161
+        },
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2800050,
+          "root_returncode": 0
+        }
+      ],
+      "original_process_alive": {
+        "supervisor": false,
+        "parent": false
+      }
+    },
+    "metadata_native": {
+      "receipt": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_D_native_GPU_plan_metadata_20261126",
+        "node": "compute-0-19",
+        "supervisor": {
+          "pid": 2800221,
+          "start_ticks": 2048801228,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4948.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2800220,
+          "start_ticks": 2048801228,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4948.scope\n",
+          "state": "S"
+        },
+        "session_id": 2800220,
+        "cores": [
+          14
+        ],
+        "idle_fraction": {
+          "14": 0.9960079840319361
+        },
+        "MemAvailable": 246115643392,
+        "started_at": 1795686805.1847227,
+        "hard_end_epoch": 1795688595.1847227,
+        "timeout_seconds": 1800,
+        "cleanup_seconds": 180,
+        "original_pending_job": null,
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 0,
+        "ended_at": 1795686805.4384744,
+        "wall_seconds": 0.2537517547607422,
+        "user_cpu_seconds": 0.166634,
+        "system_cpu_seconds": 0.024922999999999997,
+        "actual_cpu_seconds": 0.191557,
+        "peak_child_RSS_KiB": 19924,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "events": [
+        {
+          "stage": "D_NATIVE_GPU_PLAN_MATERIALIZED",
+          "status": "PREPARED_NOT_RUNNABLE_WAIT_FRESH_ADMISSION",
+          "plan": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/gpu_native_preparation_20261126/plan.json",
+          "native_resident": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/gpu_native_preparation_20261126/native_resident.py",
+          "standby": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/gpu_native_preparation_20261126/same_task_standby.sbatch",
+          "checks": {
+            "exact_existing_P_provider_and_lifecycle_embedded": true,
+            "exact_existing_resident_bootstrap_reused": true,
+            "real_SSH_handle_and_no_fake_Slurm_identity": true,
+            "changed_provider_source_rejected": true,
+            "actual_provider_and_waiter_interfaces_loaded": true,
+            "original_scientific_binding_identical": true,
+            "only_same_task_standby_after_actual_source_running": true,
+            "compiler_only_no_models_or_GPU": true
+          },
+          "source_hashes": {
+            "expected_P_gpu_sha256": "f567b3f7f98d63417cc531114bd9af776e18783b4fcc711738573dcf68123a09",
+            "expected_P_lifecycle_sha256": "4690acc008225cb554dcf5d504ced0edc418bacf0094bbe49e8cd348af2c874c",
+            "expected_P_takeover_sha256": "431b6612e462932fe0e8e3f6ab5a25a367c6dfceb0782e5de3581eada6d7c574"
+          },
+          "source_dependency_mtimes": {
+            "gpu_ssh_runtime.py": 1795667839.874407,
+            "exit_lifecycle.py": 1795664495.6414583,
+            "a5_takeover_entry.py": 1795669874.3846228
+          }
+        },
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2800235,
+          "root_returncode": 0
+        }
+      ],
+      "original_process_alive": {
+        "supervisor": false,
+        "parent": false
+      }
+    },
+    "existing_P_GPU_supervisor_and_waiter_reused": true,
+    "original_scientific_binding_unchanged": true,
+    "original_P_training_checkpoint_and_R1_R3_producers_unchanged": true,
+    "original_workers_retained": 3,
+    "required_CPU": 5,
+    "native_max_seconds": 28800,
+    "cleanup_seconds": 900,
+    "complete_readout_work_unit_seconds": 7200,
+    "actual_native_GPU_configuration_materialized": false,
+    "actual_GPU_integration_run": false,
+    "standby_submitted": false,
+    "temporary_CPU_claims_released": true,
+    "source_checkpoint_tensor_QA": false
   }
 }
