@@ -5431,18 +5431,18 @@
         "other_owner_processes_changed": false
       },
       "latest_admission": {
-        "observed_at_UTC": "2026-11-26T16:25:17.888Z",
-        "preferred_group": "0/1/4 have0 allocatable CPU;3/5/6/7 have16 CPU but all preferred targetUUIDs retain CUDA contexts",
+        "observed_at_UTC": "2026-11-26T16:55:42.939Z",
+        "preferred_group": "0/1 have0 allocatable CPU;3/4/5/6/7 have16 CPU but all preferred targetUUIDs retain CUDA contexts",
         "GPU20_target_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
         "used_MiB": 445,
         "total_MiB": 49140,
         "own_lock_free": true,
-        "allocatable_CPUs": 3,
+        "allocatable_CPUs": 11,
         "required_CPUs": 5,
         "required_own_RAM_bytes": 68719476736,
         "RAM_admission": "REFUSED",
-        "available_RAM_bytes": 84278927360,
-        "admission_deficit_bytes": 70339895296,
+        "available_RAM_bytes": 83779563520,
+        "admission_deficit_bytes": 70839259136,
         "own_candidate_RAM_released_to_zero": true,
         "new_GPU_job_submitted": false,
         "node22": {
@@ -5456,14 +5456,21 @@
         },
         "native_GPU22_plan": "configs/d_recipe/continuations/L1_GPU22_native_20261126_plan.json",
         "native_GPU22_templates_source_commit": "61163ce116c80df71d34e70f41dc76d2dc87cd4a",
-        "next_GPU_admission_UTC": "2026-11-26T16:55:18Z",
+        "next_GPU_admission_UTC": "2026-11-26T17:25:43Z",
         "scientific_configuration_changed": false,
         "GPU_hybrid_CPU_policy": {
           "source": "MFM_p_recipe/tools/p_recipe/gpu_ssh_runtime.py:run",
           "verified": "GPU provider records5s CPU idle fractions and locks chosen cores, but intentionally does not impose the CPU-only provider's95% idle filter;20/22 GPU CPUsharing explicitly authorized.",
           "future_action": "Choose five actually measured least-loaded own-core-lock-free cores under the existingGPU provider; do not add CPU-only95% exclusion to authorized hybrid work. Node health/RAM/disk/VRAM/UUID gates remain.",
           "previous_refusals_affected": false
-        }
+        },
+        "allocated_CPUs": 93,
+        "total_CPUs": 104,
+        "ordinary_sbatch_candidate_currently_eligible": false,
+        "ordinary_sbatch_ineligible_reasons": [
+          "Canonical own64GiB node_RAM admission refused"
+        ],
+        "required_transport_if_RAM_admits": "Ordinary immediate admitted sbatch on node20, original5CPU/3workers; GPU target memory and ownUUIDlock available. Recheck actual CPU/RAM before activation."
       },
       "prepared_native_GPU20_candidate": {
         "status": "GPU_SSH_AND_MATCHED_REAL_SLURM_TAKEOVER_PREPARED_NOT_ACTIVATED",
@@ -5655,7 +5662,7 @@
         "temporary_CPU_claims_released": true,
         "source_checkpoint_tensor_QA": false
       },
-      "next_GPU_admission_UTC": "2026-11-26T16:55:18Z",
+      "next_GPU_admission_UTC": "2026-11-26T17:25:43Z",
       "prepared_native_GPU22_candidate": {
         "plan": "configs/d_recipe/continuations/L1_GPU22_native_20261126_plan.json",
         "source_commit": "61163ce116c80df71d34e70f41dc76d2dc87cd4a",
@@ -6896,7 +6903,7 @@
         "started_at_epoch": 1795710979.1618054,
         "hard_end_epoch": 1795732569.1618054,
         "latest_native_progress": {
-          "observed_at_epoch": 1795711060.0222359,
+          "observed_at_epoch": 1795712127.5578637,
           "receipt_status": "RUNNING",
           "returncode": null,
           "started_at_epoch": 1795710979.1618054,
@@ -6933,7 +6940,7 @@
           "remaining_children": null,
           "actual_cpu_seconds": null,
           "wall_seconds": null,
-          "actual_root_available": 51297067008,
+          "actual_root_available": 51297071104,
           "actual_root_inodes": 36569744,
           "own_local_allocated": 15353671680,
           "own_local_remaining_future": 1826197504
@@ -8847,5 +8854,5 @@
     "historical_engineering_failure_count": 2,
     "scientific_failure_count": 0
   },
-  "updated_at_utc": "2026-11-26T16:37:40.022Z"
+  "updated_at_utc": "2026-11-26T16:55:42.939Z"
 }
