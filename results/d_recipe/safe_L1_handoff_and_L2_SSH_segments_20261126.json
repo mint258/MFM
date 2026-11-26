@@ -1117,5 +1117,71 @@
         "test_future_released": true
       }
     }
+  },
+  "full_FT_statistics_preparation": {
+    "status": "ORIGINAL_FT_STATISTICS_WRAPPER_TESTED_TWELVE_P_SCRATCH_SOURCES_READY",
+    "entry": "tools/d_recipe/finetune_statistics_entry.py",
+    "source_manifest": "configs/d_recipe/finetune/P_scratch_sources_20261126.json",
+    "scratch_sources_ready": 12,
+    "source_arrays_read": false,
+    "actual_D_FT_statistics_started": false,
+    "original_P_primary_producer_reused": true,
+    "closed_control_draws_reused_without_new_bootstrap": true,
+    "frozen_R1_R3_scores_copied_separately": true,
+    "point_and_CI_estimands_disclosed": true,
+    "tests": {
+      "source_commit": "ce742a3045f94ae4dbe7e29fb8dc06f9ab96c675",
+      "execution_id": "ssh:D_finetune_statistics_contracts_20261126",
+      "node": "compute-0-19",
+      "cores": [
+        14
+      ],
+      "idle_fraction": {
+        "14": 0.998
+      },
+      "tests": [
+        {
+          "stage": "D_FINETUNE_STATISTICS_TRANSPORT",
+          "tests_run": 2,
+          "failures": 0,
+          "errors": 0,
+          "seconds": 0.010776299983263016
+        }
+      ],
+      "wall_seconds": 0.2542130947113037,
+      "actual_child_CPU_seconds": 0.08601899999999998,
+      "peak_child_RSS_KiB": 21280,
+      "supervisor": {
+        "pid": 2798124,
+        "start_ticks": 2047610902,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4930.scope\n",
+        "state": "R"
+      },
+      "parent": {
+        "pid": 2798123,
+        "start_ticks": 2047610902,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4930.scope\n",
+        "state": "S"
+      },
+      "owned_tree_reaped": true,
+      "remaining_children": [],
+      "original_process_alive": {
+        "supervisor": false,
+        "parent": false
+      },
+      "temporary_claims_released": true
+    }
   }
 }
