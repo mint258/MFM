@@ -8,6 +8,7 @@ from contextlib import contextmanager
 from copy import deepcopy
 from dataclasses import asdict
 import csv
+import hashlib
 import importlib.util
 import json
 import math
@@ -25,7 +26,14 @@ P_TOOLS = ROOT / "MFM_p_recipe/tools/p_recipe"
 RUNS = ROOT / "runs/d_recipe_20261120"
 
 
-def load_provider():
+def require_source(path, expected):
+    if not expected or hashlib.sha256(Path(path).read_bytes()).hexdigest() != expected:
+        raise ValueError("Existing provider source changed; inspect before a new execution")
+
+
+def load_provider(configuration):
+    require_source(P_TOOLS / "gpu_ssh_runtime.py", configuration["expected_P_gpu_sha256"])
+    require_source(P_TOOLS / "exit_lifecycle.py", configuration["expected_P_lifecycle_sha256"])
     sys.path.insert(0, str(P_TOOLS))
     spec = importlib.util.spec_from_file_location("d_existing_gpu_ssh", P_TOOLS / "gpu_ssh_runtime.py")
     module = importlib.util.module_from_spec(spec)
@@ -195,7 +203,7 @@ def worker(c):
 
 
 def monitor(c):
-    provider = load_provider()
+    provider = load_provider(c)
     end = provider.verified_deadline(c)
     require_transport(c, os.uname().nodename.split(".")[0],
                       os.environ.get("CUDA_VISIBLE_DEVICES"), os.sched_getaffinity(0))

@@ -8,7 +8,7 @@ from pathlib import Path
 import sys
 import time
 
-from .gpu_native import P_TOOLS, stop_flags
+from .gpu_native import P_TOOLS, stop_flags, require_source
 from .shared_admission import atomic_json
 
 
@@ -90,7 +90,10 @@ def regular_checkpoint(path):
         raise ValueError("Actual owned complete checkpoint is unavailable")
 
 
-def load_waiter():
+def load_waiter(expected=None, expected_lifecycle=None):
+    if expected is not None:
+        require_source(P_TOOLS / "a5_takeover_entry.py", expected)
+        require_source(P_TOOLS / "exit_lifecycle.py", expected_lifecycle)
     sys.path.insert(0, str(P_TOOLS))
     spec = importlib.util.spec_from_file_location("d_existing_same_task_waiter", P_TOOLS / "a5_takeover_entry.py")
     module = importlib.util.module_from_spec(spec)
@@ -117,7 +120,7 @@ def main():
     if end is None or end - time.time() <= c["cleanup_seconds"]:
         raise ValueError("Actual finite allocation work/cleanup window is unavailable")
     os.environ["P_MANAGED_STOP_NEW_UNITS_AT"] = str(end - c["cleanup_seconds"])
-    waiter = load_waiter()
+    waiter = load_waiter(c["expected_P_takeover_sha256"], c["expected_P_lifecycle_sha256"])
     with stop_flags() as flags:
         class Stop:
             @property
