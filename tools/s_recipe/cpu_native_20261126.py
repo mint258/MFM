@@ -28,6 +28,12 @@ def worker(c):
     if c['stage'] == 'fullft_delivery':
         from fullft_delivery_20261127 import run as report
         return report()
+    if c['stage'] == 'fullft_contrasts':
+        from fullft_contrasts_20261127 import run as report
+        return report()
+    if c['stage'] == 'e1_local_decision':
+        from e1_local_decision_20261127 import run as report
+        return report()
     if c['stage'] == 'budget_curve_delivery':
         from budget_curve_delivery_20261127 import run as report
         return report()
@@ -87,7 +93,9 @@ def worker(c):
                'e1_s_rule_check':'check_e1_s_rule_20261127.py',
                'reporting_delivery_check':'check_reporting_delivery_20261127.py',
                'metadata_lock_check':'check_metadata_lock_20261127.py',
-               'native_clock_anchor_check':'check_native_clock_anchor_20261127.py'}
+               'native_clock_anchor_check':'check_native_clock_anchor_20261127.py',
+               'fullft_contrast_check':'check_fullft_contrasts_20261127.py',
+               'e1_cached_components_check':'check_e1_cached_components_20261127.py'}
     if c['stage'] not in scripts:
         raise ValueError('No unregistered CPU stage')
     if c['stage'] == 'population':

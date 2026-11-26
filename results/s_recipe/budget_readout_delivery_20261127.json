@@ -1,0 +1,2961 @@
+{
+  "status": "COMPLETE_ORIGINAL9M_PREFIX_READOUT_DELIVERY",
+  "points": [
+    {
+      "run": "S_B0_s0_9M",
+      "samples": 1000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.15282498350393134,
+          "bootstrap_ci": [
+            0.1352985915482654,
+            0.16870945558058598
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.45897185676021746,
+          "bootstrap_ci": [
+            0.44609570343083227,
+            0.4713322685870795
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_B0_s0_9M",
+          "samples": 1000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_B0_s0_9M_budget_1000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_1000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 303564,
+            "uid": 1278,
+            "start_ticks": 2284093525,
+            "ppid": 303559,
+            "state": "R"
+          },
+          "started_at": 1795719916.04239,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795727110.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.15282498350393134,
+          "R3": 0.45897185676021746,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795720030.9804025,
+          "elapsed_seconds": 114.93801259994507,
+          "peak_RSS_bytes": 1558503424,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_B0_s0_9M_budget_1000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 303559,
+            "uid": 1278,
+            "start_ticks": 2284093492,
+            "ppid": 303558,
+            "state": "R"
+          },
+          "started_at": 1795719915.7180543,
+          "hard_end_epoch": 1795727110.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_1000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51289165824,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 54929211392,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5921336983552,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398245646336
+            }
+          },
+          "worker": {
+            "pid": 303564,
+            "uid": 1278,
+            "start_ticks": 2284093525,
+            "ppid": 303559,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795720031.5829787,
+          "wall_seconds": 115.8649251461029,
+          "cpu_user_seconds": 98.8924,
+          "cpu_system_seconds": 15.007638,
+          "peak_child_RSS_bytes": 1558503424,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_B0_s0_9M_readout_budget_1000000_attempt0",
+          "exit_code": 0,
+          "run": "S_B0_s0_9M",
+          "samples": 1000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_B0_s0_9M_readout_budget_1000000_attempt0_guarded_4540349.json",
+          "retired_ids": [
+            "S_B0_s0_9M_readout_budget_1000000_attempt0_node_disk",
+            "S_B0_s0_9M_readout_budget_1000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      }
+    },
+    {
+      "run": "S_B0_s0_9M",
+      "samples": 2000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.17754321520578847,
+          "bootstrap_ci": [
+            0.16120628690661443,
+            0.19326897703891976
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.4679400702045961,
+          "bootstrap_ci": [
+            0.45439984319091475,
+            0.48007171679891125
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_B0_s0_9M",
+          "samples": 2000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_B0_s0_9M_budget_2000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_2000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 303839,
+            "uid": 1278,
+            "start_ticks": 2284143710,
+            "ppid": 303834,
+            "state": "R"
+          },
+          "started_at": 1795720417.886261,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795727612.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.17754321520578847,
+          "R3": 0.4679400702045961,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795720533.7184327,
+          "elapsed_seconds": 115.83217215538025,
+          "peak_RSS_bytes": 1559760896,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_B0_s0_9M_budget_2000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 303834,
+            "uid": 1278,
+            "start_ticks": 2284143677,
+            "ppid": 303833,
+            "state": "R"
+          },
+          "started_at": 1795720417.5593946,
+          "hard_end_epoch": 1795727612.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_2000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51289821184,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 54623125504,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5918492196864,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398248165376
+            }
+          },
+          "worker": {
+            "pid": 303839,
+            "uid": 1278,
+            "start_ticks": 2284143710,
+            "ppid": 303834,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795720534.3345513,
+          "wall_seconds": 116.77515697479248,
+          "cpu_user_seconds": 99.57821999999999,
+          "cpu_system_seconds": 14.869178,
+          "peak_child_RSS_bytes": 1559760896,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_B0_s0_9M_readout_budget_2000000_attempt0",
+          "exit_code": 0,
+          "run": "S_B0_s0_9M",
+          "samples": 2000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_B0_s0_9M_readout_budget_2000000_attempt0_guarded_4540350.json",
+          "retired_ids": [
+            "S_B0_s0_9M_readout_budget_2000000_attempt0_node_disk",
+            "S_B0_s0_9M_readout_budget_2000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      }
+    },
+    {
+      "run": "S_B0_s0_9M",
+      "samples": 3000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.19370478955166043,
+          "bootstrap_ci": [
+            0.17533726538059344,
+            0.20946123957277468
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.46927538564049937,
+          "bootstrap_ci": [
+            0.4560327265071123,
+            0.4818468499356899
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_B0_s0_9M",
+          "samples": 3000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_B0_s0_9M_budget_3000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_3000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 304317,
+            "uid": 1278,
+            "start_ticks": 2284204019,
+            "ppid": 304311,
+            "state": "R"
+          },
+          "started_at": 1795721020.9667509,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795728215.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.19370478955166043,
+          "R3": 0.46927538564049937,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795721136.8589797,
+          "elapsed_seconds": 115.8922290802002,
+          "peak_RSS_bytes": 1521561600,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_B0_s0_9M_budget_3000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 304311,
+            "uid": 1278,
+            "start_ticks": 2284203985,
+            "ppid": 304310,
+            "state": "R"
+          },
+          "started_at": 1795721020.6385078,
+          "hard_end_epoch": 1795728215.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_3000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51289706496,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 54506803200,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5917186719744,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398260699136
+            }
+          },
+          "worker": {
+            "pid": 304317,
+            "uid": 1278,
+            "start_ticks": 2284204019,
+            "ppid": 304311,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795721137.5119176,
+          "wall_seconds": 116.87341022491455,
+          "cpu_user_seconds": 99.532443,
+          "cpu_system_seconds": 14.919181,
+          "peak_child_RSS_bytes": 1521561600,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_B0_s0_9M_readout_budget_3000000_attempt0",
+          "exit_code": 0,
+          "run": "S_B0_s0_9M",
+          "samples": 3000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_B0_s0_9M_readout_budget_3000000_attempt0_guarded_4540352.json",
+          "retired_ids": [
+            "S_B0_s0_9M_readout_budget_3000000_attempt0_node_disk",
+            "S_B0_s0_9M_readout_budget_3000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      }
+    },
+    {
+      "run": "S_B0_s0_9M",
+      "samples": 4000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.2011612863877621,
+          "bootstrap_ci": [
+            0.18505226891792426,
+            0.21609665609660078
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.45142904978204085,
+          "bootstrap_ci": [
+            0.43739278610992705,
+            0.46445697425134885
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_B0_s0_9M",
+          "samples": 4000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_B0_s0_9M_budget_4000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_4000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 305025,
+            "uid": 1278,
+            "start_ticks": 2284263058,
+            "ppid": 305020,
+            "state": "R"
+          },
+          "started_at": 1795721611.3621285,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795728805.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.2011612863877621,
+          "R3": 0.45142904978204085,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795721727.3764575,
+          "elapsed_seconds": 116.01432919502258,
+          "peak_RSS_bytes": 1514217472,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_B0_s0_9M_budget_4000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 305020,
+            "uid": 1278,
+            "start_ticks": 2284263025,
+            "ppid": 305019,
+            "state": "R"
+          },
+          "started_at": 1795721611.0346115,
+          "hard_end_epoch": 1795728805.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_4000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51289624576,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 54196903936,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5914449936384,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398259363840
+            }
+          },
+          "worker": {
+            "pid": 305025,
+            "uid": 1278,
+            "start_ticks": 2284263058,
+            "ppid": 305020,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795721728.0057275,
+          "wall_seconds": 116.97111630439758,
+          "cpu_user_seconds": 99.66816800000001,
+          "cpu_system_seconds": 14.945855,
+          "peak_child_RSS_bytes": 1514217472,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_B0_s0_9M_readout_budget_4000000_attempt0",
+          "exit_code": 0,
+          "run": "S_B0_s0_9M",
+          "samples": 4000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_B0_s0_9M_readout_budget_4000000_attempt0_guarded_4540354.json",
+          "retired_ids": [
+            "S_B0_s0_9M_readout_budget_4000000_attempt0_node_disk",
+            "S_B0_s0_9M_readout_budget_4000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      }
+    },
+    {
+      "run": "S_B0_s0_9M",
+      "samples": 5000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.19485228006088012,
+          "bootstrap_ci": [
+            0.17825667553831373,
+            0.2105885703223293
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.4557564559456502,
+          "bootstrap_ci": [
+            0.4416034796956743,
+            0.4687536868899308
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_B0_s0_9M",
+          "samples": 5000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_B0_s0_9M_budget_5000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_5000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 305521,
+            "uid": 1278,
+            "start_ticks": 2284340466,
+            "ppid": 305515,
+            "state": "R"
+          },
+          "started_at": 1795722385.442362,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795729580.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.19485228006088012,
+          "R3": 0.4557564559456502,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795722501.0337887,
+          "elapsed_seconds": 115.59142684936523,
+          "peak_RSS_bytes": 1518104576,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_B0_s0_9M_budget_5000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 305515,
+            "uid": 1278,
+            "start_ticks": 2284340433,
+            "ppid": 305514,
+            "state": "R"
+          },
+          "started_at": 1795722385.1179621,
+          "hard_end_epoch": 1795729580.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_5000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51289505792,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 53572222976,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5909765947392,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398240960512
+            }
+          },
+          "worker": {
+            "pid": 305521,
+            "uid": 1278,
+            "start_ticks": 2284340466,
+            "ppid": 305515,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795722501.6877432,
+          "wall_seconds": 116.56978106498718,
+          "cpu_user_seconds": 99.310202,
+          "cpu_system_seconds": 14.872154,
+          "peak_child_RSS_bytes": 1518104576,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_B0_s0_9M_readout_budget_5000000_attempt0",
+          "exit_code": 0,
+          "run": "S_B0_s0_9M",
+          "samples": 5000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_B0_s0_9M_readout_budget_5000000_attempt0_guarded_4540356.json",
+          "retired_ids": [
+            "S_B0_s0_9M_readout_budget_5000000_attempt0_node_disk",
+            "S_B0_s0_9M_readout_budget_5000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      }
+    },
+    {
+      "run": "S_B0_s0_9M",
+      "samples": 6000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.2013094553289594,
+          "bootstrap_ci": [
+            0.18605002076492902,
+            0.21638825831985822
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.4706008375599409,
+          "bootstrap_ci": [
+            0.4576382651260016,
+            0.48330802460644
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_B0_s0_9M",
+          "samples": 6000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_B0_s0_9M_budget_6000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_6000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 306436,
+            "uid": 1278,
+            "start_ticks": 2284386331,
+            "ppid": 306431,
+            "state": "R"
+          },
+          "started_at": 1795722844.0876677,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795730038.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.2013094553289594,
+          "R3": 0.4706008375599409,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795722959.4634552,
+          "elapsed_seconds": 115.37578773498535,
+          "peak_RSS_bytes": 1530036224,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_B0_s0_9M_budget_6000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 306431,
+            "uid": 1278,
+            "start_ticks": 2284386298,
+            "ppid": 306430,
+            "state": "R"
+          },
+          "started_at": 1795722843.7608533,
+          "hard_end_epoch": 1795730038.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_6000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51289341952,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 53004419072,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5907652018176,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398260469760
+            }
+          },
+          "worker": {
+            "pid": 306436,
+            "uid": 1278,
+            "start_ticks": 2284386331,
+            "ppid": 306431,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795722960.0315113,
+          "wall_seconds": 116.27065825462341,
+          "cpu_user_seconds": 99.128238,
+          "cpu_system_seconds": 14.852133,
+          "peak_child_RSS_bytes": 1530036224,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_B0_s0_9M_readout_budget_6000000_attempt0",
+          "exit_code": 0,
+          "run": "S_B0_s0_9M",
+          "samples": 6000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_B0_s0_9M_readout_budget_6000000_attempt0_guarded_4540359.json",
+          "retired_ids": [
+            "S_B0_s0_9M_readout_budget_6000000_attempt0_node_disk",
+            "S_B0_s0_9M_readout_budget_6000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      }
+    },
+    {
+      "run": "S_B0_s0_9M",
+      "samples": 7000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.20711834126333598,
+          "bootstrap_ci": [
+            0.19048197029537384,
+            0.22347738112002552
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.4763469807071782,
+          "bootstrap_ci": [
+            0.4631318017849143,
+            0.4889527935259836
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_B0_s0_9M",
+          "samples": 7000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_B0_s0_9M_budget_7000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_7000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 306907,
+            "uid": 1278,
+            "start_ticks": 2284433741,
+            "ppid": 306901,
+            "state": "R"
+          },
+          "started_at": 1795723318.1885138,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795730512.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.20711834126333598,
+          "R3": 0.4763469807071782,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795723434.9471974,
+          "elapsed_seconds": 116.75868391990662,
+          "peak_RSS_bytes": 1548992512,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_B0_s0_9M_budget_7000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 306901,
+            "uid": 1278,
+            "start_ticks": 2284433708,
+            "ppid": 306900,
+            "state": "R"
+          },
+          "started_at": 1795723317.860543,
+          "hard_end_epoch": 1795730512.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_7000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51289354240,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 52403654656,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5904469590016,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398258003968
+            }
+          },
+          "worker": {
+            "pid": 306907,
+            "uid": 1278,
+            "start_ticks": 2284433741,
+            "ppid": 306901,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795723435.5371137,
+          "wall_seconds": 117.6765706539154,
+          "cpu_user_seconds": 100.355031,
+          "cpu_system_seconds": 15.021005,
+          "peak_child_RSS_bytes": 1548992512,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_B0_s0_9M_readout_budget_7000000_attempt0",
+          "exit_code": 0,
+          "run": "S_B0_s0_9M",
+          "samples": 7000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_B0_s0_9M_readout_budget_7000000_attempt0_guarded_4540362.json",
+          "retired_ids": [
+            "S_B0_s0_9M_readout_budget_7000000_attempt0_node_disk",
+            "S_B0_s0_9M_readout_budget_7000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      }
+    },
+    {
+      "run": "S_B0_s0_9M",
+      "samples": 8000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.21063000064305312,
+          "bootstrap_ci": [
+            0.19426344847024382,
+            0.2264445233077049
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.4726372602128138,
+          "bootstrap_ci": [
+            0.4599709039826819,
+            0.48527533463967193
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_B0_s0_9M",
+          "samples": 8000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_B0_s0_9M_budget_8000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_8000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 307836,
+            "uid": 1278,
+            "start_ticks": 2284512760,
+            "ppid": 307830,
+            "state": "R"
+          },
+          "started_at": 1795724108.377493,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795731302.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.21063000064305312,
+          "R3": 0.4726372602128138,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795724224.6200979,
+          "elapsed_seconds": 116.24260520935059,
+          "peak_RSS_bytes": 1559232512,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_B0_s0_9M_budget_8000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 307830,
+            "uid": 1278,
+            "start_ticks": 2284512726,
+            "ppid": 307829,
+            "state": "R"
+          },
+          "started_at": 1795724108.0442429,
+          "hard_end_epoch": 1795731302.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_B0_s0_9M_budget_8000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51289079808,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 53666787328,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5902236123136,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398225469440
+            }
+          },
+          "worker": {
+            "pid": 307836,
+            "uid": 1278,
+            "start_ticks": 2284512760,
+            "ppid": 307830,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795724225.224017,
+          "wall_seconds": 117.1797742843628,
+          "cpu_user_seconds": 99.736032,
+          "cpu_system_seconds": 14.965065000000001,
+          "peak_child_RSS_bytes": 1559232512,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_B0_s0_9M_readout_budget_8000000_attempt0",
+          "exit_code": 0,
+          "run": "S_B0_s0_9M",
+          "samples": 8000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_B0_s0_9M_readout_budget_8000000_attempt0_guarded_4540365.json",
+          "retired_ids": [
+            "S_B0_s0_9M_readout_budget_8000000_attempt0_node_disk",
+            "S_B0_s0_9M_readout_budget_8000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      }
+    },
+    {
+      "run": "S_final_s0_9M",
+      "samples": 1000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.15152587129953915,
+          "bootstrap_ci": [
+            0.13559489010569786,
+            0.16691511084526175
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.4474823282686731,
+          "bootstrap_ci": [
+            0.43330681918035246,
+            0.4605374630579004
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_final_s0_9M",
+          "samples": 1000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_final_s0_9M_budget_1000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_1000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 308992,
+            "uid": 1278,
+            "start_ticks": 2284563479,
+            "ppid": 308986,
+            "state": "R"
+          },
+          "started_at": 1795724615.5645945,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795731810.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.15152587129953915,
+          "R3": 0.4474823282686731,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795724729.9200745,
+          "elapsed_seconds": 114.3554801940918,
+          "peak_RSS_bytes": 1559646208,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_final_s0_9M_budget_1000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 308986,
+            "uid": 1278,
+            "start_ticks": 2284563445,
+            "ppid": 308985,
+            "state": "R"
+          },
+          "started_at": 1795724615.2293484,
+          "hard_end_epoch": 1795731810.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_1000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51288907776,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 53356150784,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5899355684864,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398220677120
+            }
+          },
+          "worker": {
+            "pid": 308992,
+            "uid": 1278,
+            "start_ticks": 2284563479,
+            "ppid": 308986,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795724730.5184455,
+          "wall_seconds": 115.28909730911255,
+          "cpu_user_seconds": 99.47403999999999,
+          "cpu_system_seconds": 14.8585,
+          "peak_child_RSS_bytes": 1559646208,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_final_s0_9M_readout_budget_1000000_attempt0",
+          "exit_code": 0,
+          "run": "S_final_s0_9M",
+          "samples": 1000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_1000000_attempt0_guarded_4540369.json",
+          "retired_ids": [
+            "S_final_s0_9M_readout_budget_1000000_attempt0_node_disk",
+            "S_final_s0_9M_readout_budget_1000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      },
+      "paired_vs_B0_same_9M_trajectory_boundary": {
+        "R1": {
+          "delta": -0.0012991122043921888,
+          "ci_lower": -0.014878254238212986,
+          "ci_upper": 0.013543088189426235
+        },
+        "R3": {
+          "delta": -0.011489528491544332,
+          "ci_lower": -0.02181505510635273,
+          "ci_upper": -0.002528161671777717
+        }
+      }
+    },
+    {
+      "run": "S_final_s0_9M",
+      "samples": 2000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.14032977348531636,
+          "bootstrap_ci": [
+            0.12305107677000923,
+            0.15570398332559804
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.44320942611736747,
+          "bootstrap_ci": [
+            0.42943528362108807,
+            0.45657431983572344
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_final_s0_9M",
+          "samples": 2000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_final_s0_9M_budget_2000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_2000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 310394,
+            "uid": 1278,
+            "start_ticks": 2284659735,
+            "ppid": 310388,
+            "state": "R"
+          },
+          "started_at": 1795725577.130877,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795732771.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.14032977348531636,
+          "R3": 0.44320942611736747,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795725693.162862,
+          "elapsed_seconds": 116.03198528289795,
+          "peak_RSS_bytes": 1558171648,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_final_s0_9M_budget_2000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 310388,
+            "uid": 1278,
+            "start_ticks": 2284659700,
+            "ppid": 310387,
+            "state": "R"
+          },
+          "started_at": 1795725576.792538,
+          "hard_end_epoch": 1795732771.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_2000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51288952832,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 52757323776,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5894909722624,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398227509248
+            }
+          },
+          "worker": {
+            "pid": 310394,
+            "uid": 1278,
+            "start_ticks": 2284659735,
+            "ppid": 310388,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795725693.7750113,
+          "wall_seconds": 116.98247337341309,
+          "cpu_user_seconds": 99.68241099999999,
+          "cpu_system_seconds": 14.999186,
+          "peak_child_RSS_bytes": 1558171648,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_final_s0_9M_readout_budget_2000000_attempt0",
+          "exit_code": 0,
+          "run": "S_final_s0_9M",
+          "samples": 2000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_2000000_attempt0_guarded_4540371.json",
+          "retired_ids": [
+            "S_final_s0_9M_readout_budget_2000000_attempt0_node_disk",
+            "S_final_s0_9M_readout_budget_2000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      },
+      "paired_vs_B0_same_9M_trajectory_boundary": {
+        "R1": {
+          "delta": -0.03721344172047211,
+          "ci_lower": -0.05207190865397951,
+          "ci_upper": -0.021496431856910053
+        },
+        "R3": {
+          "delta": -0.024730644087228637,
+          "ci_lower": -0.035040909640674474,
+          "ci_upper": -0.014463982922776272
+        }
+      }
+    },
+    {
+      "run": "S_final_s0_9M",
+      "samples": 3000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.1586719317229774,
+          "bootstrap_ci": [
+            0.14071219069566857,
+            0.17381286184595582
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.4560619403206072,
+          "bootstrap_ci": [
+            0.4420779405259454,
+            0.46929552612621844
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_final_s0_9M",
+          "samples": 3000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_final_s0_9M_budget_3000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_3000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 310872,
+            "uid": 1278,
+            "start_ticks": 2284707885,
+            "ppid": 310866,
+            "state": "R"
+          },
+          "started_at": 1795726058.6363723,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795733253.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.1586719317229774,
+          "R3": 0.4560619403206072,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795726174.1086452,
+          "elapsed_seconds": 115.47227311134338,
+          "peak_RSS_bytes": 1558003712,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_final_s0_9M_budget_3000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 310866,
+            "uid": 1278,
+            "start_ticks": 2284707851,
+            "ppid": 310865,
+            "state": "R"
+          },
+          "started_at": 1795726058.2947557,
+          "hard_end_epoch": 1795733253.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_3000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51288985600,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 52424265728,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5891750363136,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398228480000
+            }
+          },
+          "worker": {
+            "pid": 310872,
+            "uid": 1278,
+            "start_ticks": 2284707885,
+            "ppid": 310866,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795726174.6806996,
+          "wall_seconds": 116.38594388961792,
+          "cpu_user_seconds": 99.198585,
+          "cpu_system_seconds": 14.897853999999999,
+          "peak_child_RSS_bytes": 1558003712,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_final_s0_9M_readout_budget_3000000_attempt0",
+          "exit_code": 0,
+          "run": "S_final_s0_9M",
+          "samples": 3000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_3000000_attempt0_guarded_4540374.json",
+          "retired_ids": [
+            "S_final_s0_9M_readout_budget_3000000_attempt0_node_disk",
+            "S_final_s0_9M_readout_budget_3000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      },
+      "paired_vs_B0_same_9M_trajectory_boundary": {
+        "R1": {
+          "delta": -0.03503285782868304,
+          "ci_lower": -0.05121471644347963,
+          "ci_upper": -0.02036719331081742
+        },
+        "R3": {
+          "delta": -0.013213445319892159,
+          "ci_lower": -0.02315444797919463,
+          "ci_upper": -0.003136462017911643
+        }
+      }
+    },
+    {
+      "run": "S_final_s0_9M",
+      "samples": 4000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.16027588801356166,
+          "bootstrap_ci": [
+            0.14263792424364774,
+            0.1766300951979982
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.4418886342316748,
+          "bootstrap_ci": [
+            0.4273182955245749,
+            0.45502130471413793
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_final_s0_9M",
+          "samples": 4000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_final_s0_9M_budget_4000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_4000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 311332,
+            "uid": 1278,
+            "start_ticks": 2284755507,
+            "ppid": 311326,
+            "state": "R"
+          },
+          "started_at": 1795726534.8545535,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795733729.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.16027588801356166,
+          "R3": 0.4418886342316748,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795726650.6374466,
+          "elapsed_seconds": 115.78289341926575,
+          "peak_RSS_bytes": 1531457536,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_final_s0_9M_budget_4000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 311326,
+            "uid": 1278,
+            "start_ticks": 2284755472,
+            "ppid": 311325,
+            "state": "R"
+          },
+          "started_at": 1795726534.5100913,
+          "hard_end_epoch": 1795733729.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_4000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51288752128,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 52110417920,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5889795817472,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398219665408
+            }
+          },
+          "worker": {
+            "pid": 311332,
+            "uid": 1278,
+            "start_ticks": 2284755507,
+            "ppid": 311326,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795726651.2004461,
+          "wall_seconds": 116.69035530090332,
+          "cpu_user_seconds": 99.41863599999999,
+          "cpu_system_seconds": 14.920193,
+          "peak_child_RSS_bytes": 1531457536,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_final_s0_9M_readout_budget_4000000_attempt0",
+          "exit_code": 0,
+          "run": "S_final_s0_9M",
+          "samples": 4000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_4000000_attempt0_guarded_4540376.json",
+          "retired_ids": [
+            "S_final_s0_9M_readout_budget_4000000_attempt0_node_disk",
+            "S_final_s0_9M_readout_budget_4000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      },
+      "paired_vs_B0_same_9M_trajectory_boundary": {
+        "R1": {
+          "delta": -0.04088539837420044,
+          "ci_lower": -0.055493295992263277,
+          "ci_upper": -0.026180349085892667
+        },
+        "R3": {
+          "delta": -0.009540415550366055,
+          "ci_lower": -0.01906924716721951,
+          "ci_upper": 0.0004230414235845246
+        }
+      }
+    },
+    {
+      "run": "S_final_s0_9M",
+      "samples": 5000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.17981214241225194,
+          "bootstrap_ci": [
+            0.16359725598163202,
+            0.1952453421899091
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.4501968843610672,
+          "bootstrap_ci": [
+            0.43622836164103446,
+            0.46445467650618927
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_final_s0_9M",
+          "samples": 5000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_final_s0_9M_budget_5000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_5000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 311626,
+            "uid": 1278,
+            "start_ticks": 2284812536,
+            "ppid": 311621,
+            "state": "R"
+          },
+          "started_at": 1795727105.1421108,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795734299.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.17981214241225194,
+          "R3": 0.4501968843610672,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795727221.5219889,
+          "elapsed_seconds": 116.379878282547,
+          "peak_RSS_bytes": 1531633664,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_final_s0_9M_budget_5000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 311621,
+            "uid": 1278,
+            "start_ticks": 2284812501,
+            "ppid": 311620,
+            "state": "R"
+          },
+          "started_at": 1795727104.7977276,
+          "hard_end_epoch": 1795734299.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_5000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51288555520,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 51522600960,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5887061131264,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398189608960
+            }
+          },
+          "worker": {
+            "pid": 311626,
+            "uid": 1278,
+            "start_ticks": 2284812536,
+            "ppid": 311621,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795727222.18709,
+          "wall_seconds": 117.38936257362366,
+          "cpu_user_seconds": 100.17359400000001,
+          "cpu_system_seconds": 14.837072000000001,
+          "peak_child_RSS_bytes": 1531633664,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_final_s0_9M_readout_budget_5000000_attempt0",
+          "exit_code": 0,
+          "run": "S_final_s0_9M",
+          "samples": 5000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_5000000_attempt0_guarded_4540378.json",
+          "retired_ids": [
+            "S_final_s0_9M_readout_budget_5000000_attempt0_node_disk",
+            "S_final_s0_9M_readout_budget_5000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      },
+      "paired_vs_B0_same_9M_trajectory_boundary": {
+        "R1": {
+          "delta": -0.015040137648628188,
+          "ci_lower": -0.027820794533573192,
+          "ci_upper": -0.0011139178384446046
+        },
+        "R3": {
+          "delta": -0.0055595715845829785,
+          "ci_lower": -0.015584996669565162,
+          "ci_upper": 0.004688318970625879
+        }
+      }
+    },
+    {
+      "run": "S_final_s0_9M",
+      "samples": 6000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.1863551846570409,
+          "bootstrap_ci": [
+            0.16982750747812306,
+            0.20269395826057296
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.4544767686479891,
+          "bootstrap_ci": [
+            0.4411119657925896,
+            0.4674343884119019
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_final_s0_9M",
+          "samples": 6000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_final_s0_9M_budget_6000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_6000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 311885,
+            "uid": 1278,
+            "start_ticks": 2284859719,
+            "ppid": 311880,
+            "state": "R"
+          },
+          "started_at": 1795727576.978029,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795734771.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.1863551846570409,
+          "R3": 0.4544767686479891,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795727692.612323,
+          "elapsed_seconds": 115.63429427146912,
+          "peak_RSS_bytes": 1530052608,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_final_s0_9M_budget_6000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 311880,
+            "uid": 1278,
+            "start_ticks": 2284859684,
+            "ppid": 311879,
+            "state": "R"
+          },
+          "started_at": 1795727576.6308346,
+          "hard_end_epoch": 1795734771.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_6000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51288895488,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 50922700800,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5884464857088,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398206971904
+            }
+          },
+          "worker": {
+            "pid": 311885,
+            "uid": 1278,
+            "start_ticks": 2284859719,
+            "ppid": 311880,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795727693.2258897,
+          "wall_seconds": 116.59505581855774,
+          "cpu_user_seconds": 99.313848,
+          "cpu_system_seconds": 14.951052,
+          "peak_child_RSS_bytes": 1530052608,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_final_s0_9M_readout_budget_6000000_attempt0",
+          "exit_code": 0,
+          "run": "S_final_s0_9M",
+          "samples": 6000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_6000000_attempt0_guarded_4540381.json",
+          "retired_ids": [
+            "S_final_s0_9M_readout_budget_6000000_attempt0_node_disk",
+            "S_final_s0_9M_readout_budget_6000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      },
+      "paired_vs_B0_same_9M_trajectory_boundary": {
+        "R1": {
+          "delta": -0.014954270671918513,
+          "ci_lower": -0.029530398465519577,
+          "ci_upper": -0.00028336239612042693
+        },
+        "R3": {
+          "delta": -0.01612406891195184,
+          "ci_lower": -0.026709321679242455,
+          "ci_upper": -0.0058678055536032685
+        }
+      }
+    },
+    {
+      "run": "S_final_s0_9M",
+      "samples": 7000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.19934495869034993,
+          "bootstrap_ci": [
+            0.18313400922340856,
+            0.2145384239445628
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.45051652040300605,
+          "bootstrap_ci": [
+            0.4350132937855845,
+            0.46401133740683564
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_final_s0_9M",
+          "samples": 7000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_final_s0_9M_budget_7000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_7000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 312152,
+            "uid": 1278,
+            "start_ticks": 2284896428,
+            "ppid": 312147,
+            "state": "R"
+          },
+          "started_at": 1795727944.059412,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795735138.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.19934495869034993,
+          "R3": 0.45051652040300605,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795728060.2061725,
+          "elapsed_seconds": 116.14676070213318,
+          "peak_RSS_bytes": 1527152640,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_final_s0_9M_budget_7000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 312147,
+            "uid": 1278,
+            "start_ticks": 2284896393,
+            "ppid": 312146,
+            "state": "R"
+          },
+          "started_at": 1795727943.7146745,
+          "hard_end_epoch": 1795735138.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_7000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51288682496,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 50329137152,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5881696616448,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398206840832
+            }
+          },
+          "worker": {
+            "pid": 312152,
+            "uid": 1278,
+            "start_ticks": 2284896428,
+            "ppid": 312147,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795728060.8046029,
+          "wall_seconds": 117.08992886543274,
+          "cpu_user_seconds": 99.67867100000001,
+          "cpu_system_seconds": 15.019841000000001,
+          "peak_child_RSS_bytes": 1527152640,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_final_s0_9M_readout_budget_7000000_attempt0",
+          "exit_code": 0,
+          "run": "S_final_s0_9M",
+          "samples": 7000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_7000000_attempt0_guarded_4540384.json",
+          "retired_ids": [
+            "S_final_s0_9M_readout_budget_7000000_attempt0_node_disk",
+            "S_final_s0_9M_readout_budget_7000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      },
+      "paired_vs_B0_same_9M_trajectory_boundary": {
+        "R1": {
+          "delta": -0.007773382572986043,
+          "ci_lower": -0.022938708485986867,
+          "ci_upper": 0.007447056250085698
+        },
+        "R3": {
+          "delta": -0.02583046030417213,
+          "ci_lower": -0.03710427419015028,
+          "ci_upper": -0.014900393885968586
+        }
+      }
+    },
+    {
+      "run": "S_final_s0_9M",
+      "samples": 8000000,
+      "source_training_budget": 9000000,
+      "independent_budget": false,
+      "descriptive_only": true,
+      "layer": 6,
+      "readouts": {
+        "R1": {
+          "complete": true,
+          "mean_normalized_improvement": 0.2036040520143114,
+          "bootstrap_ci": [
+            0.18797004589898642,
+            0.2194957814833249
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        },
+        "R3": {
+          "complete": true,
+          "mean_normalized_improvement": 0.45159477232520817,
+          "bootstrap_ci": [
+            0.4380968992968324,
+            0.4649974902235301
+          ],
+          "bootstrap_samples": 1000,
+          "bootstrap_defined": 1000,
+          "bootstrap_unit": "molecule",
+          "bootstrap_seed": 20261025,
+          "included_tasks": [
+            "exp.LogD",
+            "exp.Log_HLM_CLint",
+            "exp.LogS",
+            "qm9.U0_atom",
+            "qm9.homo",
+            "qm9.lumo",
+            "qm9.alpha"
+          ]
+        }
+      },
+      "execution": {
+        "phase": {
+          "run": "S_final_s0_9M",
+          "samples": 8000000,
+          "mode": "cpu",
+          "node": "compute-0-11",
+          "job_id": null,
+          "native_handle": "S_final_s0_9M_budget_8000000_statistics_native_20261126_attempt0",
+          "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_8000000_statistics_native_20261126_attempt0/record.json",
+          "producer": {
+            "pid": 313003,
+            "uid": 1278,
+            "start_ticks": 2284932299,
+            "ppid": 312998,
+            "state": "R"
+          },
+          "started_at": 1795728301.7736876,
+          "status": "COMPLETE",
+          "actual_deadline_epoch": 1795735496.0,
+          "closing_reserve_seconds": 900,
+          "layer": 6,
+          "R1": 0.2036040520143114,
+          "R3": 0.45159477232520817,
+          "schedule": "snapshot of this same9M cosine trajectory",
+          "descriptive_budget_trend_only": true,
+          "feature_cache": {
+            "status": "CLOSED_H_SCRATCH_RELEASED_AFTER_R1_R3_AND_BOOTSTRAP",
+            "files": 3,
+            "bytes": 770741715,
+            "failed_partials_preserved": true
+          },
+          "independent_budget": false,
+          "screening3M_comparison": false,
+          "ended_at": 1795728416.9902267,
+          "elapsed_seconds": 115.21653938293457,
+          "peak_RSS_bytes": 1560330240,
+          "owned_descendants_exited": true
+        },
+        "parent": {
+          "execution": "native_cpu",
+          "handle": "S_final_s0_9M_budget_8000000_statistics_native_20261126_attempt0",
+          "stage": "budget_statistics",
+          "job_id": null,
+          "node": "compute-0-11",
+          "cores": [
+            50
+          ],
+          "producer": {
+            "pid": 312998,
+            "uid": 1278,
+            "start_ticks": 2284932264,
+            "ppid": 312997,
+            "state": "R"
+          },
+          "started_at": 1795728301.4165194,
+          "hard_end_epoch": 1795735496.0,
+          "cleanup_seconds": 900,
+          "status": "COMPLETE",
+          "owned_descendants_exited": true,
+          "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_final_s0_9M_budget_8000000_statistics_native_20261126_attempt0/configuration.json",
+          "admission": {
+            "root": {
+              "line": "s-recipe",
+              "kind": "node_disk",
+              "node": "compute-0-11",
+              "path": "/",
+              "own": 150994944,
+              "peers": 67108864,
+              "reserve": 10737418240,
+              "available": 51288543232,
+              "probe_target": "/"
+            },
+            "shared": {
+              "line": "s-recipe",
+              "kind": "shared_fs",
+              "node": null,
+              "path": "/share",
+              "own": 52362223616,
+              "peers": 415834496,
+              "reserve": 108589934592,
+              "available": 5881670402048,
+              "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+            },
+            "ram": {
+              "line": "s-recipe",
+              "kind": "node_ram",
+              "node": "compute-0-11",
+              "path": "None",
+              "own": 51539607552,
+              "peers": 8589934592,
+              "reserve": 40446522572,
+              "available": 398204461056
+            }
+          },
+          "worker": {
+            "pid": 313003,
+            "uid": 1278,
+            "start_ticks": 2284932299,
+            "ppid": 312998,
+            "state": "R"
+          },
+          "exit_code": 0,
+          "ended_at": 1795728417.628979,
+          "wall_seconds": 116.21245980262756,
+          "cpu_user_seconds": 99.772622,
+          "cpu_system_seconds": 14.783463,
+          "peak_child_RSS_bytes": 1560330240,
+          "observer_joined": true
+        },
+        "gpu_close": {
+          "status": "OWN_RESOURCES_CLOSED",
+          "handle": "S_final_s0_9M_readout_budget_8000000_attempt0",
+          "exit_code": 0,
+          "run": "S_final_s0_9M",
+          "samples": 8000000,
+          "role": "budget",
+          "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_final_s0_9M_readout_budget_8000000_attempt0_guarded_4540387.json",
+          "retired_ids": [
+            "S_final_s0_9M_readout_budget_8000000_attempt0_node_disk",
+            "S_final_s0_9M_readout_budget_8000000_attempt0_node_ram"
+          ],
+          "actual": "COMPLETED|0:0",
+          "files_deleted": false,
+          "failed_standby_evidence": null
+        }
+      },
+      "paired_vs_B0_same_9M_trajectory_boundary": {
+        "R1": {
+          "delta": -0.007025948628741729,
+          "ci_lower": -0.022346869401734203,
+          "ci_upper": 0.006926636106521897
+        },
+        "R3": {
+          "delta": -0.021042487887605654,
+          "ci_lower": -0.031022534373223887,
+          "ci_upper": -0.010434861041217137
+        }
+      }
+    }
+  ],
+  "reporting_execution": {
+    "job_id": null,
+    "native_handle": "S_budget_curve_delivery_native_20261127_attempt0",
+    "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_budget_curve_delivery_native_20261127_attempt0/record.json"
+  },
+  "original_score_files_consumed": 16,
+  "new_fits": 0,
+  "new_bootstrap_draws": 0,
+  "original_VAL_files_reopened": 0,
+  "endpoint9M": "Already delivered original endpoints reused from budget_curve.csv",
+  "interpretation": "Within-run cosine trajectory trends; no independent-budget or screening3M comparison",
+  "retained_primary_delivery": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/budget_readout_primaries_20261127.json"
+}

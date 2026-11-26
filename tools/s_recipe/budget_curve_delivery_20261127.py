@@ -46,6 +46,8 @@ def plot(rows):
             axis.plot([int(row['samples'])/1000000 for row in series],
                 [float(row['VAL_loss_'+family]) for row in series], '.-', color=color, label=label)
         axis.set_ylabel(family+' VAL loss')
+        if family=='s_element':
+            axis.set_title('S-final: element recovery objective disabled',fontsize=9,loc='left')
         axis.grid(alpha=.2)
     axes[0].legend(frameon=False)
     axes[0].set_title('Existing fixed-VAL records, transcribed once')
@@ -107,6 +109,12 @@ def collect():
         new_fits=0, new_bootstrap_draws=0, original_VAL_files_reopened=0,
         endpoint9M='Already delivered original endpoints reused from budget_curve.csv',
         interpretation='Within-run cosine trajectory trends; no independent-budget or screening3M comparison')
+    retained=C/'budget_readout_primaries_20261127.json'
+    write(retained,dict(status='COMPLETE_ORIGINAL_RETAINED_PRIMARIES',
+        points=[dict(run=run,samples=samples,scores=score) for (run,samples),score in scores.items()],
+        source='The same first reporting consumption of the16 closed original prefix scores',
+        new_bootstrap_draws=0,scope='Retain original draws for the registered later subset-vs-full contrasts'))
+    value['retained_primary_delivery']=str(retained)
     write(R/'results/s_recipe/budget_readout_delivery_20261127.json', value)
     write(marker, value)
     return value

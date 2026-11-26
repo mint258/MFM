@@ -11,7 +11,8 @@ closed_points=sorted((R/'results/s_recipe/full_finetune').glob('*.json'))
 if closed_points:progress([read(path) for path in closed_points])
 for filename in ('e1_s_rule_check_20261127.json','controller_sequence_check_20261127.json',
         'metadata_lock_check_20261127.json','reporting_delivery_check_20261127.json',
-        'native_clock_anchor_check_20261127.json'):
+        'native_clock_anchor_check_20261127.json','fullft_contrast_check_20261127.json',
+        'e1_cached_components_check_20261127.json'):
     check=read(C/filename)
     parent=read(check['native_record'])
     command=read(Path(check['native_record']).with_name('command_exit.json'))
@@ -69,7 +70,8 @@ for name in ('launch_fullft_20261124.py','launch_cpu_native_20261126.py','seal_c
     'retire_closed_training_reservations_20261122.py','reconcile_B0_8M_takeover_20261127.py',
     'check_metadata_lock_20261127.py','check_reporting_delivery_20261127.py',
     'check_native_clock_anchor_20261127.py','inspect_native_startup_clock_20261127.py',
-    'recover_preGPU_native_starts_20261127.py'):
+    'recover_preGPU_native_starts_20261127.py','check_fullft_contrasts_20261127.py',
+    'check_e1_cached_components_20261127.py'):
     shutil.copyfile(C/name,target/name)
 shutil.copyfile(C/'B0_8M_takeover_reconciliation_20261127.json',
     R/'results/s_recipe/B0_8M_takeover_reconciliation_20261127.json')

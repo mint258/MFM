@@ -128,7 +128,8 @@ def run():
             primary_complete=receipt, primary_exit=closure, parent_exit=parent, fits=fits,
             reporting_execution=execution_fields(), new_fits=0, new_bootstrap_draws=0,
             required_paired_contrasts_status='Pending corresponding complete reference point deliveries',
-            recipe_unchanged=True, ordinary_fullft_is_descriptive=True)
+            recipe_unchanged=True, ordinary_fullft_is_descriptive=True,
+            E1_seed_mean_component_available=bool(primary['retained']['identity'].get('seed_mean_draws')))
         write(destination, value)
         write(marker, dict(status='COMPLETE', point=point, output=str(destination),
             retained_primary_delivery=str(cache)))

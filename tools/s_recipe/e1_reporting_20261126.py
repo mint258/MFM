@@ -4,6 +4,7 @@ No training, prediction fitting, molecular resampling or checkpoint loading.
 The caller supplies already closed producer metadata and original score JSON.
 """
 import importlib.util
+import math
 from copy import deepcopy
 from pathlib import Path
 import sys
@@ -117,7 +118,23 @@ def validate_missing(k, timebox):
         raise ValueError('Engineering/queue failures remain pending under Nov25 rule')
 
 
-def decide(configuration, cells, algebra):
+def _frozen_comparison(k,readout,cell,baseline,algebra,closed):
+    if closed is None:
+        return apply_s_verdict(algebra.compare_frozen(cell['frozen'],baseline['frozen'],readout))
+    value=closed[k][readout]
+    decision=value['decision']
+    expected=cell['frozen_means'][readout]-baseline['frozen_means'][readout]
+    numbers=[decision[key] for key in ('delta','ci_lower','ci_upper')]+[value['threshold'],
+        cell['frozen_means'][readout],baseline['frozen_means'][readout]]
+    if (value.get('authority')!=DECISION_AUTHORITY or not all(math.isfinite(x) for x in numbers)
+            or abs(decision['delta']-expected)>1e-12 or value['threshold']<=0
+            or decision['ci_lower']>decision['ci_upper']
+            or (k==10 and any(decision[key]!=0 for key in ('delta','ci_lower','ci_upper')))):
+        raise ValueError('Delivered frozen comparison differs from its exact original k10 source')
+    return apply_s_verdict(value)
+
+
+def decide(configuration, cells, algebra, *, closed_frozen_comparisons=None):
     """Pure decision; selected WIN remains provisional until seed1 confirms."""
     if configuration.get('ready') is not True or configuration.get('authority') != AUTHORITY:
         raise ValueError('S E1 reporting defaults off until actual primaries close')
@@ -125,6 +142,9 @@ def decide(configuration, cells, algebra):
         raise ValueError('All four registered cells must be accounted for')
     if cells[10].get('missing'):
         raise ValueError('The original k10 reference cannot be missing')
+    if (closed_frozen_comparisons is not None and set(closed_frozen_comparisons)
+            != {k for k in KS if not cells[k].get('missing')}):
+        raise ValueError('Delivered frozen components must cover the exact nonmissing E1 cells')
     rows = {}
     for k in KS:
         cell = cells[k]
@@ -137,8 +157,8 @@ def decide(configuration, cells, algebra):
             raise ValueError('Original training, readout and full FT producers must close first')
         baseline = cells[10]
         rows[k] = dict(k=k,
-            frozen_R1=apply_s_verdict(algebra.compare_frozen(cell['frozen'], baseline['frozen'], 'R1')),
-            frozen_R3=apply_s_verdict(algebra.compare_frozen(cell['frozen'], baseline['frozen'], 'R3')),
+            frozen_R1=_frozen_comparison(k,'R1',cell,baseline,algebra,closed_frozen_comparisons),
+            frozen_R3=_frozen_comparison(k,'R3',cell,baseline,algebra,closed_frozen_comparisons),
             full=apply_s_verdict(algebra.compare_full(cell['full'], baseline['full'],
                                      cell['full_group'], baseline['full_group'])),
             full_task_rows=[r for r in cell['full']['rows'] if r['condition'] == cell['full_group']],
@@ -153,6 +173,7 @@ def decide(configuration, cells, algebra):
         shared_P_S_adoption_requires_user_confirmation=True,
         results=[rows[k] for k in KS], original_draws_resampled=0,
         new_bootstrap_draws=0, new_fits=0,
+        frozen_components_reused_from_delivery=closed_frozen_comparisons is not None,
         interpretation='Local S choice; original3M recipe decisions remain unchanged')
 
 
