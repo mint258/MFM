@@ -1,0 +1,50 @@
+{
+  "schema": "D_REUSE_EXISTING_P_SELECTED_IDENTITY_SOURCES_V1",
+  "status": "LOCATED_PUBLISHED_ORIGINAL_P_IDENTITY_LISTS_NOT_CONSUMED_YET",
+  "authority": "docs/d_recipe/USER_DIRECTIVE_20261123B.md",
+  "publisher_completion": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/extension_populations_20261124/COMPLETE.json",
+  "publisher_native_handle": "S_population_native_20261126_attempt2",
+  "publisher_native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_population_native_20261126_attempt2/record.json",
+  "selection_provider": "original P p_recipe_data.train_indices(saved original configuration), exported once by the existing S population producer",
+  "identity_column": "molecule_id",
+  "identity_order": "Original P selected order in the saved Parquet rows",
+  "source_corpus": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/corpus/corpus.json",
+  "sources": [
+    {
+      "P_arm": "T5",
+      "P_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T5.json",
+      "subset_seed": 20261112,
+      "requested_molecules": 250000,
+      "original_P_selected_molecules": 250000,
+      "P_selected_MIDs": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/extension_populations_20261124/T5_original_P_selected_MIDs.parquet"
+    },
+    {
+      "P_arm": "T6",
+      "P_configuration": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/configs/p_recipe/fixed_20261115/confirmation/T6.json",
+      "subset_seed": 20261112,
+      "requested_molecules": 500000,
+      "original_P_selected_molecules": 500000,
+      "P_selected_MIDs": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/extension_populations_20261124/T6_original_P_selected_MIDs.parquet"
+    }
+  ],
+  "D_consumption_phase": "After D-final freeze: parse saved original P MIDs using the same native identity map, then intersect original D TRAIN; preserve P order and publish guarded actual D indices/count once",
+  "new_selection_RNG": false,
+  "source_lists_modified": false,
+  "source_label_or_prediction_arrays_read": false,
+  "publisher_status": "COMPLETE",
+  "publisher_exit_code": 0,
+  "located_files_metadata": [
+    {
+      "P_arm": "T5",
+      "UID": 1278,
+      "bytes": 1965893,
+      "regular": true
+    },
+    {
+      "P_arm": "T6",
+      "UID": 1278,
+      "bytes": 3835531,
+      "regular": true
+    }
+  ]
+}

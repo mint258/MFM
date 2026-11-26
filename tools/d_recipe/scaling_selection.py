@@ -31,6 +31,18 @@ def actual_intersection(p_selected, d_train):
     return result.copy()
 
 
+def indices_from_saved_mids(saved_mids, original_mid_to_index):
+    """Parse an existing original P identity list in its existing row order."""
+    mids = list(saved_mids)
+    if not mids or len(set(mids)) != len(mids) or any(mid is None for mid in mids):
+        raise ValueError("Actual saved P molecular identities must be nonempty and unique")
+    try:
+        mapped = [original_mid_to_index[mid] for mid in mids]
+    except KeyError as error:
+        raise ValueError("Saved P molecular identity is absent from the original native map: " + str(error)) from error
+    return _indices(np.asarray(mapped)).copy()
+
+
 def plan_subset(best, cold_final, p_source, p_selected, d_train, *, output_root, run_prefix):
     if best.get("status") != "FROZEN" or best.get("recipe_frozen") is not True:
         raise ValueError("D-final must be frozen before molecule scaling")

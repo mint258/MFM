@@ -8,10 +8,19 @@ from unittest.mock import patch
 
 import numpy as np
 
-from tools.d_recipe.scaling_selection import actual_intersection, installed_selection, plan_subset
+from tools.d_recipe.scaling_selection import actual_intersection, indices_from_saved_mids, installed_selection, plan_subset
 
 
 class DScalingSelectionTests(unittest.TestCase):
+    def test_saved_P_identity_rows_map_in_order_without_guessing_or_drawing(self):
+        with patch("numpy.random.default_rng", side_effect=AssertionError("No new selection")):
+            selected = indices_from_saved_mids(["MID_b", "MID_a"], {"MID_a": 3, "MID_b": 7})
+        np.testing.assert_array_equal(selected, [7, 3])
+        with self.assertRaisesRegex(ValueError, "absent"):
+            indices_from_saved_mids(["unknown"], {"MID_a": 3})
+        with self.assertRaisesRegex(ValueError, "unique"):
+            indices_from_saved_mids(["MID_a", "MID_a"], {"MID_a": 3})
+
     def inputs(self):
         best = dict(status="FROZEN", recipe_frozen=True, arm="D-R1", library="D20")
         source = dict(condition="D", arm="9M-D-final", seed=0, samples=9000000,

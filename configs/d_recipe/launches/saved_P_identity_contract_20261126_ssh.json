@@ -1,0 +1,23 @@
+{
+  "execution_id": "ssh:D_saved_P_identity_contract_20261126",
+  "node": "compute-0-19",
+  "cores": [
+    65
+  ],
+  "expected_seconds": 60,
+  "timeout_seconds": 1800,
+  "cleanup_seconds": 180,
+  "ram_peak_bytes": 4294967296,
+  "root_future_bytes": 1048576,
+  "receipt": "/tmp/d_recipe_20261126_saved_P_identity_contract/receipt.json",
+  "line": "D",
+  "worker_argv": [
+    "/usr/bin/env",
+    "TMPDIR=/tmp/d_recipe_20261126_saved_P_identity_contract",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+    "-B",
+    "-c",
+    "import json,os,sys,time,unittest;os.chdir(\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\");sys.path[:0]=[\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\",\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tests\"];s=unittest.defaultTestLoader.loadTestsFromName('test_d_recipe_scaling_selection.DScalingSelectionTests.test_saved_P_identity_rows_map_in_order_without_guessing_or_drawing');t=time.monotonic();r=unittest.TextTestRunner(verbosity=1).run(s);print(json.dumps(dict(stage='D_SAVED_P_IDENTITY_CONTRACT',tests_run=r.testsRun,failures=len(r.failures),errors=len(r.errors),seconds=time.monotonic()-t)),flush=True);sys.exit(not r.wasSuccessful())"
+  ]
+}
