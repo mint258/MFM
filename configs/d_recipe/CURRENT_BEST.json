@@ -5431,9 +5431,9 @@
         "other_owner_processes_changed": false
       },
       "latest_admission": {
-        "observed_at_UTC": "2026-11-26T10:24:03.890Z",
+        "observed_at_UTC": "2026-11-26T10:53:38.555Z",
         "GPU20_target_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-        "used_MiB": 18,
+        "used_MiB": 443,
         "total_MiB": 49140,
         "own_lock_free": true,
         "allocated_CPUs": 101,
@@ -5441,20 +5441,25 @@
         "required_CPUs": 5,
         "required_own_RAM_bytes": 68719476736,
         "RAM_admission": "REFUSED",
-        "available_RAM_bytes": 85967163392,
+        "available_RAM_bytes": 86939754496,
         "own_candidate_RAM_released_to_zero": true,
         "new_GPU_job_submitted": false,
         "preferred_group": "0/1/3/4 allocated with no CPU;5/6/7 retained CUDA contexts",
         "node22": "26150/32607MiB,own_lock_busy,no allocated CPU available",
-        "next_GPU_admission_UTC": "2026-11-26T10:54:03.890Z",
+        "next_GPU_admission_UTC": "2026-11-26T11:23:38.555Z",
         "allocatable_CPUs": 3,
         "ordinary_sbatch_candidate_currently_eligible": false,
         "required_transport_if_RAM_admits": "SSH GPU plus matched same-task sbatch checkpoint takeover; original5CPU configuration retained",
         "native_GPU_transport": "PREPARED_TESTED_WITH_REAL_CPU_PROCESS_NO_GPU_RUN",
         "native_GPU_plan": "configs/d_recipe/continuations/L1_GPU20_native_20261126_plan.json",
-        "admission_deficit_bytes": 68651659264,
+        "admission_deficit_bytes": 67679068160,
         "resource_probe_outer_timeout_seconds": 100,
-        "canonical_inner_check_timeout_seconds": 60
+        "canonical_inner_check_timeout_seconds": 60,
+        "ordinary_sbatch_ineligible_reasons": [
+          "Only3 allocatable CPUs for original5CPU transport",
+          "Target UUID now has an existing CUDA context; sharing is permitted only by the native20/22 route"
+        ],
+        "target_existing_CUDA_context_count": 1
       },
       "prepared_native_GPU20_candidate": {
         "status": "GPU_SSH_AND_MATCHED_REAL_SLURM_TAKEOVER_PREPARED_NOT_ACTIVATED",
@@ -5646,7 +5651,7 @@
         "temporary_CPU_claims_released": true,
         "source_checkpoint_tensor_QA": false
       },
-      "next_GPU_admission_UTC": "2026-11-26T10:54:03.890Z"
+      "next_GPU_admission_UTC": "2026-11-26T11:23:38.555Z"
     },
     "next_L1_progress_check_UTC": null,
     "L2": {
@@ -5827,20 +5832,20 @@
           "log_tail": "{\"phase\": \"SSH_RESIDENT_STARTED\", \"schema\": \"P_CPU_SSH_RUNTIME_20261126_V1\", \"status\": \"RUNNING\", \"execution_id\": \"ssh:P_D_L2_A1_segment3_attempt2_20261126\", \"node\": \"compute-0-11\", \"supervisor\": {\"pid\": 276941, \"start_ticks\": 2281013380, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-830.scope\\n\", \"state\": \"R\"}, \"parent\": {\"pid\": 276940, \"start_ticks\": 2281013380, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-830.scope\\n\", \"state\": \"S\"}, \"session_id\": 276940, \"cores\": [37], \"idle_fraction\": {\"37\": 1.0}, \"MemAvailable\": 396623724544, \"started_at\": 1795689127.56511, \"hard_end_epoch\": 1795710717.56511, \"timeout_seconds\": 21600, \"cleanup_seconds\": 180, \"original_pending_job\": null, \"worker_argv\": [\"/usr/bin/env\", \"TMPDIR=/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment3_attempt2_20261126\", \"PYTHONDONTWRITEBYTECODE=1\", \"PYTHONPATH=/share/home/zixiao/descriptor_analysis/MFM_d_recipe:/share/home/zixiao/descriptor_analysis/MFM_d_recipe/current:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/current:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps\", \"/share/home/zixiao/.conda/envs/chemprop/bin/python\", \"-B\", \"-m\", \"tools.d_recipe.reference_segment_guarded\", \"--configuration\", \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/launches/L2_A1_segment3_attempt2_20261126.json\"], \"scientific_code_and_outputs_preserved\": true}\n"
         },
         "latest_native_progress": {
-          "observed_at_epoch": 1795689292.6139636,
+          "observed_at_epoch": 1795690459.306542,
           "receipt_status": "RUNNING",
           "returncode": null,
           "started_at_epoch": 1795689127.56511,
           "hard_end_epoch": 1795710717.56511,
-          "closed_rows": 944640,
+          "closed_rows": 958208,
           "collection_status": "COLLECTING",
           "last_attempt": {
             "job_id": null,
             "node": "compute-0-11",
             "start_row": 943360,
             "state": "RUNNING",
-            "closed_rows": 944640,
-            "elapsed_seconds": 111.80397265031934
+            "closed_rows": 958208,
+            "elapsed_seconds": 1278.4502337500453
           },
           "actual_supervisor": {
             "pid": 276941,
@@ -5851,7 +5856,7 @@
           "actual_worker": {
             "pid": 276961,
             "start_ticks": 2281013885,
-            "state": "R",
+            "state": "I",
             "uid": 1278
           },
           "actual_parent": {
@@ -5864,10 +5869,10 @@
           "remaining_children": null,
           "actual_cpu_seconds": null,
           "wall_seconds": null,
-          "actual_root_available": 54503493632,
+          "actual_root_available": 54329151488,
           "actual_root_inodes": 36569775,
-          "own_local_allocated": 12149747712,
-          "own_local_remaining_future": 5030121472
+          "own_local_allocated": 12324061184,
+          "own_local_remaining_future": 4855808000
         },
         "original_scientific_binding_unchanged": true,
         "partial_TRAIN_fitting": false,
@@ -5901,27 +5906,27 @@
       "last_observed_worker": {
         "pid": 276961,
         "start_ticks": 2281013885,
-        "state": "R",
+        "state": "I",
         "uid": 1278
       },
       "next_segment_plan": "configs/d_recipe/reference/L2_cursor_segments_20261126_plan.json",
       "canonical_next_segment_entry": "tools/d_recipe/reference_segment_guarded.py",
       "A1_status": "ORIGINAL_FULL_TRAIN_CURSOR_COLLECTION_RECOVERING",
       "latest_native_progress": {
-        "observed_at_epoch": 1795689292.6139636,
+        "observed_at_epoch": 1795690459.306542,
         "receipt_status": "RUNNING",
         "returncode": null,
         "started_at_epoch": 1795689127.56511,
         "hard_end_epoch": 1795710717.56511,
-        "closed_rows": 944640,
+        "closed_rows": 958208,
         "collection_status": "COLLECTING",
         "last_attempt": {
           "job_id": null,
           "node": "compute-0-11",
           "start_row": 943360,
           "state": "RUNNING",
-          "closed_rows": 944640,
-          "elapsed_seconds": 111.80397265031934
+          "closed_rows": 958208,
+          "elapsed_seconds": 1278.4502337500453
         },
         "actual_supervisor": {
           "pid": 276941,
@@ -5932,7 +5937,7 @@
         "actual_worker": {
           "pid": 276961,
           "start_ticks": 2281013885,
-          "state": "R",
+          "state": "I",
           "uid": 1278
         },
         "actual_parent": {
@@ -5945,10 +5950,10 @@
         "remaining_children": null,
         "actual_cpu_seconds": null,
         "wall_seconds": null,
-        "actual_root_available": 54503493632,
+        "actual_root_available": 54329151488,
         "actual_root_inodes": 36569775,
-        "own_local_allocated": 12149747712,
-        "own_local_remaining_future": 5030121472
+        "own_local_allocated": 12324061184,
+        "own_local_remaining_future": 4855808000
       },
       "collection_forecast": {
         "observed_at_UTC": "2026-11-26T10:32:39.659Z",
@@ -5968,17 +5973,17 @@
         "conditional_collection_end_UTC": "2026-11-26T16:28:52.049Z"
       },
       "latest_short_observation": {
-        "observed_at_UTC": "2026-11-26T10:34:52.613Z",
-        "closed_rows": 944640,
+        "observed_at_UTC": "2026-11-26T10:54:19.306Z",
+        "closed_rows": 958208,
         "collection_status": "COLLECTING",
         "worker": {
           "pid": 276961,
           "start_ticks": 2281013885,
-          "state": "R",
+          "state": "I",
           "uid": 1278
         }
       },
-      "closed_collection_rows": 944640,
+      "closed_collection_rows": 958208,
       "SSH_segments": [
         {
           "status": "CURSOR_SAVED_NOT_COMPLETE",
