@@ -1,74 +1,180 @@
 {
-  "epoch": 1795652875.711533,
-  "state": "IN_PROGRESS_RESOURCE_WAIT",
+  "epoch": 1795664846.3238242,
+  "state": "RUNNING_MAINNODE",
   "capacity": {
-    "observed_epoch": 1795652875.711533,
+    "observed_epoch": 1795664846.3238242,
     "NFS": {
-      "used_bytes": 4094999584768,
+      "used_bytes": 3726232645632,
       "limit_bytes": 4398046511104,
-      "free_bytes": 303046926336,
+      "free_bytes": 671813865472,
       "target_free_bytes": 2199023255552,
-      "remaining_gap_bytes": 1895976329216
+      "remaining_gap_bytes": 1527209390080
     },
     "Lustre": {
-      "used_bytes": 2195310899200,
+      "used_bytes": 2131342430208,
       "limit_bytes": 2199023255552,
-      "free_bytes": 3712356352,
+      "free_bytes": 67680825344,
       "target_free_bytes": 536870912000,
-      "remaining_gap_bytes": 533158555648
+      "remaining_gap_bytes": 469190086656
     },
     "jobs": {
       "directive_discovery": {
         "job": "4540114",
-        "status": "PENDING",
-        "scheduler_snapshot_epoch": 1795652875.711533
+        "status": "CANCELLED by 1278|0:0",
+        "scheduler_snapshot_epoch": 1795664846.3238242
       },
       "A_cleanup_prior_passed_B5": {
         "job": "4540115",
-        "status": "PENDING",
-        "scheduler_snapshot_epoch": 1795652875.711533
+        "status": "CANCELLED by 1278|0:0",
+        "scheduler_snapshot_epoch": 1795664846.3238242
       },
       "B2_B4_schema_samples": {
         "job": "4540116",
-        "status": "PENDING",
-        "scheduler_snapshot_epoch": 1795652875.711533
+        "status": "CANCELLED by 1278|0:0",
+        "scheduler_snapshot_epoch": 1795664846.3238242
       },
       "B5_cursor_resume": {
         "job": "4540117",
-        "status": "PENDING",
-        "scheduler_snapshot_epoch": 1795652875.711533
+        "status": "CANCELLED by 1278|0:0",
+        "scheduler_snapshot_epoch": 1795664846.3238242
       },
       "checkpoint_compression_retry": {
         "job": "4540118",
-        "status": "PENDING",
-        "scheduler_snapshot_epoch": 1795652875.711533
+        "status": "CANCELLED by 1278|0:0",
+        "scheduler_snapshot_epoch": 1795664846.3238242
       },
       "B5_passed_cleanup": {
         "job": "4540119",
-        "status": "PENDING",
-        "scheduler_snapshot_epoch": 1795652875.711533
+        "status": "CANCELLED by 1278|0:0",
+        "scheduler_snapshot_epoch": 1795664846.3238242
       },
       "NFS_outside_depth3": {
         "job": "4540120",
-        "status": "PENDING",
-        "scheduler_snapshot_epoch": 1795652875.711533
+        "status": "CANCELLED by 1278|0:0",
+        "scheduler_snapshot_epoch": 1795664846.3238242
       },
       "Lustre_outside_D6_depth3": {
         "job": "4540121",
-        "status": "PENDING",
-        "scheduler_snapshot_epoch": 1795652875.711533
+        "status": "CANCELLED by 1278|0:0",
+        "scheduler_snapshot_epoch": 1795664846.3238242
+      },
+      "mainnode_A": {
+        "job": "PID1659562",
+        "status": "EXITED_CHECK_SAVED_RESULT",
+        "scheduler_snapshot_epoch": 1795664846.3238242
+      },
+      "mainnode_fast": {
+        "job": "PID1679602",
+        "status": "EXITED_CHECK_SAVED_RESULT",
+        "scheduler_snapshot_epoch": 1795664846.3238242
+      },
+      "mainnode_raw": {
+        "job": "PID2993451",
+        "status": "RUNNING_NATIVE_MAINNODE",
+        "scheduler_snapshot_epoch": 1795664846.3238242
       }
     },
     "goals": {
       "NFS_free_bytes": 2199023255552,
       "Lustre_free_bytes": 536870912000
     },
-    "goals_status": "NOT_MET"
+    "goals_status": "NOT_MET",
+    "execution_override": "User20261126: cancel own Slurm cleanup, run directly on main node"
   },
-  "additional_deleted_files": 0,
-  "additional_freed_bytes": 0,
-  "categories": {},
+  "additional_deleted_files": 326485,
+  "additional_freed_bytes": 432761806848,
+  "categories": {
+    "OUTSIDE_CACHE": 37741326336,
+    "A1": 123747262464,
+    "A8": 831488,
+    "A3": 21457612800,
+    "B5": 46518358016,
+    "A4": 0,
+    "A7": 3392475136,
+    "A6": 35935285248,
+    "LUSTRE_DIAGNOSTIC": 180224,
+    "A5": 100000186368,
+    "LUSTRE_CLOSED_CACHE": 63968288768
+  },
   "B1_gate": "NOT_YET_RUN",
-  "B2_B4_gate": "WAITING_SCHEMA",
-  "original_index_required": false
+  "B2_B4_gate": "B2_FIRST_PASS_LARGER_WORKSPACES_RUNNING",
+  "original_index_required": false,
+  "B2_gate_workspaces": [
+    {
+      "workspace": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric512_project_v3",
+      "state": "PASS_BEFORE_DELETE",
+      "phase": "COMPLETE",
+      "all_keys_checked": 63765,
+      "sampled_field_pairs": 10000,
+      "checked_parts": 200,
+      "total_parts": 291,
+      "reason": null,
+      "epoch": 1795664131.0816414,
+      "pid": 3456018,
+      "start_ticks": "8446026866"
+    },
+    {
+      "workspace": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric_day_v1/day01/projection",
+      "state": "RUNNING",
+      "phase": "FULL_ID_AND_FIELD_COVERAGE",
+      "all_keys_checked": 330488,
+      "sampled_field_pairs": 0,
+      "checked_parts": 100,
+      "total_parts": 66070,
+      "reason": null,
+      "epoch": 1795664789.517676,
+      "pid": 3468098,
+      "start_ticks": "8446088463"
+    }
+  ],
+  "outside_inventories": [
+    {
+      "kind": "NFS",
+      "status": {
+        "root": "/share/home/zixiao",
+        "host": "sonmi",
+        "uid": 1278,
+        "pid": 3418229,
+        "state": "SCANNING",
+        "started_epoch": 1795662451.320277,
+        "heartbeat_epoch": 1795664856.576507,
+        "elapsed_seconds": 2405.256232,
+        "method": "Parallel read-only lstat/readdir; no links followed; same filesystem; global hardlink dedup",
+        "rows": 7638,
+        "files_observed": 18610760,
+        "directories_observed": 24540,
+        "errors": 0,
+        "error_bytes": 0,
+        "root_total_bytes": null,
+        "owned_child_reaped": true,
+        "worker_threads_joined": false
+      },
+      "depth3_rows": 7627
+    },
+    {
+      "kind": "Lustre",
+      "status": {
+        "root": "/lfshome/zixiao",
+        "host": "sonmi",
+        "uid": 1278,
+        "pid": 1683826,
+        "state": "COMPLETE",
+        "started_epoch": 1795661094.343881,
+        "heartbeat_epoch": 1795662144.403584,
+        "elapsed_seconds": 1050.059705,
+        "method": "Parallel read-only lstat/readdir; no links followed; same filesystem; global hardlink dedup",
+        "rows": 2155,
+        "files_observed": 5397199,
+        "directories_observed": 1141180,
+        "errors": 0,
+        "error_bytes": 0,
+        "root_total_bytes": 1054711853056,
+        "owned_child_reaped": true,
+        "worker_threads_joined": true,
+        "finished_epoch": 1795662144.403589,
+        "returncode": 0
+      },
+      "depth3_rows": 1849
+    }
+  ]
 }
