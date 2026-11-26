@@ -24,6 +24,7 @@ from types import SimpleNamespace
 import lifecycle_20261122 as life
 from storage_20261122 import ROOT, REPO, CONTROL, write
 from storage_line_20261122 import admit
+from fullft_ram_envelope_20261127 import validate_memory_contract
 
 AUTHORITY = 'docs/s_recipe/USER_DIRECTIVE_20261123B.md'
 PROTOCOL = 'docs/p_recipe/USER_DIRECTIVE_20261122B.md'
@@ -57,8 +58,9 @@ def validate(c):
     if ((source.get('run'),source['source_training_budget'],source['samples']) not in allowed
             or checkpoint.parent.name != source['run']):
         raise ValueError('Only the explicitly registered16 distinct source points may be fitted')
+    validate_memory_contract(c)
     if (c.get('output_mount') != '/share' or c.get('cleanup_seconds') != 900
-            or c.get('peak_ram_bytes') != 64*1024**3 or c.get('cpus') != 16
+            or c.get('cpus') != 16
             or c.get('minimum_free_gpu_mib') != 22000
             or c.get('work_unit_seconds') != 120):
         raise ValueError('Registered resource and safe-boundary contract changed')

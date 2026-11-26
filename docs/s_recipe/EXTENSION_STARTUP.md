@@ -7,6 +7,7 @@
 | S_E1_k1_s0_3M | compute-0-22 / NVIDIA GeForce RTX 5090 | 70.678970 | 441.055714 | 14 |
 | S_E1_k2_s0_3M | compute-0-20 / NVIDIA GeForce RTX 4090 | 59.036010 | 294.797647 | 17 |
 | S_E1_k5_s0_3M | compute-0-22 / NVIDIA GeForce RTX 5090 | 74.156588 | 439.597692 | 13 |
+| S_subset_T5_s0_9M | compute-0-20 / NVIDIA GeForce RTX 4090 | 62.038943 | 303.683529 | 17 |
 
 保持B32/micro32、FP32、TF32关闭、不累积、不重算；每条训练自身60k–150k窗口的p99裁剪，不借用其他运行阈值。E1只改允许构象前缀，固定VAL5000和11-07归一化不改。
 

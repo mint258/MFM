@@ -1,6 +1,8 @@
 # 11-26 执行适配
 
-遵循[统一调度修订](../interfaces/SCHEDULING_RULE_20261126.md)。S-B0的四任务×三种子完整微调点评测已闭合，S-G1继续；不改变原 S 配方、实验范围、50 轮微调或配对判定。实际已交付点见[微调进展](FULL_FINETUNING_PROGRESS.md)。
+11-27当前资源修订见[后续微调物理内存合同](RESOURCE_CONCURRENCY_20261127.md)：仅已实际跟踪的解释器采用8GiB后续微调预留，旧16/64GiB阶段与一次75安全暂停原样保留，预训练64GiB不变。下文64GiB说明记录早期合同。
+
+遵循[统一调度修订](../interfaces/SCHEDULING_RULE_20261126.md)。原S配方、实验范围、50轮微调及配对判定保持不变；实际已交付的四任务×三种子完整点评测见[微调进展](FULL_FINETUNING_PROGRESS.md)。
 
 - 短 CPU 统计直接 SSH 到健康 CPU 节点，启动前实测 5 秒各核 idle、RAM、磁盘/inode及 UID 配额，记录真实 PID/start_ticks、CPU时间和自有退出。预算曲线的 CPU 统计已接入该入口，数学仍调用原 `budget_readouts_extension.work`，S-B0前缀读出已有真实CPU成功结果；数量以执行进展JSON的快照为准。
 - 微调先用 0–7 的合规空卡；无合规卡时支持 20/22 原生执行及同任务真实 Slurm 接管。保留原16 CPU需求、64 GiB RAM峰值、GPU余量和输出上限，不虚构 Slurm 分配。新写入先只读检查候选加入后的总需求，通过后才登记预留。

@@ -17,11 +17,23 @@ C = ROOT/'runs/s_recipe_20261120'
 sys.path.insert(0, str(R/'tools/s_recipe'))
 from storage_20261122 import write, claim_current
 from finetune_extension_20261124 import validate, AUTHORITY, PROTOCOL
-from extension_output_budget_20261124 import forecast as output_forecast,job_states,GiB
+from extension_output_budget_20261124 import forecast as raw_output_forecast,job_states,GiB
 from gpu_writer_admission_20261126 import register_after_admission
 from dispatch import OLD,NEW
 
-read = lambda p: json.loads(Path(p).read_text())
+def read(path):
+    for retry in range(4):
+        try:return json.loads(Path(path).read_text())
+        except json.JSONDecodeError:
+            if retry==3:raise
+            time.sleep(.1)
+
+def output_forecast(*args,**kwargs):
+    for retry in range(4):
+        try:return raw_output_forecast(*args,**kwargs)
+        except json.JSONDecodeError:
+            if retry==3:raise
+            time.sleep(.1)
 def call(*argv):
     return subprocess.check_output(['/usr/bin/timeout','15s',*argv], text=True,
                                    env=dict(os.environ,TZ='UTC')).strip()
@@ -135,16 +147,21 @@ with (C/'execution.lock').open('a') as lock:
     source = cell['source']
     binding = dict(source, bytes=Path(source['checkpoint']).stat().st_size,
         producer_exit_evidence=str(closure))
+    from fullft_ram_envelope_20261127 import future_ram
+    python=NEW if '5090' in card['gpu_name'] else OLD
+    ram_bytes,ram_source=future_ram(ledger,plan['providers_sha256'],python=python)
     c = dict(schema='S_REUSED_P_FULLFT_20261124_V1', invoking_authority=AUTHORITY,
         authority=PROTOCOL, kind='F', ready=True, mode='full', run=cell['run'],
         task=cell['task'], seed=cell['seed'], seed_role='finetuning', pretraining_seed=0,
         internal_split_seed=20261112, bootstrap_seed=20261025, source_binding=binding,
         store=read(R/'configs/s_recipe/screening/S-R1.json')['evaluation_store'],
         output=str(C/'finetune_20261124'/cell['run']), output_mount='/share',
-        cleanup_seconds=900, work_unit_seconds=120, cpus=16, peak_ram_bytes=64*1024**3,
+        cleanup_seconds=900, work_unit_seconds=120, cpus=16, peak_ram_bytes=ram_bytes,
         minimum_free_gpu_mib=22000, nvidia_smi='/usr/bin/nvidia-smi', node=node,gpu_uuid=uuid,
         providers_sha256=plan['providers_sha256'], unchanged_scientific_provider=True)
     if native:c['execution_backend']='mixed_gpu_native_20261126'
+    if ram_source:c['host_ram_envelope_source']=ram_source
+    if ram_bytes==8*GiB:c['host_ram_runtime_python']=python
     validate(c)
     if args.attempt>0:
         from fullft_resume_20261126 import require_resume
@@ -154,7 +171,7 @@ with (C/'execution.lock').open('a') as lock:
     forecast = read(forecast_path)
     resource_ids=[]
     extra=[]
-    for kind,path,need in (('node_ram',None,64*1024**3),('node_disk','/',32*1024**2)):
+    for kind,path,need in (('node_ram',None,ram_bytes),('node_disk','/',32*1024**2)):
         entry=dict(id=handle+'_'+kind,kind=kind,node=node,bytes=need)
         if path is not None: entry['path']=path
         resource_ids.append(entry['id'])

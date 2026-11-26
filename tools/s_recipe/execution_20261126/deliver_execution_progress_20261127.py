@@ -12,7 +12,10 @@ if closed_points:progress([read(path) for path in closed_points])
 for filename in ('e1_s_rule_check_20261127.json','controller_sequence_check_20261127.json',
         'metadata_lock_check_20261127.json','reporting_delivery_check_20261127.json',
         'native_clock_anchor_check_20261127.json','fullft_contrast_check_20261127.json',
-        'e1_cached_components_check_20261127.json'):
+        'e1_cached_components_check_20261127.json','fullft_point_sequence_check_20261127.json',
+        'molecule_scaling_delivery_check_20261127.json','extension_spawn_clock_check_20261127.json',
+        'fullft_ram_envelope_20261127.json','future_fullft_resources_check_20261127.json',
+        'fullft_physical_ram_20261127.json','physical_fullft_integration_check_20261127.json'):
     check=read(C/filename)
     parent=read(check['native_record'])
     command=read(Path(check['native_record']).with_name('command_exit.json'))
@@ -22,7 +25,14 @@ for filename in ('e1_s_rule_check_20261127.json','controller_sequence_check_2026
 ledger=read(C/'execution.json')
 fits=[]
 selected=[]
+paused=[]
 for handle,row in ledger['statistics'].items():
+    if (row.get('mode') in ('finetune','finetune_native') and row.get('resource_closed')
+            and row.get('status')=='PAUSED_SAFE_CONTINUATION'):
+        paused.append(dict(handle=handle,run=row['run'],source_configuration=row['configuration'],
+            actual_exit=read(row['lifecycle_record']),
+            resource_settlement=read(C/(handle+'_resource_close.json')),
+            interpretation='Actual75 complete-state pause; not a completed fit or scientific/method failure'))
     if (row.get('mode') not in ('finetune','finetune_native')
             or not row.get('resource_closed') or row.get('status')!='COMPLETE'):continue
     closure=read(row['lifecycle_record'])
@@ -53,6 +63,7 @@ source=C/'selected_artifact_sealing_20261127.json'
 value=dict(status='PARTIAL_EXECUTION_PROGRESS_NOT_A_COMPLETE_EXPERIMENT',observed_time=time.time(),
     completed_full_fits=fits,completed_full_fit_count=len(fits),required_seed0_full_fits=192,
     selected_models=selected,selected_model_producer=read(source) if source.exists() else None,
+    retained_safe_pause_segments=paused,
     completed_original9M_prefix_statistics=budget,required_new_prefix_statistics=16,
     intermediate_VAL_reopened=False,
     primary_point_status_source='Separate actual fullFT statistics deliveries; this file counts individual fits only',
@@ -71,7 +82,13 @@ for name in ('launch_fullft_20261124.py','launch_cpu_native_20261126.py','seal_c
     'check_metadata_lock_20261127.py','check_reporting_delivery_20261127.py',
     'check_native_clock_anchor_20261127.py','inspect_native_startup_clock_20261127.py',
     'recover_preGPU_native_starts_20261127.py','check_fullft_contrasts_20261127.py',
-    'check_e1_cached_components_20261127.py'):
+    'check_e1_cached_components_20261127.py','check_fullft_point_sequence_20261127.py',
+    'run_fullft_point_sequence_20261127.py','check_molecule_scaling_delivery_20261127.py',
+    'extension_native_spawn_20261124.py','check_extension_spawn_clock_20261127.py',
+    'construct_fullft_ram_envelope_20261127.py','check_future_fullft_resources_20261127.py',
+    'activate_future_fullft_ram_20261127.py','construct_fullft_physical_ram_20261127.py',
+    'fullft_metadata_spawn_probe_20261127.py','check_physical_fullft_integration_20261127.py',
+    'activate_physical_fullft_ram_20261127.py','report_extensions_startup_20261126.py'):
     shutil.copyfile(C/name,target/name)
 shutil.copyfile(C/'B0_8M_takeover_reconciliation_20261127.json',
     R/'results/s_recipe/B0_8M_takeover_reconciliation_20261127.json')

@@ -16,20 +16,20 @@ for run in ('S_E1_k1_s0_3M','S_E1_k2_s0_3M','S_E1_k5_s0_3M',
             'S_subset_T5_s0_9M','S_subset_T6_s0_9M'):
     output=C/'training'/run
     hardware_path=R/'results/s_recipe'/(run+'_initial_hardware.json')
-    if not output.exists() or not hardware_path.exists():
+    if not output.exists() or not (output/'losses.csv').exists():
         continue
-    hardware=read(hardware_path)
+    hardware=read(hardware_path) if hardware_path.exists() else None
     configuration=read(output/'configuration.json')
     with (output/'losses.csv').open('rb') as stream:
         stream.seek(max(0,stream.seek(0,2)-8192))
         tail=list(csv.reader(stream.read().decode().splitlines()))
-    cursor=next(row for row in reversed(tail) if len(row)==9 and row[0].isdigit())
-    count=int(cursor[0])
+    cursor=next((row for row in reversed(tail) if len(row)==9 and row[0].isdigit()),None)
+    count=int(cursor[0]) if cursor else 0
     budget=configuration['samples']
     finish=(datetime.datetime.fromtimestamp(now+(budget-count)/hardware['first1000']['samples_per_second'],zone)
-            if count<budget else None)
+            if count<budget and hardware else None)
     summary=read(output/'summary.json') if (output/'summary.json').exists() else {}
-    rows.append(dict(run=run,samples=count,budget=budget,hardware=hardware,
+    rows.append(dict(run=run,samples=count,budget=budget,hardware=hardware,node=configuration['node'],
         summary_status=summary.get('status'),rough_finish_CST=finish.isoformat() if finish else None))
     clip_path=output/'clip_calibration.json'
     delivery=R/'results/s_recipe'/(run+'_clip_calibration.json')
@@ -39,11 +39,12 @@ for run in ('S_E1_k1_s0_3M','S_E1_k2_s0_3M','S_E1_k5_s0_3M',
         new_clip.append(str(delivery.relative_to(R)))
 point=read(R/'results/s_recipe/S_final_s0_9M.json')['paired_vs_B0']['R3']
 def progress(row):
-    label=row['run']+' '+row['hardware']['node']+' '+str(row['samples'])+'/'+str(row['budget'])
+    label=row['run']+' '+row['node']+' '+str(row['samples'])+'/'+str(row['budget'])
     if row['samples']>=row['budget']:
         return label+('，训练及正式冻结统计已完成' if row['summary_status']=='COMPLETE'
                       else '，训练完成，读出/统计状态'+str(row['summary_status']))
-    return label+'，按原首1000步粗估'+datetime.datetime.fromisoformat(row['rough_finish_CST']).strftime('%m-%d %H:%M')+'训练结束'
+    return label+('，首1000步吞吐待原记录交付' if not row['rough_finish_CST'] else
+        '，按原首1000步粗估'+datetime.datetime.fromisoformat(row['rough_finish_CST']).strftime('%m-%d %H:%M')+'训练结束')
 # Deliver current closed metadata before rendering this single concise page.
 if (C/'e1_s_rule_check_20261127.json').exists():
     import runpy
@@ -65,6 +66,7 @@ lines=['# S 配方研究 · '+stamp.date().isoformat()+' · '+stamp.strftime('%H
     '真实首1000步（样本/秒；整卡点均W，非整段能耗）：']
 for row in rows:
     hardware=row['hardware']
+    if not hardware:continue
     lines.append('- '+row['run']+' / '+hardware['gpu_name']+'：'+
         format(hardware['first1000']['samples_per_second'],'.4f')+'；'+
         format(hardware['whole_card_power_sample_mean_watts'],'.2f')+'W/'+str(hardware['power_records'])+'点。')
@@ -72,6 +74,7 @@ lines += ['', '工程记账（原失败保留，完成的科学结果不重算�
     '- 接管路径类型和交付目录问题均已修复；原P scratch复用，最佳模型按既有规则封存。',
     '- XFS/NFS锁互斥域问题已实测修复；8M台账依据实际C0及退出证明恢复。',
     '- 两个Guard前时间误拒入口复用原4540371/4540372恢复；旧原生wait状态未知，未伪造。', '',
+    '后续微调：相同解释器的实际vfork/exec及元数据开销支持8GiB物理预留；预训练仍64GiB。原16GiB阶段有一次75完整状态暂停，已结清并从原状态接续；失败与成本保留，见[资源修订](../RESOURCE_CONCURRENCY_20261127.md)。', '',
     '下一步：完成剩余微调、曲线与k5读出，合规空卡推进子集。'+subset_wait+'半小时监控和存储/退出保护继续。全部原任务及A/B/C完成后写最终报告，再一次完整回归/仓库检查、开PR不合并。', '',
     '待确认事项：P/S共同k*，待双方结果齐备后提交具体值；当前不选k*或触发额外种子。工程与来源见[执行说明](../EXECUTION_20261126.md)。', '']
 

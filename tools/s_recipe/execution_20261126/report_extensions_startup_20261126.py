@@ -16,7 +16,8 @@ for run in ('S_E1_k1_s0_3M','S_E1_k2_s0_3M','S_E1_k5_s0_3M',
     c=read(source/'configuration.json')
     throughput=read(source/'initial_throughput.json')
     controller=read(C/(run+'_extension_controller.json'))
-    life=read(controller['lifecycle_record'])
+    actual=read(C/'execution.json')['runs'][run]
+    life=read(actual['lifecycle_record'])
     if (c['seed']!=0 or throughput['samples']!=32000
             or c['initialization']!=str(C/'initialization_seed0.pt') or life['run']!=run):
         raise ValueError('Bind the registered real first1000 producer')
@@ -36,6 +37,9 @@ for run in ('S_E1_k1_s0_3M','S_E1_k2_s0_3M','S_E1_k5_s0_3M',
         finite_deadline_epoch=life['actual_deadline_epoch'],closing_reserve_seconds=life['closing_reserve_seconds'],
         speed_switches=c['speed_switches'],fresh_random_initialization=True,
         accounting_execution=execution_fields(),
+        actual_lifecycle_source=actual['lifecycle_record'],
+        original_native_lifecycle_source=actual.get('native_lifecycle_record'),
+        first1000_may_span_complete_state_handoff=bool(actual.get('native_lifecycle_record')),
         scope='Original real-training first1000 updates; whole-card point mean only; no separate benchmark')
     write(target,record)
     new.append(record)

@@ -1,0 +1,94 @@
+{
+  "status": "FUTURE_PHYSICAL_FULLFT_POLICY_ACTIVATED_AT_IDLE_BOUNDARY",
+  "observed_time": 1795730573.177956,
+  "previous_policy": "S_FUTURE_FULLFT_RAM_ENVELOPE_20261127_V1",
+  "policy": "S_FUTURE_FULLFT_PHYSICAL_RAM_20261127_V2",
+  "estimate_source": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/fullft_physical_ram_20261127.json",
+  "estimated_physical_peak_bytes": 6632894464,
+  "future_peak_ram_bytes": 8589934592,
+  "integration_check": {
+    "status": "COMPLETE",
+    "new_tests": 2,
+    "job_id": null,
+    "native_handle": "S_physical_fullft_integration_native_20261127_attempt0",
+    "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_physical_fullft_integration_native_20261127_attempt0/record.json",
+    "real_GPU_work": false,
+    "old_tests_replayed": false,
+    "scope": "Closed actual75 partial resumes identical scientific identity; 8GiB restricted to actually traced interpreter/provider"
+  },
+  "actual_cpu_integration_exit": {
+    "execution": "native_cpu",
+    "handle": "S_physical_fullft_integration_native_20261127_attempt0",
+    "stage": "physical_fullft_integration_check",
+    "job_id": null,
+    "node": "compute-0-11",
+    "cores": [
+      49
+    ],
+    "producer": {
+      "pid": 315693,
+      "uid": 1278,
+      "start_ticks": 2285155984,
+      "ppid": 315692,
+      "state": "R"
+    },
+    "started_at": 1795730538.6299767,
+    "hard_end_epoch": 1795732333.0,
+    "cleanup_seconds": 180,
+    "status": "COMPLETE",
+    "owned_descendants_exited": true,
+    "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_physical_fullft_integration_native_20261127_attempt0/configuration.json",
+    "admission": {
+      "root": {
+        "line": "s-recipe",
+        "kind": "node_disk",
+        "node": "compute-0-11",
+        "path": "/",
+        "own": 150994944,
+        "peers": 67108864,
+        "reserve": 10737418240,
+        "available": 51287977984,
+        "probe_target": "/"
+      },
+      "shared": {
+        "line": "s-recipe",
+        "kind": "shared_fs",
+        "node": null,
+        "path": "/share",
+        "own": 51552542720,
+        "peers": 415834496,
+        "reserve": 108589934592,
+        "available": 5870335295488,
+        "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+      },
+      "ram": {
+        "line": "s-recipe",
+        "kind": "node_ram",
+        "node": "compute-0-11",
+        "path": "None",
+        "own": 51539607552,
+        "peers": 8589934592,
+        "reserve": 40446522572,
+        "available": 398232322048
+      }
+    },
+    "worker": {
+      "pid": 315698,
+      "uid": 1278,
+      "start_ticks": 2285156022,
+      "ppid": 315693,
+      "state": "R"
+    },
+    "exit_code": 0,
+    "ended_at": 1795730539.2594159,
+    "wall_seconds": 0.6294393539428711,
+    "cpu_user_seconds": 0.32253699999999996,
+    "cpu_system_seconds": 0.095554,
+    "peak_child_RSS_bytes": 27979776,
+    "observer_joined": true
+  },
+  "old_active_fullFT_handles": [],
+  "active_reservations_changed": false,
+  "pretraining_reservations_changed": false,
+  "scientific_protocol_changed": false
+}

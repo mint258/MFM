@@ -28,6 +28,9 @@ def worker(c):
     if c['stage'] == 'fullft_delivery':
         from fullft_delivery_20261127 import run as report
         return report()
+    if c['stage'] == 'molecule_scaling_delivery':
+        from molecule_scaling_delivery_20261127 import run as report
+        return report()
     if c['stage'] == 'fullft_contrasts':
         from fullft_contrasts_20261127 import run as report
         return report()
@@ -90,6 +93,13 @@ def worker(c):
                'handoff_path_check':'check_handoff_path_20261127.py',
                'fullft_seal':'seal_closed_fullft_20261127.py',
                'controller_sequence_check':'check_controller_sequence_20261127.py',
+               'point_sequence_check':'check_fullft_point_sequence_20261127.py',
+               'molecule_scaling_check':'check_molecule_scaling_delivery_20261127.py',
+               'fullft_ram_envelope':'construct_fullft_ram_envelope_20261127.py',
+               'extension_spawn_clock_check':'check_extension_spawn_clock_20261127.py',
+               'future_fullft_resources_check':'check_future_fullft_resources_20261127.py',
+               'fullft_physical_ram':'construct_fullft_physical_ram_20261127.py',
+               'physical_fullft_integration_check':'check_physical_fullft_integration_20261127.py',
                'e1_s_rule_check':'check_e1_s_rule_20261127.py',
                'reporting_delivery_check':'check_reporting_delivery_20261127.py',
                'metadata_lock_check':'check_metadata_lock_20261127.py',

@@ -1,0 +1,72 @@
+{
+  "schema": "S_FUTURE_FULLFT_PHYSICAL_RAM_20261127_V2",
+  "status": "PHYSICAL_RESOURCE_ESTIMATE_READY",
+  "new_tests": 2,
+  "job_id": null,
+  "native_handle": "S_fullft_physical_ram_native_20261127_attempt0",
+  "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_fullft_physical_ram_native_20261127_attempt0/record.json",
+  "real_metadata_spawn_trace": true,
+  "probe": {
+    "pid": 315457,
+    "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+    "version": "3.11.14 (main, Oct 21 2025, 18:31:21) [GCC 11.2.0]",
+    "use_vfork": true,
+    "commands": [
+      [
+        "/usr/bin/scontrol",
+        "show",
+        "node",
+        "compute-0-11",
+        "-o"
+      ],
+      [
+        "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+        "-I",
+        "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools/shared_guard.py",
+        "check",
+        "s-recipe",
+        "node_ram",
+        "4294967296"
+      ]
+    ],
+    "metadata_peak_RSS_bytes": 14422016
+  },
+  "verified_parent_spawn_lines": [
+    "315457 vfork( <unfinished ...>",
+    "315457 vfork( <unfinished ...>"
+  ],
+  "trace_source": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/fullft_metadata_vfork_20261127.strace",
+  "original_full_fit_estimate_source": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/fullft_ram_envelope_20261127.json",
+  "nvidia_metadata_observation": {
+    "node": "compute-0-20",
+    "observed_CST": "2026-11-27T05:59:05+08:00",
+    "command": "/usr/bin/time -f NVIDIA_METADATA_MAX_RSS_KIB=%M nvidia-smi --query-gpu=uuid,memory.used,memory.total --format=csv,noheader,nounits",
+    "actual_exit_code": 0,
+    "max_RSS_KiB": 16424,
+    "scope": "Actual GPU resource-query executable only, no model/benchmark/whole-tree claim"
+  },
+  "estimate": {
+    "observed_main_peak_bytes": 5022281728,
+    "observed_metadata_peak_bytes": 16818176,
+    "per_metadata_family_allowance_bytes": 268435456,
+    "concurrent_metadata_families": 2,
+    "additional_wrapper_and_transient_allowance_bytes": 1073741824,
+    "estimated_physical_host_peak_bytes": 6632894464,
+    "measured_whole_tree_peak": false,
+    "pretraining_reservations_changed": false,
+    "basis": "Actual same-interpreter metadata vfork/exec shares parent address space until exec; no full parent copies charged as additional physical RAM"
+  },
+  "future_peak_ram_bytes": 8589934592,
+  "providers_sha256": {
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune_entry.py": "4ab4ae221e3d82aab3fcc870354ac4f7836d10c1b90f9d9ae96f870d66dd98f3",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune.py": "181e2eddd601d6c7beaee3ffc12b509e9b305b021a8f6c581ad11a98a7b416e7",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune_statistics_entry.py": "48bfe02c759dbe4b25ce6023b5a8b7b88aca0cd31f921b9f2b50c5bf256721ab",
+    "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune_statistics.py": "209454b8bc23d19756e5773816ff995658579debaf398d80bbada9b91029e811"
+  },
+  "python": "/share/home/zixiao/.venvs/model_v2_cu118_20261105/bin/python",
+  "active_contracts_changed": false,
+  "pretraining_reservations_changed": false,
+  "policy_activated": false,
+  "new_scientific_work": false,
+  "interpretation": "Measured main/metadata process maxima plus verified vfork topology and conservative allowances; physical envelope is estimated, not measured whole-tree peak"
+}
