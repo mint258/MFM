@@ -221,5 +221,146 @@
       "test_future_released": true
     },
     "actual_GPU_integration_performed": false
+  },
+  "prepared_GPU20_candidate": {
+    "status": "METADATA_PREPARATION_PASSED_NOT_SUBMITTED_WAIT_CANONICAL_GPU_ADMISSION",
+    "configuration": "configs/d_recipe/continuations/L1_from2090752_GPU20_20261126.json",
+    "resident": "configs/d_recipe/launches/D-L1_from2090752_GPU20_20261126_resident.sbatch",
+    "source_commit": "9c197cefe9b77e5a6bc10eca8194919a7d8c2b82",
+    "exact_lifecycle_text_fix_commit": "d65665f5173be531daab39798153ab52e3e6f308",
+    "node": "compute-0-20",
+    "GPU_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+    "own_RAM_peak_bytes": 68719476736,
+    "own_local_future_bytes": 8724152320,
+    "own_shared_future_bytes": 1073741824,
+    "own_metadata_remaining_registered_separately": 150000000,
+    "own_claims_for_GPU_not_activated": true,
+    "required_before_actual_submission": [
+      "Fresh actual healthy node/UUID/availableGPU CPUs/VRAM/ownUUID lock",
+      "Serialized own D RAM/local/share claims and timed canonical actual-node admission",
+      "Create only the admitted new owned local root before canonical runtime startup",
+      "Then immediate ordinary sbatch; no wait-only GPU job, no duplicate producer"
+    ],
+    "metadata_preparation": {
+      "execution_id": "ssh:D_L1_continuation_metadata_20261126_attempt3",
+      "node": "compute-0-19",
+      "cores": [
+        14
+      ],
+      "idle_fraction": {
+        "14": 1
+      },
+      "status": "COMPLETE",
+      "returncode": 0,
+      "wall_seconds": 0.25383758544921875,
+      "actual_child_CPU_seconds": 0.028187,
+      "peak_child_RSS_KiB": 10408,
+      "supervisor": {
+        "pid": 2797937,
+        "start_ticks": 2047540307,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4928.scope\n",
+        "state": "R"
+      },
+      "parent": {
+        "pid": 2797936,
+        "start_ticks": 2047540307,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4928.scope\n",
+        "state": "S"
+      },
+      "owned_tree_reaped": true,
+      "remaining_children": [],
+      "original_process_alive": {
+        "supervisor": false,
+        "parent": false
+      },
+      "events": [
+        {
+          "stage": "D_L1_CONTINUATION_METADATA",
+          "scientific_bindings_equal": true,
+          "complete_2090752_checkpoint_metadata": true,
+          "embedded_lifecycle_current": true,
+          "original_run_and_output_retained": true,
+          "source_config": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/continuations/L1_from2090752_GPU20_20261126.json",
+          "native_GPU_submitted": false,
+          "independent_tensor_QA": false
+        },
+        {
+          "phase": "OWNED_TREE_REAPED",
+          "root": 2797950,
+          "root_returncode": 0
+        }
+      ]
+    },
+    "temporary_CPU_claims_released": true,
+    "prior_engineering_attempts": {
+      "prelaunch": "Attempt1actual core becamebusy; no receipt/worker, original launcher absent, future released",
+      "exact_text_check": {
+        "execution_id": "ssh:D_L1_continuation_metadata_20261126_attempt2",
+        "node": "compute-0-19",
+        "cores": [
+          14
+        ],
+        "idle_fraction": {
+          "14": 0.998
+        },
+        "status": "FAILED",
+        "returncode": 1,
+        "wall_seconds": 0.25395917892456055,
+        "actual_child_CPU_seconds": 0.024082,
+        "peak_child_RSS_KiB": 10520,
+        "supervisor": {
+          "pid": 2797650,
+          "start_ticks": 2047532103,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4924.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2797649,
+          "start_ticks": 2047532103,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4924.scope\n",
+          "state": "S"
+        },
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "events": [
+          {
+            "phase": "OWNED_TREE_REAPED",
+            "root": 2797663,
+            "root_returncode": 1
+          }
+        ]
+      },
+      "repair": "PowerShell printed an extra newline when embedding the unchanged lifecycle source. Re-read exact source text and fix the inactive rendered script only; no scientific runtime changed.",
+      "all_old_attempt_outputs_retained": true,
+      "scientific_failure": false
+    }
   }
 }

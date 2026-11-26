@@ -4772,18 +4772,6 @@
       },
       "initial_actual_root_available_bytes": 57211105280,
       "initial_actual_root_inodes": 36540388,
-      "first1000_native_timing": {
-        "source": "results/d_recipe/D-L1_seed0_first1000_native_timing_20261124.json",
-        "samples": 32000,
-        "updates": 1000,
-        "native_seconds": 669.8406839910895,
-        "formal_prefix_samples_per_second": 47.77255363071628,
-        "ordinary_3M_loop_hours_forecast": 17.443767812267957,
-        "forecast_scope": "Loop-only scheduling estimate from original native first1000-update timer; later fixedVAL variation, GPU readout, outer initialization and queue are outside this estimate. No scientific selection or stopping gate.",
-        "whole_card_power_summary_pending": false,
-        "whole_card_power_primary_report": "results/d_recipe/L1_closed_attempt_costs_20261126.json",
-        "RTX3090_original_prefix_sample_mean_watts": 190.524
-      },
       "latest_original_progress": {
         "samples": 2090752,
         "updates": 65336,
@@ -5122,7 +5110,6 @@
         }
       },
       "formal_first1000_scope": "Original cold RTX3090 prefix source retained; not a new benchmark or RTX4090 rate",
-      "resource_cost_scope": "Closed parents4539360/4539399/4539402 reported once in results/d_recipe/L1_closed_attempt_costs_20261126.json. Native telemetry timer windows include pauses; power is whole-card sample mean, not integrated or D-attributed. Actual Slurm TotalCPU/MaxRSS unavailable; old weekly snapshot unchanged.",
       "original_configuration": "configs/d_recipe/screening/D-L1_seed0.json",
       "original_statistics_configuration": "configs/d_recipe/screening/D-L1_seed0_cpu_statistics.json",
       "current_quota_pause": {
@@ -5332,6 +5319,160 @@
           "source_entry": "configs/d_recipe/launches/L1_closed_costs_20261126_ssh.json",
           "source_commit": "834a2399ddaea1e4052cd3f4765b594ac0f07f4c"
         }
+      },
+      "resource_cost_scope": "Closed parents4539360/4539399/4539402 reported once in results/d_recipe/L1_closed_attempt_costs_20261126.json. Native telemetry timer windows include pauses; power is whole-card sample mean, not integrated or D-attributed. Actual Slurm TotalCPU/MaxRSS unavailable; old weekly snapshot unchanged.",
+      "first1000_native_timing": {
+        "source": "results/d_recipe/D-L1_seed0_first1000_native_timing_20261124.json",
+        "samples": 32000,
+        "updates": 1000,
+        "native_seconds": 669.8406839910895,
+        "formal_prefix_samples_per_second": 47.77255363071628,
+        "ordinary_3M_loop_hours_forecast": 17.443767812267957,
+        "forecast_scope": "Loop-only scheduling estimate from original native first1000-update timer; later fixedVAL variation, GPU readout, outer initialization and queue are outside this estimate. No scientific selection or stopping gate.",
+        "whole_card_power_summary_pending": false,
+        "whole_card_power_primary_report": "results/d_recipe/L1_closed_attempt_costs_20261126.json",
+        "RTX3090_original_prefix_sample_mean_watts": 190.524
+      },
+      "prepared_actual_GPU20_candidate": {
+        "status": "METADATA_PREPARATION_PASSED_NOT_SUBMITTED_WAIT_CANONICAL_GPU_ADMISSION",
+        "configuration": "configs/d_recipe/continuations/L1_from2090752_GPU20_20261126.json",
+        "resident": "configs/d_recipe/launches/D-L1_from2090752_GPU20_20261126_resident.sbatch",
+        "source_commit": "9c197cefe9b77e5a6bc10eca8194919a7d8c2b82",
+        "exact_lifecycle_text_fix_commit": "d65665f5173be531daab39798153ab52e3e6f308",
+        "node": "compute-0-20",
+        "GPU_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "own_RAM_peak_bytes": 68719476736,
+        "own_local_future_bytes": 8724152320,
+        "own_shared_future_bytes": 1073741824,
+        "own_metadata_remaining_registered_separately": 150000000,
+        "own_claims_for_GPU_not_activated": true,
+        "required_before_actual_submission": [
+          "Fresh actual healthy node/UUID/availableGPU CPUs/VRAM/ownUUID lock",
+          "Serialized own D RAM/local/share claims and timed canonical actual-node admission",
+          "Create only the admitted new owned local root before canonical runtime startup",
+          "Then immediate ordinary sbatch; no wait-only GPU job, no duplicate producer"
+        ],
+        "metadata_preparation": {
+          "execution_id": "ssh:D_L1_continuation_metadata_20261126_attempt3",
+          "node": "compute-0-19",
+          "cores": [
+            14
+          ],
+          "idle_fraction": {
+            "14": 1
+          },
+          "status": "COMPLETE",
+          "returncode": 0,
+          "wall_seconds": 0.25383758544921875,
+          "actual_child_CPU_seconds": 0.028187,
+          "peak_child_RSS_KiB": 10408,
+          "supervisor": {
+            "pid": 2797937,
+            "start_ticks": 2047540307,
+            "uids": [
+              1278,
+              1278,
+              1278,
+              1278
+            ],
+            "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4928.scope\n",
+            "state": "R"
+          },
+          "parent": {
+            "pid": 2797936,
+            "start_ticks": 2047540307,
+            "uids": [
+              1278,
+              1278,
+              1278,
+              1278
+            ],
+            "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4928.scope\n",
+            "state": "S"
+          },
+          "owned_tree_reaped": true,
+          "remaining_children": [],
+          "original_process_alive": {
+            "supervisor": false,
+            "parent": false
+          },
+          "events": [
+            {
+              "stage": "D_L1_CONTINUATION_METADATA",
+              "scientific_bindings_equal": true,
+              "complete_2090752_checkpoint_metadata": true,
+              "embedded_lifecycle_current": true,
+              "original_run_and_output_retained": true,
+              "source_config": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/continuations/L1_from2090752_GPU20_20261126.json",
+              "native_GPU_submitted": false,
+              "independent_tensor_QA": false
+            },
+            {
+              "phase": "OWNED_TREE_REAPED",
+              "root": 2797950,
+              "root_returncode": 0
+            }
+          ]
+        },
+        "temporary_CPU_claims_released": true,
+        "prior_engineering_attempts": {
+          "prelaunch": "Attempt1actual core becamebusy; no receipt/worker, original launcher absent, future released",
+          "exact_text_check": {
+            "execution_id": "ssh:D_L1_continuation_metadata_20261126_attempt2",
+            "node": "compute-0-19",
+            "cores": [
+              14
+            ],
+            "idle_fraction": {
+              "14": 0.998
+            },
+            "status": "FAILED",
+            "returncode": 1,
+            "wall_seconds": 0.25395917892456055,
+            "actual_child_CPU_seconds": 0.024082,
+            "peak_child_RSS_KiB": 10520,
+            "supervisor": {
+              "pid": 2797650,
+              "start_ticks": 2047532103,
+              "uids": [
+                1278,
+                1278,
+                1278,
+                1278
+              ],
+              "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4924.scope\n",
+              "state": "R"
+            },
+            "parent": {
+              "pid": 2797649,
+              "start_ticks": 2047532103,
+              "uids": [
+                1278,
+                1278,
+                1278,
+                1278
+              ],
+              "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4924.scope\n",
+              "state": "S"
+            },
+            "owned_tree_reaped": true,
+            "remaining_children": [],
+            "original_process_alive": {
+              "supervisor": false,
+              "parent": false
+            },
+            "events": [
+              {
+                "phase": "OWNED_TREE_REAPED",
+                "root": 2797663,
+                "root_returncode": 1
+              }
+            ]
+          },
+          "repair": "PowerShell printed an extra newline when embedding the unchanged lifecycle source. Re-read exact source text and fix the inactive rendered script only; no scientific runtime changed.",
+          "all_old_attempt_outputs_retained": true,
+          "scientific_failure": false
+        }
       }
     },
     "next_L1_progress_check_UTC": null,
@@ -5498,25 +5639,19 @@
       "canonical_next_segment_entry": "tools/d_recipe/reference_segment_canonical.py",
       "A1_status": "ORIGINAL_FULL_TRAIN_CURSOR_COLLECTION_RECOVERING",
       "latest_short_observation": {
-        "observed_at_UTC": "2026-11-26T06:10:31.588Z",
-        "closed_rows": 777728,
+        "observed_at_UTC": "2026-11-26T06:20:58.993Z",
+        "closed_rows": 782848,
         "collection_status": "COLLECTING",
-        "last_attempt": {
-          "job_id": null,
-          "node": "compute-0-11",
-          "start_row": 729600,
-          "state": "RUNNING",
-          "closed_rows": 777728,
-          "elapsed_seconds": 5751.55441179499
-        },
         "worker": {
           "pid": 248316,
           "start_ticks": "2278851052",
           "state": "R",
-          "UID": 1278
+          "UID": [
+            "Uid:\t1278\t1278\t1278\t1278"
+          ]
         }
       },
-      "closed_collection_rows": 777728
+      "closed_collection_rows": 782848
     },
     "reference_production_status": "L1_FROZEN_L2_CURSOR_RECOVERY_PENDING",
     "storage_retirement": {
@@ -6715,5 +6850,5 @@
       "prior_prelaunch_refusal": "Original attempt did not create a runtime receipt or scientific worker: selectedcore becamebusy; originallauncher gone andownfuture released. Freshattempt2 passedactual5sidle1.0."
     }
   },
-  "updated_at_utc": "2026-11-26T06:14:20.240Z"
+  "updated_at_utc": "2026-11-26T06:23:20.234Z"
 }
