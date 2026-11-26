@@ -9,11 +9,11 @@
 | 短 CPU 任务：CPU ≤ 16 且预计总墙钟 ≤ 4 小时（统计、bootstrap、汇总、测试、门槛检查、盘点、删除、小型拟合等） | **直接 SSH 到 CPU 节点运行**，不提交 sbatch |
 | 预计超过 4 小时、但能按游标切成 ≤ 4 小时的独立段（如大范围门槛检查、盘点） | 切段，每段按短任务 SSH 运行 |
 | 生成大批量数据集的长时间 CPU 任务（构象生成、标签计算、描述符全量计算、LMDB 构建等），或 CPU > 16 | 照旧 sbatch 排队 |
-| 使用 GPU 的任务（微调、读出、预训练、评测） | 照 GPU 训练规则：空闲卡优先 5090 > 4090 > 3090；compute-0-20/21/22 显存占用 ≤ 30% 时直接 SSH 启动；混合调度（SSH 先跑，同任务 sbatch 排到后在完整断点交接）。**有合规空闲卡就立即启动，不排队等待** |
+| 使用 GPU 的任务（微调、读出、预训练、评测） | 照 GPU 训练规则（`mfm-cluster-operations` §2–§3）：≤3M 优先 compute-0-0~7，>3M 优先 compute-0-20/22，组内 5090 > 4090 > 3090，**优先组没有合规空卡就立即用另一组**；0~7 在目标卡 UUID 空闲且可分配 CPU 足够时 sbatch（立即开始）；20/22 混合调度（显存占用 ≤ 30% 时 SSH 先跑，同任务 sbatch 排到后在完整断点交接）；compute-0-21 仍禁用。**不提交只能排队干等的 GPU 作业** |
 
 ## 2. 短 CPU 任务的 SSH 运行方式
 
-1. 节点：CPU 节点 compute-0-8 ~ compute-0-19（compute-0-2 若属 CPU 分区也可用）。选**实际空闲核**（按 5 秒内各核 idle 实测，不按 Slurm 分配数）≥ 所需 CPU、MemAvailable ≥ 所需内存 + 4 GiB 的节点。没有这样的节点时，CPU 数减半再找一次；仍没有则提交 sbatch 并记一行。
+1. 节点：CPU 节点 compute-0-8 ~ compute-0-19（compute-0-2 以现场 `sinfo` 为准，属 CPU 分区时也可用）。选**实际空闲核**（按 5 秒内各核 idle 实测，不按 Slurm 分配数）≥ 所需 CPU、MemAvailable ≥ 所需内存 + 4 GiB 的节点。没有这样的节点时，CPU 数减半再找一次；仍没有则提交 sbatch 并记一行。
 2. 启动：`setsid nohup taskset -c <空闲核> timeout <上限> <命令> > <日志> 2>&1 &`，设置 `OMP_NUM_THREADS` / `MKL_NUM_THREADS` / `OPENBLAS_NUM_THREADS` = 所用核数。上限 = max(2 × 预计时间, 30 分钟)，不超过 8 小时。
 3. 记录：节点、PID、start_ticks、所用核、退出码、实际墙钟和 CPU 时间（`/usr/bin/time -v` 或等价），写入本线结果目录，CPU 时间计入成本。
 4. 依赖：原 sbatch 的 afterok 依赖改由执行者按上游真实成功终态依次启动；上游没成功的不启动。
