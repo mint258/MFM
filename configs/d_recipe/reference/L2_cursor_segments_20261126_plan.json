@@ -3,8 +3,8 @@
   "status": "PREPARED_NOT_RUNNABLE_WAITING_ACTUAL_SEGMENT2_EXIT",
   "phase": "collect_existing_observations_only",
   "original_configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/reference/L2_stage2.json",
-  "canonical_entry": "tools.d_recipe.reference_segment_canonical",
-  "source_commit": "49a0ddbb151bc2ddc85e15a21536e28cd6f1bbfc",
+  "canonical_entry": "tools.d_recipe.reference_segment_guarded",
+  "source_commit": "ca217517e610fe34332afce955b56cdc186f658f",
   "node": "compute-0-11",
   "predecessor": {
     "execution_id": "ssh:P_D_L2_A1_segment2_20261126",
@@ -50,5 +50,7 @@
   "next_segment_number": 3,
   "current_active_segment_configuration": "configs/d_recipe/launches/L2_A1_segment2_20261126.json",
   "previous_segments_proof": "results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json",
-  "native_SSH_segment2_active": true
+  "native_SSH_segment2_active": true,
+  "preserved_predecessor_and_deadline_entry": "tools.d_recipe.reference_segment_canonical",
+  "runtime_physical_guard_preparation": "tools.d_recipe.reference_segment_guarded"
 }

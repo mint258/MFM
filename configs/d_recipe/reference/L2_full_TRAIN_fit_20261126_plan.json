@@ -2,7 +2,7 @@
   "schema": "D_L2_ORIGINAL_REFERENCE_FIT_PHASE_PLAN_V1",
   "status": "PREPARED_WAITING_COMPLETE_TRAIN_NO_FIT_SUBMITTED",
   "entry": "tools.d_recipe.reference_fit_ssh",
-  "source_commit": "a56f9d0594f3f9828b4bab752356f65e6b99f601",
+  "source_commit": "ca217517e610fe34332afce955b56cdc186f658f",
   "scientific_fitter": "tools.d_recipe.fit_reference.fit_collected -> original element_reference shared-mask five-fold F64 ridge and make_label_parameters; alpha/folds/fields unchanged",
   "phase_prerequisites": [
     "Original L2 collection marker COLLECTION_COMPLETE and closed_rows==binding.rows==1194228",
@@ -51,5 +51,11 @@
   "partial_TRAIN_fit_allowed": false,
   "original_D4_refitted": false,
   "source_collection_recomputed": false,
-  "jobs_submitted": false
+  "jobs_submitted": false,
+  "original_preparation_source_commit": "a56f9d0594f3f9828b4bab752356f65e6b99f601",
+  "runtime_physical_checks": {
+    "local": "Original Guard runtime floor before local fit writes",
+    "publication": "Original Guard physical/shared100GB+8GiB and fresh UID<=5s before final small copy; local result retained after refusal",
+    "test_source": "ca217517e610fe34332afce955b56cdc186f658f"
+  }
 }
