@@ -177,6 +177,25 @@
       "observed_at_UTC": "2026-11-26T05:59:52.943Z",
       "original_start_cursor": 729600,
       "new_closed_rows": 42752
+    },
+    "latest_short_observation": {
+      "observed_at_UTC": "2026-11-26T06:10:31.588Z",
+      "closed_rows": 777728,
+      "collection_status": "COLLECTING",
+      "last_attempt": {
+        "job_id": null,
+        "node": "compute-0-11",
+        "start_row": 729600,
+        "state": "RUNNING",
+        "closed_rows": 777728,
+        "elapsed_seconds": 5751.55441179499
+      },
+      "worker": {
+        "pid": 248316,
+        "start_ticks": "2278851052",
+        "state": "R",
+        "UID": 1278
+      }
     }
   },
   "tiny_callback_test": {
@@ -741,5 +760,125 @@
     "engineering_note": "First GPUtransport tinytest refused before worker dispatch due actualcore changed; freshattempt2 same sourcepassed. BOM in new attempt config repaired beforelaunch. Oldlog/outputpreserved.",
     "source_algorithms_unchanged": true,
     "shared_claims_serialized": true
+  },
+  "budget_curve_preparation_1410": {
+    "status": "NEW_READOUT_CPU_STATISTICS_AND_PRIMARY_JOIN_PREPARED_ACTUAL_9M_PENDING",
+    "readout_entry": "tools/d_recipe/budget_readout.py",
+    "summary_entry": "tools/d_recipe/budget_curve_summary.py",
+    "interface": "docs/d_recipe/SUPPLEMENTAL_EXECUTION.md",
+    "native_GPU_backend": "Pending; current new GPU entry uses real Slurm allocation only",
+    "main_scientific_priority_preserved": true,
+    "actual_supplemental_runs_started": false,
+    "actual_9M_scores_consumed": false,
+    "tests": {
+      "initial_join": {
+        "source_commit": "4a42d26bc9aa8d26da0116d4bf1315581e629d27",
+        "execution_id": "ssh:D_budget_curve_join_contracts_20261126",
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "idle_fraction": {
+          "65": 0.998
+        },
+        "tests": [
+          {
+            "stage": "D_BUDGET_CURVE_JOIN_CONTRACTS",
+            "tests_run": 3,
+            "failures": 0,
+            "errors": 0,
+            "seconds": 0.05268106609582901
+          }
+        ],
+        "wall_seconds": 0.2542598247528076,
+        "child_CPU_seconds": 0.087015,
+        "peak_child_RSS_KiB": 22164,
+        "supervisor": {
+          "pid": 2796881,
+          "start_ticks": 2047440172,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4914.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2796880,
+          "start_ticks": 2047440172,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4914.scope\n",
+          "state": "S"
+        },
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "test_future_released": true
+      },
+      "new_producer_and_pairing": {
+        "source_commit": "c44298acd682c442ca6b98e05eba4e475f65902f",
+        "execution_id": "ssh:D_budget_readout_producer_contracts_20261126",
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "idle_fraction": {
+          "65": 0.9979959919839679
+        },
+        "tests": [
+          {
+            "stage": "D_BUDGET_READOUT_PRODUCER_CONTRACTS",
+            "tests_run": 5,
+            "failures": 0,
+            "errors": 0,
+            "seconds": 0.03646976500749588
+          }
+        ],
+        "wall_seconds": 0.25429606437683105,
+        "child_CPU_seconds": 0.098151,
+        "peak_child_RSS_KiB": 22584,
+        "supervisor": {
+          "pid": 2797041,
+          "start_ticks": 2047462130,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4916.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2797040,
+          "start_ticks": 2047462130,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4916.scope\n",
+          "state": "S"
+        },
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "test_future_released": true
+      }
+    }
   }
 }
