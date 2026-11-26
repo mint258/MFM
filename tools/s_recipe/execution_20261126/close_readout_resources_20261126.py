@@ -65,8 +65,21 @@ with (C/'execution.lock').open('a') as lock:
             write(closepath,dict(cancel_requested=True,standby_job_id=job,handle=handle))
             call('/usr/bin/scancel',job)
             actual=call('/usr/bin/sacct','-X','-n','-P','-j',job,'--format=State,ExitCode,ElapsedRaw')
+        failed_path=C/(handle+'_failed_standby_exit_20261127.json')
+        failed=read(failed_path) if failed_path.exists() else {}
+        failed_closed=(closure['exit_code']==0 and actual=='FAILED|1:0|1'
+            and failed.get('status')=='FAILED_STANDBY_OWN_PROCESS_EXIT_CONFIRMED'
+            and failed.get('handle')==handle and failed.get('job_id')==job
+            and failed.get('actual')==actual and failed.get('node')==row['node']
+            and failed.get('before_GPU_work') is True
+            and failed.get('observation',{}).get('matching_job_processes')==[]
+            and failed.get('observation',{}).get('observation_errors')==[]
+            and failed.get('observation',{}).get('native_same_process') is False
+            and all(failed.get('native_successful_producer',{}).get(key)==expected[key]
+                    for key in ('pid','uid','start_ticks')))
         if not (actual.startswith('CANCELLED by 1278|0:0|0')
-                or (closure['exit_code']==0 and actual.startswith('COMPLETED|0:0|'))):
+                or (closure['exit_code']==0 and actual.startswith('COMPLETED|0:0|'))
+                or failed_closed):
             print(json.dumps(dict(status='WAITING_ACTUAL_STANDBY_SETTLEMENT',handle=handle,actual=actual)),flush=True)
             raise SystemExit(0)
     else:
@@ -100,5 +113,6 @@ with (C/'execution.lock').open('a') as lock:
     write(C/'execution.json',ledger)
     write(C/(handle+'_resource_close.json'),dict(status='OWN_RESOURCES_CLOSED',handle=handle,
         exit_code=closure['exit_code'],run=row['run'],samples=row['samples'],role=row['role'],
-        phase_record=str(path),retired_ids=sorted(ids),actual=actual,files_deleted=False))
+        phase_record=str(path),retired_ids=sorted(ids),actual=actual,files_deleted=False,
+        failed_standby_evidence=str(failed_path) if row.get('job_id') is None and failed_closed else None))
     print(json.dumps(dict(status='OWN_RESOURCES_CLOSED',handle=handle,exit_code=closure['exit_code'],files_deleted=False)),flush=True)

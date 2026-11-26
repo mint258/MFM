@@ -187,7 +187,7 @@ def standby(path):
     value=None
     with guard:
         try:
-            write(task['handoff_request'],dict(handle=task['handle'],job_id=job,producer=task['producer']))
+            write(Path(task['handoff_request']),dict(handle=task['handle'],job_id=job,producer=task['producer']))
             while True:
                 if Path(task['native_record']).exists():
                     value=read(task['native_record'])

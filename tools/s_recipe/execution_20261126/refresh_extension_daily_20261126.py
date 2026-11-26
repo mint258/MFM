@@ -53,7 +53,7 @@ lines=['# S 配方研究 · '+stamp.date().isoformat(),'',
     '本轮真实首1000步：'+'；'.join(row['run']+' / '+row['hardware']['gpu_name']+' '+format(row['hardware']['first1000']['samples_per_second'],'.4f')+
         '样本/秒、整卡点均'+format(row['hardware']['whole_card_power_sample_mean_watts'],'.4f')+'W/'+str(row['hardware']['power_records'])+'点' for row in rows)+
         '。无另测，不外推跨卡因果提速或整段能耗；原值见[启动记录](../EXTENSION_STARTUP.md)。', '',
-    '资源与工程：短CPU按[11-26新规](../../interfaces/SCHEDULING_RULE_20261126.md)实测空闲核后SSH执行，记录真实退出和CPU时间；原五项队列核实UID/PENDING/零运行后撤销。k1完整训练和GPU读出已退出，训练待机4540277、读出待机4540341均核实本账号零运行取消后才退役预留；k5接续节点22，待机4540342。节点20第二卡此前因实际并发RAM不足拒绝，不缩减峰值占卡。新增6项结清边界检查通过；旧科学统计/旧套件未重跑，详见[执行适配](../EXECUTION_20261126.md)。在跑训练继续，未触发seed1。', '',
+    '资源与工程：短CPU按[11-26新规](../../interfaces/SCHEDULING_RULE_20261126.md)实测空闲核后SSH执行，记录真实退出和CPU时间。k1训练/读出待机零运行取消；k2在2680448样本处完整接管后由4540278成功完成3M。k2原生读出成功，未用接管4540347因路径类型错误FAILED/1:0，实际确认无自有残留后结清；保留原失败，不重跑已完成读出。路径修复2项受影响检查通过。k5继续节点22，待机4540342；节点20首条B0全量微调及原9M轨迹1M读出已启动，均待各自实际闭合。此前RAM不足拒绝的计划未启动、未改预留；资源释放后才补位，不缩减峰值占卡。旧科学统计/旧套件未重跑，见[执行适配](../EXECUTION_20261126.md)。未触发seed1。', '',
     '下一步：活跃E1继续各自3M，正式读出后接CPU原统计；合规空卡优先B0/G1全量微调，E1先于T5/T6。半小时监控、磁盘/配额/自有退出守卫及工程续接保持；全部原任务及A/B/C完成后才最终报告、一次完整回归/仓库检查、开PR不合并。当前无待用户决定事项；S/P共同k*后续另待确认。', '']
 daily=R/'docs/s_recipe/daily'/(stamp.date().isoformat()+'.md')
 daily.write_text('\n'.join(lines))

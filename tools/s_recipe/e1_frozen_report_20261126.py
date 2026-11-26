@@ -41,7 +41,32 @@ def run():
             raise ValueError('Exact original3M endpoint and actual CPU parent closure required')
         gpu=read(output/'readout/terminal_gpu_status.json')
         close=read(C/(gpu['resource_handle']+'_resource_close.json'))
-        training=read(C/(name+'_producer_exit_evidence.json'))
+        source=read(parent['configuration'])
+        statistics_source=read(source['source_configuration'])
+        training_lifecycle=read(statistics_source['training_closure_record'])
+        if training_lifecycle.get('job_id') is None:
+            training=read(C/(name+'_producer_exit_evidence.json'))
+        else:
+            state=read(C/'current_state.json')
+            pulse=read(state['latest_pipeline_pulse'])
+            job=training_lifecycle['job_id']
+            actual=[row for row in pulse['jobs'] if row['job_id']==job]
+            if (len(actual)!=1 or actual[0]['state']!='COMPLETED' or actual[0]['exit_code']!='0:0'
+                    or actual[0]['node']!=training_lifecycle['node']
+                    or training_lifecycle.get('run')!=name
+                    or training_lifecycle.get('status')!='TRAINING_COMPLETE_READOUT_PENDING'
+                    or training_lifecycle.get('result',{}).get('samples')!=3000000
+                    or not training_lifecycle.get('owned_descendants_exited')
+                    or not training_lifecycle.get('observer_joined')
+                    or pulse['observed_time']<training_lifecycle.get('ended_at',float('inf'))):
+                raise ValueError('Actual successful full-budget Slurm producer and own exit required')
+            training=dict(run=name,full_budget_samples=3000000,mode='Slurm',
+                source_lifecycle=statistics_source['training_closure_record'],
+                producer=training_lifecycle['producer'],owned_descendants_exited=True,
+                actual_job=actual[0],source_accounting=state['latest_pipeline_pulse'])
+            origin=read(C/'execution.json')['runs'][name].get('native_lifecycle_record')
+            if origin:
+                training.update(native_origin_source=origin,native_origin_exit=read(origin))
         if (gpu.get('run')!=name or gpu.get('samples')!=3000000 or gpu.get('exit_code')!=0
                 or gpu.get('status')!='GPU_TERMINAL_COMPLETE_WAITING_CPU'
                 or close.get('status')!='OWN_RESOURCES_CLOSED' or close.get('exit_code')!=0
@@ -71,6 +96,8 @@ def run():
             final_VAL=read(output/'VAL_3000000.json'),
             clip=read(R/'results/s_recipe'/(name+'_clip_calibration.json')),
             training_exit=training,gpu_exit=gpu,gpu_resource_close=close,
+            failed_standby_exit=(read(close['failed_standby_evidence'])
+                if close.get('failed_standby_evidence') else None),
             statistics_exit=phase,statistics_parent_exit=parent,statistics_command_exit=command,
             reporting_execution=execution_fields(),new_bootstrap_draws=0,new_fits=0,
             full_finetuning_complete=False,k_star=None,seed1_triggered=False,

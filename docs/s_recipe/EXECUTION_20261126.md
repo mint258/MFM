@@ -1,6 +1,6 @@
 # 11-26 执行适配
 
-遵循[统一调度修订](../interfaces/SCHEDULING_RULE_20261126.md)。这是后续运行的执行准备，尚无新 fullFT 结果；不改变原 S 配方、实验范围、50 轮微调或配对判定。
+遵循[统一调度修订](../interfaces/SCHEDULING_RULE_20261126.md)。首条B0全量微调已启动，尚无完整fullFT结果；不改变原 S 配方、实验范围、50 轮微调或配对判定。
 
 - 短 CPU 统计直接 SSH 到健康 CPU 节点，启动前实测 5 秒各核 idle、RAM、磁盘/inode及 UID 配额，记录真实 PID/start_ticks、CPU时间和自有退出。预算曲线的 CPU 统计已接入该入口，数学仍调用原 `budget_readouts_extension.work`，尚未执行新曲线统计。
 - 微调先用 0–7 的合规空卡；无合规卡时支持 20/22 原生执行及同任务真实 Slurm 接管。保留原16 CPU需求、64 GiB RAM峰值、GPU余量和输出上限，不虚构 Slurm 分配。新写入先只读检查候选加入后的总需求，通过后才登记预留。
@@ -13,3 +13,5 @@
 统一读出入口 `execution_20261126/launch_readout_20261126.py ROLE RUN SAMPLES NODE UUID`：`budget`仅原B0/final两条9M的1–8M检查点，`terminal`仅三条新E1的3M及两条新子集的9M终点（含登记的3/6/9M读出），全部固定层6。普通GPU与20/22原生加真实Slurm接管复用同一个原读出函数；2小时真实时限、900秒收尾。未完成的单元从原已保存特征/完整probe文件接续；GPU真正退出并结清未用待机后，分别由 `launch_budget_statistics_native_20261126.py`、`launch_terminal_statistics_native_20261126.py` 接续CPU统计。新增[3项身份及范围检查](../../results/s_recipe/readout_runtime_check_20261126.json)通过。首次真实运行已用于k1的3M正式读出：节点22原生PID229438/start82170434、退出0，自有退出及observer join闭合；未用待机4540341核实零运行取消后，CPU11/core50原统计120.157秒完成。完整来源见[k1记录](../../results/s_recipe/S_E1_k1_s0_3M.json)，未进行额外GPU测试或重抽样。
 
 训练结束后的 `execution_20261126/close_extension_native_resource_20261124.py RUN` 已补齐待机结清：先确认登记预算、原生自有退出及真实PID消失；仅对UID/名称匹配、PENDING且零运行的待机hold，再复核后单次撤销。实际记账确认本账号零运行CANCELLED或成功COMPLETED后才退役写入预留；已启动、竞态变化或取消尚未结算时继续等待。新增[6项状态边界检查](../../results/s_recipe/standby_settlement_check_20261126.json)在CPU11/core50通过，实际父PID282494/start2281542259，墙钟0.467秒、退出0、自有退出及observer join闭合。检查未执行真实作业控制，未改在跑训练，也未重跑旧检查或科学统计。
+
+11-27：k2原生GPU读出成功退出，CPU原统计120.667秒成功闭合。未用接管4540347在写请求前因字符串路径传给Path写入器而FAILED/1:0、运行1秒；batch失败/extern成功及目标节点实查均确认自有任务进程已退出，原生读出PID也已消失，才结清预留。保留该失败终态与源日志，未重跑已完成读出。读出与微调两处请求写入已显式转Path，[2项受影响入口检查](../../results/s_recipe/handoff_path_check_20261127.json)在CPU11通过，真实父PID302126/start2284011468、自有退出和observer join闭合。后续首条B0微调及预算曲线读出已完成真实完整状态/已提交单元接管；不据准备或部分运行宣称完整结果。k2的完整来源、失败待机退出证据及冻结结果见[k2记录](../../results/s_recipe/S_E1_k2_s0_3M.json)。

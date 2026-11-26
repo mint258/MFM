@@ -61,7 +61,7 @@ def standby(path):
         producer=vars(life.identity(os.getpid())),started_at=time.time(),actual_deadline_epoch=end)
     with guard:
         try:
-            write(task['handoff_request'],dict(run=c['run'],native_handle=task['native_handle'],
+            write(Path(task['handoff_request']),dict(run=c['run'],native_handle=task['native_handle'],
                 standby_job_id=job,producer=task['producer'],requested_at=time.time()))
             while True:
                 value=read(task['native_record']) if Path(task['native_record']).exists() else {}
