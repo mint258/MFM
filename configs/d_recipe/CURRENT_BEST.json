@@ -5423,10 +5423,10 @@
         }
       },
       "latest_GPU_admission": {
-        "observed_at_UTC": "2026-11-26T06:26:31.118Z",
-        "small_group": "0/4/5/6/7 actual CUDA contexts;1/3 lack allocatable CPU",
-        "node20": "Second4090 actual445/49140MiB, own lock free and15 allocatableCPUs; unchanged own64GiB canonical RAM phase refused. Candidateclaim returned0; no newGPUwriter.",
-        "node22": "26152/32607MiB and own lock busy,0 allocatableCPU",
+        "observed_at_UTC": "2026-11-26T06:56:50.986Z",
+        "small_group": "0/4/5/6/7 still have actual CUDA contexts;1/3 no allocatable CPU",
+        "node20": "Second4090 actual445/49140MiB, own lock free and7 allocatableCPUs; canonical unchanged own64GiB RAM phase refused. Candidateclaim returned0; no GPU writer.",
+        "node22": "26152/32607MiB, own lock busy,0 allocatableCPU",
         "new_GPU_job_submitted": false,
         "other_owner_processes_changed": false
       }
@@ -5555,20 +5555,20 @@
       "canonical_next_segment_entry": "tools/d_recipe/reference_segment_canonical.py",
       "A1_status": "ORIGINAL_FULL_TRAIN_CURSOR_COLLECTION_RECOVERING",
       "latest_native_progress": {
-        "observed_at_epoch": 1795674391.1180615,
+        "observed_at_epoch": 1795676210.9867363,
         "receipt_status": "RUNNING",
         "returncode": null,
         "started_at_epoch": 1795667505.23565,
         "hard_end_epoch": 1795689095.23565,
-        "closed_rows": 785664,
+        "closed_rows": 800768,
         "collection_status": "COLLECTING",
         "last_attempt": {
           "job_id": null,
           "node": "compute-0-11",
           "start_row": 729600,
           "state": "RUNNING",
-          "closed_rows": 785664,
-          "elapsed_seconds": 6703.670745912939
+          "closed_rows": 800768,
+          "elapsed_seconds": 8517.073694292456
         },
         "actual_supervisor": {
           "pid": 248291,
@@ -5579,14 +5579,14 @@
         "actual_worker": {
           "pid": 248316,
           "start_ticks": 2278851052,
-          "state": "R",
+          "state": "D",
           "uid": 1278
         },
-        "actual_root_available": 56547467264,
-        "actual_root_inodes": 36569794,
-        "own_local_allocated": 10107039744,
-        "own_local_remaining_future": 7072829440,
-        "observed_at_UTC": "2026-11-26T06:26:31.118Z"
+        "actual_root_available": 56353267712,
+        "actual_root_inodes": 36569788,
+        "own_local_allocated": 10301489152,
+        "own_local_remaining_future": 6878380032,
+        "observed_at_UTC": "2026-11-26T06:56:50.986Z"
       },
       "collection_forecast": {
         "observed_at_UTC": "2026-11-26T06:26:31.118Z",
@@ -5615,7 +5615,7 @@
           "uid": 1278
         }
       },
-      "closed_collection_rows": 799744
+      "closed_collection_rows": 800768
     },
     "reference_production_status": "L1_FROZEN_L2_CURSOR_RECOVERY_PENDING",
     "storage_retirement": {
@@ -6141,9 +6141,9 @@
       "original_running_configuration_unchanged": true
     },
     "status": "L1_SAFE_HANDOFF_WAIT_GPU_L2_SSH_CURSOR_RECOVERY_G1_CLOSED",
-    "last_GPU_capacity_check_UTC": "2026-11-26T06:26:31.118Z",
-    "next_GPU_check_UTC": "2026-11-26T06:56:31.118Z",
-    "next_reference_progress_check_UTC": "2026-11-26T06:56:31.118Z",
+    "last_GPU_capacity_check_UTC": "2026-11-26T06:56:50.986Z",
+    "next_GPU_check_UTC": "2026-11-26T07:26:50.986Z",
+    "next_reference_progress_check_UTC": "2026-11-26T07:26:50.986Z",
     "unadopted_reuse_adapter": "HISTORICAL_UNADOPTED_OPTIONAL_OPTIMIZATION_ORIGINAL_FITTER_ACTIVE"
   },
   "telemetry_scope_clarification": {
@@ -6754,7 +6754,7 @@
         "test_node_claims_released": true
       },
       "phase_rule": "New entries use canonical timed admission at phase start and >1GiB writes; original running L2 remains frozen until its safe segment boundary",
-      "claim_refresh": "Serialized own claim()24hTTL: L2allocated10107039744B, localremaining7072829440B; closed metadata/tests and GPUcandidatefuture0. Other-line registries unchanged."
+      "claim_refresh": "Serial own claim24hTTL refresh; L2allocated10301489152B, remaininglocalfuture6878380032B; candidateRAM and closedCPUtestfuture0. Other-line registries unchanged."
     },
     "L2_cursor_segment": "Original3h SSH segment actively collecting committed chunks; scientific source/configuration unchanged.",
     "new_original_full_TRAIN_fitter": {
@@ -7050,5 +7050,5 @@
     "historical_engineering_failure_count": 2,
     "scientific_failure_count": 0
   },
-  "updated_at_utc": "2026-11-26T06:54:27.662Z"
+  "updated_at_utc": "2026-11-26T06:56:50.986Z"
 }
