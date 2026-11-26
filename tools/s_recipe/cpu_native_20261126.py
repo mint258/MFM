@@ -25,6 +25,9 @@ AUTHORITY = 'docs/interfaces/SCHEDULING_RULE_20261126.md'
 def worker(c):
     from cpu_execution_20261126 import execution_fields, native_record
     native_record()
+    if c['stage'] == 'budget_statistics':
+        from budget_statistics_native_20261126 import run as statistics
+        return statistics(c)
     if c['stage'] == 'fullft_statistics':
         from finetune_statistics_extension_20261124 import run as statistics
         return statistics(json.loads(Path(c['source_configuration']).read_text()))
@@ -57,7 +60,14 @@ def worker(c):
                'extension_progress':'report_extensions_startup_20261126.py',
                'extension_daily':'refresh_extension_daily_20261126.py',
                'generic_publish':'prepare_status_milestone_20261126.py',
-               'writer_admission_check':'check_gpu_writer_admission_20261126.py'}
+               'writer_admission_check':'check_gpu_writer_admission_20261126.py',
+               'budget_adapter_check':'check_budget_adapter_source_20261126.py',
+               'native_output_check':'check_native_output_budget_20261126.py',
+               'fullft_provider_inspection':'inspect_fullft_provider_pins_20261126.py',
+               'mixed_fullft_check':'check_mixed_fullft_runtime_20261126.py',
+               'mixed_fullft_binding_check':'check_mixed_fullft_binding_20261126.py',
+               'fullft_resume_check':'check_fullft_resume_20261126.py',
+               'execution_delivery':'deliver_execution_adapters_20261126.py'}
     if c['stage'] not in scripts:
         raise ValueError('No unregistered CPU stage')
     if c['stage'] == 'population':

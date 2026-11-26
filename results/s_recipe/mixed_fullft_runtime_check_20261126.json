@@ -1,0 +1,51 @@
+{
+  "status": "COMPLETE",
+  "new_tests": 6,
+  "job_id": null,
+  "native_handle": "S_mixed_fullft_runtime_native_20261126_attempt0",
+  "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_mixed_fullft_runtime_native_20261126_attempt0/record.json",
+  "syntax_files": [
+    "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools/s_recipe/mixed_fullft_runtime_20261126.py",
+    "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools/s_recipe/fullft_native_execution_20261126.py",
+    "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools/s_recipe/finetune_extension_20261124.py",
+    "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools/s_recipe/seal_finetune_20261124.py",
+    "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools/s_recipe/extension_output_budget_20261124.py",
+    "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/launch_fullft_20261124.py",
+    "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/fullft_native_spawn_20261126.py",
+    "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/close_fullft_resources_20261126.py",
+    "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/launch_fullft_statistics_native_20261126.py"
+  ],
+  "actual_P_entry_metadata_bridge_compiled": true,
+  "metadata_replacements": [
+    "SLURM_CPUS_PER_TASK -> explicit native16 CPU demand",
+    "summary job_id -> null; real PID/start_ticks/native_handle recorded separately"
+  ],
+  "unchanged_original_provider_pins": [
+    {
+      "source": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune_entry.py",
+      "registered": "4ab4ae221e3d82aab3fcc870354ac4f7836d10c1b90f9d9ae96f870d66dd98f3",
+      "actual": "4ab4ae221e3d82aab3fcc870354ac4f7836d10c1b90f9d9ae96f870d66dd98f3",
+      "unchanged": true
+    },
+    {
+      "source": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune.py",
+      "registered": "181e2eddd601d6c7beaee3ffc12b509e9b305b021a8f6c581ad11a98a7b416e7",
+      "actual": "181e2eddd601d6c7beaee3ffc12b509e9b305b021a8f6c581ad11a98a7b416e7",
+      "unchanged": true
+    },
+    {
+      "source": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune_statistics_entry.py",
+      "registered": "48bfe02c759dbe4b25ce6023b5a8b7b88aca0cd31f921b9f2b50c5bf256721ab",
+      "actual": "48bfe02c759dbe4b25ce6023b5a8b7b88aca0cd31f921b9f2b50c5bf256721ab",
+      "unchanged": true
+    },
+    {
+      "source": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/finetune_statistics.py",
+      "registered": "209454b8bc23d19756e5773816ff995658579debaf398d80bbada9b91029e811",
+      "actual": "209454b8bc23d19756e5773816ff995658579debaf398d80bbada9b91029e811",
+      "unchanged": true
+    }
+  ],
+  "no_real_finetuning_executed": true,
+  "no_old_scientific_results_or_tests_replayed": true
+}

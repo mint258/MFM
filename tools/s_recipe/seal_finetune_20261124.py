@@ -26,6 +26,20 @@ def selected_payload(state):
         selected_epoch=state['selected_epoch'], best_internal_mae=state['best_error'])
 
 
+def same_execution(summary,closure):
+    if closure['job_id'] is not None:
+        return summary.get('job_id')==str(closure['job_id'])
+    execution=summary.get('native_execution',{})
+    producer=execution.get('producer',{})
+    actual=closure.get('producer',{})
+    return (summary.get('job_id') is None and execution.get('native_handle') is not None
+        and execution['native_handle']==closure.get('native_handle')
+        and execution.get('run')==closure.get('run')
+        and execution.get('node')==closure.get('node')
+        and all(producer.get(key) is not None and producer[key]==actual.get(key)
+                for key in ('pid','uid','start_ticks')))
+
+
 def seal(output, closure_path):
     output = Path(output)
     if (output.parent != CONTROL/'finetune_20261124' or output.resolve()!=output
@@ -37,7 +51,7 @@ def seal(output, closure_path):
     summary = json.loads((output/'summary.json').read_text())
     closure = json.loads(Path(closure_path).read_text())
     require_closed(summary, closure)
-    if summary['job_id'] != str(closure['job_id']):
+    if not same_execution(summary,closure):
         raise ValueError('Complete producer summary and actual owned closure job differ')
     source = output/'complete_state.pt'
     observed = source.lstat()

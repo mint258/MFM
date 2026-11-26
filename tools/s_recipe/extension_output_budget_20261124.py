@@ -43,6 +43,24 @@ def job_states(ledger,call):
     return result
 
 
+def phase_live(row,states,read):
+    job=row.get('job_id')
+    if job is not None:
+        return states.get(int(job),'UNKNOWN') in LIVE
+    path=row.get('lifecycle_record') or row.get('native_record')
+    if not path:
+        return True
+    try:
+        record=read(path)
+    except (OSError,ValueError):
+        return True
+    if (row.get('mode')=='finetune_native' and record.get('exit_code')==75
+            and not row.get('resource_closed')):
+        return True
+    return not (record.get('ended_at') and record.get('owned_descendants_exited')
+        and record.get('observer_joined') and record.get('exit_code') is not None)
+
+
 def forecast(ledger,states,*,incoming_bytes,incoming_finetune=False):
     read=lambda p:json.loads(Path(p).read_text())
     metadata=read(CONTROL/'current_state.json')
@@ -61,17 +79,17 @@ def forecast(ledger,states,*,incoming_bytes,incoming_finetune=False):
     fit_future=0
     cpu_seal_future=0
     for handle,row in ledger['statistics'].items():
-        if states.get(int(row.get('job_id',0))) not in LIVE:continue
-        if row.get('mode')=='finetune':
+        if not phase_live(row,states,read):continue
+        if row.get('mode') in ('finetune','finetune_native'):
             need=unallocated_peak(GiB,allocated(CONTROL/'finetune_20261124'/row['run']))
             fit_future+=need
             phase_future+=need
-        elif row.get('mode')=='gpu':
+        elif row.get('mode') in ('gpu','gpu_native'):
             c=read(row['configuration'])
             points=row.get('readout_points') or ([row['samples']] if '_budget_' in handle else c['evaluation_samples'])
             current=sum(allocated(CONTROL/'scratch/readout_features'/c['run']/str(n)) for n in points)
             phase_future+=unallocated_peak(len(points)*GiB,current)
-        elif row.get('mode')=='fullft_cpu':
+        elif row.get('mode') in ('fullft_cpu','fullft_cpu_native'):
             cpu_seal_future+=GiB//4
             phase_future+=GiB//4
     unsealed=0

@@ -62,8 +62,10 @@ def validate(c):
             or c.get('minimum_free_gpu_mib') != 22000
             or c.get('work_unit_seconds') != 120):
         raise ValueError('Registered resource and safe-boundary contract changed')
-    if c['node'] not in {'compute-0-'+str(i) for i in range(8)}:
-        raise ValueError('This fullFT adapter uses empty ordinary0..7 GPUs')
+    mixed=c.get('execution_backend')=='mixed_gpu_native_20261126'
+    allowed={'compute-0-'+str(i) for i in ((20,22) if mixed else range(8))}
+    if c['node'] not in allowed:
+        raise ValueError('Use an ordinary0..7 GPU or explicitly registered mixed20/22 execution')
     return c
 
 
@@ -94,11 +96,11 @@ def load_provider():
     return module
 
 
-def _run(path):
+def _run(path,native_context=None):
     c = validate(json.loads(Path(path).read_text()))
     if (socket.gethostname().split('.')[0] != c['node']
             or os.environ.get('CUDA_VISIBLE_DEVICES') != c['gpu_uuid']
-            or int(os.environ.get('SLURM_CPUS_PER_TASK', '0')) < c['cpus']):
+            or (native_context is None and int(os.environ.get('SLURM_CPUS_PER_TASK', '0')) < c['cpus'])):
         raise ValueError('Actual allocation must match the registered node/UUID/CPU')
     life.enable_subreaper()
     for provider_path, expected in c['providers_sha256'].items():
@@ -112,16 +114,26 @@ def _run(path):
     stop = SimpleNamespace(requested=False)
     # Reuse P's checked actual RUNNING job/UID/node/finite EndTime query. A
     # queue wait therefore never consumes this new fit's usable time limit.
-    provider.set_actual_deadline(c, stop)
-    guard = life.Guard(float(os.environ['P_MANAGED_HARD_END']), 900)
-    guard.deadline_basis = 'actual_scontrol_EndTime_via_reused_P_provider'
+    if native_context is None:
+        provider.set_actual_deadline(c, stop)
+        guard = life.Guard(float(os.environ['P_MANAGED_HARD_END']), 900)
+        guard.deadline_basis = 'actual_scontrol_EndTime_via_reused_P_provider'
+    else:
+        from mixed_fullft_runtime_20261126 import native_guard,bind_native_main
+        guard=native_guard(native_context,c)
+        bind_native_main(provider,c['cpus'])
     guard.phase = 'optimizing'
-    state_path = CONTROL/(c['run']+'_guarded_'+os.environ['SLURM_JOB_ID']+'.json')
-    record = dict(run=c['run'], job_id=int(os.environ['SLURM_JOB_ID']), node=c['node'],
+    state_path = (CONTROL/(c['run']+'_guarded_'+os.environ['SLURM_JOB_ID']+'.json')
+        if native_context is None else Path(native_context['native_record']))
+    record = dict(run=c['run'], job_id=int(os.environ['SLURM_JOB_ID']) if native_context is None else None, node=c['node'],
         gpu_uuid=c['gpu_uuid'], producer=vars(life.identity(os.getpid())),
         started_at=time.time(), actual_deadline_epoch=guard.end_epoch,
         closing_reserve_seconds=900, protocol_provider='P finetune_entry.py + finetune.py',
         invoking_authority=AUTHORITY, status='PREPARING')
+    if native_context is not None:
+        record.update(native_handle=native_context['native_handle'],execution='native_gpu',
+            standby_job_id=native_context['standby_job_id'],cpus_requested=c['cpus'],slurm_cpus_allocated=0)
+        write(state_path,record)
     done = threading.Event()
 
     @contextlib.contextmanager
@@ -149,6 +161,9 @@ def _run(path):
         while not done.wait(30):
             try:
                 admit(c)
+                if native_context is not None:
+                    from mixed_fullft_runtime_20261126 import observe_handoff
+                    observe_handoff(native_context,c,guard)
             except Exception as error:
                 record['observer_error'] = type(error).__name__+': '+str(error)
                 guard.request('storage_observation_failed')
@@ -164,8 +179,17 @@ def _run(path):
             provider.set_actual_deadline = actual_deadline
             provider.admission = admission
             provider.native_query = query
+            if c.get('execution_backend')=='mixed_gpu_native_20261126':
+                from mixed_fullft_runtime_20261126 import mixed_gpu_lock
+                provider.gpu_lock_and_check=mixed_gpu_lock
             observer_thread.start()
             code = provider.main(str(path))
+            if native_context is not None and code==0:
+                summary_path=Path(c['output'])/'summary.json'
+                summary=json.loads(summary_path.read_text())
+                summary['native_execution']=dict(native_handle=native_context['native_handle'],
+                    native_record=str(state_path),producer=record['producer'],node=c['node'],run=c['run'])
+                write(summary_path,summary)
             record.update(status='COMPLETE' if code == 0 else 'CONTINUATION_REQUIRED', exit_code=code)
             return code
         except BaseException as error:
@@ -191,11 +215,11 @@ def _run(path):
             write(state_path, record)
 
 
-def run(path):
+def run(path,native_context=None):
     c = validate(json.loads(Path(path).read_text()))
     with (CONTROL/(c['run']+'_fullFT.lock')).open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        return _run(path)
+        return _run(path,native_context=native_context)
 
 
 if __name__ == '__main__':
