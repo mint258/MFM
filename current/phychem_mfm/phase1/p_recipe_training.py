@@ -1,6 +1,6 @@
 """P-only full-TRAIN execution; every arm owns its complete sample schedule."""
 from concurrent.futures import ProcessPoolExecutor
-import csv,json,multiprocessing,os,time
+import csv,json,multiprocessing,os,time,resource
 from pathlib import Path
 import numpy as np
 import torch
@@ -14,6 +14,7 @@ from .v3_training import SampleClock
 from .p_recipe_handoff import publish_checkpoint,read_request,finish_handoff
 from .p_recipe_clip import GroupClipCalibration
 from .v3_latent_training import TrainingHistory
+from ..model.precision import configure_precision
 
 REPO=Path(__file__).resolve().parents[3]
 
@@ -52,7 +53,7 @@ def train(configuration):
  if recipe.get('uncertainty_weighting',False):
   names=sorted(set(families.values())) if recipe.get('family_equal',False) else list(families)
   modules['uncertainty']=UncertaintyWeights(names)
- model=torch.nn.ModuleDict(modules).cuda().train();params=list(model.parameters())
+ model=configure_precision(torch.nn.ModuleDict(modules),c.get('precision','fp32')).cuda().train();params=list(model.parameters())
  optimizer=torch.optim.AdamW(params,lr=c['lr'],betas=tuple(c['betas']),weight_decay=c['weight_decay'])
  clip_calibration=GroupClipCalibration(c['clip_calibration'],c['samples']) if c.get('clip_calibration') else None
  milestones=set(range(500000,c['samples']+1,500000))
@@ -106,7 +107,9 @@ def train(configuration):
     total=sum((loss.fields[n]*w for n,w in weights.items()),loss.total.new_zeros(()))
   if recipe.get('anti_collapse',False):total=total+.1*collapse_penalty(h,gamma)
   return total,family,prediction
- started=time.monotonic();initial_samples=clock.samples_consumed;clip_reported=False;success=False;benchmark_started=None;benchmark_finished=None
+ started=time.monotonic();initial_samples=clock.samples_consumed;clip_reported=False;success=False
+ benchmark_updates=c.get('benchmark_updates');measure=None
+ if benchmark_updates is not None and benchmark_updates!=1100:raise ValueError('Precision speed protocol requires 100 warmup + 1000 measured updates')
  def validate():
   model.eval();sums={};counts={};native={}
   with torch.no_grad():
@@ -146,6 +149,11 @@ def train(configuration):
     for group in optimizer.param_groups:group['lr']=lr
     optimizer.zero_grad(set_to_none=True);total,family,_=calculate(samples);total.backward();norm=torch.nn.utils.clip_grad_norm_(params,clip,error_if_nonfinite=True);optimizer.step()
     clock.advance(len(samples));rng.bit_generator.state=consumed_rng;clipped+=int(float(norm)>clip);window_updates+=1
+    if benchmark_updates and clock.optimizer_updates==100:
+     torch.cuda.synchronize();torch.cuda.reset_peak_memory_stats()
+     usage=resource.getrusage(resource.RUSAGE_SELF)
+     measure=dict(wall=time.monotonic(),unix=time.time(),cpu=usage.ru_utime+usage.ru_stime,samples=clock.samples_consumed)
+     print('MEASUREMENT_START',flush=True)
     if clip_calibration:
      if clip_calibration.observe(float(norm),clock.samples_consumed,samples_before=samples_before):
       fitted=clip_calibration.fitted_summary()
@@ -171,19 +179,20 @@ def train(configuration):
      result=finish_handoff(c,handoff,destination,clock.state_dict())
      success=True;return result
     if clock.optimizer_updates%100==0:print(json.dumps(row),flush=True)
-    if c.get('benchmark_updates') and clock.optimizer_updates==100:
-     torch.cuda.synchronize();benchmark_started=(time.monotonic(),time.process_time(),time.time())
-     print('MEASUREMENT_START',flush=True)
-    if c.get('benchmark_updates') and clock.optimizer_updates==c['benchmark_updates']:
-     torch.cuda.synchronize();benchmark_finished=(time.monotonic(),time.process_time(),time.time())
+    if benchmark_updates and clock.optimizer_updates==benchmark_updates:
+     torch.cuda.synchronize();usage=resource.getrusage(resource.RUSAGE_SELF)
+     elapsed=time.monotonic()-measure['wall']
+     benchmark=dict(measure_wall_start=measure['unix'],measure_wall_end=time.time(),measured_updates=1000,
+      timed_samples=clock.samples_consumed-measure['samples'],timed_seconds=elapsed,
+      samples_per_second=(clock.samples_consumed-measure['samples'])/elapsed,
+      main_process_cpu_percent=100*(usage.ru_utime+usage.ru_stime-measure['cpu'])/elapsed)
      print('MEASUREMENT_END',flush=True)
+     break
   if window:deliver([dict(run=c['run'],kind='TRAIN_final_partial_window',samples=clock.samples_consumed,updates=clock.optimizer_updates,family=n,loss=s/num,clipped_fraction=clipped/clock.optimizer_updates,seconds=prior+time.monotonic()-started) for n,(s,num) in window.items()])
   summary=dict(status='TRAINING_COMPLETE_EVALUATION_PENDING',run=c['run'],samples=clock.samples_consumed,updates=clock.optimizer_updates,actual_samples=clock.samples_consumed-initial_samples,seconds=prior+time.monotonic()-started,clipped_fraction=clipped/clock.optimizer_updates,clip=clip,batch_size=c['batch_size'],microbatch_size=c['microbatch_size'],GPU_peak_bytes=torch.cuda.max_memory_allocated())
-  if benchmark_started is not None:
-   seconds=benchmark_finished[0]-benchmark_started[0]
-   summary.update(status='BENCHMARK_COMPLETE',measured_updates=clock.optimizer_updates-100,
-    measured_seconds=seconds,samples_per_second=(clock.optimizer_updates-100)*c['batch_size']/seconds,
-    main_CPU_percent=100*(benchmark_finished[1]-benchmark_started[1])/seconds,
-    measure_wall_start=benchmark_started[2],measure_wall_end=benchmark_finished[2])
+  if benchmark_updates:
+   summary.update(benchmark,status='SPEED_COMPLETE' if 'precision' in c else 'BENCHMARK_COMPLETE',
+    precision=c.get('precision','fp32'),measured_seconds=benchmark['timed_seconds'],
+    main_CPU_percent=benchmark['main_process_cpu_percent'])
   (output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');success=True;return summary
  finally:history.close(success);data.close();validation.close()
