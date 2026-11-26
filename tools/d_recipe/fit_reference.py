@@ -53,8 +53,8 @@ def _sync(*arrays):
             os.fsync(stream.fileno())
 
 
-def collect(dataset, output, configuration, *, guard, stop_after_chunks=None):
-    """Pure collector API; `stop_after_chunks` is only a resumability test hook."""
+def collect(dataset, output, configuration, *, guard, stop_after_chunks=None, should_stop=None):
+    """Collect original observations; cooperative stops occur after a committed chunk."""
     config = deepcopy(configuration)
     # These scientific choices have no invented tuning defaults.
     if "ridge_alpha" not in config or "fold_seed" not in config or "model_name" not in config:
@@ -159,6 +159,8 @@ def collect(dataset, output, configuration, *, guard, stop_after_chunks=None):
         print(json.dumps(dict(stage="D_A1_COLLECT", closed_rows=stop, total_rows=rows)), flush=True)
         completed_chunks += 1
         if stop_after_chunks is not None and completed_chunks >= stop_after_chunks:
+            break
+        if should_stop is not None and should_stop():
             break
     return state
 

@@ -114,6 +114,29 @@ class FitReferenceCollectorTests(unittest.TestCase):
             state = json.loads((root / "bad_sample" / "collection_checkpoint.json").read_text())
             self.assertEqual(state["closed_rows"], 0)
 
+    def test_cooperative_stop_observes_committed_cursor_and_preserves_resume(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root, config = Path(directory), self.configuration()
+            full, partial, resumed = FakeDataset(), FakeDataset(), FakeDataset()
+            collect(full, root / "full", config, guard=self.guard)
+            observed = []
+
+            def stop():
+                marker = json.loads((root / "segmented" / "collection_checkpoint.json").read_text())
+                observed.append(marker["closed_rows"])
+                return True
+
+            first = collect(partial, root / "segmented", config, guard=self.guard, should_stop=stop)
+            self.assertEqual(observed, [2])
+            self.assertEqual(first["closed_rows"], 2)
+            self.assertEqual(first["status"], "COLLECTING")
+            final = collect(resumed, root / "segmented", config, guard=self.guard)
+            self.assertEqual(final["status"], "COLLECTION_COMPLETE")
+            self.assertEqual(partial.reads + resumed.reads, full.reads)
+            for name in ("order.npy", "choices.npy", "design.npy", "raw.npy", "valid.npy"):
+                np.testing.assert_array_equal(np.load(root / "full" / name),
+                                              np.load(root / "segmented" / name))
+
     def test_changed_frozen_config_cannot_resume_a_different_condition(self):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "store"

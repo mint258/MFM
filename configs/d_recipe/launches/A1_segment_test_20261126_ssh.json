@@ -1,0 +1,24 @@
+{
+  "node": "compute-0-11",
+  "cores": [
+    37
+  ],
+  "expected_seconds": 60,
+  "timeout_seconds": 1800,
+  "cleanup_seconds": 180,
+  "ram_peak_bytes": 8589934592,
+  "root_future_bytes": 38788923392,
+  "original_pending_job": 4540186,
+  "line": "D",
+  "execution_id": "ssh:D_A1_segment_test_20261126",
+  "receipt": "/tmp/d_recipe_20261126_A1_segment_test/receipt.json",
+  "worker_argv": [
+    "/usr/bin/env",
+    "TMPDIR=/tmp/d_recipe_20261126_A1_segment_test",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+    "-B",
+    "-c",
+    "import ast,json,os,sys,time,unittest; from pathlib import Path; sys.path[:0]=[\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\",\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/current\",\"/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120\",\"/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/current\",\"/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps\",\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/tests\"]; os.chdir(\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\"); ast.parse(Path('tools/d_recipe/reference_segment.py').read_text()); suite=unittest.defaultTestLoader.loadTestsFromName('test_d_recipe_fit_reference.FitReferenceCollectorTests.test_cooperative_stop_observes_committed_cursor_and_preserves_resume'); started=time.monotonic(); result=unittest.TextTestRunner(verbosity=2).run(suite); print(json.dumps(dict(stage='D_A1_SEGMENT_TINY_TEST',tests_run=result.testsRun,failures=len(result.failures),errors=len(result.errors),elapsed_seconds=time.monotonic()-started)),flush=True); sys.exit(not result.wasSuccessful())"
+  ]
+}
