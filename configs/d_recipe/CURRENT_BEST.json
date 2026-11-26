@@ -2,7 +2,7 @@
   "schema": "D_RECIPE_CURRENT_BEST_V1",
   "status": "STAGE2_L1_SAFE_HANDOFF_WAIT_GPU_L2_SSH_CURSOR_RECOVERY",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-26T04:45:00Z",
+  "updated_at_utc": "2026-11-26T04:52:43Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -4095,8 +4095,8 @@
       "scientific_configuration_unchanged": true
     },
     "reference_entry_status": "Original entry scope initialization repaired; both current original collectors positive closed cursor",
-    "next_GPU_check_UTC": "2026-11-26T04:50:00Z",
-    "next_reference_progress_check_UTC": null,
+    "next_GPU_check_UTC": "2026-11-26T05:20:30Z",
+    "next_reference_progress_check_UTC": "2026-11-26T05:20:30Z",
     "last_GPU_capacity_check_UTC": "2026-11-22T22:51:36Z",
     "cost_accounting_root_log_forecast": "Same128MiB joint future: two original reference logs<=2MiB each, six prospective Stage2 statistics/comparison logs<=8MiB each, total<=52MiB. Closed cost/old logs remain charged by actual df. Actual node guard retains conservative36GiB+128MiB CPU-root upper bound.",
     "CPU_continuations": {
@@ -4676,7 +4676,7 @@
       "native_cost_source": "results/d_recipe/D-G1_seed0_complete_GPU_job_costs_20261123.json"
     },
     "next_G1_progress_check_UTC": null,
-    "last_GPU_partition_check_UTC": "2026-11-25T02:50:02Z",
+    "last_GPU_partition_check_UTC": "2026-11-26T04:50:30Z",
     "latest_GPU_partition_observation": {
       "observed_at_UTC": "2026-11-25T02:50:36Z",
       "new_unavailable_nodes": [],
@@ -5215,20 +5215,28 @@
         "old_cgroup_absent": true,
         "source": "results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json"
       },
-      "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json"
+      "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json",
+      "latest_GPU_admission": {
+        "observed_at_UTC": "2026-11-26T04:50:30Z",
+        "small_group": "Nodes0/1/4/5/6/7 have enough allocatable CPUs but each actual GPU has a CUDA context; node3 has no allocatable CPU",
+        "node20": "Second4090 has443/49140MiB and own lock free, but canonical64GiB training RAM admission refused; own candidate RAM claim released without writer",
+        "node22": "Actual14430/32607MiB and own common GPU lock busy; not admitted",
+        "new_GPU_job_submitted": false,
+        "other_owner_processes_changed": false
+      }
     },
     "next_L1_progress_check_UTC": null,
     "L2": {
       "arm": "D-L2",
-      "status": "SSH_CURSOR_SEGMENT_RUNNING",
-      "A1_status": "SSH_SUPERVISOR_RUNNING_READER_INITIALIZING",
+      "status": "SSH_CURSOR_SEGMENT_PROGRESSING",
+      "A1_status": "ORIGINAL_CURSOR_PROGRESSED_UNDER_SSH",
       "A1_jobs": [
         4539164,
         4539169,
         4540186
       ],
       "A1_failures": 0,
-      "closed_collection_rows": 729600,
+      "closed_collection_rows": 737792,
       "required_full_TRAIN_rows": 1194228,
       "parameters_published": false,
       "seed0_started": false,
@@ -5247,7 +5255,7 @@
       "source_commit": "a65ad7fd6786b2b44fd73922050eeb79eb4239c4",
       "retired_pending_job": 4540186,
       "SSH_execution": {
-        "status": "SSH_SUPERVISOR_RUNNING_READER_INITIALIZING",
+        "status": "SSH_CURSOR_SEGMENT_PROGRESSING",
         "source_commit": "a55469c55c4b02b95093ac196c8046a682a1858f",
         "configuration": "configs/d_recipe/launches/L2_A1_segment1_20261126.json",
         "execution_id": "ssh:P_D_L2_A1_segment1_20261126",
@@ -5281,26 +5289,61 @@
         "claim": "runs/shared_storage_reservations/d-recipe.json",
         "execution_id_namespace_note": "P_ prefix is required by the reused shared provider, metadata line remains D; not a P scientific run and not a Slurm job",
         "last_observed_worker": {
-          "observed_at_UTC": "2026-11-26T04:34:00Z",
+          "observed_at_UTC": "2026-11-26T04:50:30Z",
           "pid": 248316,
-          "start_ticks": 2278851052,
+          "start_ticks": "2278851052",
           "state": "D",
-          "wchan": "wait_on_page_bit_common",
+          "wchan": "rpc_wait_bit_killable",
           "duration_unknown": true,
           "root_cause_unknown": true,
-          "no_relaunch_or_signal": true
-        }
+          "original_cursor_is_progressing": true
+        },
+        "latest_native_progress": {
+          "observed_at_UTC": "2026-11-26T04:50:30Z",
+          "closed_rows": 737792,
+          "collection_status": "COLLECTING",
+          "original_start_cursor": 729600,
+          "completed_new_rows": 8192,
+          "last_attempt": {
+            "job_id": null,
+            "node": "compute-0-11",
+            "start_row": 729600,
+            "state": "RUNNING",
+            "closed_rows": 737792,
+            "elapsed_seconds": 966.6925917118788
+          },
+          "receipt_status": "RUNNING",
+          "original_binding_unchanged": true
+        },
+        "remaining_local_future_last_refreshed_bytes": 7759905164
       },
       "operational_update_source": "results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json",
       "last_observed_worker": {
-        "observed_at_UTC": "2026-11-26T04:34:00Z",
+        "observed_at_UTC": "2026-11-26T04:50:30Z",
         "pid": 248316,
-        "start_ticks": 2278851052,
+        "start_ticks": "2278851052",
         "state": "D",
-        "wchan": "wait_on_page_bit_common",
+        "wchan": "rpc_wait_bit_killable",
         "duration_unknown": true,
         "root_cause_unknown": true,
-        "no_relaunch_or_signal": true
+        "original_cursor_is_progressing": true
+      },
+      "latest_native_progress": {
+        "observed_at_UTC": "2026-11-26T04:50:30Z",
+        "closed_rows": 737792,
+        "collection_status": "COLLECTING",
+        "original_start_cursor": 729600,
+        "completed_new_rows": 8192,
+        "last_attempt": {
+          "job_id": null,
+          "node": "compute-0-11",
+          "start_row": 729600,
+          "state": "RUNNING",
+          "closed_rows": 737792,
+          "elapsed_seconds": 966.6925917118788
+        },
+        "receipt_status": "RUNNING",
+        "original_binding_unchanged": true
       }
     },
     "reference_production_status": "L1_FROZEN_L2_CURSOR_RECOVERY_PENDING",
@@ -5873,7 +5916,94 @@
     "full_finetune": "Specified4tasks x3seeds, reuse Ptools and scratch; descriptive only",
     "budget_curve": "Two native9M checkpoints1M..8M frozenR1/R3, selected1/3/6/9M and R0final fine-tune",
     "molecule_scaling": "Two9M seed0 frozenfinal using actualP T5/T6 selectedmolecule lists intersectD TRAIN; no resampling",
-    "no_recipe_decisions_from_supplements": true
+    "no_recipe_decisions_from_supplements": true,
+    "full_finetune_preparation": {
+      "status": "PREPARED_SLURM_TRANSPORT_NOT_ACTIVATED_WAIT_MAIN_AND_RESOURCE_BINDING",
+      "wrapper": "tools/d_recipe/finetune_entry.py",
+      "source_commit": "9ad6753e39d2033039f218e7fedab349875f9abf",
+      "original_P_worker_reused": "MFM_p_recipe/tools/p_recipe/finetune_entry.py main and finetune.py run_finetune, process-local D admission/REPO/GPUcheck overrides; no P source edits",
+      "full_protocol_unchanged": true,
+      "scope_tests": {
+        "count": 2,
+        "failures": 0,
+        "errors": 0,
+        "microtest_seconds": 0.00030953437089920044,
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "wall_seconds": 0.25448083877563477,
+        "child_CPU_seconds": 0.034673999999999996,
+        "supervisor": {
+          "pid": 2794853,
+          "start_ticks": 2046962292,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4890.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2794852,
+          "start_ticks": 2046962292,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4890.scope\n",
+          "state": "S"
+        },
+        "actual_both_absent": true,
+        "owned_tree_reaped": true
+      },
+      "new_fallback_boundary_test": {
+        "count": 1,
+        "failures": 0,
+        "errors": 0,
+        "microtest_seconds": 0.00021023303270339966,
+        "node": "compute-0-19",
+        "cores": [
+          65
+        ],
+        "wall_seconds": 0.2542910575866699,
+        "child_CPU_seconds": 0.034022,
+        "supervisor": {
+          "pid": 2795013,
+          "start_ticks": 2046993795,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4892.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2795012,
+          "start_ticks": 2046993795,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4892.scope\n",
+          "state": "S"
+        },
+        "actual_both_absent": true,
+        "owned_tree_reaped": true
+      },
+      "test_node_future_released": true,
+      "actual_full_finetuning_started": false,
+      "scratch": "Reuse existing exact-protocol P scratch at first actual statistics consumption; no new scratch run scheduled",
+      "remaining_transport_work": "Native SSH GPU hybrid backend is not implemented in this prepared supplemental wrapper; never fabricate Slurm identity. Bind an actual admitted Slurm slot or complete hybrid support before activation."
+    }
   },
   "scheduling_rule": "docs/interfaces/SCHEDULING_RULE_20261126.md",
   "scheduling_implementation": {

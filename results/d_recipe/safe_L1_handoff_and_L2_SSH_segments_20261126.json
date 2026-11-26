@@ -84,16 +84,19 @@
     "remaining_samples": 909248,
     "scientific_budget": 3000000,
     "seed": 0,
-    "next_GPU_admission_UTC": "2026-11-26T04:50:00Z",
+    "next_GPU_admission_UTC": "2026-11-26T05:20:30Z",
     "latest_admission": {
-      "small_group": "All fresh UUIDs on nodes0/1/5/6 with enough allocatable CPUs have other CUDA contexts; nodes3/4/7 lack CPU allocation",
-      "node20": "Second4090 passes CUDA threshold and own lock, but canonical combined RAM admission refused; other-line details are not copied into configuration",
-      "node22": "Actual memory12394/32607MiB >30%; no allocatableCPU"
+      "observed_at_UTC": "2026-11-26T04:50:30Z",
+      "small_group": "Nodes0/1/4/5/6/7 have enough allocatable CPUs but each actual GPU has a CUDA context; node3 has no allocatable CPU",
+      "node20": "Second4090 has443/49140MiB and own lock free, but canonical64GiB training RAM admission refused; own candidate RAM claim released without writer",
+      "node22": "Actual14430/32607MiB and own common GPU lock busy; not admitted",
+      "new_GPU_job_submitted": false,
+      "other_owner_processes_changed": false
     },
     "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json"
   },
   "L2": {
-    "status": "SSH_SUPERVISOR_RUNNING_READER_INITIALIZING",
+    "status": "SSH_CURSOR_SEGMENT_PROGRESSING",
     "source_commit": "a55469c55c4b02b95093ac196c8046a682a1858f",
     "configuration": "configs/d_recipe/launches/L2_A1_segment1_20261126.json",
     "execution_id": "ssh:P_D_L2_A1_segment1_20261126",
@@ -127,14 +130,31 @@
     "claim": "runs/shared_storage_reservations/d-recipe.json",
     "execution_id_namespace_note": "P_ prefix is required by the reused shared provider, metadata line remains D; not a P scientific run and not a Slurm job",
     "last_observed_worker": {
-      "observed_at_UTC": "2026-11-26T04:34:00Z",
+      "observed_at_UTC": "2026-11-26T04:50:30Z",
       "pid": 248316,
-      "start_ticks": 2278851052,
+      "start_ticks": "2278851052",
       "state": "D",
-      "wchan": "wait_on_page_bit_common",
+      "wchan": "rpc_wait_bit_killable",
       "duration_unknown": true,
       "root_cause_unknown": true,
-      "no_relaunch_or_signal": true
+      "original_cursor_is_progressing": true
+    },
+    "latest_native_progress": {
+      "observed_at_UTC": "2026-11-26T04:50:30Z",
+      "closed_rows": 737792,
+      "collection_status": "COLLECTING",
+      "original_start_cursor": 729600,
+      "completed_new_rows": 8192,
+      "last_attempt": {
+        "job_id": null,
+        "node": "compute-0-11",
+        "start_row": 729600,
+        "state": "RUNNING",
+        "closed_rows": 737792,
+        "elapsed_seconds": 966.6925917118788
+      },
+      "receipt_status": "RUNNING",
+      "original_binding_unchanged": true
     }
   },
   "tiny_callback_test": {
@@ -260,5 +280,92 @@
     },
     "claim_refresh": "Canonical claim() default24h TTL; original L2 owned allocated9419964020B, local remaining7759905164B; current metadata future150000000B; other-line files unchanged",
     "phase_rule": "New entries use canonical timed admission at phase start and >1GiB writes; original running L2 remains frozen until its safe segment boundary"
+  },
+  "prepared_full_finetune_wrapper": {
+    "status": "PREPARED_SLURM_TRANSPORT_NOT_ACTIVATED_WAIT_MAIN_AND_RESOURCE_BINDING",
+    "wrapper": "tools/d_recipe/finetune_entry.py",
+    "source_commit": "9ad6753e39d2033039f218e7fedab349875f9abf",
+    "original_P_worker_reused": "MFM_p_recipe/tools/p_recipe/finetune_entry.py main and finetune.py run_finetune, process-local D admission/REPO/GPUcheck overrides; no P source edits",
+    "full_protocol_unchanged": true,
+    "scope_tests": {
+      "count": 2,
+      "failures": 0,
+      "errors": 0,
+      "microtest_seconds": 0.00030953437089920044,
+      "node": "compute-0-19",
+      "cores": [
+        65
+      ],
+      "wall_seconds": 0.25448083877563477,
+      "child_CPU_seconds": 0.034673999999999996,
+      "supervisor": {
+        "pid": 2794853,
+        "start_ticks": 2046962292,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4890.scope\n",
+        "state": "R"
+      },
+      "parent": {
+        "pid": 2794852,
+        "start_ticks": 2046962292,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4890.scope\n",
+        "state": "S"
+      },
+      "actual_both_absent": true,
+      "owned_tree_reaped": true
+    },
+    "new_fallback_boundary_test": {
+      "count": 1,
+      "failures": 0,
+      "errors": 0,
+      "microtest_seconds": 0.00021023303270339966,
+      "node": "compute-0-19",
+      "cores": [
+        65
+      ],
+      "wall_seconds": 0.2542910575866699,
+      "child_CPU_seconds": 0.034022,
+      "supervisor": {
+        "pid": 2795013,
+        "start_ticks": 2046993795,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4892.scope\n",
+        "state": "R"
+      },
+      "parent": {
+        "pid": 2795012,
+        "start_ticks": 2046993795,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4892.scope\n",
+        "state": "S"
+      },
+      "actual_both_absent": true,
+      "owned_tree_reaped": true
+    },
+    "test_node_future_released": true,
+    "actual_full_finetuning_started": false,
+    "scratch": "Reuse existing exact-protocol P scratch at first actual statistics consumption; no new scratch run scheduled",
+    "remaining_transport_work": "Native SSH GPU hybrid backend is not implemented in this prepared supplemental wrapper; never fabricate Slurm identity. Bind an actual admitted Slurm slot or complete hybrid support before activation."
   }
 }
