@@ -3291,8 +3291,31 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "ACTIVE_SAVED_L1_AND_FROZEN_L2_WAITING_COMPLIANT_GPU_RAM",
-  "blocking_condition": null,
+  "automation_state": "GOAL_BLOCKED_EXTERNAL_GPU_NODE_RAM_ADMISSION",
+  "blocking_condition": {
+    "kind": "EXTERNAL_GPU_NODE_RAM_RESOURCE_ADMISSION",
+    "observed_at_UTC": "2026-11-26T17:41:49Z",
+    "consecutive_no_progress_goal_turns": 3,
+    "scientific_failure": false,
+    "engineering_UNRESOLVED": false,
+    "account_total_quota_failure_proven": false,
+    "node": "compute-0-20",
+    "target_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+    "target_used_MiB": 18,
+    "target_total_MiB": 49140,
+    "allocatable_CPUs": 47,
+    "required_CPUs": 5,
+    "own_required_RAM_bytes": 68719476736,
+    "available_RAM_bytes": 93241638912,
+    "canonical_RAM_admission": "REFUSED",
+    "admission_deficit_bytes": 61377183744,
+    "other_candidates": "0-7 targetUUIDs have active CUDA contexts;22 target GPU ~80percent used and own UUID lock busy;21 prohibited",
+    "own_completed_future_claims_released": true,
+    "own_D_scientific_worker_running": false,
+    "full_TASKBOOK_remaining_scope_preserved": true,
+    "resume_condition": "Fresh admissible allowed GPU target with sufficient CPU/VRAM/ownUUIDlock and canonical RAM/disk/UID admission; resume L1 samples2090752 and start original cold D-L2 seed0 3M",
+    "automatic_training_or_future_poll_job_submitted": false
+  },
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
     "scope": "Future start/safe continuation; frozen active training source unchanged",
@@ -8995,5 +9018,5 @@
     "historical_engineering_failure_count": 2,
     "scientific_failure_count": 0
   },
-  "updated_at_utc": "2026-11-26T17:39:39Z"
+  "updated_at_utc": "2026-11-26T17:41:49Z"
 }
