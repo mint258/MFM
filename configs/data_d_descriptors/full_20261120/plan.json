@@ -31,9 +31,9 @@
       "native_stage1_metadata": 200000000,
       "native_stage1_serialization_buffer": 360138915,
       "registered_stage1_conditional_seed1_checkpoints_and_readouts": 1478922240,
-      "registered_stage2_seed0_checkpoints_and_readouts": 2331771136
+      "registered_stage2_seed0_checkpoints_and_readouts": 3081771136
     },
-    "peak_new_bytes": 27288051602,
+    "peak_new_bytes": 28038051602,
     "structure_forecast_bytes": 1838746350,
     "structures_existing_bytes": null,
     "ram_working_forecast_bytes": 103576304,
@@ -168,12 +168,13 @@
     "stage2_seed0_storage_registration": {
       "arms": [
         "D-L1",
+        "D-L2",
         "D-G1"
       ],
-      "additional_NFS_bytes": 2331771136,
-      "checkpoint_slots": 9,
+      "additional_NFS_bytes": 3081771136,
+      "checkpoint_slots": 12,
       "checkpoint_upper_bound_bytes": 250000000,
-      "model_checkpoint_bytes": 2110545664,
+      "model_checkpoint_bytes": 2860545664,
       "logs_readouts_serialization_metadata_bytes": 221225472,
       "reference_collections_NFS_bytes": 0,
       "reference_collections": "CPU node_local 4GiB L1 and16GiB L2, original generic full-TRAIN A1 entry, separate actual root/peer protection",
@@ -248,8 +249,15 @@
       },
       "closed_checkpoint_slots": 3,
       "closed_G1_actual_allocated_physical_bytes": 610545664,
-      "remaining_conservative_slots": 6,
-      "remaining_conservative_checkpoint_bytes": 1500000000
+      "remaining_conservative_slots": 9,
+      "remaining_conservative_checkpoint_bytes": 2250000000,
+      "restored_L2_engineering_recovery": {
+        "authority": "d-recipe:docs/d_recipe/USER_DIRECTIVE_20261125.md",
+        "bytes": 750000000,
+        "slots": 3,
+        "scientific_fields_and_statistics_unchanged": true,
+        "files_deleted": false
+      }
     },
     "closed_checkpoint_pool_physical_settlement": {
       "schema": "D_CLOSED_CHECKPOINT_PHYSICAL_SETTLEMENT_V1",
@@ -556,14 +564,14 @@
       "source_smiles_index": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/population/formal_record_index.parquet",
       "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures",
-      "peak_bytes": 34244105455,
+      "peak_bytes": 34994105455,
       "chunk_rows": 1024
     },
     "produce": {
       "input_rows": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures/structures.jsonl",
       "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores",
-      "peak_bytes": 34244105455,
+      "peak_bytes": 34994105455,
       "workers": 3,
       "chunk_rows": 256,
       "existing_parameters_json": {
@@ -574,7 +582,7 @@
       "input_rows": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/structures/structures.jsonl",
       "pilot_root": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/pilot",
       "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stores",
-      "peak_bytes": 34244105455,
+      "peak_bytes": 34994105455,
       "workers": 1,
       "chunk_rows": 256,
       "existing_parameters_json": {
