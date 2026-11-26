@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 import sys
 
-COMMANDS = ("train", "diagnostic_forward", "layer_readouts", "development_panel")
+COMMANDS = ("train", "diagnostic_forward", "layer_readouts", "development_panel", "budget_readout")
 
 
 def require_admitted_job(c, node, job):
@@ -62,3 +62,4 @@ def main():
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

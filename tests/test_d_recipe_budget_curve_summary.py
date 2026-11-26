@@ -68,7 +68,10 @@ class DBudgetSummaryTests(unittest.TestCase):
                 spec["sources"][arm] = put(output / "configuration.json", source)
                 put(output / "summary.json", dict(run=arm, samples=9000000,
                     status="COMPLETE", statistics_complete=True))
-                put(output / "readout/scores.json", dict(marker=arm))
+                metadata = dict(bootstrap_unit="molecule", architecture_sha256="original_C1_0",
+                    paired_bootstrap=dict(groups={"dataset": ["molecule1", "molecule2"]},
+                                          seed=20261025, samples=1000, confidence=.95))
+                put(output / "readout/scores.json", dict(marker=arm, R1=metadata, R3=metadata))
             consumed, vals = [], []
             def metrics(value):
                 consumed.append(value["marker"])
@@ -100,6 +103,16 @@ class DBudgetSummaryTests(unittest.TestCase):
                                          configuration=filename)]
                 with self.assertRaisesRegex(ValueError, "trajectory differs"):
                     summary.aggregate(spec, module=module)
+                bad.update(source_run="9M-D-final", source_training_budget=9000000,
+                           run="other_molecule_groups", output=str(runs / "mismatched"))
+                put(Path(filename), bad)
+                put(runs / "mismatched/summary.json", dict(run=bad["run"], samples=3000000,
+                    status="COMPLETE", statistics_complete=True))
+                metadata["paired_bootstrap"]["groups"] = {"dataset": ["different_molecule"]}
+                put(runs / "mismatched/readout/scores.json", dict(marker="mismatch", R1=metadata, R3=metadata))
+                with self.assertRaisesRegex(ValueError, "cannot be paired"):
+                    summary.aggregate(spec, module=module)
+                self.assertEqual(len(json.loads(Path(spec["cache"]).read_text())["points"]), 2)
 
 
 if __name__ == "__main__":

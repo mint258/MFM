@@ -150,10 +150,22 @@ def aggregate(specification, *, module=None):
             if (summary.get("status") != "COMPLETE" or summary.get("statistics_complete") is not True
                     or summary.get("samples") != n or summary.get("run") != c["run"]):
                 continue
-            metrics = module.metrics(read(path / "readout/scores.json"))
+            scores = read(path / "readout/scores.json")
+            metrics = module.metrics(scores)
             if any(set(metrics[name]["included_tasks"]) != set(specification["scored_tasks"])
                    for name in ("R1", "R3")):
                 raise ValueError("Original seven-task protocol coverage differs")
+            for name in ("R1", "R3"):
+                score = scores[name]
+                paired = score["paired_bootstrap"]
+                pairing = dict(groups=paired["groups"], seed=paired["seed"],
+                    samples=paired["samples"], confidence=paired["confidence"],
+                    architecture=score["architecture_sha256"])
+                if (not pairing["groups"] or score.get("bootstrap_unit") != "molecule"
+                        or (pairing["seed"], pairing["samples"], pairing["confidence"]) != (20261025, 1000, .95)
+                        or ("pairing" in cache and cache["pairing"] != pairing)):
+                    raise ValueError("Retained molecular draws cannot be paired across these sources")
+                cache["pairing"] = pairing
             cache["points"][key] = dict(run=c["run"], source_run=sources[pop]["run"], metrics=metrics)
             atomic_json(cache_path, cache)
         for pop, c in sources.items():

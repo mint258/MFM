@@ -11,7 +11,7 @@ set -euo pipefail
 configuration=${1:?absolute registered configuration required}
 gpu_uuid=${2:?actual GPU UUID required}
 command=${3:-train}
-case "$command" in train|diagnostic_forward|layer_readouts|development_panel) ;; *) exit 2 ;; esac
+case "$command" in train|diagnostic_forward|layer_readouts|development_panel|budget_readout) ;; *) exit 2 ;; esac
 root=/share/home/zixiao/descriptor_analysis
 cd "$root/MFM_d_recipe"
 export CUDA_VISIBLE_DEVICES="$gpu_uuid" PYTHONDONTWRITEBYTECODE=1 PYTHONIOENCODING=utf-8
@@ -46,3 +46,4 @@ if [[ ${D_CANONICAL_ADMISSION:-0} == 1 ]]; then
   resource_module=tools.d_recipe.canonical_resources
 fi
 exec "$python" -B -m "$resource_module" "$command" --configuration "$configuration"
+

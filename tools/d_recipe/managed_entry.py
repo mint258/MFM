@@ -191,7 +191,7 @@ def main():
                                        else "cpu_statistics")
     permitted = {
         "train": {"train"},
-        "gpu": {"diagnostic_forward", "layer_readouts", "development_panel"},
+        "gpu": {"diagnostic_forward", "layer_readouts", "development_panel", "budget_readout"},
         "cpu": {"cpu_statistics", "diagnostic_statistics", "layer_readouts",
                 "development_panel"}, "compare": {"cpu_statistics"}}
     if command not in permitted[args.kind]:
@@ -227,4 +227,5 @@ def main():
 if __name__ == "__main__":
     result = main()
     raise SystemExit(128 - result if result < 0 else result)
+
 

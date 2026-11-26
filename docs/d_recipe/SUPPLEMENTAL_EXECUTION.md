@@ -4,7 +4,7 @@
 
 `tools.d_recipe.finetune_entry`在本进程内包装P原`finetune_entry.main`与`run_finetune`，保留原四任务、50轮、优化器、R3头、内层选择和完整状态续接。D-R0/R1按指示取3M seed0；其它表列3M臂的已实际触发并完成的seed1评测点也受“每个评测点”指示覆盖，不能用微调触发新预训练。9M及scaling均只有预训练seed0。微调种子始终0/1/2。现包装只支持真实Slurm身份；原生SSH混合后端尚待接入，不生成不符合后端的运行配置。原P相同协议scratch在实际统计阶段首次消费时复用。
 
-`tools.d_recipe.budget_readout_plan`调用P原checkpoint读出配置构造函数；两条原生9M实际训练、读出和统计完成后，才准备各1M至8M的L6/H0 R1/R3。两条分子子集只新增3M/6M读出；各9M终点复用原输出。所有中间点标注原9M cosine轨迹，不能解释为3M独立预算训练。实际GPU读出及对应CPU统计驱动仍待接入。
+`tools.d_recipe.budget_readout_plan`调用P原checkpoint读出配置构造函数；两条原生9M实际训练、读出和统计完成后，才准备各1M至8M的L6/H0 R1/R3。两条分子子集只新增3M/6M读出；各9M终点复用原输出。所有中间点标注原9M cosine轨迹，不能解释为3M独立预算训练。`tools.d_recipe.budget_readout`已准备对应GPU入口及独立CPU统计入口，复用原D/P冻结编码器、R1/R3和分子bootstrap；完整预测存在时不重新提取编码，已有分数不重采样。GPU走新统一准入Slurm入口，CPU通过真实SSH父进程及实际上游成功门；实际资源绑定和9M任务仍待主线就绪，原生GPU混合后端未实现。
 
 `tools.d_recipe.budget_curve_summary`准备了统一准入、真实CPU SSH身份的原生结果汇总入口。它调用P原保留bootstrap的区间/配对差、VAL读取和表格构造函数，映射D的两条全量运行及T5/T6原分子子集；每个闭合分数和每条原VAL文件只消费一次并缓存，再按500k样本轴写`results/d_recipe/budget_curve.csv`。半百万点不填入虚构读出，9M复用原终点，中间点拒绝3M筛选来源；两个分子子集、所有注册读出和全部固定VAL家族仍缺任一项时不能标完成。当前仅实现与微型测试，未消费实际9M结果。
 
