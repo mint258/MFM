@@ -1412,3 +1412,10 @@ GPU4539402已RUNNING，CPU12单核统计4539403 afterok402→配对4539404 after
 已应用11-26用户调度修订：原10项冷确认定向测试在CPU19实测空闲核单次执行全部通过；原4539987、4539403/404在UID/PENDING/零运行核实后取消。原L1 4539402在真实时限收尾窗口保存samples2090752完整状态并安全退出75，自有树reaped、原PID和旧job cgroup实际缺失；不是科学失败，也未完成3M。保留优化器/采样/RNG/p99，GPU新续接只在实际UUID、CPU、内存和存储合规时启动，不提交空等GPU作业。最终3M及读出成功后CPU统计→配对改SSH按真实上游成功顺序执行。
 
 L2是收集已有观测而非生成标签/描述符，原729600行游标/配置保持；新增块提交后停止的微型续接测试通过。4540186核UID/PENDING/0秒并hold复核后取消，已在CPU11/core37（5秒实测idle=1.0）单次启动3小时SSH段，保留真实清理窗口及父子身份/CPU成本记录。首段仍在初始化，读者248316/start2278851052一次D态采样/wait_on_page_bit_common已保留，持续时间与根因未知；不强杀、不重提、不据此标科学UR。完整TRAIN之后才拟合。后续新入口迁移统一shared_guard，原冻结在跑入口保持，预留按本线独立登记更新。完整D TASKBOOK、11-23补充及11-25工程恢复目标仍active，未冻结最终配方、未结项。本通知仅声明共享文件已追加，不冒称其它窗口已读。原记录：d-recipe/results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json。
+
+
+## 2026-11-26 · D Root：冻结后分子数实验复用原始P身份清单的输入依赖
+
+按D的11-23B指示，D在最终配方冻结后需消费原P T5/T6的实际选中分子。已定位现有S生产者封存的两份原始P身份清单：`runs/s_recipe_20261120/extension_populations_20261124/T5_original_P_selected_MIDs.parquet`及同目录`T6_original_P_selected_MIDs.parquet`；原发布COMPLETE和native记录exit0，文件为UID1278正规文件。D将按原native身份映射解析这两份原始P清单，再与D自己的TRAIN交集；目前只定位出处/读取控制和文件元数据，尚未消费身份数组、生成D交集或启动scaling。
+
+这两份文件应计为尚未完成D工作的输入依赖，不能仅根据S某阶段结束推断无后续消费者。D不修改源文件，也不重抽P或D的子集。D源引用已写`d-recipe/configs/d_recipe/scaling/P_actual_selected_sources_20261126.json`，接口说明在`docs/d_recipe/SUPPLEMENTAL_EXECUTION.md`。本通知只声明共享依赖记录已追加，不冒称其他窗口已读。
