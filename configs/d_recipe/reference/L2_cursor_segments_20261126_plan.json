@@ -1,14 +1,14 @@
 {
   "schema": "D_A1_NEXT_SEGMENT_TRANSPORT_PLAN_V1",
-  "status": "PREPARED_NOT_RUNNABLE_WAITING_ACTUAL_PREDECESSOR_EXIT",
+  "status": "PREPARED_NOT_RUNNABLE_WAITING_ACTUAL_SEGMENT2_EXIT",
   "phase": "collect_existing_observations_only",
   "original_configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/reference/L2_stage2.json",
   "canonical_entry": "tools.d_recipe.reference_segment_canonical",
   "source_commit": "49a0ddbb151bc2ddc85e15a21536e28cd6f1bbfc",
   "node": "compute-0-11",
   "predecessor": {
-    "execution_id": "ssh:P_D_L2_A1_segment1_20261126",
-    "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment1_20261126/receipt.json",
+    "execution_id": "ssh:P_D_L2_A1_segment2_20261126",
+    "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment2_20261126/receipt.json",
     "required_status": "CURSOR_SAVED_NOT_COMPLETE",
     "required_returncode": 75,
     "required_remaining_children": [],
@@ -46,5 +46,9 @@
   "if_original_collection_complete": "Do not start another collector; prepare the original full-TRAIN fitter as a distinct admitted CPU phase",
   "partial_TRAIN_fitting": false,
   "source_arrays_recomputed": false,
-  "jobs_submitted": false
+  "jobs_submitted": false,
+  "next_segment_number": 3,
+  "current_active_segment_configuration": "configs/d_recipe/launches/L2_A1_segment2_20261126.json",
+  "previous_segments_proof": "results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json",
+  "native_SSH_segment2_active": true
 }
