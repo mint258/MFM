@@ -57,5 +57,38 @@
     "local": "Original Guard runtime floor before local fit writes",
     "publication": "Original Guard physical/shared100GB+8GiB and fresh UID<=5s before final small copy; local result retained after refusal",
     "test_source": "ca217517e610fe34332afce955b56cdc186f658f"
+  },
+  "runtime_reference_evidence": {
+    "observed_at_epoch": 1795681425.373655,
+    "marker_exists": true,
+    "parameters_exists": true,
+    "source_arrays_read": false,
+    "marker_status": "COLLECTION_COMPLETE",
+    "closed_rows": 1194228,
+    "width": 197,
+    "marker_mtime": 1795460079.0012836,
+    "collection_last_attempt": {
+      "job_id": "4539166",
+      "node": "compute-0-11",
+      "start_row": 0,
+      "state": "COMPLETE",
+      "closed_rows": 1194228,
+      "elapsed_seconds": 79406.70935746282
+    },
+    "parameters_mtime": 1795460326.7777004,
+    "parameters_bytes": 985338,
+    "collection_marker_to_committed_parameters_seconds": 247.77641677856445,
+    "original_job": 4539166,
+    "allocated_CPUs": 1,
+    "original_parent_elapsed_seconds": 79720,
+    "parent_state": "COMPLETED",
+    "parent_exit": "0:0",
+    "parent_TotalCPU_raw": "00:00:00",
+    "parent_MaxRSS_available": false,
+    "timing_scope": "File mtime interval from final closed fullTRAIN collection marker to committed local label parameters; includes fitting/serialization and is not isolated actual CPU time or a L2 timing measurement",
+    "L2_expected_fit_seconds_retained": 10800,
+    "parallel_speedup_assumed": false,
+    "partial_TRAIN_fits_or_benchmarks_performed": false,
+    "source_parameters_values_recomputed": false
   }
 }

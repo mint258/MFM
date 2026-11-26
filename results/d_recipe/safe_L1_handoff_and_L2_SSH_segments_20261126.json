@@ -1,6 +1,6 @@
 {
   "schema": "D_OPERATIONAL_SCHEDULING_UPDATE_20261126_V1",
-  "observed_at_UTC": "2026-11-26T08:12:51.844Z",
+  "observed_at_UTC": "2026-11-26T08:26:44.634Z",
   "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
   "L1": {
     "status": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
@@ -84,11 +84,11 @@
     "remaining_samples": 909248,
     "scientific_budget": 3000000,
     "seed": 0,
-    "next_GPU_admission_UTC": "2026-11-26T08:26:39.000Z",
+    "next_GPU_admission_UTC": "2026-11-26T08:56:45.000Z",
     "latest_admission": {
-      "observed_at_UTC": "2026-11-26T07:56:39.258Z",
+      "observed_at_UTC": "2026-11-26T08:26:44.634Z",
       "GPU20_target_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-      "used_MiB": 441,
+      "used_MiB": 445,
       "total_MiB": 49140,
       "own_lock_free": true,
       "allocated_CPUs": 97,
@@ -96,12 +96,12 @@
       "required_CPUs": 5,
       "required_own_RAM_bytes": 68719476736,
       "RAM_admission": "REFUSED",
-      "available_RAM_bytes": 90345693184,
+      "available_RAM_bytes": 88218234880,
       "own_candidate_RAM_released_to_zero": true,
       "new_GPU_job_submitted": false,
       "preferred_group": "0/1/3/4 allocated with no CPU;5/6/7 retained CUDA contexts",
       "node22": "26152/32607MiB,own_lock_busy,no allocated CPU available",
-      "next_GPU_admission_UTC": "2026-11-26T08:26:39.000Z"
+      "next_GPU_admission_UTC": "2026-11-26T08:56:45.000Z"
     },
     "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json",
     "closed_attempt_costs": {
@@ -475,20 +475,20 @@
       ]
     },
     "latest_native_progress": {
-      "observed_at_epoch": 1795680771.8443868,
+      "observed_at_epoch": 1795681604.6346989,
       "receipt_status": "RUNNING",
       "returncode": null,
       "started_at_epoch": 1795678292.5871775,
       "hard_end_epoch": 1795699882.5871775,
-      "closed_rows": 846592,
+      "closed_rows": 856320,
       "collection_status": "COLLECTING",
       "last_attempt": {
         "job_id": null,
         "node": "compute-0-11",
         "start_row": 817920,
         "state": "RUNNING",
-        "closed_rows": 846592,
-        "elapsed_seconds": 2442.477635830641
+        "closed_rows": 856320,
+        "elapsed_seconds": 3272.3088925369084
       },
       "actual_supervisor": {
         "pid": 267997,
@@ -499,7 +499,7 @@
       "actual_worker": {
         "pid": 268017,
         "start_ticks": 2279930088,
-        "state": "R",
+        "state": "I",
         "uid": 1278
       },
       "actual_parent": {
@@ -512,10 +512,10 @@
       "remaining_children": null,
       "actual_cpu_seconds": null,
       "wall_seconds": null,
-      "actual_root_available": 55767457792,
+      "actual_root_available": 55641714688,
       "actual_root_inodes": 36569782,
-      "own_local_allocated": 10887090176,
-      "own_local_remaining_future": 6292779008
+      "own_local_allocated": 11012677632,
+      "own_local_remaining_future": 6167191552
     },
     "original_scientific_binding_unchanged": true,
     "partial_TRAIN_fitting": false,
@@ -1817,5 +1817,38 @@
     "temporary_claims_released": true,
     "science_arrays_consumed": false,
     "new_actual_reference_fit_started": false
+  },
+  "reference_fit_runtime_reference": {
+    "observed_at_epoch": 1795681425.373655,
+    "marker_exists": true,
+    "parameters_exists": true,
+    "source_arrays_read": false,
+    "marker_status": "COLLECTION_COMPLETE",
+    "closed_rows": 1194228,
+    "width": 197,
+    "marker_mtime": 1795460079.0012836,
+    "collection_last_attempt": {
+      "job_id": "4539166",
+      "node": "compute-0-11",
+      "start_row": 0,
+      "state": "COMPLETE",
+      "closed_rows": 1194228,
+      "elapsed_seconds": 79406.70935746282
+    },
+    "parameters_mtime": 1795460326.7777004,
+    "parameters_bytes": 985338,
+    "collection_marker_to_committed_parameters_seconds": 247.77641677856445,
+    "original_job": 4539166,
+    "allocated_CPUs": 1,
+    "original_parent_elapsed_seconds": 79720,
+    "parent_state": "COMPLETED",
+    "parent_exit": "0:0",
+    "parent_TotalCPU_raw": "00:00:00",
+    "parent_MaxRSS_available": false,
+    "timing_scope": "File mtime interval from final closed fullTRAIN collection marker to committed local label parameters; includes fitting/serialization and is not isolated actual CPU time or a L2 timing measurement",
+    "L2_expected_fit_seconds_retained": 10800,
+    "parallel_speedup_assumed": false,
+    "partial_TRAIN_fits_or_benchmarks_performed": false,
+    "source_parameters_values_recomputed": false
   }
 }
