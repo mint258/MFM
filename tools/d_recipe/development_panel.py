@@ -162,7 +162,7 @@ def run_gpu(c, *, guard=None, inputs=None, probe=None):
     return state
 
 
-def run_cpu(c, *, guard=None, inputs=None, lightgbm=None, ridge=None, comparison=None):
+def run_cpu(c, *, guard=None, inputs=None, lightgbm=None, ridge=None, comparison=None, allocated_cpus=None):
     native, output, path, binding, state, guard, original = _context(c, True, guard)
     if state is not None and state["status"] == "COMPLETE":
         return state
@@ -174,8 +174,12 @@ def run_cpu(c, *, guard=None, inputs=None, lightgbm=None, ridge=None, comparison
     lightgbm = run_lightgbm_probe if lightgbm is None else lightgbm
     ridge, comparison = ridge_probe if ridge is None else ridge, compare_panel if comparison is None else comparison
     threads = c["cpu_threads"]
-    if type(threads) is not int or not 1 <= threads <= int(os.environ.get("SLURM_CPUS_PER_TASK", 0)):
+    if allocated_cpus is not None:
+        from .cpu_science_ssh import thread_limit
+        threads = thread_limit(threads, allocated_cpus)
+    elif type(threads) is not int or not 1 <= threads <= int(os.environ.get("SLURM_CPUS_PER_TASK", 0)):
         raise ValueError("CPU fits must use the actual demand-based allocation")
+    state["cpu_threads_effective"] = threads
     torch.set_num_threads(threads)
     rows = list(_inputs(c) if inputs is None else inputs)
     for data in rows:
@@ -259,3 +263,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
