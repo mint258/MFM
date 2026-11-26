@@ -174,7 +174,12 @@ def train(configuration, *, module=None):
     # dependency and conditional seed/arm decisions before scheduling this API.
     # This adapter itself schedules nothing and creates no acceptance record.
     with installed_bridge(c, module=module) as held:
-        summary = module.train(c)
+        if c.get("d_explicit_molecule_selection") is None:
+            summary = module.train(c)
+        else:
+            from .scaling_selection import installed_selection
+            with installed_selection(c, module):
+                summary = module.train(c)
         model = held.pop("model", None)
         if model is not None:
             summary["D_mask_counts"] = getattr(model, "mask_counts", {})

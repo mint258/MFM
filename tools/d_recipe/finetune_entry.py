@@ -37,16 +37,21 @@ def validate(c):
             or c.get("selection_change_allowed") is not False):
         raise ValueError("Only the prescribed descriptive four-task full fine-tuning protocol")
     source = c["source_binding"]
-    if source.get("pretraining_seed") != 0 or not source.get("checkpoint"):
-        raise ValueError("Use the original seed0 source checkpoint")
+    pretraining_seed = source.get("pretraining_seed")
+    if (type(pretraining_seed) is not int or pretraining_seed not in (0, 1)
+            or not source.get("checkpoint")):
+        raise ValueError("Use an actual registered original source checkpoint")
     scope, arm, samples = source.get("scope"), source.get("arm"), source.get("samples")
-    allowed = ((scope == "registered_3M" and arm in MAIN_ARMS and samples == 3000000)
+    main_seed = (pretraining_seed == 0 or
+                 (arm not in ("D-R0", "D-R1") and c.get("conditional_seed1_completed") is True))
+    allowed = ((scope == "registered_3M" and arm in MAIN_ARMS and samples == 3000000 and main_seed)
                or (scope == "confirmation_9M" and arm in ("9M-D-R0", "9M-D-final")
-                   and samples == 9000000)
+                   and samples == 9000000 and pretraining_seed == 0)
                or (scope == "selected_9M_budget_curve" and arm == "9M-D-final"
-                   and samples in (1000000, 3000000, 6000000, 9000000))
+                   and samples in (1000000, 3000000, 6000000, 9000000) and pretraining_seed == 0)
                or (scope == "molecule_scaling_9M" and arm == "9M-D-final"
-                   and samples == 9000000 and source.get("molecules") in (250000, 500000)))
+                   and samples == 9000000 and source.get("molecules") in (250000, 500000)
+                   and pretraining_seed == 0))
     if not allowed:
         raise ValueError("Source endpoint is outside the registered D fine-tuning/scaling scope")
     if scope in ("selected_9M_budget_curve", "molecule_scaling_9M") and c.get("scaling_authority") != "docs/d_recipe/USER_DIRECTIVE_20261123B.md":

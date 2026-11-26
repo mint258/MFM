@@ -4,6 +4,20 @@ from tools.d_recipe.finetune_entry import fallback_card, validate
 
 
 class DFinetuneScopeTests(unittest.TestCase):
+    def test_actual_conditional_endpoints_preserve_explicit_seed0_baselines(self):
+        c = self.config()
+        c["source_binding"].update(arm="D-L1", pretraining_seed=1)
+        with self.assertRaisesRegex(ValueError, "outside"):
+            validate(c)
+        c["conditional_seed1_completed"] = True
+        validate(c)
+        c["source_binding"]["arm"] = "D-R1"
+        with self.assertRaisesRegex(ValueError, "outside"):
+            validate(c)
+        c["source_binding"].update(arm="9M-D-final", scope="confirmation_9M", samples=9000000)
+        with self.assertRaisesRegex(ValueError, "outside"):
+            validate(c)
+
     def test_fallback_memory_boundary_and_required_free_memory(self):
         row = ["GPU-fixture", "RTX-fixture", "12000", "40000"]
         self.assertEqual(fallback_card(row, 24000)["memory_used_mib"], 12000.)
