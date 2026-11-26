@@ -1,6 +1,6 @@
 {
   "schema": "D_OPERATIONAL_SCHEDULING_UPDATE_20261126_V1",
-  "observed_at_UTC": "2026-11-26T17:08:48.452Z",
+  "observed_at_UTC": "2026-11-26T17:26:03.865Z",
   "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
   "L1": {
     "status": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
@@ -84,24 +84,24 @@
     "remaining_samples": 909248,
     "scientific_budget": 3000000,
     "seed": 0,
-    "next_GPU_admission_UTC": "2026-11-26T17:25:43Z",
+    "next_GPU_admission_UTC": "2026-11-26T17:56:04Z",
     "latest_admission": {
-      "observed_at_UTC": "2026-11-26T16:55:42.939Z",
+      "observed_at_UTC": "2026-11-26T17:26:03.865Z",
       "preferred_group": "0/1 have0 allocatable CPU;3/4/5/6/7 have16 CPU but all preferred targetUUIDs retain CUDA contexts",
       "GPU20_target_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
-      "used_MiB": 445,
+      "used_MiB": 18,
       "total_MiB": 49140,
       "own_lock_free": true,
-      "allocatable_CPUs": 11,
+      "allocatable_CPUs": 47,
       "required_CPUs": 5,
       "required_own_RAM_bytes": 68719476736,
       "RAM_admission": "REFUSED",
-      "available_RAM_bytes": 83779563520,
-      "admission_deficit_bytes": 70839259136,
+      "available_RAM_bytes": 93831098368,
+      "admission_deficit_bytes": 60787724288,
       "own_candidate_RAM_released_to_zero": true,
       "new_GPU_job_submitted": false,
       "node22": {
-        "used_MiB": 26050,
+        "used_MiB": 26052,
         "total_MiB": 32607,
         "own_lock_free": false,
         "ssh_30_percent_pass": false,
@@ -111,7 +111,7 @@
       },
       "native_GPU22_plan": "configs/d_recipe/continuations/L1_GPU22_native_20261126_plan.json",
       "native_GPU22_templates_source_commit": "61163ce116c80df71d34e70f41dc76d2dc87cd4a",
-      "next_GPU_admission_UTC": "2026-11-26T17:25:43Z",
+      "next_GPU_admission_UTC": "2026-11-26T17:56:04Z",
       "scientific_configuration_changed": false,
       "GPU_hybrid_CPU_policy": {
         "source": "MFM_p_recipe/tools/p_recipe/gpu_ssh_runtime.py:run",
@@ -119,13 +119,14 @@
         "future_action": "Choose five actually measured least-loaded own-core-lock-free cores under the existingGPU provider; do not add CPU-only95% exclusion to authorized hybrid work. Node health/RAM/disk/VRAM/UUID gates remain.",
         "previous_refusals_affected": false
       },
-      "allocated_CPUs": 93,
+      "allocated_CPUs": 57,
       "total_CPUs": 104,
       "ordinary_sbatch_candidate_currently_eligible": false,
       "ordinary_sbatch_ineligible_reasons": [
-        "Canonical own64GiB node_RAM admission refused"
+        "Canonical64GiB node_RAM admission refused; targetGPU/lock and CPU conditions currently pass"
       ],
-      "required_transport_if_RAM_admits": "Ordinary immediate admitted sbatch on node20, original5CPU/3workers; GPU target memory and ownUUIDlock available. Recheck actual CPU/RAM before activation."
+      "required_transport_if_RAM_admits": "Ordinary immediate admitted sbatch on node20, original5CPU/3workers; GPU target memory and ownUUIDlock available. Recheck actual CPU/RAM before activation.",
+      "target_existing_CUDA_context_count": 0
     },
     "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json",
     "closed_attempt_costs": {
@@ -992,7 +993,19 @@
       "operation": "Original fit.fields transcription only; no numerical refit, raw-data scan or bootstrap"
     },
     "neural_launch_plan": "configs/d_recipe/continuations/L2_after_A1_20261127_plan.json",
-    "neural_training_started": false
+    "neural_training_started": false,
+    "latest_GPU_admission": {
+      "observed_at_UTC": "2026-11-26T17:26:03.865Z",
+      "neural_work_ready": true,
+      "scientific_config": "configs/d_recipe/screening/D-L2_seed0.json",
+      "activation_plan": "configs/d_recipe/continuations/L2_after_A1_20261127_plan.json",
+      "planned_RAM_bytes": 85899345920,
+      "target20_64GiB_weaker_check_refused": true,
+      "actual_80GiB_claim_and_check_not_performed": true,
+      "other_targets_not_GPU_eligible": true,
+      "GPU_job_submitted": false,
+      "next_GPU_admission_UTC": "2026-11-26T17:56:04Z"
+    }
   },
   "tiny_callback_test": {
     "tests_run": 1,
@@ -3230,7 +3243,7 @@
     "HPC_skill": "1.0.166",
     "scheduling_github_modified": "2026-11-26T03:27:03Z",
     "fresh_Github_scheduling_same_rules": true,
-    "latest_skill_and_shared_AGENTS_read_UTC": "2026-11-26T16:53:36Z",
+    "latest_skill_and_shared_AGENTS_read_UTC": "2026-11-26T17:23:40Z",
     "skill": "1.0.166",
     "shared_root_AGENTS_mtime_BJT": "2026-11-26T11:33:15+08:00",
     "shared_scheduling_mtime_BJT": "2026-11-26T11:33:17+08:00",
