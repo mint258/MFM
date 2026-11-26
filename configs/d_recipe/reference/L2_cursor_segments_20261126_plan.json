@@ -1,0 +1,50 @@
+{
+  "schema": "D_A1_NEXT_SEGMENT_TRANSPORT_PLAN_V1",
+  "status": "PREPARED_NOT_RUNNABLE_WAITING_ACTUAL_PREDECESSOR_EXIT",
+  "phase": "collect_existing_observations_only",
+  "original_configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/reference/L2_stage2.json",
+  "canonical_entry": "tools.d_recipe.reference_segment_canonical",
+  "source_commit": "49a0ddbb151bc2ddc85e15a21536e28cd6f1bbfc",
+  "node": "compute-0-11",
+  "predecessor": {
+    "execution_id": "ssh:P_D_L2_A1_segment1_20261126",
+    "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment1_20261126/receipt.json",
+    "required_status": "CURSOR_SAVED_NOT_COMPLETE",
+    "required_returncode": 75,
+    "required_remaining_children": [],
+    "require_original_supervisor_and_parent_actual_gone": true
+  },
+  "transport_template": {
+    "execution_backend": "ssh_cpu",
+    "node": "compute-0-11",
+    "line": "D",
+    "cpu_ssh_provider": "/share/home/zixiao/descriptor_analysis/MFM_p_recipe/tools/p_recipe/cpu_ssh_runtime.py",
+    "reference_configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/reference/L2_stage2.json",
+    "local_output_root": "/tmp/d_recipe_20261120_stage2_A1_L2",
+    "collection_only": true,
+    "reservation_ids": [
+      "D_L2_A1_CPU11_RAM",
+      "D_L2_A1_CPU11_local"
+    ],
+    "ram_peak_bytes": 34359738368,
+    "shared_future_bytes": {},
+    "expected_seconds": 10800,
+    "segment_seconds": 10800,
+    "timeout_seconds": 21600,
+    "cleanup_seconds": 180,
+    "work_unit_seconds": 120
+  },
+  "must_materialize_after_predecessor_closes": [
+    "Unique next SSH execution_id/receipt/output log; retain provider-required ssh:P_D_ namespace",
+    "Fresh5s actual idle core on CPU11; taskset and equal OMP/MKL/OPENBLAS counts",
+    "Current remaining owned local allocation (original16GiB cap minus allocated blocks, >=64MiB margin); canonical own claim() TTL24h",
+    "Fresh node health, actual disk/inodes and RAM admission; no copied peer forecasts",
+    "predecessor_receipt and predecessor_execution_id passed to the canonical worker",
+    "provider receipt path/execution id bound in worker transport; original scientific dictionary remains unchanged"
+  ],
+  "same_collection_marker": "/tmp/d_recipe_20261120_stage2_A1_L2/collection/collection_checkpoint.json",
+  "if_original_collection_complete": "Do not start another collector; prepare the original full-TRAIN fitter as a distinct admitted CPU phase",
+  "partial_TRAIN_fitting": false,
+  "source_arrays_recomputed": false,
+  "jobs_submitted": false
+}
