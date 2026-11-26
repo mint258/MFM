@@ -1,0 +1,55 @@
+{
+  "schema": "D_L2_ORIGINAL_REFERENCE_FIT_PHASE_PLAN_V1",
+  "status": "PREPARED_WAITING_COMPLETE_TRAIN_NO_FIT_SUBMITTED",
+  "entry": "tools.d_recipe.reference_fit_ssh",
+  "source_commit": "a56f9d0594f3f9828b4bab752356f65e6b99f601",
+  "scientific_fitter": "tools.d_recipe.fit_reference.fit_collected -> original element_reference shared-mask five-fold F64 ridge and make_label_parameters; alpha/folds/fields unchanged",
+  "phase_prerequisites": [
+    "Original L2 collection marker COLLECTION_COMPLETE and closed_rows==binding.rows==1194228",
+    "Last actual collector receipt COMPLETE/returncode0/reaped/no children, exact original supervisor and parent absent on CPU11",
+    "Original scientific configuration dictionary identical to saved collection binding",
+    "Fresh CPU11 node health, actual5s idle cores and actual RAM/root/inodes/UID admission under canonical own claims"
+  ],
+  "transport_template": {
+    "execution_backend": "ssh_cpu",
+    "node": "compute-0-11",
+    "line": "D",
+    "fit_only": true,
+    "reference_configuration": "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/reference/L2_stage2.json",
+    "local_output_root": "/tmp/d_recipe_20261120_stage2_A1_L2",
+    "reservation_ids": [
+      "D_L2_A1_CPU11_RAM",
+      "D_L2_A1_CPU11_local",
+      "D_source_results_metadata_remaining"
+    ],
+    "ram_peak_bytes": 68719476736,
+    "shared_future_bytes": {
+      "/share": 67108864
+    },
+    "expected_fit_seconds": 10800,
+    "work_unit_seconds": 10800,
+    "expected_seconds": 10800,
+    "timeout_seconds": 21600,
+    "cleanup_seconds": 900
+  },
+  "runtime_resource_basis": "At most16 fresh actually idle CPU cores; original grouped Gram solves and target chunks32, original collection16GiB bound;64GiB RAM forecast covers mapped/eligible/observed F64 copies, original native reader, design and BLAS workspaces. No performance benchmark or source-array QA.",
+  "must_materialize_before_launch": [
+    "Actual completed collector handle/receipt, never a saved incomplete75 receipt",
+    "Fresh specific CPU core list (up to16) and matching OMP/MKL/OPENBLAS values",
+    "Own line RAM resize from collection32GiB to fit64GiB only after collector closes",
+    "Fresh remaining local future after physical allocation and own shared output cap; serialize own claim updates",
+    "Unique SSH handle/receipt/worker argv; original config remains unchanged",
+    "If expected runtime cannot fit the short-job rule, use an admitted sbatch fit instead of an SSH long job"
+  ],
+  "publication": {
+    "local": "/tmp/d_recipe_20261120_stage2_A1_L2/collection/label_parameters.json",
+    "shared": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
+    "atomic_new_shared_copy": true,
+    "resume_committed_local_without_refitting": true,
+    "do_not_overwrite_existing_published_parameters": true
+  },
+  "partial_TRAIN_fit_allowed": false,
+  "original_D4_refitted": false,
+  "source_collection_recomputed": false,
+  "jobs_submitted": false
+}
