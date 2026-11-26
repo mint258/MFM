@@ -1,6 +1,6 @@
 {
   "schema": "D_OPERATIONAL_SCHEDULING_UPDATE_20261126_V1",
-  "observed_at_UTC": "2026-11-26T17:04:55.702Z",
+  "observed_at_UTC": "2026-11-26T17:08:48.452Z",
   "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
   "L1": {
     "status": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
@@ -918,7 +918,81 @@
       "own_closed_phase_RAM_future_bytes": 0,
       "own_closed_phase_local_future_bytes": 0,
       "closure_observed_at_epoch": 1795712695.7022588
-    }
+    },
+    "A1_summary": {
+      "status": "FROZEN_FIT",
+      "model_name": "D-L2:seed0:A1",
+      "fit_role": "TRAIN",
+      "cohort_rows": 1194228,
+      "field_count": 1320,
+      "folds": 5,
+      "fold_seed": 20261112,
+      "ridge_alpha": 1,
+      "target_policy_counts": {
+        "element_reference_residual": 734,
+        "original": 586
+      },
+      "unresolved_fields": [],
+      "original_D4_modified": false,
+      "report": "results/d_recipe/L2_original_A1_fit_20261127.json",
+      "frozen_parameters": {
+        "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
+        "bytes": 7299154,
+        "uid": 1278,
+        "mtime": 1795712604.1360397,
+        "normalizations_and_all_frozen_coefficients_retained": true
+      },
+      "full_coefficients_source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json#/fit/reference_fit/fields"
+    },
+    "report_transcription": {
+      "status": "COMPLETE",
+      "execution_id": "ssh:P_D_L2_original_A1_report_20261127",
+      "node": "compute-0-19",
+      "cores": [
+        14
+      ],
+      "source_commit": "c8d9f863e931da563c967de43a12654aaa6b1392",
+      "configuration": "configs/d_recipe/launches/L2_original_A1_fit_report_20261127_ssh.json",
+      "receipt": "/tmp/d_recipe_20261127_L2_A1_report/receipt.json",
+      "supervisor": {
+        "pid": 2803011,
+        "start_ticks": 2051414204,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4960.scope\n",
+        "state": "R"
+      },
+      "parent": {
+        "pid": 2803010,
+        "start_ticks": 2051414204,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4960.scope\n",
+        "state": "S"
+      },
+      "returncode": 0,
+      "owned_tree_reaped": true,
+      "remaining_children": [],
+      "original_process_alive": {
+        "supervisor": false,
+        "parent": false
+      },
+      "actual_CPU_seconds": 0.238539,
+      "wall_seconds": 0.5051388740539551,
+      "peak_child_RSS_KiB": 38972,
+      "own_RAM_and_local_future_released": true,
+      "operation": "Original fit.fields transcription only; no numerical refit, raw-data scan or bootstrap"
+    },
+    "neural_launch_plan": "configs/d_recipe/continuations/L2_after_A1_20261127_plan.json",
+    "neural_training_started": false
   },
   "tiny_callback_test": {
     "tests_run": 1,

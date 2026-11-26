@@ -1,8 +1,8 @@
 # D 原生 GPU 接续与同任务接管
 
-按现行11-26调度规则，仅在20/22使用此路径；21禁用。普通sbatch仍用于有足够可分配CPU的合规目标。节点20当前仅余3CPU，L1原3读者加训练/监视共需5CPU，因此准备原生SSH及同任务Slurm接管。本文不授权额外训练臂、种子、预算或删文件。
+按现行11-26调度规则，仅在20/22使用此混合路径；21禁用。普通sbatch用于有足够可分配CPU的合规目标，实际状态以CURRENT_BEST为准。20/22 CPU不足时按已授权GPU共享规则记录实际5核活动与自有核锁，不额外套用CPU-only任务的95% idle门；RAM、显存/UUID锁、磁盘/UID和安全退出保护继续。本文不授权额外训练臂、种子、预算或删文件。
 
-入口为`tools.d_recipe.gpu_native`及`gpu_takeover`；[精确计划](../../configs/d_recipe/continuations/L1_GPU20_native_20261126_plan.json)包含现有P提供器/生命周期/接管函数的指纹与冻结启动器。真实运行配置尚未生成，实际GPU运行和standby均未启动。7项定向测试使用CPU上的真实自有进程及合成控制状态，不运行模型；另一次CPU元数据任务核对原提供器、启动器嵌入和接口，记录及成本见[执行记录](../../results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json)。
+入口为`tools.d_recipe.gpu_native`及`gpu_takeover`；[节点20计划](../../configs/d_recipe/continuations/L1_GPU20_native_20261126_plan.json)与[节点22计划](../../configs/d_recipe/continuations/L1_GPU22_native_20261126_plan.json)包含现有P提供器/生命周期/接管函数的指纹与冻结启动器。真实运行配置尚未生成，实际GPU运行和standby均未启动。7项定向测试使用CPU上的真实自有进程及合成控制状态，不运行模型；另一次CPU元数据任务核对原提供器、启动器嵌入和接口，记录及成本见[执行记录](../../results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json)。
 
 启动时先核实目标State/Reason、UUID/显存与自有锁，并通过独立d-recipe登记的64GiB RAM、节点盘、共享盘及新鲜UID准入。只有准入后才建立已登记的本地根和控制目录，按实际5核亲和性补全唯一原生配置。保持原L1/seed0/3M、3读者、2,090,752完整检查点、优化器/采样/全部RNG与原p99，原科学绑定必须相同。原生入口由现有P GPU SSH提供器监督，使用setsid/nohup/taskset及TERM-only timeout，最长8小时，预留900秒；不伪造Slurm ID。请求原协议的历史job_id字段保存明确的真实SSH句柄。
 

@@ -1,6 +1,6 @@
 {
   "schema": "D_RECIPE_CURRENT_BEST_V1",
-  "status": "STAGE2_L1_WAIT_GPU_L2_A1_PUBLISHED_WAIT_REPORT_AND_GPU",
+  "status": "STAGE2_L1_L2_READY_WAIT_COMPLIANT_GPU",
   "recipe_frozen": false,
   "current_best": {
     "arm": "D-R1",
@@ -5718,7 +5718,7 @@
     "next_L1_progress_check_UTC": null,
     "L2": {
       "arm": "D-L2",
-      "status": "A1_PARAMETERS_PUBLISHED_WAIT_REPORT_AND_GPU",
+      "status": "READY_FOR_ORIGINAL_3M_SEED0_WAIT_GPU",
       "A1_jobs": [
         4539164,
         4539169,
@@ -5730,7 +5730,7 @@
       "seed0_started": false,
       "seed1_required": false,
       "R3_available": false,
-      "decision": "PENDING_REGISTERED_L2_EVALUATION",
+      "decision": "PENDING_ORIGINAL_SEED0_R3",
       "source": "results/d_recipe/L2_A1_unresolved_20261124.json",
       "no_more_repairs_or_runs": false,
       "historical_engineering_failures": 2,
@@ -5843,7 +5843,7 @@
       "last_observed_worker": null,
       "next_segment_plan": "configs/d_recipe/reference/L2_cursor_segments_20261126_plan.json",
       "canonical_next_segment_entry": "tools/d_recipe/reference_segment_guarded.py",
-      "A1_status": "ORIGINAL_FULL_TRAIN_PARAMETERS_PUBLISHED",
+      "A1_status": "FROZEN_FIT",
       "latest_native_progress": {
         "observed_at_epoch": 1795710890.13166,
         "receipt_status": "COMPLETE",
@@ -6985,10 +6985,102 @@
         "mtime": 1795712604.1360397
       },
       "A1_report_preparation": {
-        "status": "PREPARED_NOT_STARTED",
+        "status": "COMPLETE",
         "target": "results/d_recipe/L2_original_A1_fit_20261127.json",
-        "consumes_original_fit_fields_once": true
-      }
+        "consumed_original_fit_fields_once": true
+      },
+      "A1_report_transcription": {
+        "status": "COMPLETE",
+        "execution_id": "ssh:P_D_L2_original_A1_report_20261127",
+        "node": "compute-0-19",
+        "cores": [
+          14
+        ],
+        "source_commit": "c8d9f863e931da563c967de43a12654aaa6b1392",
+        "configuration": "configs/d_recipe/launches/L2_original_A1_fit_report_20261127_ssh.json",
+        "receipt": "/tmp/d_recipe_20261127_L2_A1_report/receipt.json",
+        "supervisor": {
+          "pid": 2803011,
+          "start_ticks": 2051414204,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4960.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 2803010,
+          "start_ticks": 2051414204,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-4960.scope\n",
+          "state": "S"
+        },
+        "returncode": 0,
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "original_process_alive": {
+          "supervisor": false,
+          "parent": false
+        },
+        "actual_CPU_seconds": 0.238539,
+        "wall_seconds": 0.5051388740539551,
+        "peak_child_RSS_KiB": 38972,
+        "own_RAM_and_local_future_released": true,
+        "operation": "Original fit.fields transcription only; no numerical refit, raw-data scan or bootstrap"
+      },
+      "A1_summary": {
+        "status": "FROZEN_FIT",
+        "model_name": "D-L2:seed0:A1",
+        "fit_role": "TRAIN",
+        "cohort_rows": 1194228,
+        "field_count": 1320,
+        "folds": 5,
+        "fold_seed": 20261112,
+        "ridge_alpha": 1,
+        "target_policy_counts": {
+          "element_reference_residual": 734,
+          "original": 586
+        },
+        "unresolved_fields": [],
+        "original_D4_modified": false,
+        "report": "results/d_recipe/L2_original_A1_fit_20261127.json",
+        "frozen_parameters": {
+          "path": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
+          "bytes": 7299154,
+          "uid": 1278,
+          "mtime": 1795712604.1360397,
+          "normalizations_and_all_frozen_coefficients_retained": true
+        },
+        "full_coefficients_source": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json#/fit/reference_fit/fields"
+      },
+      "neural_launch_plan": "configs/d_recipe/continuations/L2_after_A1_20261127_plan.json",
+      "neural_resource_forecast": {
+        "preferred_nodes": "Actual gpu partition nodes0-7, free targetUUID and>=5 allocatable CPU; otherwise20/22",
+        "ordinary": "Fresh eligible CPU and availableVRAM/UUIDlock; immediate admitted sbatch, no wait-onlyGPU job",
+        "hybrid": "20/22 only when CPU allocation insufficient and<=30% usedVRAM; actual measured5-core affinity/owncorelocks, existingGPU provider, matched same-task standby only after actual source ready",
+        "prohibited_node": "compute-0-21",
+        "cpus": 5,
+        "workers": 3,
+        "ram_peak_bytes": 85899345920,
+        "local_future_bytes": 8724152320,
+        "shared_future_bytes": {
+          "/share": 2147483648
+        },
+        "cleanup_seconds": 900,
+        "Slurm_TimeLimit": "2-00:00:00",
+        "native_timeout_seconds": 28800,
+        "canonical_admission_required": true,
+        "legacy_copied_peer_forecasts_not_read": true
+      },
+      "next_GPU_admission_UTC": "2026-11-26T17:25:43Z"
     },
     "reference_production_status": "L1_FROZEN_L2_CURSOR_RECOVERY_PENDING",
     "storage_retirement": {
@@ -8890,5 +8982,5 @@
     "historical_engineering_failure_count": 2,
     "scientific_failure_count": 0
   },
-  "updated_at_utc": "2026-11-26T17:04:55.702Z"
+  "updated_at_utc": "2026-11-26T17:08:48.452Z"
 }

@@ -1,0 +1,80 @@
+{
+  "schema": "D_ORIGINAL_L2_SEED0_GPU_ACTIVATION_PLAN_V1",
+  "status": "A1_FROZEN_READY_WAIT_FRESH_GPU_ADMISSION",
+  "runnable": false,
+  "authority": "docs/d_recipe/USER_DIRECTIVE_20261125.md",
+  "scientific_configuration": "configs/d_recipe/screening/D-L2_seed0.json",
+  "scientific_run": "d_recipe_20261120_D_L2_seed0_3M",
+  "output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/full/stage2/D-L2_seed0_3M/training",
+  "arm": "D-L2",
+  "seed": 0,
+  "samples": 3000000,
+  "cold_start": true,
+  "resume_checkpoint": null,
+  "original_A1_parameters": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
+  "A1_model_name": "D-L2:seed0:A1",
+  "A1_full_TRAIN_rows": 1194228,
+  "A1_field_count": 1320,
+  "A1_target_policy_counts": {
+    "element_reference_residual": 734,
+    "original": 586
+  },
+  "A1_unresolved_fields": [],
+  "source_report": "results/d_recipe/L2_original_A1_fit_20261127.json",
+  "scientific_invariants": [
+    "Original L2 enabled1314 2D fields plus6 molecularD3; original atomSASA and fixed threeblock weights",
+    "Same selectedA1+B3+B4 gamma0.1597693323500406; B32/workers3/AdamW3e-4/FP32/TF32off/full3M",
+    "Cold seed0 initialization and original sampling; own60000-150000 p99 calibration, never inherit L1 fitted clip",
+    "Original allTRAIN normalization and accepted zero-scale field lists; existingD20/D3/D4 unchanged",
+    "Original fixed500k VAL,1M/2M/3M checkpoints and finalR1/R3; no extra variants/seeds or benchmarks"
+  ],
+  "comparison": {
+    "candidate": "D-L2_seed0_3M",
+    "control_configuration": "configs/d_recipe/screening/D-R1_seed0.json",
+    "reuse_closed_same_seed_control": true,
+    "seed1_only_if_seed0_WIN": true,
+    "wide_library_selection_waits_for_both_L1_L2_and_triggered_seed1": true
+  },
+  "activation_transport": {
+    "preferred_nodes": "Actual gpu partition nodes0-7, free targetUUID and>=5 allocatable CPU; otherwise20/22",
+    "ordinary": "Fresh eligible CPU and availableVRAM/UUIDlock; immediate admitted sbatch, no wait-onlyGPU job",
+    "hybrid": "20/22 only when CPU allocation insufficient and<=30% usedVRAM; actual measured5-core affinity/owncorelocks, existingGPU provider, matched same-task standby only after actual source ready",
+    "prohibited_node": "compute-0-21",
+    "cpus": 5,
+    "workers": 3,
+    "ram_peak_bytes": 85899345920,
+    "local_future_bytes": 8724152320,
+    "shared_future_bytes": {
+      "/share": 2147483648
+    },
+    "cleanup_seconds": 900,
+    "Slurm_TimeLimit": "2-00:00:00",
+    "native_timeout_seconds": 28800,
+    "canonical_admission_required": true,
+    "legacy_copied_peer_forecasts_not_read": true
+  },
+  "RAM_forecast_basis": {
+    "baseline": "Existing L1 same backbone and three-reader64GiB forecast; original native reader/cache implementation unchanged",
+    "additional_allowance_bytes": 17179869184,
+    "raw_store_columns": {
+      "L1": 217,
+      "L2": 1613
+    },
+    "raw_rows": 1201795,
+    "raw_value_bytes": 8,
+    "state_bytes": 1,
+    "reason": "Additional16GiB covers the larger full raw F64/u8 maps (including raw columns retained before selection), larger target metadata/reader buffers and output heads; this is an execution forecast, not inference from fitterRSS or a new profiling run."
+  },
+  "shared_forecast_basis": "Per admitted phase2GiB covers original three<=250MB milestones, a current complete-state handoff/temporary checkpoint slot and original221225472B readout/serialization buffer. Earlier retained files are physically accounted; any later phase gets fresh remaining-future admission. No file deletion.",
+  "must_bind_before_launch": [
+    "Fresh healthy actual node/UUID/current CPU/VRAM/own lock and current software environment from originalP mapping",
+    "Actual own reservations on selected node; canonical RAM/local/shared/UID admission before any new root/copy/training",
+    "Unique new transport configuration preserving original scientific binding; remove legacy copied peer-budget fields only",
+    "Actual physical local root/log/cache peak and current remaining shared bytes, all retained old outputs preserved",
+    "Freeze runnable configuration/resident before launch; use original managed/native entry and real execution identity",
+    "Original training first1000 timing only; no separate numerical acceptance or throughput benchmark"
+  ],
+  "jobs_submitted": false,
+  "actual_GPU_started": false,
+  "final_recipe_frozen": false
+}

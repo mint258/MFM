@@ -1,10 +1,10 @@
 # D 家族实验报告（执行中）
 
-更新：2026-11-26 22:59 CST。阶段1两个seed分别WIN，后续采用A1+B3+B4整包；[阶段1结果](STAGE1_TRANSFER_RESULTS.md)已闭合。G1为TIE，CI未跨0，保留D3且不触发seed1，规定诊断已闭合。L1已在2,090,752样本安全保存完整状态并回收原进程，等待合规GPU续到3M；L2原全TRAIN收集正在CPU11按保存游标续接，22:57已保存1,128,448/1,194,228行，尚未完成拟合、D-L2训练或判定。根据[11-25补做指示](USER_DIRECTIVE_20261125.md)，L2 A1/D-L2和R1 F64的旧工程类UNRESOLVED已撤销，R1 F64排D-L2之后。最终配置未冻结；两宽库及按规则触发的seed1判定、条件K1、冷9M、最终A/B/C与基准、已授权微调/scaling、一次完整回归与两个未合并PR均仍在范围内。最新进程和资源状态见[执行记录](../../results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json)。
+更新：2026-11-27 01:09 CST。阶段1两个seed分别WIN，后续采用A1+B3+B4整包；G1为TIE且CI未跨0，保留D3、不触发seed1，规定诊断已闭合。L1已在2,090,752样本保存完整状态，等待合规GPU续到3M。L2原全TRAIN收集与A1拟合/发布均已成功闭合：1194228分子、1320个分子字段，734项使用元素参考残差、586项保留原目标，未解决字段为0；[原逐字段报告](../../results/d_recipe/L2_original_A1_fit_20261127.json)直接转录生产输出。D-L2神经训练尚未启动，最终目标库与配方未冻结。[11-25补做指示](USER_DIRECTIVE_20261125.md)要求的R1 F64仍排D-L2之后。L1/L2及按规则触发的seed1、条件K1、冷9M、最终A/B/C与基准、已授权微调/scaling、最终回归与两个未合并PR均仍在完整范围内。[当前执行记录](../../results/d_recipe/safe_L1_handoff_and_L2_SSH_segments_20261126.json)。
 
 ## 依据与研究问题
 
-科学定义以[任务书](TASKBOOK.md)、[训练预注册](../../configs/d_recipe/preregistration.json)和数据分支`configs/data_d_descriptors/preregistration.json`为准。训练预注册在原生A1与D训练开始前发布于`a3b774dc3218fb91b48d98aa84cbe4f930f9aea8`，保持不变。执行与基础设施记录见[EXECUTION](EXECUTION.md)，每日最新状态见[daily](daily/2026-11-26.md)。下方带日期的执行段落保留当时的失败与调度历史；其中旧工程类UNRESOLVED及“不重试”表述不代表当前策略，当前恢复范围以11-25指示和本页首段为准。本报告不重新分析已关闭的数值数组。
+科学定义以[任务书](TASKBOOK.md)、[训练预注册](../../configs/d_recipe/preregistration.json)和数据分支`configs/data_d_descriptors/preregistration.json`为准。训练预注册在原生A1与D训练开始前发布于`a3b774dc3218fb91b48d98aa84cbe4f930f9aea8`，保持不变。执行与基础设施记录见[EXECUTION](EXECUTION.md)，每日最新状态见[daily](daily/2026-11-27.md)。下方带日期的执行段落保留当时的失败与调度历史；其中旧工程类UNRESOLVED及“不重试”表述不代表当前策略，当前恢复范围以11-25指示和本页首段为准。本报告不重新分析已关闭的数值数组。
 
 研究依次检验：P最终配方中的适用组件能否整包迁移到D；固定三块权重后，宽二维库是否优于D20；去除三维组的影响；仅在采用宽库后，85%二维目标掩码是否改善结果。最后将冻结表示与同一套直接描述符比较。整包迁移结果不解释为任何单组件的因果效应。
 
@@ -27,6 +27,8 @@ D20原20字段中，NumBridgeheadAtoms与NumSpiroAtoms沿原选择禁用，MolMR
 P官方配方于2026-11-20T12:25:52.908698Z冻结为FROZEN_P，其规定五条9M已提交。D只迁移A1/B3/B4；P专属F2无对应D标签删项，不迁移。D-R1为冷启动，不能从R0继续训练来代替配对比较。
 
 A1以完整TRAIN的元素计数Z1–118（含实际H）与不惩罚截距作组成参考，固定ridge alpha=1.0、五折seed20261112。分子排列与每分子一个允许原构象使用既有独立RNG规则。OOF R²<0.30保留原目标，0.30≤R²<0.999使用冻结参考残差，R²≥0.999保留原目标；未定义或有效TRAIN不足100000的字段保留原目标并明确未解决。只有残差档拟合派生位置尺度，旧D4不改。实际全TRAIN唯一拟合已闭合：1194228分子、23分子字段，12项使用残差、11项保留原目标、无未解决。全部OOF值、分档与冻结系数见[A1生产输出](../../results/d_recipe/reference/D20_A1_parameters_20261121.json)和[A1方法及分档](A1_FULL_TRAIN.md)。4537571/4537575均COMPLETED0:0（85805/32秒）；未按结果选择alpha或阈值。
+
+两个宽库均沿同一原全TRAIN A1规则：L1的197个分子字段已由[原报告](../../results/d_recipe/L1_original_A1_fit_20261124.json)冻结；L2现已由原F64五折岭回归冻结1320字段（alpha=1、fold seed20261112、1194228 TRAIN），734项为element_reference_residual、586项为original，unresolved_fields=[]。新[逐字段报告](../../results/d_recipe/L2_original_A1_fit_20261127.json)保留原R²、目标策略、有效分子数及TRAIN±6截断计数/比例；完整normalizations与冻结系数保留在原7299154B文件`/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json`，报告只用来源指针替代重复的系数数组。原D20/D3/D4未改，没有额外拟合、原数组复扫或独立QA。原作业实际墙钟1625.64秒、CPU11439.78秒、峰值RSS49778836KiB；源精度与回收证据见执行记录。这些是目标处理结果，不构成宽库R3收益或采纳结论。
 
 B3在所有分子级D标量使用原PMA池化，逐原子SASA头不改；B4复用既有反坍塌实现，gamma固定0.1597693323500406。不迁移新的学习率，不扫描容量、截断值或损失权重。
 
