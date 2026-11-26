@@ -9,6 +9,7 @@ from copy import deepcopy
 from phychem_mfm.phase1.p_recipe_seed_policy import fresh_seed1_configuration
 
 from .training import ARMS, prepare_runtime
+from .confirmation_plan import _EXECUTION_KEYS
 
 
 def _child(parent, *, output_root, mask_seed=None):
@@ -17,6 +18,12 @@ def _child(parent, *, output_root, mask_seed=None):
             or parent.get("seed") != 0):
         raise ValueError("Conditional seed1 belongs only to registered 3M seed0 D arms")
     child = fresh_seed1_configuration(parent, output_root=output_root)
+    # A fresh seed owns a new real allocation and current resource claims.
+    # Keep the original P scientific helper, then unbind all prior transports.
+    for key in _EXECUTION_KEYS:
+        child.pop(key, None)
+    child["resource_admission_pending"] = True
+    child["seed0_run"] = parent["run"]
     # Taskbook layer diagnostics are seed0-only. Their existing cache is bound
     # to that run/checkpoint and must never be reused by a fresh seed1 readout.
     child.pop("diagnostic_feature_root", None)
@@ -71,3 +78,4 @@ def plan_seed1(candidate, control, comparison, registry, *, output_root, mask_se
         state["runs"][arm] = {"seed0_run": parent["run"], "configuration": expected}
         requested.append(expected)
     return {"registry": state, "new_configurations": requested, "reused_arms": reused}
+

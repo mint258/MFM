@@ -21,6 +21,10 @@ _EXECUTION_KEYS = (
     "output_filesystem", "model_budget_root", "storage_forecast_basis",
     "minimum_free_gpu_mib", "cleanup_seconds", "speed_calibration",
     "calibration_training", "benchmark_updates", "speed_board",
+    "canonical_admission", "ram_peak_bytes", "local_future_bytes", "shared_future_bytes",
+    "reservation_ids", "canonical_phase_admission", "safe_exit_control",
+    "exit_root_log_future_bytes", "continuation_activation", "execution_backend",
+    "ssh_execution_id", "ssh_runtime_receipt", "cpu_ssh_provider",
 )
 
 
@@ -89,3 +93,4 @@ def plan_confirmation(best, baseline, selected=None, *, output_root, run_prefix)
         frozen_arm=best["arm"], frozen_library=best["library"],
         selected_readout_arm="9M-D-R0" if same else "9M-D-final",
         configurations=configurations, jobs_submitted=False)
+
