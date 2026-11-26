@@ -1,8 +1,8 @@
 {
   "schema": "D_RECIPE_CURRENT_BEST_V1",
-  "status": "STAGE2_L1_TRAINING_L2_A1_UNRESOLVED_G1_COMPLETE",
+  "status": "STAGE2_L1_CONTINUING_L2_A1_ENGINEERING_RECOVERY_PENDING",
   "recipe_frozen": false,
-  "updated_at_utc": "2026-11-25T06:01:06Z",
+  "updated_at_utc": "2026-11-26T03:03:03Z",
   "stage2_execution_preparation": {
     "status": "UNRESOLVED_NOT_ADOPTED",
     "failure_count": 2,
@@ -380,13 +380,13 @@
     "D-R1": "CONFIRMED_WIN_BOTH_SEEDS_ADOPT_TRANSFERRED_BUNDLE",
     "D-L1": "A1_PRODUCTION_RUNNING_TRANSFERRED_RECIPE_WAITING_FROZEN_PARAMETERS_AND_COMPLIANT_GPU",
     "D-L2": {
-      "status": "UNRESOLVED",
-      "reason": "Full-TRAIN A1 prerequisite two consecutive actual failures, TASKBOOK3.5",
+      "status": "PENDING",
+      "reason": "Engineering UNRESOLVED revoked by user20261125; originalA1 cursor followed by D-L2 required",
       "seed0_run": false,
       "seed1_required": false,
       "R3": null,
       "source": "results/d_recipe/L2_A1_unresolved_20261124.json",
-      "conservative_default": "Keep selected Stage1 control component; remaining registered L1 decision continues"
+      "conservative_default": "No library choice before both L1/L2 final decisions"
     },
     "D-G1": "FINAL_SEED0_TIE_CI_STRICTLY_POSITIVE_D3_RETAINED_NO_SEED1",
     "D-K1": "NOT_TRIGGERED_UNTIL_CONFIRMED_WIDE_LIBRARY_ADOPTION"
@@ -1473,7 +1473,7 @@
       "requires_final_frozen_best": true
     }
   },
-  "results": "Stage1 both individual seeds WIN, adopt A1+B3+B4 bundle. G1 seed0 TIE/CI not crossing zero: retain D3, no seed1; original main and all registered G1 diagnostics COMPLETE. L1 full-TRAIN A1 COMPLETE; original L1 seed0 training RUNNING at1742368 samples, native capacity-wait preserved. L2 A1 UNRESOLVED after two actual failures; D-L2 not run. Final freeze, conditional arms, cold9M, final A/B/C, benchmark handoff, costs/report, one full regression/repository check and two unmerged PRs remain required.",
+  "results": "Stage1 bundle bothseedsWIN; G1 TIE KEEP D3. L1 originalrun continues. User20261125 restores engineering-failed L2A1/D-L2 and R1F64; full task includes FT and two scaling studies per20261123 amendments. Final freeze/cold9M/ABC/handoff/report/oncePRregression/two unmergedPRs remain.",
   "arm": "D-R1",
   "library": "D20",
   "configuration": "configs/d_recipe/screening/D-R1_seed0.json",
@@ -1500,7 +1500,7 @@
       "development_layer_cache_retirement": "results/d_recipe/R0_approved_cache_cleanup_and_L1_native_resume_20261124.json"
     },
     "D_R1": {
-      "status": "CACHED_LAYERS_COMPLETE_GEOMETRY_UNRESOLVED_NO_RETRY",
+      "status": "CACHED_LAYERS_COMPLETE_GEOMETRY_RECOVERY_AFTER_D_L2",
       "forward_job": 4538515,
       "transfer_job": 4537595,
       "statistics_job": 4537596,
@@ -1520,8 +1520,8 @@
       "transfer_dependency": "afterok:4538515",
       "transfer_held_for_remaining_timebox": false,
       "statistics_held_for_remaining_timebox": false,
-      "forward_status": "UNRESOLVED_AFTER_TWO_ACTUAL_FAILURES",
-      "forward_failures": 2,
+      "forward_status": "PENDING_ENGINEERING_RECOVERY",
+      "forward_failures": 0,
       "transfer_status": "CANCELLED_NEVER_STARTED",
       "statistics_status": "CANCELLED_NEVER_STARTED",
       "GPU_native_cache_future_write_bytes": 0,
@@ -1530,7 +1530,9 @@
       "physical_cache_files_retained": true,
       "primary_comparison_unaffected": true,
       "cached_layer_CPU_original_job": 4537598,
-      "cached_layer_CPU_statistics_status": "COMPLETE"
+      "cached_layer_CPU_statistics_status": "COMPLETE",
+      "historical_engineering_failures": 2,
+      "authority": "docs/d_recipe/USER_DIRECTIVE_20261125.md"
     },
     "D_G1": {
       "status": "COMPLETE",
@@ -3030,11 +3032,12 @@
         "cumulative_limit_seconds": 14400,
         "closed_forward_prefix_seconds": 3716,
         "remaining_before_continuation_seconds": null,
-        "actual_failures": 2,
+        "actual_failures": 0,
         "transfer_and_CPU_held": false,
         "scope": "Recompute remaining allowance from actual closed phases before releasing transfer and CPU statistics",
-        "status": "UNRESOLVED_TWO_ACTUAL_FAILURES",
-        "no_more_repairs_or_forward_submissions": true
+        "status": "ENGINEERING_RECOVERY_PENDING",
+        "no_more_repairs_or_forward_submissions": false,
+        "waiting_for": "D-L2"
       },
       "cached_layer_GPU": {
         "job_id": 4537597,
@@ -3327,67 +3330,8 @@
     "development_export_summary": "results/d_recipe/development_wide_export_20261122.json",
     "benchmark_export_summary": "results/d_recipe/benchmark_L2_export_20261122.json"
   },
-  "automation_state": "BLOCKED_EXTERNAL_RESOURCE_CONDITIONS_ORIGINAL_JOBS_RETAINED",
-  "blocking_condition": {
-    "kind": "NATIVE_QUOTA_WAIT",
-    "goal_status": "BLOCKED",
-    "handling_owner": "USER_EXTERNAL",
-    "user_directive": "先继续工作，暂时忽略限额问题，我会在别的地方单独解决这个问题",
-    "do_not_repeat_quota_troubleshooting": true,
-    "native_guard_and_existing_process_retained": true,
-    "observed_at_UTC": "2026-11-25T06:01:06Z",
-    "primary_condition": "Original L1 worker is STOPPED(T) by its existing storage guard, latest native reason: Insufficient actual UID quota after registered peer reservations",
-    "independent_preparation_state": "Cold9M planner and selected-endpoint A/B/C contract ready; focused10tests pending CPU Priority; all actual later scientific work remains gated on L1/final freeze",
-    "consecutive_goal_turn_audit": [
-      {
-        "classification": "VERIFIED_WAIT",
-        "observed_progress_UTC": "2026-11-25T03:50:03.000Z",
-        "samples": 1742368,
-        "training_state": "RUNNING"
-      },
-      {
-        "classification": "VERIFIED_WAIT_WITH_ORIGINAL_PROCESS_REVALIDATION",
-        "observed_progress_UTC": "2026-11-25T04:50:03.000Z",
-        "samples": 1742368,
-        "training_state": "RUNNING"
-      },
-      {
-        "classification": "VERIFIED_WAIT",
-        "observed_progress_UTC": "2026-11-25T05:50:03.000Z",
-        "samples": 1742368,
-        "training_state": "RUNNING"
-      }
-    ],
-    "fresh_native_identity": {
-      "job": 4539402,
-      "UID": 1278,
-      "worker_pid": 281103,
-      "worker_start_ticks": 67356059,
-      "worker_state": "T",
-      "guardian_pid": 281058,
-      "guardian_start_ticks": 67355699,
-      "guardian_state": "S",
-      "scope": "/slurm/uid_1278/job_4539402/step_batch",
-      "last_phase": "DISK_TRANSPORT_PAUSED",
-      "native_error_text_last64KiB": []
-    },
-    "latest_native_samples": 1742368,
-    "retained_jobs": {
-      "training": 4539402,
-      "statistics": 4539403,
-      "comparison": 4539404,
-      "focused_test": 4539987
-    },
-    "Slurm_training_state": "RUNNING",
-    "focused_test_state": "PENDING_PRIORITY",
-    "job_cancellation_or_signals": false,
-    "scientific_arm_failed_or_closed": false,
-    "storage_reservations_retired": false,
-    "full_taskbook_scope_unchanged": true,
-    "goal_completion_claimed": false,
-    "resume_agent_action": "Inspect authoritative original queue, guard, native progress and test result; consume completed original output or continue the same run; no restart merely for observation delay",
-    "resume_condition": "Native guard admission/training progress or CPU-test queue/result changes; user handles the quota issue externally"
-  },
+  "automation_state": "ACTIVE_ENGINEERING_RECOVERY_AND_ORIGINAL_L1_CONTINUATION",
+  "blocking_condition": null,
   "runtime_exit_policy": {
     "authority": "User AGENTS.md 2026-11-22 and huagong_hpc_requirement1.0.164",
     "scope": "Future start/safe continuation; frozen active training source unchanged",
@@ -3750,12 +3694,64 @@
     ]
   },
   "previous_blocking_condition": {
-    "kind": "ACTUAL_UID_QUOTA",
-    "status": "ORIGINAL_GUARD_PAUSED",
-    "proposal": "docs/d_recipe/R0_CACHE_CLEANUP_PROPOSAL_20261124.md",
-    "explicit_deletion_approval_pending": true,
-    "model_process_preserved": true,
-    "full_goal_unchanged": true
+    "kind": "NATIVE_QUOTA_WAIT",
+    "goal_status": "BLOCKED",
+    "handling_owner": "USER_EXTERNAL",
+    "user_directive": "先继续工作，暂时忽略限额问题，我会在别的地方单独解决这个问题",
+    "do_not_repeat_quota_troubleshooting": true,
+    "native_guard_and_existing_process_retained": true,
+    "observed_at_UTC": "2026-11-25T06:01:06Z",
+    "primary_condition": "Original L1 worker is STOPPED(T) by its existing storage guard, latest native reason: Insufficient actual UID quota after registered peer reservations",
+    "independent_preparation_state": "Cold9M planner and selected-endpoint A/B/C contract ready; focused10tests pending CPU Priority; all actual later scientific work remains gated on L1/final freeze",
+    "consecutive_goal_turn_audit": [
+      {
+        "classification": "VERIFIED_WAIT",
+        "observed_progress_UTC": "2026-11-25T03:50:03.000Z",
+        "samples": 1742368,
+        "training_state": "RUNNING"
+      },
+      {
+        "classification": "VERIFIED_WAIT_WITH_ORIGINAL_PROCESS_REVALIDATION",
+        "observed_progress_UTC": "2026-11-25T04:50:03.000Z",
+        "samples": 1742368,
+        "training_state": "RUNNING"
+      },
+      {
+        "classification": "VERIFIED_WAIT",
+        "observed_progress_UTC": "2026-11-25T05:50:03.000Z",
+        "samples": 1742368,
+        "training_state": "RUNNING"
+      }
+    ],
+    "fresh_native_identity": {
+      "job": 4539402,
+      "UID": 1278,
+      "worker_pid": 281103,
+      "worker_start_ticks": 67356059,
+      "worker_state": "T",
+      "guardian_pid": 281058,
+      "guardian_start_ticks": 67355699,
+      "guardian_state": "S",
+      "scope": "/slurm/uid_1278/job_4539402/step_batch",
+      "last_phase": "DISK_TRANSPORT_PAUSED",
+      "native_error_text_last64KiB": []
+    },
+    "latest_native_samples": 1742368,
+    "retained_jobs": {
+      "training": 4539402,
+      "statistics": 4539403,
+      "comparison": 4539404,
+      "focused_test": 4539987
+    },
+    "Slurm_training_state": "RUNNING",
+    "focused_test_state": "PENDING_PRIORITY",
+    "job_cancellation_or_signals": false,
+    "scientific_arm_failed_or_closed": false,
+    "storage_reservations_retired": false,
+    "full_taskbook_scope_unchanged": true,
+    "goal_completion_claimed": false,
+    "resume_agent_action": "Inspect authoritative original queue, guard, native progress and test result; consume completed original output or continue the same run; no restart merely for observation delay",
+    "resume_condition": "Native guard admission/training progress or CPU-test queue/result changes; user handles the quota issue externally"
   },
   "latest_daily": "docs/d_recipe/daily/2026-11-25.md",
   "development_H_policy": {
@@ -4767,14 +4763,14 @@
         "whole_card_power_summary_pending": true
       },
       "latest_original_progress": {
-        "kind": "original_L1_progress",
-        "observed_at_UTC": "2026-11-25T02:50:03Z",
-        "job_id": 4539402,
-        "node": "compute-0-20",
-        "samples": 1742368,
-        "training_loop_seconds": 46407.724043155555,
-        "source": "Original running losses.csv last complete row",
-        "independent_metrics_recomputed": false
+        "observed_at_UTC": "2026-11-26T03:00:00Z",
+        "samples": 1839776,
+        "training_loop_seconds": 187601.00533778453,
+        "source": "Original losses.csv tail",
+        "same_worker_pid": 281103,
+        "start_ticks": 67356059,
+        "state": "S",
+        "no_restart": true
       },
       "live_joint_NFS_forecast_bytes": 34244105455,
       "active_frozen_configuration_share_upper_bound_bytes": 42074762973,
@@ -5163,21 +5159,7 @@
         "full_peak": 27288051602,
         "joint_peak": 34244105455
       },
-      "current_runtime_state": {
-        "observed_at_UTC": "2026-11-24T20:19:20Z",
-        "Slurm_state": "RUNNING",
-        "actual_worker": 281103,
-        "start_ticks": 67356059,
-        "UID": 1278,
-        "process_state": "T",
-        "native_event": "DISK_TRANSPORT_PAUSED",
-        "native_reason": "Insufficient actual UID quota after registered peer reservations",
-        "process_restarted": false,
-        "manual_signals": false,
-        "quota_handling_owner": "USER_EXTERNAL",
-        "end_time_CST": "2026-11-26T12:27:55",
-        "cleanup_seconds": 900
-      },
+      "current_runtime_state": "ORIGINAL_GUARD_RESUMED_SAME_WORKER",
       "current_runtime_node_state": {
         "source": "results/d_recipe/partition_state_20261125.json",
         "state": "MIXED",
@@ -5193,24 +5175,30 @@
     "next_L1_progress_check_UTC": "2026-11-25T03:20:00Z",
     "L2": {
       "arm": "D-L2",
-      "status": "NOT_RUN_A1_PREREQUISITE_UNRESOLVED",
-      "A1_status": "UNRESOLVED_TWO_ACTUAL_FAILURES",
+      "status": "PENDING_A1_CURSOR_RESUME",
+      "A1_status": "ENGINEERING_RECOVERY_REQUIRED",
       "A1_jobs": [
         4539164,
         4539169
       ],
-      "A1_failures": 2,
+      "A1_failures": 0,
       "closed_collection_rows": 729600,
       "required_full_TRAIN_rows": 1194228,
       "parameters_published": false,
       "seed0_started": false,
       "seed1_required": false,
       "R3_available": false,
-      "decision": "UNRESOLVED_NOT_A_METRIC_TIE_OR_LOSS",
+      "decision": "PENDING_REGISTERED_L2_EVALUATION",
       "source": "results/d_recipe/L2_A1_unresolved_20261124.json",
-      "no_more_repairs_or_runs": true
+      "no_more_repairs_or_runs": false,
+      "historical_engineering_failures": 2,
+      "authority": "docs/d_recipe/USER_DIRECTIVE_20261125.md",
+      "resume_cursor": 729600,
+      "resume_configuration_binding_identical": true,
+      "actual_cursor_node": "compute-0-11",
+      "resume_resident": "configs/d_recipe/launches/L2_stage2_A1_resume729600_20261126_resident.sbatch"
     },
-    "reference_production_status": "TERMINAL_L1_FROZEN_L2_UNRESOLVED",
+    "reference_production_status": "L1_FROZEN_L2_CURSOR_RECOVERY_PENDING",
     "storage_retirement": {
       "schema": "D_UNUSED_L2_CHECKPOINT_RESERVATION_RETIREMENT_V1",
       "retired_bytes": 750000000,
@@ -5726,6 +5714,12 @@
       "component_after": 57790464,
       "actual_deleted_bytes": 3081236480,
       "all_other_components_and_buffers_preserved": true
+    },
+    "restored_L2_future": {
+      "bytes": 750000000,
+      "joint_peak_bytes": 34994105455,
+      "files_deleted": false,
+      "original_running_configuration_unchanged": true
     }
   },
   "telemetry_scope_clarification": {
@@ -5763,5 +5757,17 @@
     "monetary_cost_available": false,
     "scientific_metrics_recomputed": false,
     "old_telemetry_reread": false
+  },
+  "user_amendments": {
+    "full_finetune": "docs/d_recipe/USER_DIRECTIVE_20261123.md",
+    "budget_and_molecule_scaling": "docs/d_recipe/USER_DIRECTIVE_20261123B.md",
+    "engineering_recovery": "docs/d_recipe/USER_DIRECTIVE_20261125.md"
+  },
+  "supplemental_experiments": {
+    "status": "REQUIRED_AFTER_REGISTERED_MAIN_SCIENCE",
+    "full_finetune": "Specified4tasks x3seeds, reuse Ptools and scratch; descriptive only",
+    "budget_curve": "Two native9M checkpoints1M..8M frozenR1/R3, selected1/3/6/9M and R0final fine-tune",
+    "molecule_scaling": "Two9M seed0 frozenfinal using actualP T5/T6 selectedmolecule lists intersectD TRAIN; no resampling",
+    "no_recipe_decisions_from_supplements": true
   }
 }
