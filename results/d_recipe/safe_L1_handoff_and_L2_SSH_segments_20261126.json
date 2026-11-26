@@ -1,6 +1,6 @@
 {
   "schema": "D_OPERATIONAL_SCHEDULING_UPDATE_20261126_V1",
-  "observed_at_UTC": "2026-11-26T06:56:50.986Z",
+  "observed_at_UTC": "2026-11-26T07:33:05.131Z",
   "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
   "L1": {
     "status": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
@@ -84,14 +84,24 @@
     "remaining_samples": 909248,
     "scientific_budget": 3000000,
     "seed": 0,
-    "next_GPU_admission_UTC": "2026-11-26T07:26:50.986Z",
+    "next_GPU_admission_UTC": "2026-11-26T07:56:19.000Z",
     "latest_admission": {
-      "observed_at_UTC": "2026-11-26T06:56:50.986Z",
-      "small_group": "0/4/5/6/7 still have actual CUDA contexts;1/3 no allocatable CPU",
-      "node20": "Second4090 actual445/49140MiB, own lock free and7 allocatableCPUs; canonical unchanged own64GiB RAM phase refused. Candidateclaim returned0; no GPU writer.",
-      "node22": "26152/32607MiB, own lock busy,0 allocatableCPU",
+      "observed_at_UTC": "2026-11-26T07:26:19Z",
+      "GPU20_target_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+      "used_MiB": 18,
+      "total_MiB": 49140,
+      "own_lock_free": true,
+      "allocated_CPUs": 97,
+      "total_CPUs": 104,
+      "required_CPUs": 5,
+      "required_own_RAM_bytes": 68719476736,
+      "RAM_admission": "REFUSED",
+      "available_RAM_bytes": 90471477248,
+      "own_candidate_RAM_released_to_zero": true,
       "new_GPU_job_submitted": false,
-      "other_owner_processes_changed": false
+      "preferred_group": "0/1/3 allocated with no CPU;4/5/6/7 retained CUDA contexts",
+      "node22": "26152/32607MiB,own_lock_busy,no allocated CPU available",
+      "next_GPU_admission_UTC": "2026-11-26T07:56:19.000Z"
     },
     "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json",
     "closed_attempt_costs": {
@@ -330,107 +340,216 @@
   },
   "L2": {
     "status": "RUNNING_PROGRESSING",
-    "source_commit": "a55469c55c4b02b95093ac196c8046a682a1858f",
-    "configuration": "configs/d_recipe/launches/L2_A1_segment1_20261126.json",
-    "execution_id": "ssh:P_D_L2_A1_segment1_20261126",
-    "start_cursor": 729600,
-    "full_TRAIN_rows": 1194228,
-    "original_scientific_binding_unchanged": true,
-    "original_pending_job": 4540186,
-    "retired_old_job": "CANCELLED by1278,0:0,ElapsedRaw0 after UID/PENDING/0 verification and hold",
+    "source_commit": "a15fdfd9e133042ac498e67c72ea54a197a12153",
+    "worker_source_commit": "49a0ddbb151bc2ddc85e15a21536e28cd6f1bbfc",
+    "configuration": "configs/d_recipe/launches/L2_A1_segment2_20261126.json",
+    "execution_id": "ssh:P_D_L2_A1_segment2_20261126",
+    "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment2_20261126/receipt.json",
     "node": "compute-0-11",
     "cores": [
       37
     ],
-    "measured_idle_fraction": 1,
-    "MemAvailable": 398354911232,
+    "start_cursor": 817920,
+    "full_TRAIN_rows": 1194228,
+    "supervisor": {
+      "pid": 267997,
+      "start_ticks": 2279929583,
+      "uids": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-703.scope\n",
+      "state": "R"
+    },
+    "parent": {
+      "pid": 267996,
+      "start_ticks": 2279929583,
+      "uids": [
+        1278,
+        1278,
+        1278,
+        1278
+      ],
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-703.scope\n",
+      "state": "S"
+    },
+    "worker": {
+      "pid": 268017,
+      "start_ticks": 2279930088,
+      "state": "I",
+      "uid": 1278,
+      "children": []
+    },
+    "measured_idle_fraction": {
+      "37": 1
+    },
     "segment_seconds": 10800,
     "timeout_seconds": 21600,
     "cleanup_seconds": 180,
-    "canonical_admission": {
-      "ram_own": 34359738368,
-      "ram_reserve": 40446522572,
-      "disk_own_with_original_peer_future": 38788923392,
-      "disk_reserve": 10737418240,
-      "disk_available": 57268232192
-    },
-    "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment1_20261126/receipt.json",
-    "supervisor_pid": 248291,
-    "supervisor_start_ticks": 2278850548,
-    "timeout_parent_pid": 248290,
-    "scientific_data_generation": false,
-    "partial_TRAIN_fitting": false,
-    "claim": "runs/shared_storage_reservations/d-recipe.json",
-    "execution_id_namespace_note": "P_ prefix is required by the reused shared provider, metadata line remains D; not a P scientific run and not a Slurm job",
-    "last_observed_worker": {
-      "observed_at_UTC": "2026-11-26T05:24:22Z",
-      "pid": 248316,
-      "start_ticks": "2278851052",
-      "state": "R",
-      "UID": [
-        "Uid:\t1278\t1278\t1278\t1278"
+    "actual_native_start": {
+      "observed_at_epoch": 1795678299.3498363,
+      "receipt": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "RUNNING",
+        "execution_id": "ssh:P_D_L2_A1_segment2_20261126",
+        "node": "compute-0-11",
+        "supervisor": {
+          "pid": 267997,
+          "start_ticks": 2279929583,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-703.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 267996,
+          "start_ticks": 2279929583,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-703.scope\n",
+          "state": "S"
+        },
+        "session_id": 267996,
+        "cores": [
+          37
+        ],
+        "idle_fraction": {
+          "37": 1
+        },
+        "MemAvailable": 397841649664,
+        "started_at": 1795678292.5871775,
+        "hard_end_epoch": 1795699882.5871775,
+        "timeout_seconds": 21600,
+        "cleanup_seconds": 180,
+        "original_pending_job": null,
+        "worker_argv": [
+          "/usr/bin/env",
+          "TMPDIR=/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment2_20261126",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "PYTHONPATH=/share/home/zixiao/descriptor_analysis/MFM_d_recipe:/share/home/zixiao/descriptor_analysis/MFM_d_recipe/current:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/current:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps",
+          "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+          "-B",
+          "-m",
+          "tools.d_recipe.reference_segment_canonical",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/launches/L2_A1_segment2_20261126.json"
+        ],
+        "scientific_code_and_outputs_preserved": true
+      },
+      "actual_supervisor": {
+        "pid": 267997,
+        "start_ticks": 2279929583,
+        "state": "S",
+        "uid": 1278,
+        "children": [
+          "268017"
+        ]
+      },
+      "actual_parent": {
+        "pid": 267996,
+        "start_ticks": 2279929583,
+        "state": "S",
+        "uid": 1278,
+        "children": [
+          "267997"
+        ]
+      },
+      "actual_children": [
+        {
+          "pid": 268017,
+          "start_ticks": 2279930088,
+          "state": "I",
+          "uid": 1278,
+          "children": []
+        }
       ]
     },
     "latest_native_progress": {
-      "observed_at_epoch": 1795676210.9867363,
+      "observed_at_epoch": 1795678385.1314564,
+      "closed_rows": 818432,
+      "collection_status": "COLLECTING",
       "receipt_status": "RUNNING",
       "returncode": null,
-      "started_at_epoch": 1795667505.23565,
-      "hard_end_epoch": 1795689095.23565,
-      "closed_rows": 800768,
-      "collection_status": "COLLECTING",
-      "last_attempt": {
-        "job_id": null,
-        "node": "compute-0-11",
-        "start_row": 729600,
-        "state": "RUNNING",
-        "closed_rows": 800768,
-        "elapsed_seconds": 8517.073694292456
-      },
-      "actual_supervisor": {
-        "pid": 248291,
-        "start_ticks": 2278850548,
+      "supervisor": {
+        "pid": 267997,
+        "start_ticks": 2279929583,
         "state": "S",
         "uid": 1278
       },
-      "actual_worker": {
-        "pid": 248316,
-        "start_ticks": 2278851052,
-        "state": "D",
+      "worker": {
+        "pid": 268017,
+        "start_ticks": 2279930088,
+        "state": "R",
         "uid": 1278
       },
-      "actual_root_available": 56353267712,
-      "actual_root_inodes": 36569788,
-      "own_local_allocated": 10301489152,
-      "own_local_remaining_future": 6878380032,
-      "observed_at_UTC": "2026-11-26T06:56:50.986Z"
-    },
-    "collection_forecast": {
-      "observed_at_UTC": "2026-11-26T06:26:31.118Z",
-      "source": "Original current collection marker/attempt elapsed plus actual live SSH identity",
-      "closed_rows": 785664,
-      "total_rows": 1194228,
-      "current_attempt_start_row": 729600,
-      "current_attempt_elapsed_seconds": 6703.670745912939,
-      "observed_rows_per_second": 8.363179237909442,
-      "estimated_remaining_collection_seconds": 48852.71358863396,
-      "conditional_collection_end_UTC": "2026-11-26T20:00:43.831Z",
-      "condition": "Current original collector rate maintained and compliant cursor segments continue; excludes initialization/segment gaps, fullTRAIN fit, GPU training and readouts",
-      "current_segment_expected_safe_stop_UTC": "2026-11-26T07:29:45.235Z",
-      "actual_stop": "At the next original complete chunk after softstop; verify actual75 receipt and all own parent/worker exits before next segment",
-      "actual_hard_end_UTC": "2026-11-26T10:31:35.235Z",
-      "not_scientific_stopping_or_selection_rule": true
-    },
-    "latest_short_observation": {
-      "observed_at_UTC": "2026-11-26T06:54:27.662Z",
-      "closed_rows": 799744,
-      "collection_status": "COLLECTING",
-      "worker": {
-        "pid": 248316,
-        "start_ticks": "2278851052",
-        "state": "I",
+      "parent": {
+        "pid": 267996,
+        "start_ticks": 2279929583,
+        "state": "S",
         "uid": 1278
+      },
+      "owned_tree_reaped": null,
+      "remaining_children": null,
+      "actual_cpu_seconds": null,
+      "wall_seconds": null,
+      "ended_at": null,
+      "bound_supervisor": {
+        "pid": 267997,
+        "start_ticks": 2279929583,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-703.scope\n",
+        "state": "R"
+      },
+      "bound_parent": {
+        "pid": 267996,
+        "start_ticks": 2279929583,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-703.scope\n",
+        "state": "S"
       }
+    },
+    "original_scientific_binding_unchanged": true,
+    "partial_TRAIN_fitting": false,
+    "scientific_data_generation": false,
+    "predecessor_execution_id": "ssh:P_D_L2_A1_segment1_20261126",
+    "canonical_own_claims": true,
+    "future_outer_timeout": "TERM-only; supervisor handles owned child join/reap",
+    "collection_forecast": {
+      "observed_at_UTC": "2026-11-26T07:32:06.194Z",
+      "source": "Closed original first segment: committed row delta divided by actual native wall time",
+      "closed_rows": 817920,
+      "total_rows": 1194228,
+      "first_segment_start_rows": 729600,
+      "first_segment_closed_rows": 817920,
+      "first_segment_wall_seconds": 10688.98291015625,
+      "observed_rows_per_second": 8.262713182568739,
+      "estimated_remaining_collection_seconds": 45542.90965755296,
+      "current_segment_expected_safe_stop_UTC": "2026-11-26T10:29:32.587Z",
+      "current_segment_stop_estimate_note": "Approximate; stop_at is created at the verified worker entry after canonical admission. Next complete256-row commit then actual75/reap proof governs continuation.",
+      "actual_hard_end_UTC": "2026-11-26T13:31:22.587Z",
+      "condition": "Rate maintained and compliant segments continue; excludes new initialization/segment gaps/fullTRAIN fit/GPU training/readouts",
+      "not_scientific_stopping_or_selection_rule": true,
+      "conditional_collection_end_UTC": "2026-11-26T20:11:09.104Z"
     }
   },
   "tiny_callback_test": {
@@ -1304,5 +1423,166 @@
     "temporary_claims_released": true,
     "new_actual_diagnostic_or_A_B_C_results": false,
     "future_outer_timeout": "TERM-only for new own short CPU entries; no auto-KILL. Existing live launchers unchanged."
-  }
+  },
+  "L2_closed_segments": [
+    {
+      "status": "CURSOR_SAVED_NOT_COMPLETE",
+      "source_commit": "a55469c55c4b02b95093ac196c8046a682a1858f",
+      "configuration": "configs/d_recipe/launches/L2_A1_segment1_20261126.json",
+      "execution_id": "ssh:P_D_L2_A1_segment1_20261126",
+      "start_cursor": 729600,
+      "full_TRAIN_rows": 1194228,
+      "original_scientific_binding_unchanged": true,
+      "original_pending_job": 4540186,
+      "retired_old_job": "CANCELLED by1278,0:0,ElapsedRaw0 after UID/PENDING/0 verification and hold",
+      "node": "compute-0-11",
+      "cores": [
+        37
+      ],
+      "measured_idle_fraction": 1,
+      "MemAvailable": 398354911232,
+      "segment_seconds": 10800,
+      "timeout_seconds": 21600,
+      "cleanup_seconds": 180,
+      "canonical_admission": {
+        "ram_own": 34359738368,
+        "ram_reserve": 40446522572,
+        "disk_own_with_original_peer_future": 38788923392,
+        "disk_reserve": 10737418240,
+        "disk_available": 57268232192
+      },
+      "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment1_20261126/receipt.json",
+      "supervisor_pid": 248291,
+      "supervisor_start_ticks": 2278850548,
+      "timeout_parent_pid": 248290,
+      "scientific_data_generation": false,
+      "partial_TRAIN_fitting": false,
+      "claim": "runs/shared_storage_reservations/d-recipe.json",
+      "execution_id_namespace_note": "P_ prefix is required by the reused shared provider, metadata line remains D; not a P scientific run and not a Slurm job",
+      "last_observed_worker": {
+        "observed_at_UTC": "2026-11-26T05:24:22Z",
+        "pid": 248316,
+        "start_ticks": "2278851052",
+        "state": "R",
+        "UID": [
+          "Uid:\t1278\t1278\t1278\t1278"
+        ]
+      },
+      "latest_native_progress": {
+        "observed_at_UTC": "2026-11-26T05:24:22Z",
+        "closed_rows": 754432,
+        "original_start_cursor": 729600,
+        "new_closed_rows": 24832,
+        "collection_status": "COLLECTING",
+        "last_attempt": {
+          "job_id": null,
+          "node": "compute-0-11",
+          "start_row": 729600,
+          "state": "RUNNING",
+          "closed_rows": 754432,
+          "elapsed_seconds": 2976.7050080746412
+        },
+        "receipt_status": "RUNNING",
+        "actual_processes": {
+          "supervisor": {
+            "pid": 248291,
+            "start_ticks": "2278850548",
+            "state": "S",
+            "UID": [
+              "Uid:\t1278\t1278\t1278\t1278"
+            ]
+          },
+          "worker": {
+            "pid": 248316,
+            "start_ticks": "2278851052",
+            "state": "R",
+            "UID": [
+              "Uid:\t1278\t1278\t1278\t1278"
+            ]
+          }
+        },
+        "actual_root_available": 56949882880,
+        "actual_root_inodes": 36569794,
+        "own_local_allocated": 9705264803,
+        "own_local_remaining_future": 7474604381
+      },
+      "remaining_local_future_last_refreshed_bytes": 7474604381,
+      "closed_rows": 817920,
+      "returncode": 75,
+      "owned_tree_reaped": true,
+      "remaining_children": [],
+      "original_process_alive": {
+        "supervisor": false,
+        "parent": false,
+        "worker": false
+      },
+      "actual_CPU_seconds": 6467.226557,
+      "wall_seconds": 10688.98291015625,
+      "native_receipt": {
+        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
+        "status": "CURSOR_SAVED_NOT_COMPLETE",
+        "execution_id": "ssh:P_D_L2_A1_segment1_20261126",
+        "node": "compute-0-11",
+        "supervisor": {
+          "pid": 248291,
+          "start_ticks": 2278850548,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-597.scope\n",
+          "state": "R"
+        },
+        "parent": {
+          "pid": 248290,
+          "start_ticks": 2278850547,
+          "uids": [
+            1278,
+            1278,
+            1278,
+            1278
+          ],
+          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-597.scope\n",
+          "state": "S"
+        },
+        "session_id": 248290,
+        "cores": [
+          37
+        ],
+        "idle_fraction": {
+          "37": 1
+        },
+        "MemAvailable": 398354911232,
+        "started_at": 1795667505.23565,
+        "hard_end_epoch": 1795689095.23565,
+        "timeout_seconds": 21600,
+        "cleanup_seconds": 180,
+        "original_pending_job": 4540186,
+        "worker_argv": [
+          "/usr/bin/env",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "PYTHONPATH=/share/home/zixiao/descriptor_analysis/MFM_d_recipe:/share/home/zixiao/descriptor_analysis/MFM_d_recipe/current:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/current:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps",
+          "/share/home/zixiao/.conda/envs/chemprop/bin/python",
+          "-B",
+          "-m",
+          "tools.d_recipe.reference_segment",
+          "--configuration",
+          "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/launches/L2_A1_segment1_20261126.json"
+        ],
+        "scientific_code_and_outputs_preserved": true,
+        "returncode": 75,
+        "ended_at": 1795678194.2185602,
+        "wall_seconds": 10688.98291015625,
+        "user_cpu_seconds": 5869.384912,
+        "system_cpu_seconds": 597.841645,
+        "actual_cpu_seconds": 6467.226557,
+        "peak_child_RSS_KiB": 17540512,
+        "remaining_children": [],
+        "owned_tree_reaped": true
+      },
+      "closure_observed_at_UTC": "2026-11-26T07:30:10.664Z"
+    }
+  ]
 }
