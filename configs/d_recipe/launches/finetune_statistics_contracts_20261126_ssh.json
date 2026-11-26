@@ -1,0 +1,23 @@
+{
+  "execution_id": "ssh:D_finetune_statistics_contracts_20261126",
+  "node": "compute-0-19",
+  "cores": [
+    14
+  ],
+  "expected_seconds": 60,
+  "timeout_seconds": 1800,
+  "cleanup_seconds": 180,
+  "ram_peak_bytes": 536870912,
+  "root_future_bytes": 1048576,
+  "receipt": "/tmp/d_recipe_20261126_finetune_statistics_contracts/receipt.json",
+  "line": "D",
+  "worker_argv": [
+    "/usr/bin/env",
+    "TMPDIR=/tmp/d_recipe_20261126_finetune_statistics_contracts",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "/usr/bin/python3",
+    "-SB",
+    "-c",
+    "import json,os,stat,sys,time,unittest\nfrom pathlib import Path\nrepo=Path(\"/share/home/zixiao/descriptor_analysis/MFM_d_recipe\")\nos.chdir(repo);sys.path[:0]=[str(repo),str(repo/\"tests\")]\nsuite=unittest.defaultTestLoader.loadTestsFromName(\"test_d_recipe_finetune_statistics_entry\")\nstart=time.monotonic();result=unittest.TextTestRunner(verbosity=1).run(suite)\nprint(json.dumps(dict(stage=\"D_FINETUNE_STATISTICS_TRANSPORT\",tests_run=result.testsRun,failures=len(result.failures),errors=len(result.errors),seconds=time.monotonic()-start)),flush=True)\nif not result.wasSuccessful():raise SystemExit(1)\nq=repo.parent/\"MFM_p_recipe/configs/p_recipe/fixed_20261115/analysis_20261122/F1\"\nrows=[]\nfor task in (\"qm9.U0_atom\",\"qm9.homo\",\"exp.LogD\",\"exp.LogS\"):\n for seed in (0,1,2):\n  path=q/(\"F1_scratch_random_0M_\"+task.replace(\".\",\"_\")+\"_s\"+str(seed)+\".json\")\n  if not path.exists():\n   rows.append(dict(task=task,seed=seed,configuration=str(path),status=\"CONFIGURATION_NOT_AVAILABLE\"));continue\n  c=json.loads(path.read_text())\n  summary=Path(c[\"output\"])/\"summary.json\";prediction=Path(c[\"output\"])/\"prediction.pt\"\n  valid=(c.get(\"mode\")==\"scratch\" and c.get(\"seed\")==seed and c.get(\"task\")==task and c.get(\"authority\")==\"docs/p_recipe/USER_DIRECTIVE_20261122B.md\" and c.get(\"internal_split_seed\")==20261112 and c.get(\"bootstrap_seed\")==20261025 and c[\"source_binding\"].get(\"role\")==\"architecture_only_random_initialization\" and c[\"source_binding\"].get(\"pretraining_samples_used\")==0)\n  s=json.loads(summary.read_text()) if summary.exists() else {}\n  info=prediction.lstat() if prediction.exists() else None\n  ready=valid and s.get(\"status\")==\"COMPLETE\" and s.get(\"configuration\")==str(path) and info is not None and stat.S_ISREG(info.st_mode) and info.st_uid==1278\n  rows.append(dict(task=task,seed=seed,configuration=str(path),summary=str(summary),prediction=str(prediction),status=\"SOURCE_READY\" if ready else \"WAIT_ORIGINAL_SOURCE\",protocol_matches=valid,summary_status=s.get(\"status\"),prediction_bytes=info.st_size if info else None,source_arrays_read=False))\nprint(json.dumps(dict(stage=\"D_P_SCRATCH_SOURCE_METADATA\",source_ready=sum(x[\"status\"]==\"SOURCE_READY\" for x in rows),expected_sources=12,rows=rows,numerical_arrays_read=False,new_scratch_training=False)),flush=True)\n"
+  ]
+}
