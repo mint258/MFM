@@ -1,6 +1,6 @@
 {
   "schema": "D_OPERATIONAL_SCHEDULING_UPDATE_20261126_V1",
-  "observed_at_UTC": "2026-11-26T17:26:03.865Z",
+  "observed_at_UTC": "2026-11-26T17:39:39Z",
   "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
   "L1": {
     "status": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
@@ -84,9 +84,9 @@
     "remaining_samples": 909248,
     "scientific_budget": 3000000,
     "seed": 0,
-    "next_GPU_admission_UTC": "2026-11-26T17:56:04Z",
+    "next_GPU_admission_UTC": "2026-11-26T18:09:40Z",
     "latest_admission": {
-      "observed_at_UTC": "2026-11-26T17:26:03.865Z",
+      "observed_at_UTC": "2026-11-26T17:39:39Z",
       "preferred_group": "0/1 have0 allocatable CPU;3/4/5/6/7 have16 CPU but all preferred targetUUIDs retain CUDA contexts",
       "GPU20_target_UUID": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
       "used_MiB": 18,
@@ -96,8 +96,8 @@
       "required_CPUs": 5,
       "required_own_RAM_bytes": 68719476736,
       "RAM_admission": "REFUSED",
-      "available_RAM_bytes": 93831098368,
-      "admission_deficit_bytes": 60787724288,
+      "available_RAM_bytes": 92197720064,
+      "admission_deficit_bytes": 62421102592,
       "own_candidate_RAM_released_to_zero": true,
       "new_GPU_job_submitted": false,
       "node22": {
@@ -111,7 +111,7 @@
       },
       "native_GPU22_plan": "configs/d_recipe/continuations/L1_GPU22_native_20261126_plan.json",
       "native_GPU22_templates_source_commit": "61163ce116c80df71d34e70f41dc76d2dc87cd4a",
-      "next_GPU_admission_UTC": "2026-11-26T17:56:04Z",
+      "next_GPU_admission_UTC": "2026-11-26T18:09:40Z",
       "scientific_configuration_changed": false,
       "GPU_hybrid_CPU_policy": {
         "source": "MFM_p_recipe/tools/p_recipe/gpu_ssh_runtime.py:run",
@@ -995,7 +995,7 @@
     "neural_launch_plan": "configs/d_recipe/continuations/L2_after_A1_20261127_plan.json",
     "neural_training_started": false,
     "latest_GPU_admission": {
-      "observed_at_UTC": "2026-11-26T17:26:03.865Z",
+      "observed_at_UTC": "2026-11-26T17:39:39Z",
       "neural_work_ready": true,
       "scientific_config": "configs/d_recipe/screening/D-L2_seed0.json",
       "activation_plan": "configs/d_recipe/continuations/L2_after_A1_20261127_plan.json",
@@ -1004,7 +1004,7 @@
       "actual_80GiB_claim_and_check_not_performed": true,
       "other_targets_not_GPU_eligible": true,
       "GPU_job_submitted": false,
-      "next_GPU_admission_UTC": "2026-11-26T17:56:04Z"
+      "next_GPU_admission_UTC": "2026-11-26T18:09:40Z"
     }
   },
   "tiny_callback_test": {
@@ -2753,12 +2753,18 @@
   ],
   "polling_accounting": {
     "effective_UTC": "2026-11-26T08:02:14Z",
-    "scope": "Root runtime observation of current D SSH collector",
+    "scope": "Completed collector/fitter/report phases reaped and gone; only fresh resource admission for saved L1 and ready L2 remains.",
     "policy": "Every actual process/cursor poll serially refreshes own d-recipe claim() remaining local allocated-block forecast and24h expiry. No repeated canonical admission in training/collection loop.",
     "historical_note": "Earlier minute process observations used a read-only helper between30min claim updates. Replaced observer only; original scientific sources and live processes unchanged.",
-    "current_execution_id": "ssh:P_D_L2_A1_segment2_20261126",
-    "current_poll_helper": "poll_L2_current",
-    "current_own_local_future_bytes": 6389596160
+    "current_execution_id": null,
+    "current_poll_helper": null,
+    "current_own_local_future_bytes": 0,
+    "historical_collection_observer": {
+      "current_execution_id": "ssh:P_D_L2_A1_segment2_20261126",
+      "current_poll_helper": "poll_L2_current",
+      "current_own_local_future_bytes": 6389596160
+    },
+    "closed_phase_observers_retired": true
   },
   "physical_write_guard_preparation": {
     "status": "FUTURE_SEGMENTS_AND_UNSTARTED_FITTER_PHYSICAL_GUARDS_PREPARED_TESTED",
