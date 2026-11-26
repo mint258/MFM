@@ -1,6 +1,6 @@
 {
   "schema": "D_OPERATIONAL_SCHEDULING_UPDATE_20261126_V1",
-  "observed_at_UTC": "2026-11-26T16:25:17.888Z",
+  "observed_at_UTC": "2026-11-26T16:37:40.022Z",
   "authority": "docs/interfaces/SCHEDULING_RULE_20261126.md",
   "L1": {
     "status": "SAFE_HANDOFF_COMPLETE_WAITING_COMPLIANT_GPU",
@@ -597,224 +597,296 @@
     }
   },
   "L2": {
-    "status": "RUNNING_PROGRESSING",
-    "source_commit": "773f43cd0354b7db1c5549194449c390ea192f09",
+    "status": "COMPLETE",
+    "source_commit": "eeb17c125f05381868699475dc07a516cb4f34c5",
     "worker_source_commit": "ca217517e610fe34332afce955b56cdc186f658f",
-    "configuration": "configs/d_recipe/launches/L2_A1_segment4_20261126.json",
-    "execution_id": "ssh:P_D_L2_A1_segment4_20261126",
-    "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment4_20261126/receipt.json",
+    "configuration": "configs/d_recipe/launches/L2_A1_segment5_20261127.json",
+    "execution_id": "ssh:P_D_L2_A1_segment5_20261127",
+    "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment5_20261127/receipt.json",
     "node": "compute-0-11",
     "cores": [
       37
     ],
-    "start_cursor": 1069056,
+    "start_cursor": 1192960,
+    "closed_rows": 1194228,
     "full_TRAIN_rows": 1194228,
+    "collection_status": "COLLECTION_COMPLETE",
     "supervisor": {
-      "pid": 288575,
-      "start_ticks": 2282094908,
+      "pid": 298971,
+      "start_ticks": 2283174308,
       "uids": [
         1278,
         1278,
         1278,
         1278
       ],
-      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-995.scope\n",
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1140.scope\n",
       "state": "R"
     },
     "parent": {
-      "pid": 288574,
-      "start_ticks": 2282094908,
+      "pid": 298970,
+      "start_ticks": 2283174308,
       "uids": [
         1278,
         1278,
         1278,
         1278
       ],
-      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-995.scope\n",
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1140.scope\n",
       "state": "S"
     },
     "worker": {
-      "pid": 288595,
-      "start_ticks": 2282095413,
-      "state": "I",
-      "uid": 1278,
-      "children": []
-    },
-    "measured_idle_fraction": {
-      "37": 1
-    },
-    "segment_seconds": 10800,
-    "timeout_seconds": 21600,
-    "cleanup_seconds": 180,
-    "actual_native_start": {
-      "observed_at_epoch": 1795700037.4286427,
-      "receipt": {
-        "schema": "P_CPU_SSH_RUNTIME_20261126_V1",
-        "status": "RUNNING",
-        "execution_id": "ssh:P_D_L2_A1_segment4_20261126",
-        "node": "compute-0-11",
-        "supervisor": {
-          "pid": 288575,
-          "start_ticks": 2282094908,
-          "uids": [
-            1278,
-            1278,
-            1278,
-            1278
-          ],
-          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-995.scope\n",
-          "state": "R"
-        },
-        "parent": {
-          "pid": 288574,
-          "start_ticks": 2282094908,
-          "uids": [
-            1278,
-            1278,
-            1278,
-            1278
-          ],
-          "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-995.scope\n",
-          "state": "S"
-        },
-        "session_id": 288574,
-        "cores": [
-          37
-        ],
-        "idle_fraction": {
-          "37": 1
-        },
-        "MemAvailable": 397908697088,
-        "started_at": 1795699939.8457718,
-        "hard_end_epoch": 1795721529.8457718,
-        "timeout_seconds": 21600,
-        "cleanup_seconds": 180,
-        "original_pending_job": null,
-        "worker_argv": [
-          "/usr/bin/env",
-          "TMPDIR=/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment4_20261126",
-          "PYTHONDONTWRITEBYTECODE=1",
-          "PYTHONPATH=/share/home/zixiao/descriptor_analysis/MFM_d_recipe:/share/home/zixiao/descriptor_analysis/MFM_d_recipe/current:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/current:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps",
-          "/share/home/zixiao/.conda/envs/chemprop/bin/python",
-          "-B",
-          "-m",
-          "tools.d_recipe.reference_segment_guarded",
-          "--configuration",
-          "/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/launches/L2_A1_segment4_20261126.json"
-        ],
-        "scientific_code_and_outputs_preserved": true
-      },
-      "actual_supervisor": {
-        "pid": 288575,
-        "start_ticks": 2282094908,
-        "state": "S",
-        "uid": 1278,
-        "children": [
-          288595
-        ]
-      },
-      "actual_parent": {
-        "pid": 288574,
-        "start_ticks": 2282094908,
-        "state": "S",
-        "uid": 1278,
-        "children": [
-          288575
-        ]
-      },
-      "actual_children": [
-        {
-          "pid": 288595,
-          "start_ticks": 2282095413,
-          "state": "I",
-          "uid": 1278,
-          "children": []
-        }
+      "pid": 298990,
+      "start_ticks": 2283174815,
+      "state": "R",
+      "uids": [
+        1278,
+        1278,
+        1278,
+        1278
       ],
-      "collection_status": "COLLECTING",
-      "closed_rows": 1069568,
-      "last_attempt": {
-        "job_id": null,
-        "node": "compute-0-11",
-        "start_row": 1069056,
-        "state": "RUNNING",
-        "closed_rows": 1069568,
-        "elapsed_seconds": 43.27217189595103
-      },
-      "actual_root_available": 52896305152,
-      "actual_root_inodes": 36569770,
-      "own_local_allocated": 13755015168,
-      "own_remaining_local_future": 3424854016,
-      "log_tail": "{\"phase\": \"SSH_RESIDENT_STARTED\", \"schema\": \"P_CPU_SSH_RUNTIME_20261126_V1\", \"status\": \"RUNNING\", \"execution_id\": \"ssh:P_D_L2_A1_segment4_20261126\", \"node\": \"compute-0-11\", \"supervisor\": {\"pid\": 288575, \"start_ticks\": 2282094908, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-995.scope\\n\", \"state\": \"R\"}, \"parent\": {\"pid\": 288574, \"start_ticks\": 2282094908, \"uids\": [1278, 1278, 1278, 1278], \"cgroup\": \"1:freezer:/\\n0::/user.slice/user-1278.slice/session-995.scope\\n\", \"state\": \"S\"}, \"session_id\": 288574, \"cores\": [37], \"idle_fraction\": {\"37\": 1.0}, \"MemAvailable\": 397908697088, \"started_at\": 1795699939.8457718, \"hard_end_epoch\": 1795721529.8457718, \"timeout_seconds\": 21600, \"cleanup_seconds\": 180, \"original_pending_job\": null, \"worker_argv\": [\"/usr/bin/env\", \"TMPDIR=/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment4_20261126\", \"PYTHONDONTWRITEBYTECODE=1\", \"PYTHONPATH=/share/home/zixiao/descriptor_analysis/MFM_d_recipe:/share/home/zixiao/descriptor_analysis/MFM_d_recipe/current:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120:/share/home/zixiao/descriptor_analysis/MFM_d_descriptors_20261120/current:/share/home/zixiao/descriptor_analysis/docs/phase1/evidence/stage61_data_input_audit_v1/scan_v2/deps\", \"/share/home/zixiao/.conda/envs/chemprop/bin/python\", \"-B\", \"-m\", \"tools.d_recipe.reference_segment_guarded\", \"--configuration\", \"/share/home/zixiao/descriptor_analysis/MFM_d_recipe/configs/d_recipe/launches/L2_A1_segment4_20261126.json\"], \"scientific_code_and_outputs_preserved\": true}\n{\"stage\": \"D_A1_COLLECT\", \"closed_rows\": 1069312, \"total_rows\": 1194228}\n{\"stage\": \"D_A1_COLLECT\", \"closed_rows\": 1069568, \"total_rows\": 1194228}\n"
+      "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1140.scope\n"
     },
+    "returncode": 0,
+    "owned_tree_reaped": true,
+    "remaining_children": [],
+    "original_process_alive": {
+      "supervisor": false,
+      "parent": false,
+      "worker": false
+    },
+    "actual_CPU_seconds": 108.715259,
+    "wall_seconds": 147.17675352096558,
+    "peak_child_RSS_KiB": 7252892,
+    "started_at_epoch": 1795710730.8578072,
+    "ended_at_epoch": 1795710878.0345604,
+    "closure_observed_at_epoch": 1795710890.13166,
     "latest_native_progress": {
-      "observed_at_epoch": 1795710309.6526887,
-      "receipt_status": "RUNNING",
-      "returncode": null,
-      "started_at_epoch": 1795699939.8457718,
-      "hard_end_epoch": 1795721529.8457718,
-      "closed_rows": 1189120,
-      "collection_status": "COLLECTING",
+      "observed_at_epoch": 1795710890.13166,
+      "receipt_status": "COMPLETE",
+      "returncode": 0,
+      "started_at_epoch": 1795710730.8578072,
+      "hard_end_epoch": 1795712520.8578072,
+      "closed_rows": 1194228,
+      "collection_status": "COLLECTION_COMPLETE",
       "last_attempt": {
         "job_id": null,
         "node": "compute-0-11",
-        "start_row": 1069056,
-        "state": "RUNNING",
-        "closed_rows": 1189120,
-        "elapsed_seconds": 10332.5321107544
+        "start_row": 1192960,
+        "state": "COMPLETE",
+        "closed_rows": 1194228,
+        "elapsed_seconds": 111.70419206470251
       },
-      "actual_supervisor": {
-        "pid": 288575,
-        "start_ticks": 2282094908,
-        "state": "S",
-        "uid": 1278
-      },
-      "actual_worker": {
-        "pid": 288595,
-        "start_ticks": 2282095413,
-        "state": "I",
-        "uid": 1278
-      },
-      "actual_parent": {
-        "pid": 288574,
-        "start_ticks": 2282094908,
-        "state": "S",
-        "uid": 1278
-      },
-      "owned_tree_reaped": null,
-      "remaining_children": null,
-      "actual_cpu_seconds": null,
-      "wall_seconds": null,
-      "actual_root_available": 51362189312,
-      "actual_root_inodes": 36569769,
-      "own_local_allocated": 15289016320,
-      "own_local_remaining_future": 1890852864
+      "actual_supervisor": null,
+      "actual_worker": null,
+      "actual_parent": null,
+      "owned_tree_reaped": true,
+      "remaining_children": [],
+      "actual_cpu_seconds": 108.715259,
+      "wall_seconds": 147.17675352096558,
+      "actual_root_available": 51297112064,
+      "actual_root_inodes": 36569764,
+      "own_local_allocated": 15353663488,
+      "own_local_remaining_future": 1826205696
     },
     "original_scientific_binding_unchanged": true,
     "partial_TRAIN_fitting": false,
-    "scientific_data_generation": false,
-    "predecessor_execution_id": "ssh:P_D_L2_A1_segment3_attempt2_20261126",
-    "canonical_own_claims": true,
-    "future_outer_timeout": "TERM-only; supervisor handles owned child join/reap",
-    "physical_runtime_guard": "tools.d_recipe.reference_segment_guarded",
-    "provider_python_flags": "-SB",
-    "engineering_attempt": 1,
-    "collection_forecast": {
-      "observed_at_UTC": "2026-11-26T13:35:45.415Z",
-      "source": "Closed third native segment, exact committed row delta divided by actual native wall time",
-      "closed_rows": 1070848,
-      "total_rows": 1194228,
-      "last_closed_segment_start_rows": 943360,
-      "last_closed_segment_rows": 1069056,
-      "last_closed_segment_wall_seconds": 10699.339657306671,
-      "observed_rows_per_second": 11.748014739784535,
-      "estimated_remaining_collection_seconds": 10502.199965937636,
-      "current_segment_expected_safe_stop_UTC": "2026-11-26T16:30:19.845Z",
-      "current_segment_stop_estimate_note": "Approximate; verified worker entry then next complete256-row commit and actual0/75 plus reap/gone proof governs the next phase.",
-      "actual_hard_end_UTC": "2026-11-26T19:32:09.845Z",
-      "condition": "Rate maintained and compliant segments continue; excludes new segment gaps/fullTRAIN fit/GPU training/readouts",
-      "not_scientific_stopping_or_selection_rule": true,
-      "conditional_collection_end_UTC": "2026-11-26T16:30:47.615Z"
+    "scientific_failure": false,
+    "fit_execution": {
+      "status": "RUNNING",
+      "phase": "ORIGINAL_FULL_TRAIN_A1_FIT",
+      "source_commit": "04e19868ca24f26b9c9491ad86a3cb87631a1013",
+      "worker_source_commit": "ca217517e610fe34332afce955b56cdc186f658f",
+      "configuration": "configs/d_recipe/launches/L2_A1_full_fit1_20261127.json",
+      "execution_id": "ssh:P_D_L2_A1_full_fit1_20261127",
+      "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_fit1_20261127/receipt.json",
+      "node": "compute-0-11",
+      "cores": [
+        37,
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "measured_idle_fraction": {
+        "1": 1,
+        "3": 1,
+        "4": 1,
+        "5": 1,
+        "6": 0.9960079840319361,
+        "7": 1,
+        "8": 1,
+        "9": 1,
+        "11": 0.99800796812749,
+        "12": 0.998003992015968,
+        "13": 0.998003992015968,
+        "14": 1,
+        "15": 1,
+        "16": 1,
+        "17": 0.998003992015968,
+        "37": 1
+      },
+      "ram_peak_bytes": 68719476736,
+      "expected_fit_seconds": 10800,
+      "timeout_seconds": 21600,
+      "cleanup_seconds": 900,
+      "work_unit_seconds": 10800,
+      "full_TRAIN_rows": 1194228,
+      "predecessor_execution_id": "ssh:P_D_L2_A1_segment5_20261127",
+      "predecessor_returncode": 0,
+      "predecessor_reaped_and_gone": true,
+      "supervisor": {
+        "pid": 299526,
+        "start_ticks": 2283199140,
+        "state": "S",
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1149.scope\n",
+        "cores": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          37
+        ]
+      },
+      "parent": {
+        "pid": 299525,
+        "start_ticks": 2283199140,
+        "state": "S",
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1149.scope\n",
+        "cores": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          37
+        ]
+      },
+      "worker": {
+        "pid": 299545,
+        "start_ticks": 2283199645,
+        "state": "R",
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1149.scope\n",
+        "cores": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          37
+        ]
+      },
+      "started_at_epoch": 1795710979.1618054,
+      "hard_end_epoch": 1795732569.1618054,
+      "latest_native_progress": {
+        "observed_at_epoch": 1795711060.0222359,
+        "receipt_status": "RUNNING",
+        "returncode": null,
+        "started_at_epoch": 1795710979.1618054,
+        "hard_end_epoch": 1795732569.1618054,
+        "closed_rows": 1194228,
+        "collection_status": "COLLECTION_COMPLETE",
+        "last_attempt": {
+          "job_id": null,
+          "node": "compute-0-11",
+          "start_row": 1192960,
+          "state": "COMPLETE",
+          "closed_rows": 1194228,
+          "elapsed_seconds": 111.70419206470251
+        },
+        "actual_supervisor": {
+          "pid": 299526,
+          "start_ticks": 2283199140,
+          "state": "S",
+          "uid": 1278
+        },
+        "actual_worker": {
+          "pid": 299545,
+          "start_ticks": 2283199645,
+          "state": "R",
+          "uid": 1278
+        },
+        "actual_parent": {
+          "pid": 299525,
+          "start_ticks": 2283199140,
+          "state": "S",
+          "uid": 1278
+        },
+        "owned_tree_reaped": null,
+        "remaining_children": null,
+        "actual_cpu_seconds": null,
+        "wall_seconds": null,
+        "actual_root_available": 51297067008,
+        "actual_root_inodes": 36569744,
+        "own_local_allocated": 15353671680,
+        "own_local_remaining_future": 1826197504
+      },
+      "canonical_own_RAM_and_disk_admission": true,
+      "original_scientific_configuration_unchanged": true,
+      "original_D4_modified": false,
+      "partial_TRAIN_fit": false,
+      "shared_parameters_output": "/share/home/zixiao/descriptor_analysis/runs/d_recipe_20261120/reference/L2/label_parameters.json",
+      "publication_accepted": false
     }
   },
   "tiny_callback_test": {
@@ -2399,6 +2471,166 @@
         "owned_tree_reaped": true
       },
       "closure_observed_at_UTC": "2026-11-26T13:31:03.703Z"
+    },
+    {
+      "status": "CURSOR_SAVED_NOT_COMPLETE",
+      "source_commit": "773f43cd0354b7db1c5549194449c390ea192f09",
+      "worker_source_commit": "ca217517e610fe34332afce955b56cdc186f658f",
+      "configuration": "configs/d_recipe/launches/L2_A1_segment4_20261126.json",
+      "execution_id": "ssh:P_D_L2_A1_segment4_20261126",
+      "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment4_20261126/receipt.json",
+      "node": "compute-0-11",
+      "cores": [
+        37
+      ],
+      "start_cursor": 1069056,
+      "closed_rows": 1192960,
+      "full_TRAIN_rows": 1194228,
+      "supervisor": {
+        "pid": 288575,
+        "start_ticks": 2282094908,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-995.scope\n",
+        "state": "R"
+      },
+      "parent": {
+        "pid": 288574,
+        "start_ticks": 2282094908,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-995.scope\n",
+        "state": "S"
+      },
+      "worker": {
+        "pid": 288595,
+        "start_ticks": 2282095413,
+        "state": "I",
+        "uid": 1278,
+        "children": []
+      },
+      "returncode": 75,
+      "owned_tree_reaped": true,
+      "remaining_children": [],
+      "original_process_alive": {
+        "supervisor": false,
+        "parent": false,
+        "worker": false
+      },
+      "actual_CPU_seconds": 7071.756442,
+      "wall_seconds": 10696.616773605347,
+      "peak_child_RSS_KiB": 19836076,
+      "started_at_epoch": 1795699939.8457718,
+      "ended_at_epoch": 1795710636.4625452,
+      "closure_observed_at_epoch": 1795710675.6952791,
+      "original_scientific_binding_unchanged": true,
+      "partial_TRAIN_fitting": false,
+      "scientific_failure": false
+    },
+    {
+      "status": "COMPLETE",
+      "source_commit": "eeb17c125f05381868699475dc07a516cb4f34c5",
+      "worker_source_commit": "ca217517e610fe34332afce955b56cdc186f658f",
+      "configuration": "configs/d_recipe/launches/L2_A1_segment5_20261127.json",
+      "execution_id": "ssh:P_D_L2_A1_segment5_20261127",
+      "receipt": "/tmp/d_recipe_20261120_stage2_A1_L2/ssh_segment5_20261127/receipt.json",
+      "node": "compute-0-11",
+      "cores": [
+        37
+      ],
+      "start_cursor": 1192960,
+      "closed_rows": 1194228,
+      "full_TRAIN_rows": 1194228,
+      "collection_status": "COLLECTION_COMPLETE",
+      "supervisor": {
+        "pid": 298971,
+        "start_ticks": 2283174308,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1140.scope\n",
+        "state": "R"
+      },
+      "parent": {
+        "pid": 298970,
+        "start_ticks": 2283174308,
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1140.scope\n",
+        "state": "S"
+      },
+      "worker": {
+        "pid": 298990,
+        "start_ticks": 2283174815,
+        "state": "R",
+        "uids": [
+          1278,
+          1278,
+          1278,
+          1278
+        ],
+        "cgroup": "1:freezer:/\n0::/user.slice/user-1278.slice/session-1140.scope\n"
+      },
+      "returncode": 0,
+      "owned_tree_reaped": true,
+      "remaining_children": [],
+      "original_process_alive": {
+        "supervisor": false,
+        "parent": false,
+        "worker": false
+      },
+      "actual_CPU_seconds": 108.715259,
+      "wall_seconds": 147.17675352096558,
+      "peak_child_RSS_KiB": 7252892,
+      "started_at_epoch": 1795710730.8578072,
+      "ended_at_epoch": 1795710878.0345604,
+      "closure_observed_at_epoch": 1795710890.13166,
+      "latest_native_progress": {
+        "observed_at_epoch": 1795710890.13166,
+        "receipt_status": "COMPLETE",
+        "returncode": 0,
+        "started_at_epoch": 1795710730.8578072,
+        "hard_end_epoch": 1795712520.8578072,
+        "closed_rows": 1194228,
+        "collection_status": "COLLECTION_COMPLETE",
+        "last_attempt": {
+          "job_id": null,
+          "node": "compute-0-11",
+          "start_row": 1192960,
+          "state": "COMPLETE",
+          "closed_rows": 1194228,
+          "elapsed_seconds": 111.70419206470251
+        },
+        "actual_supervisor": null,
+        "actual_worker": null,
+        "actual_parent": null,
+        "owned_tree_reaped": true,
+        "remaining_children": [],
+        "actual_cpu_seconds": 108.715259,
+        "wall_seconds": 147.17675352096558,
+        "actual_root_available": 51297112064,
+        "actual_root_inodes": 36569764,
+        "own_local_allocated": 15353663488,
+        "own_local_remaining_future": 1826205696
+      },
+      "original_scientific_binding_unchanged": true,
+      "partial_TRAIN_fitting": false,
+      "scientific_failure": false
     }
   ],
   "polling_accounting": {
