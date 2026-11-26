@@ -3,7 +3,7 @@
   "status": "STAGE2_L1_SAFE_HANDOFF_WAIT_GPU_L2_SSH_CURSOR_RECOVERY",
   "recipe_frozen": false,
   "stage2_execution_preparation": {
-    "status": "UNRESOLVED_NOT_ADOPTED",
+    "status": "HISTORICAL_OPTIONAL_ADAPTER_UNADOPTED_ORIGINAL_FITTER_ACTIVE",
     "failure_count": 2,
     "production_invoked": false,
     "additional_attempts_allowed": false,
@@ -43,7 +43,10 @@
     "wide_library_status_unchanged": true,
     "main_training_unchanged": true,
     "source_preserved_and_CLI_disabled": true,
-    "tests_explicitly_skipped": true
+    "tests_explicitly_skipped": true,
+    "status_scope": "This optional reuse optimization was never registered or adopted. Its old two engineering fixture failures are history; the mandatory original fullTRAIN fitter and D-L2 recovery continue under Nov25. This is not a scientific UNRESOLVED or a ban on original recovery.",
+    "historical_engineering_failure_count": 2,
+    "scientific_failure_count": 0
   },
   "current_best": {
     "arm": "D-R1",
@@ -3946,7 +3949,7 @@
       "D-G1"
     ],
     "reference_fitter": "tools/d_recipe/fit_reference.py",
-    "unadopted_reuse_adapter": "UNRESOLVED_NO_RETRY",
+    "unadopted_reuse_adapter": "HISTORICAL_UNADOPTED_OPTIONAL_OPTIMIZATION_ORIGINAL_FITTER_ACTIVE",
     "G1_library": "D20",
     "G1_include_3d": false,
     "remaining_block_weights_rescaled": false,
@@ -5221,12 +5224,12 @@
       },
       "continuation_plan": "configs/d_recipe/continuations/L1_from2090752_20261126_plan.json",
       "latest_GPU_admission": {
+        "observed_at_UTC": "2026-11-26T06:26:31.118Z",
+        "small_group": "0/4/5/6/7 actual CUDA contexts;1/3 lack allocatable CPU",
+        "node20": "Second4090 actual445/49140MiB, own lock free and15 allocatableCPUs; unchanged own64GiB canonical RAM phase refused. Candidateclaim returned0; no newGPUwriter.",
+        "node22": "26152/32607MiB and own lock busy,0 allocatableCPU",
         "new_GPU_job_submitted": false,
-        "other_owner_processes_changed": false,
-        "observed_at_UTC": "2026-11-26T05:59:52.943Z",
-        "small_group": "GPU0/4/5/6/7 have actual CUDA contexts;1/3 have no allocatable CPUs. No compliant empty UUID.",
-        "node20": "Second4090 actual443/49140MiB, own lock free; unchanged64GiB own RAM phase refused by canonical combined admission. Candidate claim returned0, no writer.",
-        "node22": "Actual26154/32607MiB and own lock busy; no allocatable CPUs."
+        "other_owner_processes_changed": false
       },
       "closed_attempt_costs": {
         "source": "results/d_recipe/L1_closed_attempt_costs_20261126.json",
@@ -5596,44 +5599,38 @@
         ]
       },
       "latest_native_progress": {
-        "original_start_cursor": 729600,
+        "observed_at_epoch": 1795674391.1180615,
+        "receipt_status": "RUNNING",
+        "returncode": null,
+        "started_at_epoch": 1795667505.23565,
+        "hard_end_epoch": 1795689095.23565,
+        "closed_rows": 785664,
         "collection_status": "COLLECTING",
         "last_attempt": {
           "job_id": null,
           "node": "compute-0-11",
           "start_row": 729600,
           "state": "RUNNING",
-          "closed_rows": 772352,
-          "elapsed_seconds": 5108.108613777906
+          "closed_rows": 785664,
+          "elapsed_seconds": 6703.670745912939
         },
-        "receipt_status": "RUNNING",
-        "actual_processes": {
-          "supervisor": {
-            "pid": 248291,
-            "start_ticks": "2278850548",
-            "state": "S",
-            "UID": [
-              "Uid:\t1278\t1278\t1278\t1278"
-            ]
-          },
-          "worker": {
-            "pid": 248316,
-            "start_ticks": "2278851052",
-            "UID": [
-              "Uid:\t1278\t1278\t1278\t1278"
-            ],
-            "state": "I"
-          }
+        "actual_supervisor": {
+          "pid": 248291,
+          "start_ticks": 2278850548,
+          "state": "S",
+          "uid": 1278
         },
+        "actual_worker": {
+          "pid": 248316,
+          "start_ticks": 2278851052,
+          "state": "R",
+          "uid": 1278
+        },
+        "actual_root_available": 56547467264,
         "actual_root_inodes": 36569794,
-        "observed_at_epoch": 1795672792.9436924,
-        "closed_rows": 772352,
-        "returncode": null,
-        "actual_root_available": 56719761408,
-        "own_local_allocated": 9935646720,
-        "own_local_remaining_future": 7244222464,
-        "observed_at_UTC": "2026-11-26T05:59:52.943Z",
-        "new_closed_rows": 42752
+        "own_local_allocated": 10107039744,
+        "own_local_remaining_future": 7072829440,
+        "observed_at_UTC": "2026-11-26T06:26:31.118Z"
       },
       "next_segment_plan": "configs/d_recipe/reference/L2_cursor_segments_20261126_plan.json",
       "canonical_next_segment_entry": "tools/d_recipe/reference_segment_canonical.py",
@@ -5651,7 +5648,23 @@
           ]
         }
       },
-      "closed_collection_rows": 782848
+      "closed_collection_rows": 785664,
+      "collection_forecast": {
+        "observed_at_UTC": "2026-11-26T06:26:31.118Z",
+        "source": "Original current collection marker/attempt elapsed plus actual live SSH identity",
+        "closed_rows": 785664,
+        "total_rows": 1194228,
+        "current_attempt_start_row": 729600,
+        "current_attempt_elapsed_seconds": 6703.670745912939,
+        "observed_rows_per_second": 8.363179237909442,
+        "estimated_remaining_collection_seconds": 48852.71358863396,
+        "conditional_collection_end_UTC": "2026-11-26T20:00:43.831Z",
+        "condition": "Current original collector rate maintained and compliant cursor segments continue; excludes initialization/segment gaps, fullTRAIN fit, GPU training and readouts",
+        "current_segment_expected_safe_stop_UTC": "2026-11-26T07:29:45.235Z",
+        "actual_stop": "At the next original complete chunk after softstop; verify actual75 receipt and all own parent/worker exits before next segment",
+        "actual_hard_end_UTC": "2026-11-26T10:31:35.235Z",
+        "not_scientific_stopping_or_selection_rule": true
+      }
     },
     "reference_production_status": "L1_FROZEN_L2_CURSOR_RECOVERY_PENDING",
     "storage_retirement": {
@@ -6177,9 +6190,9 @@
       "original_running_configuration_unchanged": true
     },
     "status": "L1_SAFE_HANDOFF_WAIT_GPU_L2_SSH_CURSOR_RECOVERY_G1_CLOSED",
-    "next_GPU_check_UTC": "2026-11-26T06:29:52.943Z",
-    "next_reference_progress_check_UTC": "2026-11-26T06:29:52.943Z",
-    "last_GPU_capacity_check_UTC": "2026-11-26T05:59:52.943Z"
+    "next_GPU_check_UTC": "2026-11-26T06:56:31.118Z",
+    "next_reference_progress_check_UTC": "2026-11-26T06:56:31.118Z",
+    "last_GPU_capacity_check_UTC": "2026-11-26T06:26:31.118Z"
   },
   "telemetry_scope_clarification": {
     "source": "tools/p_recipe/native_run.py:record_gpu_telemetry",
@@ -6723,7 +6736,7 @@
         "test_node_claims_released": true
       },
       "phase_rule": "New entries use canonical timed admission at phase start and >1GiB writes; original running L2 remains frozen until its safe segment boundary",
-      "claim_refresh": "Serialized own claim() refresh24hTTL; L2 allocated9935646720B, remaininglocalfuture7244222464B. Closed test futures0; no other line registry modified."
+      "claim_refresh": "Serialized own claim()24hTTL: L2allocated10107039744B, localremaining7072829440B; closed metadata/tests and GPUcandidatefuture0. Other-line registries unchanged."
     },
     "L2_cursor_segment": "Original3h SSH segment actively collecting committed chunks; scientific source/configuration unchanged.",
     "new_original_full_TRAIN_fitter": {
@@ -6850,5 +6863,5 @@
       "prior_prelaunch_refusal": "Original attempt did not create a runtime receipt or scientific worker: selectedcore becamebusy; originallauncher gone andownfuture released. Freshattempt2 passedactual5sidle1.0."
     }
   },
-  "updated_at_utc": "2026-11-26T06:23:20.234Z"
+  "updated_at_utc": "2026-11-26T06:26:31.118Z"
 }
