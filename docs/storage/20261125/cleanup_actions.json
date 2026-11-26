@@ -1,13 +1,13 @@
 {
-  "updated_epoch": 1795664846.3238242,
+  "updated_epoch": 1795666385.8142402,
   "capacity": {
-    "observed_epoch": 1795664846.3238242,
+    "observed_epoch": 1795666385.8142402,
     "NFS": {
-      "used_bytes": 3726232645632,
+      "used_bytes": 3639783088128,
       "limit_bytes": 4398046511104,
-      "free_bytes": 671813865472,
+      "free_bytes": 758263422976,
       "target_free_bytes": 2199023255552,
-      "remaining_gap_bytes": 1527209390080
+      "remaining_gap_bytes": 1440759832576
     },
     "Lustre": {
       "used_bytes": 2131342430208,
@@ -20,57 +20,57 @@
       "directive_discovery": {
         "job": "4540114",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "A_cleanup_prior_passed_B5": {
         "job": "4540115",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "B2_B4_schema_samples": {
         "job": "4540116",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "B5_cursor_resume": {
         "job": "4540117",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "checkpoint_compression_retry": {
         "job": "4540118",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "B5_passed_cleanup": {
         "job": "4540119",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "NFS_outside_depth3": {
         "job": "4540120",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "Lustre_outside_D6_depth3": {
         "job": "4540121",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "mainnode_A": {
         "job": "PID1659562",
         "status": "EXITED_CHECK_SAVED_RESULT",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "mainnode_fast": {
         "job": "PID1679602",
         "status": "EXITED_CHECK_SAVED_RESULT",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "mainnode_raw": {
         "job": "PID2993451",
         "status": "RUNNING_NATIVE_MAINNODE",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       }
     },
     "goals": {
@@ -1818,8 +1818,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/baseline_tests_4520330/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/baseline_tests_4520330",
-      "bytes_freed": 27017216,
-      "deleted_files": 3321,
+      "bytes_freed": 28803072,
+      "deleted_files": 3328,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -1854,24 +1854,6 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/unit_checks_4520336/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/unit_checks_4520336",
-      "bytes_freed": 65536,
-      "deleted_files": 8,
-      "action": "DELETE",
-      "kind": "directory_aggregate",
-      "reason": "CLEANUP_DIRECTIVE_20261125B A1"
-    },
-    {
-      "path": "PROJECT/runs/model_v3_20261025/sa1_all_tests_4520339/",
-      "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/sa1_all_tests_4520339",
-      "bytes_freed": 27025408,
-      "deleted_files": 3324,
-      "action": "DELETE",
-      "kind": "directory_aggregate",
-      "reason": "CLEANUP_DIRECTIVE_20261125B A1"
-    },
-    {
-      "path": "PROJECT/runs/model_v3_20261025/unit_checks_4520342/",
-      "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/unit_checks_4520342",
       "bytes_freed": 73728,
       "deleted_files": 10,
       "action": "DELETE",
@@ -1879,10 +1861,28 @@
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
     },
     {
+      "path": "PROJECT/runs/model_v3_20261025/sa1_all_tests_4520339/",
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/sa1_all_tests_4520339",
+      "bytes_freed": 28811264,
+      "deleted_files": 3331,
+      "action": "DELETE",
+      "kind": "directory_aggregate",
+      "reason": "CLEANUP_DIRECTIVE_20261125B A1"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/unit_checks_4520342/",
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/unit_checks_4520342",
+      "bytes_freed": 81920,
+      "deleted_files": 12,
+      "action": "DELETE",
+      "kind": "directory_aggregate",
+      "reason": "CLEANUP_DIRECTIVE_20261125B A1"
+    },
+    {
       "path": "PROJECT/runs/model_v3_20261025/sa2_all_tests_4520346/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/sa2_all_tests_4520346",
-      "bytes_freed": 27021312,
-      "deleted_files": 3321,
+      "bytes_freed": 597995520,
+      "deleted_files": 3339,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -1890,8 +1890,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/sa2_all_tests_4520347/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/sa2_all_tests_4520347",
-      "bytes_freed": 27017216,
-      "deleted_files": 3321,
+      "bytes_freed": 664809472,
+      "deleted_files": 3340,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -1899,8 +1899,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/unit_checks_4520350/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/unit_checks_4520350",
-      "bytes_freed": 208896,
-      "deleted_files": 28,
+      "bytes_freed": 488771584,
+      "deleted_files": 39,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -1926,8 +1926,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integrated_sa2_tests_4520355/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integrated_sa2_tests_4520355",
-      "bytes_freed": 27017216,
-      "deleted_files": 3321,
+      "bytes_freed": 664809472,
+      "deleted_files": 3340,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -1935,8 +1935,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/sa3_all_tests_4520358/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/sa3_all_tests_4520358",
-      "bytes_freed": 27189248,
-      "deleted_files": 3338,
+      "bytes_freed": 517537792,
+      "deleted_files": 3356,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -1971,8 +1971,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/sa3_all_tests_4520363/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/sa3_all_tests_4520363",
-      "bytes_freed": 27185152,
-      "deleted_files": 3338,
+      "bytes_freed": 517533696,
+      "deleted_files": 3356,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -1980,8 +1980,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integrated_sa3_tests_4520368/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integrated_sa3_tests_4520368",
-      "bytes_freed": 27193344,
-      "deleted_files": 3338,
+      "bytes_freed": 1153548288,
+      "deleted_files": 3368,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2034,8 +2034,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/performance_premerge_tests_4520401/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/performance_premerge_tests_4520401",
-      "bytes_freed": 27242496,
-      "deleted_files": 3350,
+      "bytes_freed": 1153597440,
+      "deleted_files": 3380,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2052,8 +2052,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/performance_postmerge_tests_4520406/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/performance_postmerge_tests_4520406",
-      "bytes_freed": 27242496,
-      "deleted_files": 3350,
+      "bytes_freed": 1153597440,
+      "deleted_files": 3380,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2079,8 +2079,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/unit_checks_4520408/sa4_architecture_tmp/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/unit_checks_4520408/sa4_architecture_tmp",
-      "bytes_freed": 1254330368,
-      "deleted_files": 18,
+      "bytes_freed": 1904406528,
+      "deleted_files": 31,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2097,8 +2097,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/architecture_premerge_tests_4520412/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/architecture_premerge_tests_4520412",
-      "bytes_freed": 27201536,
-      "deleted_files": 3338,
+      "bytes_freed": 1933389824,
+      "deleted_files": 3375,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2115,8 +2115,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/architecture_postmerge_tests_4520415/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/architecture_postmerge_tests_4520415",
-      "bytes_freed": 27250688,
-      "deleted_files": 3350,
+      "bytes_freed": 1933438976,
+      "deleted_files": 3387,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2124,8 +2124,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/selected_store_premerge_tests_4520418/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_store_premerge_tests_4520418",
-      "bytes_freed": 27258880,
-      "deleted_files": 3353,
+      "bytes_freed": 517607424,
+      "deleted_files": 3371,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2133,8 +2133,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/selected_store_premerge_tests_4520420/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_store_premerge_tests_4520420",
-      "bytes_freed": 27230208,
-      "deleted_files": 3341,
+      "bytes_freed": 517578752,
+      "deleted_files": 3359,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2142,8 +2142,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/selected_store_postmerge_tests_4520424/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_store_postmerge_tests_4520424",
-      "bytes_freed": 27287552,
-      "deleted_files": 3353,
+      "bytes_freed": 1933475840,
+      "deleted_files": 3390,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2160,8 +2160,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/unit_checks_4520426/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/unit_checks_4520426",
-      "bytes_freed": 8192,
-      "deleted_files": 2,
+      "bytes_freed": 24576,
+      "deleted_files": 6,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2178,8 +2178,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/selected_store_premerge_tests_4520429/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/selected_store_premerge_tests_4520429",
-      "bytes_freed": 27230208,
-      "deleted_files": 3341,
+      "bytes_freed": 517578752,
+      "deleted_files": 3359,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2196,8 +2196,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/performance_premerge_tests_4520433/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/performance_premerge_tests_4520433",
-      "bytes_freed": 27250688,
-      "deleted_files": 3350,
+      "bytes_freed": 1153605632,
+      "deleted_files": 3380,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2214,8 +2214,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/unit_checks_4520439/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/unit_checks_4520439",
-      "bytes_freed": 49152,
-      "deleted_files": 4,
+      "bytes_freed": 578125824,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2223,8 +2223,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/coordinate_lookup_premerge_tests_4520441/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/coordinate_lookup_premerge_tests_4520441",
-      "bytes_freed": 27185152,
-      "deleted_files": 3326,
+      "bytes_freed": 1933373440,
+      "deleted_files": 3363,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2232,8 +2232,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/a_checkpoint_premerge_tests_4520442/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/a_checkpoint_premerge_tests_4520442",
-      "bytes_freed": 27222016,
-      "deleted_files": 3338,
+      "bytes_freed": 1243099136,
+      "deleted_files": 3369,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2241,8 +2241,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/reliable_pipeline_postmerge_tests_4520443/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/reliable_pipeline_postmerge_tests_4520443",
-      "bytes_freed": 27295744,
-      "deleted_files": 3353,
+      "bytes_freed": 1933484032,
+      "deleted_files": 3390,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2250,8 +2250,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/frozen_units_4520473/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4520473",
-      "bytes_freed": 45056,
-      "deleted_files": 9,
+      "bytes_freed": 90112,
+      "deleted_files": 20,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2259,8 +2259,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/c2_postmerge_tests_4520472/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/c2_postmerge_tests_4520472",
-      "bytes_freed": 27295744,
-      "deleted_files": 3353,
+      "bytes_freed": 1933484032,
+      "deleted_files": 3390,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2268,8 +2268,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520478/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520478",
-      "bytes_freed": 641159168,
-      "deleted_files": 699,
+      "bytes_freed": 730681344,
+      "deleted_files": 700,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2277,8 +2277,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520480/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520480",
-      "bytes_freed": 9916416,
-      "deleted_files": 341,
+      "bytes_freed": 499916800,
+      "deleted_files": 357,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2286,8 +2286,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520481/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520481",
-      "bytes_freed": 626241536,
-      "deleted_files": 1782,
+      "bytes_freed": 788103168,
+      "deleted_files": 1786,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2313,8 +2313,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520488/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520488",
-      "bytes_freed": 641568768,
-      "deleted_files": 740,
+      "bytes_freed": 641916928,
+      "deleted_files": 742,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2322,8 +2322,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520490/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520490",
-      "bytes_freed": 923824128,
-      "deleted_files": 475,
+      "bytes_freed": 1412395008,
+      "deleted_files": 488,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2331,8 +2331,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520491/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520491",
-      "bytes_freed": 625590272,
-      "deleted_files": 1652,
+      "bytes_freed": 788525056,
+      "deleted_files": 1655,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2340,8 +2340,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520489/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520489",
-      "bytes_freed": 4046848,
-      "deleted_files": 528,
+      "bytes_freed": 4055040,
+      "deleted_files": 530,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2367,8 +2367,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520495/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520495",
-      "bytes_freed": 626257920,
-      "deleted_files": 1788,
+      "bytes_freed": 788127744,
+      "deleted_files": 1794,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2376,8 +2376,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520494/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520494",
-      "bytes_freed": 10424320,
-      "deleted_files": 461,
+      "bytes_freed": 500416512,
+      "deleted_files": 475,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2385,8 +2385,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520498/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520498",
-      "bytes_freed": 641323008,
-      "deleted_files": 705,
+      "bytes_freed": 642744320,
+      "deleted_files": 706,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2394,8 +2394,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520499/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520499",
-      "bytes_freed": 4476928,
-      "deleted_files": 574,
+      "bytes_freed": 94347264,
+      "deleted_files": 577,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2403,8 +2403,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520501/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520501",
-      "bytes_freed": 625430528,
-      "deleted_files": 1644,
+      "bytes_freed": 786944000,
+      "deleted_files": 1646,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2412,8 +2412,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520500/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520500",
-      "bytes_freed": 923795456,
-      "deleted_files": 472,
+      "bytes_freed": 1412374528,
+      "deleted_files": 487,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2421,8 +2421,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520502/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520502",
-      "bytes_freed": 640245760,
-      "deleted_files": 567,
+      "bytes_freed": 641667072,
+      "deleted_files": 568,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2430,8 +2430,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520505/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520505",
-      "bytes_freed": 634204160,
-      "deleted_files": 1809,
+      "bytes_freed": 795725824,
+      "deleted_files": 1813,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2439,8 +2439,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520504/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520504",
-      "bytes_freed": 2363392,
-      "deleted_files": 435,
+      "bytes_freed": 490934272,
+      "deleted_files": 448,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2448,8 +2448,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520503/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520503",
-      "bytes_freed": 5107712,
-      "deleted_files": 604,
+      "bytes_freed": 5455872,
+      "deleted_files": 606,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2466,8 +2466,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520507/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520507",
-      "bytes_freed": 4489216,
-      "deleted_files": 578,
+      "bytes_freed": 95780864,
+      "deleted_files": 582,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2475,8 +2475,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520509/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520509",
-      "bytes_freed": 625377280,
-      "deleted_files": 1637,
+      "bytes_freed": 786890752,
+      "deleted_files": 1639,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2484,8 +2484,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520508/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520508",
-      "bytes_freed": 923848704,
-      "deleted_files": 478,
+      "bytes_freed": 1412427776,
+      "deleted_files": 493,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2493,8 +2493,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520517/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520517",
-      "bytes_freed": 639766528,
-      "deleted_files": 446,
+      "bytes_freed": 730710016,
+      "deleted_files": 448,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2511,8 +2511,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520519/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520519",
-      "bytes_freed": 3203072,
-      "deleted_files": 579,
+      "bytes_freed": 492130304,
+      "deleted_files": 596,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2520,8 +2520,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520520/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520520",
-      "bytes_freed": 633790464,
-      "deleted_files": 1712,
+      "bytes_freed": 795303936,
+      "deleted_files": 1714,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2538,8 +2538,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520533/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520533",
-      "bytes_freed": 623570944,
-      "deleted_files": 686,
+      "bytes_freed": 1275068416,
+      "deleted_files": 700,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2556,8 +2556,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520529/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520529",
-      "bytes_freed": 918454272,
-      "deleted_files": 618,
+      "bytes_freed": 1408430080,
+      "deleted_files": 628,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2565,8 +2565,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520530/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520530",
-      "bytes_freed": 1265061888,
-      "deleted_files": 518,
+      "bytes_freed": 1426948096,
+      "deleted_files": 528,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2574,8 +2574,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520531/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520531",
-      "bytes_freed": 5906432,
-      "deleted_files": 1414,
+      "bytes_freed": 95428608,
+      "deleted_files": 1415,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2592,8 +2592,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520534/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520534",
-      "bytes_freed": 12591104,
-      "deleted_files": 507,
+      "bytes_freed": 12939264,
+      "deleted_files": 509,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2601,8 +2601,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520535/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520535",
-      "bytes_freed": 1552691200,
-      "deleted_files": 717,
+      "bytes_freed": 1552707584,
+      "deleted_files": 721,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2610,8 +2610,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520536/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520536",
-      "bytes_freed": 4964352,
-      "deleted_files": 1155,
+      "bytes_freed": 94486528,
+      "deleted_files": 1156,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2628,8 +2628,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/frozen_units_4520537/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4520537",
-      "bytes_freed": 28672,
-      "deleted_files": 6,
+      "bytes_freed": 143360,
+      "deleted_files": 34,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2673,8 +2673,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/frozen_units_4520565/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4520565",
-      "bytes_freed": 8192,
-      "deleted_files": 1,
+      "bytes_freed": 12288,
+      "deleted_files": 2,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2781,8 +2781,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520648/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520648",
-      "bytes_freed": 621961216,
-      "deleted_files": 416,
+      "bytes_freed": 783474688,
+      "deleted_files": 418,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2790,8 +2790,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520650/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520650",
-      "bytes_freed": 3391488,
-      "deleted_files": 628,
+      "bytes_freed": 3764224,
+      "deleted_files": 636,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2817,8 +2817,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520649/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520649",
-      "bytes_freed": 641744896,
-      "deleted_files": 859,
+      "bytes_freed": 1221242880,
+      "deleted_files": 870,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2826,8 +2826,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520657/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520657",
-      "bytes_freed": 641744896,
-      "deleted_files": 859,
+      "bytes_freed": 1221242880,
+      "deleted_files": 870,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2835,8 +2835,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520656/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520656",
-      "bytes_freed": 621961216,
-      "deleted_files": 416,
+      "bytes_freed": 783474688,
+      "deleted_files": 418,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2862,8 +2862,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520658/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520658",
-      "bytes_freed": 3391488,
-      "deleted_files": 628,
+      "bytes_freed": 3764224,
+      "deleted_files": 636,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2889,8 +2889,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520969/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520969",
-      "bytes_freed": 4407296,
-      "deleted_files": 594,
+      "bytes_freed": 5828608,
+      "deleted_files": 595,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2907,8 +2907,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520970/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520970",
-      "bytes_freed": 3985408,
-      "deleted_files": 500,
+      "bytes_freed": 3993600,
+      "deleted_files": 502,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2916,8 +2916,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520971/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520971",
-      "bytes_freed": 917221376,
-      "deleted_files": 741,
+      "bytes_freed": 1406140416,
+      "deleted_files": 756,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2925,8 +2925,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520972/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520972",
-      "bytes_freed": 1267970048,
-      "deleted_files": 1201,
+      "bytes_freed": 1519005696,
+      "deleted_files": 1204,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2943,8 +2943,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520980/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520980",
-      "bytes_freed": 7200768,
-      "deleted_files": 1509,
+      "bytes_freed": 7557120,
+      "deleted_files": 1513,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2952,8 +2952,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520980/tmp_3/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520980/tmp_3",
-      "bytes_freed": 1698455552,
-      "deleted_files": 384,
+      "bytes_freed": 1859969024,
+      "deleted_files": 386,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2961,8 +2961,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520979/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520979",
-      "bytes_freed": 923844608,
-      "deleted_files": 446,
+      "bytes_freed": 1412415488,
+      "deleted_files": 459,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2970,8 +2970,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520978/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520978",
-      "bytes_freed": 640032768,
-      "deleted_files": 544,
+      "bytes_freed": 730976256,
+      "deleted_files": 546,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2988,8 +2988,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520985/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520985",
-      "bytes_freed": 917221376,
-      "deleted_files": 741,
+      "bytes_freed": 1406140416,
+      "deleted_files": 756,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -2997,8 +2997,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520984/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520984",
-      "bytes_freed": 3985408,
-      "deleted_files": 500,
+      "bytes_freed": 3993600,
+      "deleted_files": 502,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3006,8 +3006,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520983/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520983",
-      "bytes_freed": 4407296,
-      "deleted_files": 594,
+      "bytes_freed": 5828608,
+      "deleted_files": 595,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3024,8 +3024,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520986/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520986",
-      "bytes_freed": 1267970048,
-      "deleted_files": 1201,
+      "bytes_freed": 1519005696,
+      "deleted_files": 1204,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3042,8 +3042,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520989/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520989",
-      "bytes_freed": 640827392,
-      "deleted_files": 682,
+      "bytes_freed": 641183744,
+      "deleted_files": 686,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3051,8 +3051,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520990/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520990",
-      "bytes_freed": 923688960,
-      "deleted_files": 424,
+      "bytes_freed": 1014648832,
+      "deleted_files": 430,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3060,8 +3060,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520991/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520991",
-      "bytes_freed": 6463488,
-      "deleted_files": 1376,
+      "bytes_freed": 495017984,
+      "deleted_files": 1385,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3069,8 +3069,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520991/tmp_3/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520991/tmp_3",
-      "bytes_freed": 1698455552,
-      "deleted_files": 384,
+      "bytes_freed": 1859964928,
+      "deleted_files": 385,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3087,8 +3087,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520994/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520994",
-      "bytes_freed": 2359296,
-      "deleted_files": 508,
+      "bytes_freed": 2723840,
+      "deleted_files": 514,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3114,8 +3114,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520996/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520996",
-      "bytes_freed": 2412544,
-      "deleted_files": 350,
+      "bytes_freed": 490967040,
+      "deleted_files": 359,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3123,8 +3123,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520997/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520997",
-      "bytes_freed": 637382656,
-      "deleted_files": 348,
+      "bytes_freed": 728334336,
+      "deleted_files": 352,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3132,8 +3132,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4520998/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4520998",
-      "bytes_freed": 622641152,
-      "deleted_files": 520,
+      "bytes_freed": 784154624,
+      "deleted_files": 522,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3150,8 +3150,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521001/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521001",
-      "bytes_freed": 1605632,
-      "deleted_files": 382,
+      "bytes_freed": 91127808,
+      "deleted_files": 383,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3159,8 +3159,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521003/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521003",
-      "bytes_freed": 1314816,
-      "deleted_files": 216,
+      "bytes_freed": 1331200,
+      "deleted_files": 220,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3168,8 +3168,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521004/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521004",
-      "bytes_freed": 619266048,
-      "deleted_files": 165,
+      "bytes_freed": 782548992,
+      "deleted_files": 170,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3231,8 +3231,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521010/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521010",
-      "bytes_freed": 15310848,
-      "deleted_files": 1358,
+      "bytes_freed": 15319040,
+      "deleted_files": 1360,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3240,8 +3240,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521008/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521008",
-      "bytes_freed": 1908736,
-      "deleted_files": 412,
+      "bytes_freed": 490463232,
+      "deleted_files": 421,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3276,8 +3276,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521020/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521020",
-      "bytes_freed": 619069440,
-      "deleted_files": 147,
+      "bytes_freed": 780599296,
+      "deleted_files": 153,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3285,8 +3285,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521019/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521019",
-      "bytes_freed": 1576960,
-      "deleted_files": 369,
+      "bytes_freed": 91107328,
+      "deleted_files": 372,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3312,8 +3312,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521024/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521024",
-      "bytes_freed": 1605632,
-      "deleted_files": 382,
+      "bytes_freed": 91127808,
+      "deleted_files": 383,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3321,8 +3321,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521027/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521027",
-      "bytes_freed": 619266048,
-      "deleted_files": 165,
+      "bytes_freed": 782548992,
+      "deleted_files": 170,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3330,8 +3330,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521026/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521026",
-      "bytes_freed": 1314816,
-      "deleted_files": 216,
+      "bytes_freed": 1331200,
+      "deleted_files": 220,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3357,8 +3357,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521033/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521033",
-      "bytes_freed": 1900544,
-      "deleted_files": 412,
+      "bytes_freed": 490455040,
+      "deleted_files": 421,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3393,8 +3393,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521035/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521035",
-      "bytes_freed": 15310848,
-      "deleted_files": 1358,
+      "bytes_freed": 15319040,
+      "deleted_files": 1360,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3447,8 +3447,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521050/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521050",
-      "bytes_freed": 1605632,
-      "deleted_files": 382,
+      "bytes_freed": 91127808,
+      "deleted_files": 383,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3465,8 +3465,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521052/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521052",
-      "bytes_freed": 1314816,
-      "deleted_files": 216,
+      "bytes_freed": 1331200,
+      "deleted_files": 220,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3474,8 +3474,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521053/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521053",
-      "bytes_freed": 619266048,
-      "deleted_files": 165,
+      "bytes_freed": 782548992,
+      "deleted_files": 170,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3501,8 +3501,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521058/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521058",
-      "bytes_freed": 1908736,
-      "deleted_files": 412,
+      "bytes_freed": 490463232,
+      "deleted_files": 421,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3528,8 +3528,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521060/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521060",
-      "bytes_freed": 15310848,
-      "deleted_files": 1358,
+      "bytes_freed": 15319040,
+      "deleted_files": 1360,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3537,8 +3537,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521061/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521061",
-      "bytes_freed": 1605632,
-      "deleted_files": 382,
+      "bytes_freed": 91127808,
+      "deleted_files": 383,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3546,8 +3546,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521064/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521064",
-      "bytes_freed": 619266048,
-      "deleted_files": 165,
+      "bytes_freed": 782548992,
+      "deleted_files": 170,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3555,8 +3555,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521063/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521063",
-      "bytes_freed": 1306624,
-      "deleted_files": 216,
+      "bytes_freed": 1323008,
+      "deleted_files": 220,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3582,8 +3582,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521068/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521068",
-      "bytes_freed": 1900544,
-      "deleted_files": 412,
+      "bytes_freed": 490455040,
+      "deleted_files": 421,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3609,8 +3609,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521070/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521070",
-      "bytes_freed": 15310848,
-      "deleted_files": 1358,
+      "bytes_freed": 15319040,
+      "deleted_files": 1360,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3618,8 +3618,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521071/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521071",
-      "bytes_freed": 1605632,
-      "deleted_files": 382,
+      "bytes_freed": 91127808,
+      "deleted_files": 383,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3636,8 +3636,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521073/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521073",
-      "bytes_freed": 1286144,
-      "deleted_files": 215,
+      "bytes_freed": 1302528,
+      "deleted_files": 219,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3654,8 +3654,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521074/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521074",
-      "bytes_freed": 619266048,
-      "deleted_files": 165,
+      "bytes_freed": 782548992,
+      "deleted_files": 170,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3753,8 +3753,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521086/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521086",
-      "bytes_freed": 15310848,
-      "deleted_files": 1358,
+      "bytes_freed": 15319040,
+      "deleted_files": 1360,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3762,8 +3762,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521084/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521084",
-      "bytes_freed": 1900544,
-      "deleted_files": 412,
+      "bytes_freed": 490455040,
+      "deleted_files": 421,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3816,8 +3816,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521105/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521105",
-      "bytes_freed": 1605632,
-      "deleted_files": 382,
+      "bytes_freed": 91127808,
+      "deleted_files": 383,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3834,8 +3834,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521107/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521107",
-      "bytes_freed": 264720384,
-      "deleted_files": 239,
+      "bytes_freed": 264736768,
+      "deleted_files": 243,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3843,8 +3843,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521108/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521108",
-      "bytes_freed": 619266048,
-      "deleted_files": 165,
+      "bytes_freed": 782548992,
+      "deleted_files": 170,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3870,8 +3870,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521114/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521114",
-      "bytes_freed": 1908736,
-      "deleted_files": 412,
+      "bytes_freed": 490463232,
+      "deleted_files": 421,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3906,8 +3906,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521116/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521116",
-      "bytes_freed": 15314944,
-      "deleted_files": 1358,
+      "bytes_freed": 15323136,
+      "deleted_files": 1360,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3969,8 +3969,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521137/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521137",
-      "bytes_freed": 264720384,
-      "deleted_files": 239,
+      "bytes_freed": 264736768,
+      "deleted_files": 243,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3978,8 +3978,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521135/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521135",
-      "bytes_freed": 1605632,
-      "deleted_files": 382,
+      "bytes_freed": 91127808,
+      "deleted_files": 383,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -3987,8 +3987,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521138/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521138",
-      "bytes_freed": 619266048,
-      "deleted_files": 165,
+      "bytes_freed": 782548992,
+      "deleted_files": 170,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4050,8 +4050,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521157/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521157",
-      "bytes_freed": 1912832,
-      "deleted_files": 412,
+      "bytes_freed": 490467328,
+      "deleted_files": 421,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4086,8 +4086,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521188/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521188",
-      "bytes_freed": 1605632,
-      "deleted_files": 382,
+      "bytes_freed": 91127808,
+      "deleted_files": 383,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4095,8 +4095,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521191/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521191",
-      "bytes_freed": 619266048,
-      "deleted_files": 165,
+      "bytes_freed": 782548992,
+      "deleted_files": 170,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4122,8 +4122,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521190/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521190",
-      "bytes_freed": 264720384,
-      "deleted_files": 239,
+      "bytes_freed": 264736768,
+      "deleted_files": 243,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4149,8 +4149,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521195/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521195",
-      "bytes_freed": 1908736,
-      "deleted_files": 412,
+      "bytes_freed": 490463232,
+      "deleted_files": 421,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4158,8 +4158,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521197/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521197",
-      "bytes_freed": 15314944,
-      "deleted_files": 1358,
+      "bytes_freed": 15323136,
+      "deleted_files": 1360,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4266,8 +4266,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521421/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521421",
-      "bytes_freed": 568864768,
-      "deleted_files": 11,
+      "bytes_freed": 860897280,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4311,8 +4311,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4521707/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4521707",
-      "bytes_freed": 568877056,
-      "deleted_files": 11,
+      "bytes_freed": 860909568,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4338,8 +4338,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/frozen_units_4522290/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4522290",
-      "bytes_freed": 618967040,
-      "deleted_files": 42,
+      "bytes_freed": 1448120320,
+      "deleted_files": 55,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4383,8 +4383,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4523979/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4523979",
-      "bytes_freed": 560259072,
-      "deleted_files": 9,
+      "bytes_freed": 1079934976,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4419,8 +4419,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524143/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524143",
-      "bytes_freed": 568868864,
-      "deleted_files": 11,
+      "bytes_freed": 860901376,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4428,8 +4428,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524142/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524142",
-      "bytes_freed": 568864768,
-      "deleted_files": 11,
+      "bytes_freed": 1039982592,
+      "deleted_files": 16,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4437,8 +4437,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524145/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524145",
-      "bytes_freed": 568864768,
-      "deleted_files": 11,
+      "bytes_freed": 860897280,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4446,8 +4446,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524697/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524697",
-      "bytes_freed": 568913920,
-      "deleted_files": 11,
+      "bytes_freed": 860946432,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4455,8 +4455,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524186/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524186",
-      "bytes_freed": 766287872,
-      "deleted_files": 20,
+      "bytes_freed": 927797248,
+      "deleted_files": 21,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4464,8 +4464,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524207/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524207",
-      "bytes_freed": 568885248,
-      "deleted_files": 11,
+      "bytes_freed": 860917760,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4473,8 +4473,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524370/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524370",
-      "bytes_freed": 568872960,
-      "deleted_files": 11,
+      "bytes_freed": 1039990784,
+      "deleted_files": 16,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4482,8 +4482,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524376/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524376",
-      "bytes_freed": 568885248,
-      "deleted_files": 11,
+      "bytes_freed": 1040003072,
+      "deleted_files": 16,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4500,8 +4500,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524698/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524698",
-      "bytes_freed": 568913920,
-      "deleted_files": 11,
+      "bytes_freed": 860946432,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4509,8 +4509,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524499/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524499",
-      "bytes_freed": 967540736,
-      "deleted_files": 18,
+      "bytes_freed": 1438658560,
+      "deleted_files": 23,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4518,8 +4518,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524505/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524505",
-      "bytes_freed": 967548928,
-      "deleted_files": 18,
+      "bytes_freed": 1438666752,
+      "deleted_files": 23,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4527,8 +4527,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524510/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524510",
-      "bytes_freed": 568881152,
-      "deleted_files": 11,
+      "bytes_freed": 860913664,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4536,8 +4536,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524523/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524523",
-      "bytes_freed": 967475200,
-      "deleted_files": 15,
+      "bytes_freed": 1438593024,
+      "deleted_files": 20,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4572,8 +4572,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524576/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524576",
-      "bytes_freed": 568893440,
-      "deleted_files": 11,
+      "bytes_freed": 860925952,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4599,8 +4599,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524602/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524602",
-      "bytes_freed": 568905728,
-      "deleted_files": 11,
+      "bytes_freed": 860938240,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4617,8 +4617,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524695/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524695",
-      "bytes_freed": 568872960,
-      "deleted_files": 11,
+      "bytes_freed": 860905472,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4626,8 +4626,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524696/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524696",
-      "bytes_freed": 568918016,
-      "deleted_files": 11,
+      "bytes_freed": 860950528,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4698,8 +4698,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524751/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524751",
-      "bytes_freed": 569823232,
-      "deleted_files": 18,
+      "bytes_freed": 1040941056,
+      "deleted_files": 23,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4725,8 +4725,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524770/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524770",
-      "bytes_freed": 265244672,
-      "deleted_files": 8,
+      "bytes_freed": 736362496,
+      "deleted_files": 13,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4743,8 +4743,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524783/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524783",
-      "bytes_freed": 568954880,
-      "deleted_files": 11,
+      "bytes_freed": 860987392,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4752,8 +4752,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524791/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524791",
-      "bytes_freed": 568942592,
-      "deleted_files": 11,
+      "bytes_freed": 860975104,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4761,8 +4761,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524837/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524837",
-      "bytes_freed": 568946688,
-      "deleted_files": 11,
+      "bytes_freed": 860979200,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4788,8 +4788,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524868/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524868",
-      "bytes_freed": 568942592,
-      "deleted_files": 11,
+      "bytes_freed": 860975104,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4797,8 +4797,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4524922/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4524922",
-      "bytes_freed": 568946688,
-      "deleted_files": 11,
+      "bytes_freed": 860979200,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4815,8 +4815,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4525070/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4525070",
-      "bytes_freed": 568954880,
-      "deleted_files": 11,
+      "bytes_freed": 860987392,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4824,8 +4824,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4525077/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4525077",
-      "bytes_freed": 568954880,
-      "deleted_files": 11,
+      "bytes_freed": 860987392,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4833,8 +4833,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4525085/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4525085",
-      "bytes_freed": 568958976,
-      "deleted_files": 11,
+      "bytes_freed": 860991488,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4842,8 +4842,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4525171/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4525171",
-      "bytes_freed": 568967168,
-      "deleted_files": 11,
+      "bytes_freed": 860999680,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4851,8 +4851,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4525188/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4525188",
-      "bytes_freed": 568971264,
-      "deleted_files": 11,
+      "bytes_freed": 861003776,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -4860,8 +4860,8 @@
     {
       "path": "PROJECT/runs/model_v3_20261025/integration_tests_4525191/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/integration_tests_4525191",
-      "bytes_freed": 568967168,
-      "deleted_files": 11,
+      "bytes_freed": 860999680,
+      "deleted_files": 14,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"
@@ -5740,6 +5740,51 @@
       "reason": "CLEANUP_DIRECTIVE_20261125B B5"
     },
     {
+      "path": "PROJECT/runs/phase1_wp5_20261011/runtime/task_16/job_4514409_f817b01b/",
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_16/job_4514409_f817b01b",
+      "bytes_freed": 1818460160,
+      "deleted_files": 1,
+      "action": "DELETE",
+      "kind": "directory_aggregate",
+      "reason": "CLEANUP_DIRECTIVE_20261125B B5"
+    },
+    {
+      "path": "PROJECT/runs/phase1_wp5_20261011/runtime/task_19/job_4514412_25d77ea3/",
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_19/job_4514412_25d77ea3",
+      "bytes_freed": 1816436736,
+      "deleted_files": 1,
+      "action": "DELETE",
+      "kind": "directory_aggregate",
+      "reason": "CLEANUP_DIRECTIVE_20261125B B5"
+    },
+    {
+      "path": "PROJECT/runs/phase1_wp5_20261011/runtime/task_18/job_4514411_9701a2db/",
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_18/job_4514411_9701a2db",
+      "bytes_freed": 1794961408,
+      "deleted_files": 1,
+      "action": "DELETE",
+      "kind": "directory_aggregate",
+      "reason": "CLEANUP_DIRECTIVE_20261125B B5"
+    },
+    {
+      "path": "PROJECT/runs/phase1_wp5_20261011/runtime/task_17/job_4514410_a689f517/",
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_17/job_4514410_a689f517",
+      "bytes_freed": 1749204992,
+      "deleted_files": 1,
+      "action": "DELETE",
+      "kind": "directory_aggregate",
+      "reason": "CLEANUP_DIRECTIVE_20261125B B5"
+    },
+    {
+      "path": "PROJECT/runs/phase1_wp5_20261011/runtime/task_3/job_4514404_2dab5110/",
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/phase1_wp5_20261011/runtime/task_3/job_4514404_2dab5110",
+      "bytes_freed": 1721004032,
+      "deleted_files": 1,
+      "action": "DELETE",
+      "kind": "directory_aggregate",
+      "reason": "CLEANUP_DIRECTIVE_20261125B B5"
+    },
+    {
       "path": "PROJECT/runs/model_v3_20261025/frozen_units_4521103/native_s_core_cli_tmp/",
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4521103/native_s_core_cli_tmp",
       "bytes_freed": 1475493888,
@@ -5753,6 +5798,33 @@
       "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4520473/precision_tmp",
       "bytes_freed": 1549348864,
       "deleted_files": 23,
+      "action": "DELETE",
+      "kind": "directory_aggregate",
+      "reason": "CLEANUP_DIRECTIVE_20261125B A1"
+    },
+    {
+      "path": "PROJECT/runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric512_project_v3/",
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric512_project_v3",
+      "bytes_freed": 270237696,
+      "deleted_files": 291,
+      "action": "DELETE",
+      "kind": "directory_aggregate",
+      "reason": "CLEANUP_DIRECTIVE_20261125B B2"
+    },
+    {
+      "path": "PROJECT/runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric_full_v3_batch0000_rg1/",
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric_full_v3_batch0000_rg1",
+      "bytes_freed": 4751360,
+      "deleted_files": 19,
+      "action": "DELETE",
+      "kind": "directory_aggregate",
+      "reason": "CLEANUP_DIRECTIVE_20261125B B2"
+    },
+    {
+      "path": "PROJECT/runs/model_v3_20261025/frozen_units_4520459/",
+      "directory": "/share/home/zixiao/descriptor_analysis/runs/model_v3_20261025/frozen_units_4520459",
+      "bytes_freed": 16384,
+      "deleted_files": 4,
       "action": "DELETE",
       "kind": "directory_aggregate",
       "reason": "CLEANUP_DIRECTIVE_20261125B A1"

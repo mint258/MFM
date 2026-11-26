@@ -1,11 +1,11 @@
 # 服务器空间与清理记录
-更新：2026-11-26 11:47:26 CST。状态：目标尚未达成，清理进行中。
+更新：2026-11-26 12:13:05 CST。状态：目标尚未达成，清理进行中。
 
-完整基线：102个主目录、1042个重要子目录；3,060.713 GiB。基线扣已知清理：2,741.501 GiB，未计活动及新增写入。
+完整基线：102个主目录、1042个重要子目录；3,060.713 GiB。基线扣已知清理：2,683.643 GiB，未计活动及新增写入。
 
 |账号|限额 GiB|最新可用 GiB|目标 GiB|尚缺 GiB|
 |---|---:|---:|---:|---:|
-|/share/home/zixiao|4,096.000|625.675|2,048.000|1,422.325|
+|/share/home/zixiao|4,096.000|706.188|2,048.000|1,341.812|
 |/lfshome/zixiao|2,048.000|63.033|500.000|436.967|
 
 ## 当前保留与删除规则
@@ -14,7 +14,7 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 
 ## 执行与待核实事项
 
-- 已删除326762个文件（含checkpoint与批准产物），文件分配块净减少416.400 GiB；配额快照另计。
+- 已删除328331个文件（含checkpoint与批准产物），文件分配块净减少474.257 GiB；配额快照另计。
 - 已检查79个有效 Git 仓库，另3个历史源码目录用当前文件补查；明确引用的 checkpoint 保留。
 - 模型 checkpoint 与特征/预测张量分开；仅扩展名不能作为删除依据。
 - WP5原始档案396个，126.844 GiB。大型 Parquet 标签/几何保留。
@@ -52,7 +52,7 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 
 |主目录|基线 GiB|扣已知清理 GiB|内容|处理方向|
 |---|---:|---:|---|---|
-|`runs`|2,774.289|2,509.759|数据生产与模型实验的总入口：数据线 v1、WP5、历史模型/修复/筛查，以及当前 P/S/D、头部与后续研究。|混合目录按子项处理；未知项 ASK|
+|`runs`|2,774.289|2,451.902|数据生产与模型实验的总入口：数据线 v1、WP5、历史模型/修复/筛查，以及当前 P/S/D、头部与后续研究。|混合目录按子项处理；未知项 ASK|
 |`docs`|236.169|202.702|文档之外还包含历史几何帧暂存、Stage61 数据审计候选/统计分块、运行环境；最大载荷为 staged_geom_frames 和 Stage61 scan_v2。|混合目录按子项处理；未知项 ASK|
 |`results`|11.964|11.964|旧竞赛/模型结果入口；下级按项目与实验阶段保存预测、指标和模型产物。|混合目录按子项处理；未知项 ASK|
 |`MFM_step_overhead_20261114`|11.167|0.100|每步开销/数值一致性源码工作树；主要载荷是 numerical_final_4532640 下 random_seed0 与 G1_3M 的梯度对照数组。|A3：指定缓存/梯度/精度对照产物删除；仓库、指标配置日志报告及引用/在用项保留|
@@ -161,7 +161,7 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 
 |类别|本轮实际释放 GiB|状态|
 |---|---:|---|
-|A1|115.249|已有提交的删除记录|
+|A1|164.561|已有提交的删除记录|
 |A2|0.000|扫描状态 COMPLETE；详见保留/错误明细|
 |A3|19.984|已有提交的删除记录|
 |A4|0.000|扫描状态 COMPLETE；详见保留/错误明细|
@@ -172,9 +172,11 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |OUTSIDE_CACHE|35.149|已有提交的删除记录|
 |LUSTRE_DIAGNOSTIC|0.000|已有提交的删除记录|
 |LUSTRE_CLOSED_CACHE|59.575|已有提交的删除记录|
-|B5|43.324|已有提交的删除记录|
+|B2|0.256|已有提交的删除记录|
+|B3|0.000|扫描状态 COMPLETE；详见保留/错误明细|
+|B4|0.000|扫描状态 COMPLETE；详见保留/错误明细|
+|B5|51.612|已有提交的删除记录|
 |B1|0.000|几何身份与正式源尚待绑定；未判通过、未删除|
-|B2–B4|0.000|B2首个工作区已通过完整身份与10000对数值检查；其他工作区逐个检查，实际删除见下方收据|
 
 ### 检查与工程续接
 
@@ -309,7 +311,8 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |工作区|状态|全量身份键已查|数值抽样对数|
 |---|---|---:|---:|
 |runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric512_project_v3|PASS_BEFORE_DELETE / COMPLETE|63765|10000|
-|runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric_day_v1/day01/projection|RUNNING / FULL_ID_AND_FIELD_COVERAGE|330488|0|
+|runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric_day_v1/day01/projection|RUNNING / FULL_ID_AND_FIELD_COVERAGE|16259113|0|
+|runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric_full_v3_batch0000_rg1|PASS_BEFORE_DELETE / COMPLETE|2048|10000|
 
 已通过门槛只代表具备删除条件；实际释放只计 UNLINK/成功替换收据。输出目录配置项与实际消费输入区分：仅删除已闭合分析的特征数组，保留源 checkpoint、panel、全部统计/抽样结果、summary 和 cursor。
 
@@ -319,17 +322,19 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 
 ### NFS 项目外补充盘点
 
-状态 SCANNING；已观察 18610760 个文件；错误 0。本次排除 descriptor_analysis；尚未完成的扫描不声称有完整总量。
+状态 SCANNING；已观察 22875015 个文件；错误 0。本次排除 descriptor_analysis；尚未完成的扫描不声称有完整总量。
 
 <details><summary>展开深度 3 的全部已统计目录</summary>
 
 |路径|已知当前 GiB|内容/处理|
 |---|---:|---|
 |/share/home/zixiao/homework|1.677|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.codex|0.088|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.npm|0.038|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/mopac_test|0.014|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.dotnet|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.ssh|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.ipython|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.copilot|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027.partial_025ffa2|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027.partial_f0c3879|0.000|同白名单核实；当前未批准新的整目录删除|
@@ -341,9 +346,16 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/runs|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.mozilla|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/logs|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/property_analysis/latent_diffusion|57.027|按 ckpt/指标配置日志/闭合缓存细分；被引用或在用者 KEEP|
+|/share/home/zixiao/dataset/organometallic|8.963|KEEP：原数据、几何、D3、参数或人口索引|
+|/share/home/zixiao/.vscode-server/cli|4.561|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/multitask|2.735|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.vscode-server/extensions|2.482|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/property_analysis/vae_25_8_29|1.158|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/block_predict/benchmark|1.109|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/homework/summary|1.004|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/GeoLDM-main|0.948|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/block_predict/fine-tune|0.528|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/QM9_pred|0.521|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/QM9_pred_new|0.521|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/homework/high_T|0.386|同白名单核实；当前未批准新的整目录删除|
@@ -353,8 +365,10 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/property_analysis/model_25_5_2|0.147|按 ckpt/指标配置日志/闭合缓存细分；被引用或在用者 KEEP|
 |/share/home/zixiao/111/analysis|0.142|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.codex/.tmp|0.082|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.local/share|0.080|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/homework/n_5|0.080|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/MFM_step_test|0.075|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction|0.074|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/111/result|0.062|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/debugging|0.039|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.npm/_cacache|0.038|同白名单核实；当前未批准新的整目录删除|
@@ -363,11 +377,16 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/homework/n_3|0.027|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/dataset/qm7|0.017|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/registry|0.010|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.cache/phychem_mfm|0.010|第4节缓存；核实目录种类和当前引用后清理|
+|/share/home/zixiao/ADMET_Challenge_2025/analysis|0.008|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/mopac_test/geom_frames|0.008|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/benchmark_dataset/cyp_isoform|0.008|KEEP：原数据、几何、D3、参数或人口索引|
+|/share/home/zixiao/PhyChem_MFM_ICLR2027/.pytest_cache|0.008|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/PhyChem_MFM_ICLR2027/.git|0.006|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/mopac_test/out_files|0.003|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/block_predict/plot|0.003|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/LD_test|0.002|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/PhyChem_MFM_ICLR2027/tests|0.002|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/OpenADMET-ExpansionRX-Challenge/submission|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/mopac_test/aux|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.cache/fontconfig|0.001|第4节缓存；核实目录种类和当前引用后清理|
@@ -381,8 +400,12 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/PhyChem_MFM_stage44_downstream_6ea/tests|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage44_trial_bridge_6ea/tests|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage43_validation_23bee/tests|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/PhyChem_MFM_stage48_full_corpus/.git|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/OpenADMET-ExpansionRX-Challenge/resultsopenadmetONLY_NickHP_evidentialLoss_random_10epochs|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/OpenADMET-ExpansionRX-Challenge/resultsopenadmetONLY_NickHP_evidentialLoss_random_100epochs|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/PhyChem_MFM_ICLR2027/scripts|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/property_analysis/molecular_reconstruction|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.codex/skills|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/mopac_test/test_data|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/mopac_test/test_out|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.dotnet/corefx|0.000|同白名单核实；当前未批准新的整目录删除|
@@ -401,9 +424,14 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/OpenADMET-ExpansionRX-Challenge/lenselink_curation|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/dataset/__pycache__|0.000|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/unimol_data/sbatch_files|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/property_analysis/.git|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/benchmark_dataset/az_exactsom|0.000|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/mopac_test/failed_outputs|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/PhyChem_MFM_stage45_pretraining_scope_2d/artifacts|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/artifacts|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/mopac_test/xyz_frames|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.local/bin|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.ipython/profile_default|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/docs|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/homework/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage43_validation_23bee/docs|0.000|同白名单核实；当前未批准新的整目录删除|
@@ -424,6 +452,7 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/.config/rclone|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.copilot/ide|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.codex/log|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.cache/Microsoft|0.000|第4节缓存；核实目录种类和当前引用后清理|
 |/share/home/zixiao/.mozilla/plugins|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.ssh/dv1_control|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.config/procps|0.000|同白名单核实；当前未批准新的整目录删除|
@@ -453,14 +482,25 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/.cache/torch|0.000|第4节缓存；核实目录种类和当前引用后清理|
 |/share/home/zixiao/logs/v3_quality|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.codex/ipc|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/property_analysis/ckpt|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.codex/tmp|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/property_analysis/latent_diffusion/.git|56.086|按 ckpt/指标配置日志/闭合缓存细分；被引用或在用者 KEEP|
+|/share/home/zixiao/unimol_data/train_data/train_00700001_01000000|11.680|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.conda/envs/alphafold|8.437|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/unimol_data/train_data/train_00500001_00700000|7.762|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/unimol_data/train_data/train_00100001_00300000|7.761|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/unimol_data/train_data/train_00300001_00500000|7.760|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.venvs/model_v2_cu118_20261105/lib|5.291|KEEP：运行环境；仅下载缓存可删|
 |/share/home/zixiao/property_analysis/Multimodal-VAE-and-LDM/pretrain_new|4.983|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/dataset/organometallic/train_data|4.954|KEEP：原数据、几何、D3、参数或人口索引|
+|/share/home/zixiao/.vscode-server/cli/servers|4.561|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/dataset/valid/unimol|3.837|KEEP：原数据、几何、D3、参数或人口索引|
+|/share/home/zixiao/dataset/organometallic/train_result_geometric_optimization|3.395|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/discovery_v2|2.957|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/Multimodal-VAE-and-LDM/pretrain_transformer_only|2.289|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/111/out/embeddings_dim256|1.928|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/phase1_diagnostics|1.774|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.conda/envs/chemprop_5090|1.659|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/discovery_v3|1.156|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.vscode-server/extensions/openai.chatgpt-26.51021.22027|1.127|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/111/out/embeddings_dim128|1.077|同白名单核实；当前未批准新的整目录删除|
@@ -471,6 +511,7 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/property_analysis/GeoLDM-main/outputs|0.802|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/multitask/neg_xyz|0.730|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/levelB2_expert_spd_20000|0.584|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/results/pretrain_dataset_profile_unique_random|0.562|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/benchmark_dataset/scaffold_split/qm9|0.530|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/levelA_expert_spd_300|0.526|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/benchmark_dataset/qm9/extracted_figshare|0.521|KEEP：原数据、几何、D3、参数或人口索引|
@@ -491,6 +532,7 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/levelA_light_spd_300|0.291|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/111/fine-tune/fine-tune|0.279|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/smoke_light_d_f8|0.271|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/block_predict/benchmark/network|0.224|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/preflight_light_spd_20_1d1|0.210|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/smoke_resume_light_spd_f8|0.210|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/smoke_resume_atom_budget_0b37|0.210|同白名单核实；当前未批准新的整目录删除|
@@ -506,6 +548,8 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/property_analysis/latent_diffusion/recon_latents|0.086|按 ckpt/指标配置日志/闭合缓存细分；被引用或在用者 KEEP|
 |/share/home/zixiao/block_predict/fine-tune/finetune_direct_test|0.086|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.codex/.tmp/plugins|0.082|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/block_predict/fine-tune/atom_dim_test|0.080|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.local/share/wandb|0.080|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/block_predict/data/data20000|0.077|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/discovery_smoke_v2|0.077|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/MFM_step_test/logs|0.075|同白名单核实；当前未批准新的整目录删除|
@@ -516,6 +560,8 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/block_predict/fine-tune/freeze_layer_test|0.050|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/multitask/multitask_principal_a_d|0.050|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/multitask/multitask_principal|0.048|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/results/MoleculeNet_QM_MLQSAR_preanalysis|0.045|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.vscode-server/extensions/ms-python.debugpy-2026.6.0-linux-x64|0.042|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/polymer/pred_xyz|0.039|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.vscode-server/extensions/ms-python.vscode-python-envs-1.40.0|0.039|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/111/out/xyz_type_file_data10000|0.039|同白名单核实；当前未批准新的整目录删除|
@@ -534,11 +580,15 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/111/analysis/vis_results|0.021|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/block_predict/data/data5000|0.019|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/block_predict/benchmark/deepchem_test|0.019|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/folds|0.017|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/cliff_masked|0.017|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/folds_cliff_masked|0.017|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/dataset/deepchem_test/Lipo|0.017|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/111/analysis/results_map|0.015|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/111/analysis/results_umap|0.014|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/111/out/embeddings_valid_test|0.012|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/logs/waste|0.010|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.cache/phychem_mfm/atom_counts|0.010|第4节缓存；核实目录种类和当前引用后清理|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/manifests/discovery_v3_quality|0.009|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.vscode-server/extensions/github.vscode-pull-request-github-0.174.0|0.009|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.vscode-server/extensions/github.vscode-pull-request-github-0.172.0|0.009|同白名单核实；当前未批准新的整目录删除|
@@ -547,6 +597,9 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/artifacts/v3|0.009|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.vscode-server/extensions/github.vscode-pull-request-github-0.166.1|0.009|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/latent_diffusion/robust_test|0.009|按 ckpt/指标配置日志/闭合缓存细分；被引用或在用者 KEEP|
+|/share/home/zixiao/ADMET_Challenge_2025/analysis/latent_space_cache_moe_fused_small_full|0.008|按 ckpt/指标配置日志/闭合缓存细分；被引用或在用者 KEEP|
+|/share/home/zixiao/PhyChem_MFM_ICLR2027/.pytest_cache/v|0.008|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/benchmark/logs|0.007|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/.git/objects|0.005|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/phase1_dev|0.005|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/logs/benchmark|0.005|同白名单核实；当前未批准新的整目录删除|
@@ -581,32 +634,62 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/ADMET_Challenge_2025/chemprop_results/MT_CheMeleon_medium|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/chemprop_results/MT_DMPNN_hpo|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/chemprop_results/MT_DMPNN_medium|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/unimol_data/computation_test/out_files|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/111/analysis/optimized_xyz_structure|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/mfm_results/server_fix_20260221_030709|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/MFM_descriptor/admet|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/Multimodal-VAE-and-LDM/LD_26_2_2|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/PhyChem_MFM_ICLR2027/tests/__pycache__|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/phychem_mfm/phase1|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/dataset/lmdb_test/train_data|0.001|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/property_analysis/GeoLDM-main/equivariant_diffusion|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/block_predict/analysis/new_xyz_structures|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/111/fine-tune/freeze_layer_test|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.cache/wandb/logs|0.001|第4节缓存；核实目录种类和当前引用后清理|
 |/share/home/zixiao/111/fine-tune/freeze_layer_test10000|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/block_predict/analysis/xyz_structures|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/block_predict/analysis/back_up_xyz|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage59_three_epoch/phychem_mfm/phase1|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/phase1|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage48_full_corpus/phychem_mfm/phase1|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/block_predict/data/data200|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/benchmark_dataset/scaffold_split/az_exactsom|0.001|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/property_analysis/latent_diffusion/test_data|0.001|按 ckpt/指标配置日志/闭合缓存细分；被引用或在用者 KEEP|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_17|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_20|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_21|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_5|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_8|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_9|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/data/fold_2|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/data/fold_4|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/data/fold_5|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/data/fold_7|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/data/fold_9|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_1|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_10|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_11|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_12|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_13|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_14|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_15|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_16|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_18|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_19|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_2|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_22|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_23|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_24|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_25|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_3|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_4|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_6|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/fold_7|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/data/fold_10|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/data/fold_3|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/data/fold_6|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/data/fold_8|0.001|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/block_predict/analysis/analysis|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage46_shared_gpu_8f/phychem_mfm/phase1|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage47_resources_469/phychem_mfm/phase1|0.001|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage45_pretraining_scope_2d/phychem_mfm/phase1|0.001|同白名单核实；当前未批准新的整目录删除|
@@ -618,7 +701,9 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/.git/objects|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/polymer/continue_train|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/unimol_data/computation_test/test_result|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/block_predict/analysis/optimized_xyz_structure_waste|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/multitask/valid_test|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/benchmark/fig|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/phychem_mfm/training|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/LD_test/valid_test_1|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/LD_test/valid_test|0.000|同白名单核实；当前未批准新的整目录删除|
@@ -628,15 +713,19 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/property_analysis/latent_diffusion/hole_check|0.000|按 ckpt/指标配置日志/闭合缓存细分；被引用或在用者 KEEP|
 |/share/home/zixiao/unimol_data/computation_test/test|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/mfm_results/debug_mt_full|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.codex/skills/.system|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/levelB_expert_spd_20000|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/preflight_expert_ckpt_300_415|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/preflight_expert_reentrant_300_4b7|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/OpenADMET-ExpansionRX-Challenge/model_scripts/smoke_outputs|0.000|按 ckpt/指标配置日志/闭合缓存细分；被引用或在用者 KEEP|
+|/share/home/zixiao/ADMET_Challenge_2025/benchmark_test/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.dotnet/corefx/cryptography|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/.git/worktrees|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/phychem_mfm/model|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/model|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/dataset/principal/sbatch_files|0.000|KEEP：原数据、几何、D3、参数或人口索引|
+|/share/home/zixiao/PhyChem_MFM_ICLR2027/scripts/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/results/pretrain_dataset_profile_full|0.000|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/ADMET_Challenge_2025/data/openadmet_full_test|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/training|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/unimol_data/computation_test/coord_repair|0.000|同白名单核实；当前未批准新的整目录删除|
@@ -647,12 +736,14 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/PhyChem_MFM_stage48_full_corpus/phychem_mfm/training|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage59_three_epoch/phychem_mfm/training|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/OpenADMET-ExpansionRX-Challenge/model_scripts/utils|0.000|按 ckpt/指标配置日志/闭合缓存细分；被引用或在用者 KEEP|
+|/share/home/zixiao/PhyChem_MFM_ICLR2027/manifests/discovery_v2|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage44_downstream_6ea/phychem_mfm/training|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage44_trial_bridge_6ea/phychem_mfm/training|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage45_pretraining_scope_2d/phychem_mfm/training|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage46_shared_gpu_8f/phychem_mfm/training|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage47_resources_469/phychem_mfm/training|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/data/openadmet_official_test|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/property_analysis/vae_25_8_29/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/LD_test/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/dataset/organometallic/sbatch_files|0.000|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cn_C_c2c3ccc_N4CCN_CC_50f7c0779641|0.000|同白名单核实；当前未批准新的整目录删除|
@@ -731,6 +822,7 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cc_-c2cnc_N3CC_C_H_OC_42a088e8d287|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_C_CCOc1cnc_-c2cc3c_-c_86b831c9f22c|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/111/waste/test|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/unimol_data/train_result_geometric_optimization/geom_frames|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/MFM/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/model_25_5_2/__pycache__|0.000|按 ckpt/指标配置日志/闭合缓存细分；被引用或在用者 KEEP|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/phychem_mfm/evaluation|0.000|同白名单核实；当前未批准新的整目录删除|
@@ -743,6 +835,7 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/PhyChem_MFM_stage47_resources_469/phychem_mfm/model|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage48_full_corpus/phychem_mfm/model|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage59_three_epoch/phychem_mfm/model|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/property_analysis/molecular_reconstruction/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cn_C_c2c3ccc_N4CCN_CC_ac149e26c8df|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/runs/phase1_plot_cache|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cccc_-c2ccc_OCCN3CCN__cabc8bee5f0b|0.000|同白名单核实；当前未批准新的整目录删除|
@@ -5724,7 +5817,345 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CNc1csc_-c2cnc3c_c2_cc_C_5a6ca20faa8c|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_OCCN2CCCCC2_ccc_-c2_82b75bb6b396|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COC1CN_Cc2ccc_N3CCN_C_O__19f59b8c2b27|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN1CCC_Cc2ccc_Nc3cccc_-c_c79e09b58600|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc2c_nH_c3cc_OCCN4CC_0a944d2dfcb8|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cnc2cc_NC_O_NCc3cccc__6111e556788c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_C_O_NCc1cccc_CN_c1_c1_513d611c5d8a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_OCCN2CCOCC2_ccc_-c2_29e6a4bf1280|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1cc_-c2ccn3nccc3c2_ccc_a410c4987736|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/C_C_H_C_O_Nc1cccc_CN_c1__31627c689f27|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COC1CCN_CCOc2cnc3c_c2_nH_5f8d45fa6a4f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cccc_S_O_O_c2cc_C_nc_4875706ff832|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C1NCc2c_-c3ccc_OCCN4CC_a2b39817312a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc_-c2cccc_OCCN3CCCC_285bf26b1b22|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_NC1CCN_c2ccncc2_CC1__a002e34f61f5|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1nccn2c_-c3ccc_OCCN4C_d5f1c0ad8aa2|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc2c_nH_c3cc_OCCN4CC_c57c994da7b3|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cncc2ncc_-c3ccc_OCCN_0677ca9fd5ae|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cnc2_nH_cc_-c3ccc_OC_41b9da21e2a0|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/C_C_H_CN_C_C_Oc1ccc2c_c1_60870759c5ba|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc2c_nH_c3cc_OCCN4CC_cf976b84b024|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cnc_-c2cnc3c_c2_cc_C__8635570a33f0|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cnccc1N1CCC_NC_O_c2c_77d7b4f681da|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnc3c_c2_cc_C__6c9e59f72f15|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_OCCN2CCCCC2_ccc_-c2_039dad2d886e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cc_-c2ccc_OCCN3CCCCC3_5f5f048c6bb7|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_OCCN2CCOCC2_ccc_-c2_31df581adcda|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_OCC3_N_C_095aa4d360a0|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc2ccc_-c3ccc_OCCN4C_41ea88561106|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_OC_C_H_3_8918e8a5e5a4|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/NC_O_Cc1cc_F_cc_Nc2nccc__e7b8c890a948|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_OC_C_H_C_46642e897de8|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_OCCN3CCC_25b124d0e366|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_F_c_-c2ccc_OCCN3CCC_97076e0c886c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_OCCN3CCC_d4f2a3a36632|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1cncc_O_C_H_2_C_H_3CC__5b35d1ca53a7|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1cc_Cl_cc2_nH_nc_CN3C__347ef0cce109|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cc2c_-c3ccc_OCCN4CCCCC_dad660dde0ed|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1ccc2_nH_nc_CN3C_C_H__b910297fd9a8|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COC1CN_Cc2ccc_N3CCN_C_O__406d33e0b51e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cccnc1O_C_H_1_C_H_2CC_8c3c8fd40580|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Clc1cncc_O_C_H_2_C_H_3CC_94edb383f287|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Clc1c_-c2ccc_OCCN3CCCCC3_9d926b40abb0|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Clc1cncc_O_C_H_2C_C_H_3C_d3042687a30e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/FC1_F_CN_CCc2ccc_Nc3ccn__f8ff31f88d9b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/C_C_H_CN_C_C_NC_O_c1nccc_7a23e9687677|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Clc1cncc_C2CCN_Cc3n_nH_c_023284d7a39a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1cc2ccncc2cc1-c1ccc_OC_9b3d951b6481|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/FC1_F_CC_NCCOc2ccc_-c3cc_afb374818b7c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Clc1ccc_N2CCN_Cc3n_nH_cc_bddb27a298f8|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_cc1-c1ccc2ncs_250cee5aa677|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C1CCCN1CCCOc1ccc_Nc2cc_efd9230bd87c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cncc_OC2CCN_C_O_c3n__bb776cbf9216|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C1NCCSc2c1sc1ccc_OC3CN_d0163302e5cd|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CC_O_Nc1cccc_Nc2cc_-c3cc_b206f9efb347|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_c2ccccc12_N1C_23849fc9f22b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/N_Cc1ccc_OC2CCN_C_O_c3n__d4b00557b57f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CCOc1cnc2c_c1_nH_c1c_O_n_6d1718eb3800|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/NC_O_Cc1cc_Nc2cc_-c3cccn_73d43dae7819|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_Cc1cccc_Nc2cccc_-c3c_573ae5188fbb|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1cc_-c2cc3cnccc3c_Cl_c_8d64d2724b64|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_C_O_NCC_c1eaa9e952a5|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc2c_-c3ccc_OCCN4CC5_ce2ff09b8ed7|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/N_Cc1nnc2cc_-c3ccc_OCCN4_67d687cc9831|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1_nH_c2c_O_n_C_ccc2c1-_407b349742af|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cnc_-c2ccn3nc_C_O_NC4_42261bc5c357|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnc3c_c2_cc_C__6fa9fba105d2|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnc3c_c2_nc_C__1d975fd32311|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnc3c_c2_cc_C__98fd9888657d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cc_-c2ccc_OCCN3CCCCC3_c5de981c873b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccc3nc_C_O_NC4_eec46cc973fc|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cnc_-c2ccn3ncc_C_O_NC_c19dcffd58b0|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc2c_nH_c3cc_OC4CC_C_ed786acc215e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cc_-c2cnc3cc_N4CCOCC4__d0f17d10b4bf|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN1CC_C_H_Oc2ccc3c_c2_nH_a8fd33b59307|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Nc1c_-c2ccc3ccncc3c2_ccc_f8ea470d306d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COCC1CN_CCOc2ccc_-c3cc4c_1a4ac81d7eed|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1ncc2c_-c3ccc_OCCN4CCCC_5e07b30d1564|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_c1_nH_cnc2cn_-c3ccc_OC_c6fb9b9267ba|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CNC_O_c1ccc_-c2cc3cnccc3_b376723d8e0a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1ccc2c_n1_nH_c1cc_OCCN_5a7033f71431|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc2c_nH_c3cc_OCCn4cc_5e1d7fc80e19|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CNc1c_-c2ccc_C_N_O_cc2_c_e4b4c16c6287|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1c_C_O_NC2CCN_c3ccncc3_e0f90989e09f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CC_C_Nc1cc2ccncc2cc1-c1c_5090c6c6539b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/C_C_H_CCOc1ccc_-c2ccc3cc_b98439da664a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3cc_C_O_N_C_1552fe896175|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cc_N2C_C_H_3_C_H_C2__1b01a70caefa|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CC_NC_O_Nc1ccc2nnsc2c1_c_1999fd775baf|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nc_C_N_O_cc2c3cc_OCCN_deaff3e8289c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c2ccncc2cc2c3cc_OCCN4_fa106b7ec0f9|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1c2ccc_OCC3_NCCN3_cc2c_082a265885dd|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_C_CCCNc1nccc2c1C_O_c1_1364bcb1f001|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1c2ccc_OCC_N_O_cc2c2cc_e90bb5749879|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nc_NC_O_NCCN_C_C_cc2c_44bcb9218323|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c2ccncc2cc2c3cc_C_O_N_06ae6bf123df|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN1C_O_Cc2ccc_-c3cccc_O__2b7c6655c000|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c2ccncc2cc2c3ccccc3n__9c6df0bee89f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_C_c1ccccc1Nc1nc_-c2cc_bcca9ad6d376|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cc_C_O_N2CCN_c3ccc_CN_17b4306675a9|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cc_C_O_N2CCN_c3ccc_CN_a06d744a0f04|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1ccccc1CNc1cc_-c2ccccc_376317416252|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/C_C_H_Nc1cc_-c2ccccc2_nH_557d66483f9e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1ccc2c_C_O_N3CCC_Oc4c_73da61d28888|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1cc_-c2ccnc_Nc3cccc_N4_5b6d0572fc74|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_c2ccccc12_N1C_ba22fc14f869|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_c2ccccc12_N1C_ad6834921fba|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1_nH_ccc1-c1ccccc1__21bdda9c7b3b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1ccc_-c2ccnc_Nc3cccc_C_4d582790cdc4|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1c2ccccc2c2c_Cl_cn_CCC_791fd62ce348|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1_nH_nc2ccccc12_N1C_ad46d3f1a9c6|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_c1c2_nH_c3cc_F_ccc3c2c_004a7c3482c6|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1ncc_-c2ccnc_Nc3ccc_CN4_cf0e086cf0e3|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_c2cccnc12_N1__6bb38b88fe7f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1ccc2_nH_c3c_O_n_CCCN_899c7f87b050|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_c1c2cc3c_OC_F_F_F_cccc_25e067633f28|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CCOc1ccc2_nH_c3c_O_n_CCN_7c9e3332033f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1nc2ccccc2_nH_1_N1C_f520dd0d21cf|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COC1_C_CN_C_H_C_c2ccc_N3_49135813c34d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc_OC2CCN_C_O_c3n_nH_3865ea05cab1|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_cc1-c1cnc2ncc_cbc6dbb5ed24|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COCC1CN_C_H_C_c2ccc_N3CC_2b5db259aff9|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CC_C_C_N_O_c1cccc_Nc2ccc_009d1329ab21|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/C_C_H_N_CCOc1cccc_-c2ccc_4b938223f124|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_Cc1cccc_Nc2cccc_-c3c_82d65b56628e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_c1c2_nH_c3cc_F_ccc3c2c_0bcd8a5cbd30|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_c1cccc_-c2cccc_F_c2_n_ad7b43bece4d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_c2cccnc12_N1C_99e064e910d2|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_c1c2_nH_c3cc4c_cc3c2cc_3c80f14bcebf|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_cc1-c1ccc2ncs_c07afeafc412|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C1CCc2ccc_-c3nc_OCCN4C_86574790a9a2|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/NCc1cccc_COC_O_Nc2ccc3nc_6de4a58e6d1f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_c1cncc_Cl_c1_C1CCN_C__7f09e6a7c1be|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1c2ccc_OCCCCN3CCCC3_cc_aec16d6158ab|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1cccc_-c2ccnc_Nc3ccc_C_869577fd9780|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cnc2ccc_OC3CCN_C_O_c4_ab93e13fef4f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CC_O_N_C_H_C_COc1ccc_N_O_eec38a881080|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_cc1C_Cc1cncs1_7583f3e295b6|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1cc_-c2ccccc2F_nH_n_38ed934864f5|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1ccc_-c2cc_C_O_N3CCC__439034843565|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CNCCc1cccc2c1_nH_c1c_O_n_968ab0e0c8a6|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Nc1ccc_OCCN2CCCCC2_cc1-c_95d37672392b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CC_O_N_C_H_C_COc1cccc_-c_1b640038cfa0|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Clc1ccc_O_C_H_2_C_H_3CC__9ca0560b1139|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_c_O_c2ccccc12_9611afa58b39|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cc2ccc_-c3ccc_O_C_H_4C_c21a4b0208cd|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Clc1cncc_O_C_H_2C_C_H_3C_d5a3b3f81b3b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_c2cccnc12_N1C_29972fadd971|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Clc1cncc_O_C_H_2C_C_H_3C_ee8713068f03|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/NC_O_Cc1cccc_Nc2nccc_-c3_30cdb272f1db|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CC_Cc1cc_-c2ccc_OCCN3CCC_9f0fe32a88b7|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1c_-c2ccc_OCCN3CCCCC3__1cd78fe32619|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Nc1cc2ncccc2cc1-n1ccc_OC_1de71189644a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_OCCN3CCC_4b96a19c6710|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc2c3ccc_OCCN4CCCCC4_b01a37295fc2|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Clc1cc2ncccc2cc1-n1ccc_O_e7281a896c6a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_C_C_O_c1cc_-c2ccc_OCC_e7097f6bf53e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1cccc2ccc_O_nH_c12__918ab5240d4b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccc3c_c2_cc_C__cca4bcb6d76b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cc_-c2ccc_OCCN3CCCCC3_da2b1c0d37d1|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccc3nc_C_O_NC4_6217cc36df2c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/N_Cc1cc_-c2ccc_OCCN3CCCC_50959850758a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COC1CN_Cc2ccc3c_c2_OC_C__3295399c68e7|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cnn_-c2ccc3c_c2_OCc2nc_72c8d521ea02|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cc_-c2ccc_OCCN3CCCCC3__470952077ad5|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cccc_-c2ccc_OC_C_H_C__f59329bda52c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc2c_nH_c3c_C_CC4_N__9f47270aa55b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_OCCN3C_C_bdf9ebd274ee|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_O_C_H_C__a222f2532b86|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_C_O_NC4_d31a2935158f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN1CCN_CCOc2cc3_nH_c4c_O_ff83d61868a5|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CNc1ccc_-n2cc3nc_nH_c_O__ab5c8ecf8e0a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CNc1c_-c2ccc_-c3ncc_nH_3_b50cd4ace271|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/N_Cc1cnn2cc_-c3ccc_OCCN4_11848314361e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nc_-c2ccc_N_c3cnccc23_be47ba4c86e5|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CC_C_N1CCN_CCOc2ccc3c_c2_95d316b8c01d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc_-c2ccc_OCCN3CCCCC_57fd38ed2e02|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Oc1cnc2c_-c3ccc_OCCN4CCC_794ae079cb8f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Nc1c_-c2ccc_OCCN3CCCCC3__8f24466fc89d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc2c_nH_c3cc_OCCN4CC_3c80190777b0|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/C_C_H_COc1ccc2c_c1_nH_c1_d846f2cb2e9f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cc_C_F_F_F_c2c_nH_c3c_cbf2ce06371a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc2c_nH_c3ccc_OCCN4C_1e8a829eeb9a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COCCN_C_CCOc1ccc2c_c1_nH_4235228d2f35|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1c_C_O_NC2CCN_c3ccncc3_7894293babff|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc2cc_-c3cnn_C4CNC4__de4c9ec8c546|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COC1CCN_CCOc2ccc3c_nH_c4_8e9e4267a848|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1cnn2c_-c3ccc_OCCN4CC5_79820380e578|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cn_C_c_O_c2_nH_c_-c3c_1b20dcc4bbfc|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/N_Cc1cnn2cc_-c3ccc_O_C_H_e547fdf1f17e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cn_C_c_O_c2_nH_c_-c3c_175f699faf92|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cnn2cc_-c3ccc_C_N_O_c_f73ab30ca004|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnc3c_c2_cc_C__903e6142d7e5|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnc3c_c2_cc_C__50b73e9b03e8|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COCCN1CCC_N_C_c2ccc3c_c2_27fea89a18b9|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_OCCN3CC4_21a46081c0f1|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cnccc1N1CCC_NC_O_c2c_1b3f83f59829|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnc3c_c2_cc_C__0f1d091ab0dd|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnc3c_c2_cc_C__55e156647cd7|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CO_C_H_1CN_c2ccncc2_C_C__e8b776fbebfd|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cccc_-c2ccn3nc_C_O_NC_6c574e3a2921|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_C_O_N_C_11957da92c32|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cncc_F_c1N1CCC_NC_O__070b0acd428a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2cnn_C3CN_C_C_e072ac095ea6|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cc_-c2ccc_OCCN3CCCCC3_68e28483490e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CCN_C_CCOc1ccc_-c2cnc3cc_6522318d4ddb|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CS_O_O_c1cnc_-c2ccn3nc_C_607d38b69b16|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN1C2CCC1CN_CCOc1ccc_-c3_eef36e96ff92|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_C_O_NCC_eebca1487e23|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cnccc1N1C_C_H_2_C_H_C_1230d691416c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CCc1nc_C_cn2nc_-c3ccc_OC_8794847096e8|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CCN_C_CCOc1ccc_-c2cccc_C_49975178d31c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_C_O_NC__8e1c775dfcec|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_C_O_N4C_ef7f2294bdba|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c2ccncc2cc2c3cc_C_O_N_a065ce8dcc0b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1c2ccc_OCC_N_O_cc2c2nc_0a43f69473a6|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c2ccncc2cc2c3cc_Oc4cc_d34a3bdf707a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Nc1nc2c_-c3ccccc3_cnn2cc_d6191b7a7117|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_c1c2_nH_c3ccc_Cl_cc3c2_e017f6780414|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_c1c2_nH_c3c_Cl_cccc3c2_6978a49020dd|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_c2ccccc12_N1C_f2bd11a76b27|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COCC1CN_Cc2ccc_N3CCN_C_O_8efe8506fc12|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1cccc_-c2cccc_Nc3cc_N4_88ecea6ca11b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN1CCC_C_H_Cn2ccc3c4cc_O_52fc8eca1b16|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/NC_O_CCOc1ccc_-c2ccc3ccn_b3dc357b0a1e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/NC_O_Cn1ccc_Nc2cccc_-c3c_e5f36b5ce99d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/C_C_H_N_COc1cccc_-c2ccc3_2161d4699008|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CNc1cc_OC_ncc1-c1cc_C_O__aa50f238510f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN1_C_H_2CC_C_H_1C_C_H_O_480071728d54|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cc_C_c2_nH_nc_C_O_N3_37fcb6c6ff02|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CC_O_N1CCN_CCOc2ccc_-c3c_8dc18a375a96|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c2ccncc2cc2c3cc_OCCN4_9678215bf849|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/NC_O_CN1C_O_Cc2ccc_-c3cc_57b8b5157003|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_C_H_C_COc1ccc2c_c1_c1_6c459988b556|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COC_C_H_C_NC_O_c1ccc2c_c_76a27c586142|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cc_-c2cccnc2_c2cc_OCC_d0cae3aca8e8|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1ccc2c_c1_c1cc3cnccc3_56135dd338ef|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cc2ccc_-c3ccc_OCCN4CCC_351a2aa5a968|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COCC1CN_Cc2ccc_N3CCN_C_O_83fadc1f6eda|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_c2cc_F_ccc12__b8e44f3e66c7|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1cccc_-c2cncc_Nc3ccc_C_299ebc42901c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_c2ccccc12_N1C_ca731509b9a6|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cc_CN2CCOCC2_cc_Nc2cc__e2767441e308|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN1CCCCC1c1ccc_Nc2cccc_-_47deecb41fb5|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COCc1ccc_OC2CCN_C_O_c3n__e0895e8c4efc|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN1CCC_c2c_nH_nc2C_O_N2C_6cf3e8dd0285|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/C_C_H_N_COc1cnn_-c2ccc3c_ea59ce45e9c7|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COC_C_H_1CCCN1Cc1cccc_N2_c24f54ad26d2|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CO_C_H_1CCN_Cc2cccc_N3CC_4385c9ad78b7|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1nc2ccccc2n1C1CC1_N_3abee68ed098|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_c2cccnc12_N1C_549cc7668bf6|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_cc1-c1ccc2ncs_d65a08cee050|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C1CN_Cc2ccc_Cl_cc2_CCN_7690802759c1|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/NC_O_Cn1ccc_Nc2cccc_-c3c_43634048e7a2|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_c1ccn_CC2CCNCC2_n1_c1_281fce290676|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_c1c2_nH_c3ccsc3c2ccn1C_a6adfb2514cd|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cc_CCN2CCC2_cc_Nc2cccc_073eb00c006d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1c_C2CC2_nH_c2cccnc_d6453e99ca20|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C1Cc2ccc_-n3cc_OCC4CNC_8e639ed1203b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_OCCN3CCC_fefb2857983a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1_nH_nc_C_O_N2CCC_n3cn_fbd414562661|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1ccc2c_C_O_N3C_C_H_4CC_7d4b958f03df|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c2ccncc2cc2c3cc_OCC4__050bb6022a4a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CNc1c_-c2ccc_C_O_N_C_C_c_2b9aa98ea33b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_OC_C_H_C_b061119cd5c8|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cccc_Nc2nc_-c3ccccc3_9266a8a024af|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1ccc_-c2csc_Nc3ccc4ccc_af636aadb09b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1cccc_-c2ccnc_Nc3ccc_C_976f5b17c05b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cnc2ccc_-c3c_nH_nc3C__3960b02c45e9|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/FC1_F_CN_CCn2cc_-c3ccc4c_b8ce47effae1|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1ncc2cc_-c3ccc_OCCN4CCN_a35ea9ad61a6|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnc3c_c2_cc_C__e8b0e0eb998d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccc3c_C_c_C_O__26730430f783|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nn2cc_-c3ccc_OCCN4CCC_e8b02537574f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cn_C_c_O_c2_nH_c3cc_O_b5c8679afc0b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/FC_F_c1ncc_O_C_H_2_C_H_3_8f4fae2e1906|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COCC1CN_Cc2ccc_N3CCN_C_O_77db3261e64b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cc2ccc_-c3ccc_OC4CC5_C_1829aee31e2f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Clc1cncc_O_C_H_2_C_H_3CN_11711f03dac2|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_OCCN3CCO_6f7f34b94e07|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_C_O_N_C_d694361dc3be|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c2ccncc2cc2c3cc_N4CCN_b4f976705d41|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COC1CN_Cc2ccc_N3CCN_C_O__d06f60c050e9|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1c_-c2ccc_OCCN3CCCCC3__972e882cf3b4|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_Cc1cccc_CN_c1_C_O_N_C_ddc054b08377|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cnccc1N1CCC_NC_O_c2cc_c06d76ec5f93|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_C_O_NC4_3792ff7d8936|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cnccc1N1CCC_NC_O_c2nc_0af6da98d5ea|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cc_Cl_c2c_nH_c3cc_CN4_6947eaf5620a|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Clc1cncc_O_C_H_2_C_H_3CC_5e0152864454|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cc_C_O_N2CCC_Nc3ccc_C_e9f140c92a8f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Nc1cc2ccncc2cc1-c1ccc_OC_af42578e878b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_C_O_N_C_97a3119ca4a0|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cnccc1N1C_C_H_2_C_H_C_95694c055154|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_c1cccc_-c2cccnc2_n1_c_0d01a141c68c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cncnc1-c1cc_C_O_N2CC_b9ae8cf8f0a1|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cc_-c2ccc_OCCN3CCCCC3__b671048ebb04|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cnc_-c2ccn3nc_C_O_NCC_8b5527cb6409|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cc_-c2ccc_OCCN3CCN_C__b084b0c540d1|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/NC_O_c1ccc_-c2cnc3c_Cl_c_cbbc5d593b3d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cc2ccc_-c3ccc_OCCN_C4C_2c0e7dfc8e20|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1ncc_O_C_H_2_C_H_3CC_C_becbf0c50aa9|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CS_O_O_Nc1cccc_-c2ccnc_N_a70d7e6fed7d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_c1ccc2c_CN3C_C_H_4CC_C_fd363849602f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cc2cncc_-c3ccc_OCCN4CC_4d2f8638a2af|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cnccc1N1CCC_NC_O_c2cc_20ab6bb2a743|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CSc1c_-c2ccc_OCCN3CCCCC3_a94f0a8b9f25|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cncc_CN2CCN_Cc3n_nH__157cddd7e287|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1ccc_Cl_c2_nH_nc_CN3C__2b4ce640d09b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COCCCN_C_C_H_C_COc1ccc_-_0b7f3dbbaac1|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CCn1c_C_O_N_C_H_2_C_H_3C_9335a4787d84|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc2c_nH_c3nc_OCCN4CC_69c5c8adecc6|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CNC_O_CCn1ccc2c_nH_c3cc__983d56e7a59e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_C_O_NCC_b76bc694d464|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_OCCN2CCCCC2_ccc_-c2_9cba6546a0a3|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_OCCN3CCC_73538472ba82|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1c2ccc_OC_C_H_3CCCN3_c_017785c464ff|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_cc1-c1cncnc1__72f6a8f3ff3d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/N_Cc1cc_O_C_H_2_C_H_3CC__15fd9cbff077|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_c1cccc_CC_N_O_n1_c1nc_013590d73705|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CNCCN_C_C_O_c1ccc_-c2cc3_ba565be08462|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Clc1cncc_O_C_H_2_C_H_3CC_d9b5153b5ac7|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_c2cccnc12_N1C_e8797cdecc7d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_OCCN2CCCCC2_ccc_-c2_89f1d7af7234|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN1CCC_C_H_1COc1ccc2c_c1_913c3900c0d4|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/c1cc2nn_-c3ccc_OCCN4CCCC_f3b1006e2195|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cc_C_N_cc2c3cc_OCCNC4_c169f8b1b1d4|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CNc1c_-c2ccc_C_N_O_nc2_c_70450eb58ec5|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/NC_O_Cc1cccc_Nc2nccc_-c3_bd25f237063d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1ccc2ccc_-c3ccc_OCCN4_993138d54bd3|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_C_O_NCC_0584ad37a8bd|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1c_N_c_-c2ccc_CCN3CCC3_ae83099a4ffc|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_NCCCN1CCCCC1_c1ccnc2_e4bac202cd0d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1n_nH_cc1C_Cc1cncs1_3b6562d6ade3|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cnc2ccc_-c3c_nH_nc3C__c3cdd59c93f1|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_c1nc_O_nH_c2ccccc12__74dad23106ce|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Nc1c_-c2ccccc2_cnc2c_-c3_8a3e6ba1f5d3|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/N_Cc1cnn2cc_-c3ccc_C_N_O_af69410c4435|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cnccc1N1C_C_H_2_C_H_C_f73f13bc2499|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1ccc_-c2nccc_OCCN3CCCC_c68ee2181b96|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/GeoLDM-main/egnn|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/OpenADMET_ExpansionRx_MLQSAR_paper_reproduction/openadmet_leaderboard|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/finetune/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnn3cc_C_O_N4C_d9485a77a485|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnn3cc_C_O_N4C_2e4f26856021|0.000|同白名单核实；当前未批准新的整目录删除|
@@ -7889,13 +8320,58 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_C_CCNc1nc_NC_O_CCN_C__f9d25279f7c7|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_C_CCNC_O_Nc1cc2c_-c3c_af383e11165f|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_C_CCCC_O_Nc1cc2c_-c3c_66eece6e8eb1|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnc3c_c2_cc_C__56bc6e8feda3|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnn3cc_C_O_N4C_24fd32c887ae|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cc_N2C_C_H_3_C_H_C2__2a7996e74eb4|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cc_N2C_C_H_3_C_H_C2_C_052b7fb53b19|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1ccc_-c2cnn3cc_C_O_NC4_29acefc36f64|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cn_C_c_O_c2_nH_c3cc_N_402fddd1796b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN1CC_C_H_Oc2ccc3c_c2_nH_0f1e9ae176c3|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nccc2ncc_-c3cc_F_c_OC_cadb9aba07b8|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnc3c_c2_cc_C__a423b7a35272|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_-c4cnn__23d210743a95|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2ccn3nc_NC_O_C__4dd54a628476|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CCn1c_C_O_N_C_H_2_C_H_3C_0eab240ca077|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CCn1c_C_O_N_C_H_2_C_H_3C_378ec1df341c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/O_C_N_C_H_1_C_H_2CN_c3cc_b3a6dec95139|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cnccc1N1C_C_H_2_C_H_C_f01caf4630b3|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nnc_-c2cnn3cc_NC_O_C4_af21922d10b5|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cc2ccncc2cc1-c1ccc_OC_a9db7277453b|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1c_C_O_N_C_H_2_C_H_3CN_bf6474bd8453|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_C_C1CN_c2cnc3c_c2_cc__546305769e40|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cnccc1N1C_C_H_2_C_H_C_1ba66c73b3d0|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cc_N2C_C_H_3_C_H_C2_C_3eefcdca107e|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CCn1c_C_O_N_C_H_2_C_H_3C_c7b263dc780c|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cc_N2C_C_H_3_C_H_C2_C_dd4e8c379a51|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COCCn1c_C_O_NC2CCN_c3ccn_9e207f86db1f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cc_N2C_C_H_3_C_H_C2__1583ba180c8d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1c_C_O_NC2CCN_c3ccnc__eec8c71ef2e2|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CCc1cc_-c2ccc_C_cn2_cc2c_bc46eb7ea778|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1cc_N2CCC_NC_O_c3cc4c_7057f08df766|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CCn1c_C_O_NC2CCN_c3ccnc__137be65a2520|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1cn_C_c_O_c2_nH_c3cc_O_4fa9d69de5e2|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COc1ccc2c_c1_nH_c1c_O_n__00bea3b68cfe|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cc_-c2cn_C_c_O_c3_nH__ba4a3d77c6ca|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Fc1cc_-c2ccc3ccnc_Cl_c3c_56bfd848ad1f|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN1CC_C_H_N_C_c2ccc3c_c2_8010575552f5|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cc_-c2cn_C_c_O_c3_nH__438f003f7f97|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cn1cc_-c2cn_C_c_O_c3_nH__848e3f23a162|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/COCCN1CCC_N_C_c2ccc3c_c2_8926b219582d|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_CCN1CCOCC1_c1ccc2c_c1_806a9a8cdb47|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/Cc1nn_C_cc1-c1cn_C_c_O_c_360617ecc992|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CN_C_C_O_c1cc_-c2cc_F_c__d1853b344ab8|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/xyz_pool/CC_Cc1cn_C_c_O_c2_nH_cc__a67e85656d78|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/block_predict/analysis/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/111/charge_predict/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/.git/hooks|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/.git/hooks|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage48_full_corpus/.git/hooks|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/.git/hooks|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/property_analysis/multitask/pretrain_robustness|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/artifacts/pre_ablation|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage48_full_corpus/.git/worktrees|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/PhyChem_MFM_stage45_pretraining_scope_2d/artifacts/pre_ablation|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/artifacts/pre_ablation|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/benchmark_dataset/az_exactsom/extracted|0.000|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/.git/logs|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage48_full_corpus/phychem_mfm/evaluation|0.000|同白名单核实；当前未批准新的整目录删除|
@@ -7920,10 +8396,12 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/PhyChem_MFM_stage48_full_corpus/configs/phase1|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/configs/phase1|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/phychem_mfm/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/dataset/principal/__pycache__|0.000|KEEP：原数据、几何、D3、参数或人口索引|
 |/share/home/zixiao/property_analysis/GeoLDM-main/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/scripts/phase1|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage48_full_corpus/.git/refs|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/.git/logs|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/unimol_data/computation_test/rename_test|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/.git/refs|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.venvs/model_v2_cu118_20261105/share|0.000|KEEP：运行环境；仅下载缓存可删|
 |/share/home/zixiao/property_analysis/test_4132/train_result_geometric_optimization|0.000|同白名单核实；当前未批准新的整目录删除|
@@ -7931,6 +8409,9 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/PhyChem_MFM_ICLR2027/.git/info|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/PhyChem_MFM_stage48_full_corpus/.git/info|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.vscode-server/data/Machine|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.cache/Microsoft/DeveloperTools|0.000|第4节缓存；核实目录种类和当前引用后清理|
+|/share/home/zixiao/.local/bin/__pycache__|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.ipython/profile_default/startup|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.cache/conda/notices|0.000|第4节缓存；核实目录种类和当前引用后清理|
 |/share/home/zixiao/.cache/pip/selfcheck|0.000|第4节缓存；核实目录种类和当前引用后清理|
@@ -7952,6 +8433,14 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 |/share/home/zixiao/.ipython/profile_default/log|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.ipython/profile_default/pid|0.000|同白名单核实；当前未批准新的整目录删除|
 |/share/home/zixiao/.ipython/profile_default/db|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/benchmark/qm9|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/ADMET_Challenge_2025/.git/branches|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/property_analysis/ckpt/stageC|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/property_analysis/.git/branches|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/PhyChem_MFM_ICLR2027/.git/branches|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/PhyChem_MFM_stage48_full_corpus/.git/branches|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/PhyChem_MFM_stage59_three_epoch_runtime/.git/branches|0.000|同白名单核实；当前未批准新的整目录删除|
+|/share/home/zixiao/.codex/tmp/arg0|0.000|同白名单核实；当前未批准新的整目录删除|
 
 </details>
 
@@ -9816,3 +10305,7 @@ KEEP：D6最终产物、原只读LMDB、人口/角色/split/子集/atom-count索
 
 </details>
 
+
+## B3 主节点实时状态
+
+RUNNING / FULL_ID_FIELD_COVERAGE；已比较身份键 434688；数值对 0。

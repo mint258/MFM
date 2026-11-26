@@ -1,14 +1,14 @@
 {
-  "epoch": 1795664846.3238242,
+  "epoch": 1795666385.8142402,
   "state": "RUNNING_MAINNODE",
   "capacity": {
-    "observed_epoch": 1795664846.3238242,
+    "observed_epoch": 1795666385.8142402,
     "NFS": {
-      "used_bytes": 3726232645632,
+      "used_bytes": 3639783088128,
       "limit_bytes": 4398046511104,
-      "free_bytes": 671813865472,
+      "free_bytes": 758263422976,
       "target_free_bytes": 2199023255552,
-      "remaining_gap_bytes": 1527209390080
+      "remaining_gap_bytes": 1440759832576
     },
     "Lustre": {
       "used_bytes": 2131342430208,
@@ -21,57 +21,57 @@
       "directive_discovery": {
         "job": "4540114",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "A_cleanup_prior_passed_B5": {
         "job": "4540115",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "B2_B4_schema_samples": {
         "job": "4540116",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "B5_cursor_resume": {
         "job": "4540117",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "checkpoint_compression_retry": {
         "job": "4540118",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "B5_passed_cleanup": {
         "job": "4540119",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "NFS_outside_depth3": {
         "job": "4540120",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "Lustre_outside_D6_depth3": {
         "job": "4540121",
         "status": "CANCELLED by 1278|0:0",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "mainnode_A": {
         "job": "PID1659562",
         "status": "EXITED_CHECK_SAVED_RESULT",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "mainnode_fast": {
         "job": "PID1679602",
         "status": "EXITED_CHECK_SAVED_RESULT",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       },
       "mainnode_raw": {
         "job": "PID2993451",
         "status": "RUNNING_NATIVE_MAINNODE",
-        "scheduler_snapshot_epoch": 1795664846.3238242
+        "scheduler_snapshot_epoch": 1795666385.8142402
       }
     },
     "goals": {
@@ -81,23 +81,24 @@
     "goals_status": "NOT_MET",
     "execution_override": "User20261126: cancel own Slurm cleanup, run directly on main node"
   },
-  "additional_deleted_files": 326485,
-  "additional_freed_bytes": 432761806848,
+  "additional_deleted_files": 328054,
+  "additional_freed_bytes": 494885822464,
   "categories": {
     "OUTSIDE_CACHE": 37741326336,
-    "A1": 123747262464,
+    "A1": 176696221696,
     "A8": 831488,
     "A3": 21457612800,
-    "B5": 46518358016,
+    "B5": 55418425344,
     "A4": 0,
     "A7": 3392475136,
     "A6": 35935285248,
     "LUSTRE_DIAGNOSTIC": 180224,
     "A5": 100000186368,
-    "LUSTRE_CLOSED_CACHE": 63968288768
+    "LUSTRE_CLOSED_CACHE": 63968288768,
+    "B2": 274989056
   },
   "B1_gate": "NOT_YET_RUN",
-  "B2_B4_gate": "B2_FIRST_PASS_LARGER_WORKSPACES_RUNNING",
+  "B2_B4_gate": "MIXED_SEE_WORKSPACE_RESULTS_B4_PENDING",
   "original_index_required": false,
   "B2_gate_workspaces": [
     {
@@ -117,14 +118,27 @@
       "workspace": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric_day_v1/day01/projection",
       "state": "RUNNING",
       "phase": "FULL_ID_AND_FIELD_COVERAGE",
-      "all_keys_checked": 330488,
+      "all_keys_checked": 16259113,
       "sampled_field_pairs": 0,
-      "checked_parts": 100,
+      "checked_parts": 6300,
       "total_parts": 66070,
       "reason": null,
-      "epoch": 1795664789.517676,
-      "pid": 3468098,
-      "start_ticks": "8446088463"
+      "epoch": 1795666376.685258,
+      "pid": 3483170,
+      "start_ticks": "8446151312"
+    },
+    {
+      "workspace": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric_full_v3_batch0000_rg1",
+      "state": "PASS_BEFORE_DELETE",
+      "phase": "COMPLETE",
+      "all_keys_checked": 2048,
+      "sampled_field_pairs": 10000,
+      "checked_parts": null,
+      "total_parts": 19,
+      "reason": null,
+      "epoch": 1795665290.8652792,
+      "pid": 3481045,
+      "start_ticks": "8446145165"
     }
   ],
   "outside_inventories": [
@@ -137,19 +151,19 @@
         "pid": 3418229,
         "state": "SCANNING",
         "started_epoch": 1795662451.320277,
-        "heartbeat_epoch": 1795664856.576507,
-        "elapsed_seconds": 2405.256232,
+        "heartbeat_epoch": 1795666395.582222,
+        "elapsed_seconds": 3944.261947,
         "method": "Parallel read-only lstat/readdir; no links followed; same filesystem; global hardlink dedup",
-        "rows": 7638,
-        "files_observed": 18610760,
-        "directories_observed": 24540,
+        "rows": 8149,
+        "files_observed": 22875015,
+        "directories_observed": 62329,
         "errors": 0,
         "error_bytes": 0,
         "root_total_bytes": null,
         "owned_child_reaped": true,
         "worker_threads_joined": false
       },
-      "depth3_rows": 7627
+      "depth3_rows": 8113
     },
     {
       "kind": "Lustre",
@@ -176,5 +190,74 @@
       },
       "depth3_rows": 1849
     }
-  ]
+  ],
+  "B3_gate": {
+    "state": "RUNNING",
+    "phase": "FULL_ID_FIELD_COVERAGE",
+    "keys": 434688,
+    "numeric_pairs": 0,
+    "checked_files": 2,
+    "total_files": 222,
+    "reason": null,
+    "pid": 3500849,
+    "epoch": 1795666346.3315105
+  },
+  "native_coordinator": {
+    "state": "WATCHING_NATIVE_GATES",
+    "epoch": 1795666346.472075,
+    "identity": {
+      "pid": 3503961,
+      "uid": 1278,
+      "start_ticks": "8446245437",
+      "host": "sonmi",
+      "started_epoch": 1795666256.0873413,
+      "execution_mode": "USER_AUTHORIZED_MAINNODE",
+      "role": "Fresh refs/live inputs -> only verified B2/B3/B5 deletion -> original storage document",
+      "slurm_job": null
+    },
+    "errors": [],
+    "B2": [
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/reports/cleanup_execute_20261126B/B2_gate_compact_numeric512_project_v3.json",
+        "workspace": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric512_project_v3",
+        "state": "PASS_BEFORE_DELETE",
+        "phase": "COMPLETE",
+        "keys": 63765,
+        "pairs": 10000
+      },
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/reports/cleanup_execute_20261126B/B2_gate_compact_numeric_day_v1__day01__projection.json",
+        "workspace": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric_day_v1/day01/projection",
+        "state": "RUNNING",
+        "phase": "FULL_ID_AND_FIELD_COVERAGE",
+        "keys": 15852651,
+        "pairs": 0
+      },
+      {
+        "path": "/share/home/zixiao/descriptor_analysis/reports/cleanup_execute_20261126B/B2_gate_compact_numeric_full_v3_batch0000_rg1.json",
+        "workspace": "/share/home/zixiao/descriptor_analysis/runs/data_v1_20261025/artifacts/labels/source_status_v1/compact_numeric_full_v3_batch0000_rg1",
+        "state": "PASS_BEFORE_DELETE",
+        "phase": "COMPLETE",
+        "keys": 2048,
+        "pairs": 10000
+      }
+    ],
+    "B3": {
+      "state": "RUNNING",
+      "phase": "FULL_ID_FIELD_COVERAGE",
+      "keys": 434688,
+      "numeric_pairs": 0
+    },
+    "B5_counts": {
+      "PASS_BEFORE_DELETE": 32,
+      "ASK": 1
+    },
+    "report_last_updated_epoch": 1795666286.2682157,
+    "whole_cleanup_complete": false,
+    "pending_other_scopes": [
+      "B1 formal geometry identity binding",
+      "B4 raw-data/final-label field coverage and unique-field extraction",
+      "Other B2 formats and account quota targets"
+    ]
+  }
 }
