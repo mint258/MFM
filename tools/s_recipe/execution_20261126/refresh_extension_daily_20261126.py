@@ -74,3 +74,6 @@ state['unpublished_changes']=sorted(set(state.get('unpublished_changes',[])+new_
 write(C/'current_state.json',state)
 print(json.dumps(dict(observed_CST=stamp.isoformat(),runs=[dict(run=row['run'],samples=row['samples'],
     rough_finish_CST=row['rough_finish_CST']) for row in rows],new_clip_records=new_clip)),flush=True)
+if (C/'e1_s_rule_check_20261127.json').exists():
+    import runpy
+    runpy.run_path(str(C/'deliver_execution_progress_20261127.py'),run_name='__main__')

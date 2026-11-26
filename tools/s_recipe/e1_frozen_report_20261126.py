@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from cpu_execution_20261126 import execution_fields
 from storage_20261122 import CONTROL as C,REPO as R,ROOT,write
-from e1_reporting_20261126 import original_p_algebra
+from e1_reporting_20261126 import original_p_algebra,apply_s_verdict
 
 read=lambda path:json.loads(Path(path).read_text())
 
@@ -84,7 +84,7 @@ def run():
         scores=read(output/'readout/scores.json')
         fields=('complete','mean_normalized_improvement','bootstrap_ci','bootstrap_samples',
             'bootstrap_defined','bootstrap_unit','bootstrap_seed','included_tasks')
-        comparisons={key:algebra.compare_frozen(scores,reference,key) for key in ('R1','R3')}
+        comparisons={key:apply_s_verdict(algebra.compare_frozen(scores,reference,key)) for key in ('R1','R3')}
         record=dict(schema='S_E1_FROZEN_ENDPOINT_20261126_V1',
             status='FROZEN_COMPLETE_FULL_FT_PENDING',run=name,k=k,seed=0,samples=3000000,
             source_training_budget=3000000,independent_budget=True,layer=6,
@@ -117,7 +117,7 @@ def run():
             f"{row['readouts']['R3']['mean_normalized_improvement']:.6f} | "
             f"{decision['delta']:.6f} / [{decision['ci_lower']:.6f}, {decision['ci_upper']:.6f}] / "
             f"{value['threshold']:.6f} / {decision['verdict'].upper()} |")
-    lines += ['', 'Δ与CI调用P既有E1函数，对原生产者的1000次分子配对抽样做差；没有重抽、重拟合或选层。每格R1/R3置信区间、R1配对结果和原始来源见results/s_recipe/S_E1_k*_s0_3M.json。', '',
+    lines += ['', 'Δ与CI调用P既有E1函数，对原生产者的1000次分子配对抽样做差；判定沿用S任务书4.4，CI上界<0即LOSS。没有重抽、重拟合或选层。每格R1/R3置信区间、R1配对结果和原始来源见results/s_recipe/S_E1_k*_s0_3M.json。', '',
         '必须等k=1、2、5及参照的全量微调四任务×三种子闭合后，才按两种判定选择k*；当前不据冻结分量触发seed1、不改原3M配方。P/S共同k*后续仍待用户确认。','']
     (R/'docs/s_recipe/E1_FROZEN_PROGRESS.md').write_text('\n'.join(lines))
     print(json.dumps(dict(status='FROZEN_COMPONENTS_REPORTED',runs=[row['run'] for row in records],

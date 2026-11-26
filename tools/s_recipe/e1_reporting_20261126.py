@@ -4,6 +4,7 @@ No training, prediction fitting, molecular resampling or checkpoint loading.
 The caller supplies already closed producer metadata and original score JSON.
 """
 import importlib.util
+from copy import deepcopy
 from pathlib import Path
 import sys
 import types
@@ -12,6 +13,22 @@ AUTHORITY = 'docs/s_recipe/USER_DIRECTIVE_20261123.md'
 TIMEBOX = 'docs/interfaces/TIMEBOX_RULE_20261125.md'
 KS = (1, 2, 5, 10)
 TASKS = ('qm9.U0_atom', 'qm9.homo', 'exp.LogD', 'exp.LogS')
+DECISION_AUTHORITY = 'docs/s_recipe/TASKBOOK.md section4.4 (frozen S rule)'
+
+
+def apply_s_verdict(comparison):
+    """Keep P's retained-draw arithmetic; apply the already frozen S verdict.
+
+    S LOSS is CI upper<0 without an additional effect-size requirement.
+    """
+    value=deepcopy(comparison)
+    decision=value['decision']
+    value.setdefault('retained_draw_provider_authority',value.get('authority'))
+    value.setdefault('original_provider_verdict',decision['verdict'])
+    decision['verdict']=('win' if decision['ci_lower']>0 and decision['delta']>=value['threshold']
+        else 'loss' if decision['ci_upper']<0 else 'tie')
+    value.update(authority=DECISION_AUTHORITY,decision_authority=DECISION_AUTHORITY)
+    return value
 
 
 def original_p_algebra(p_repo):
@@ -120,16 +137,16 @@ def decide(configuration, cells, algebra):
             raise ValueError('Original training, readout and full FT producers must close first')
         baseline = cells[10]
         rows[k] = dict(k=k,
-            frozen_R1=algebra.compare_frozen(cell['frozen'], baseline['frozen'], 'R1'),
-            frozen_R3=algebra.compare_frozen(cell['frozen'], baseline['frozen'], 'R3'),
-            full=algebra.compare_full(cell['full'], baseline['full'],
-                                     cell['full_group'], baseline['full_group']),
+            frozen_R1=apply_s_verdict(algebra.compare_frozen(cell['frozen'], baseline['frozen'], 'R1')),
+            frozen_R3=apply_s_verdict(algebra.compare_frozen(cell['frozen'], baseline['frozen'], 'R3')),
+            full=apply_s_verdict(algebra.compare_full(cell['full'], baseline['full'],
+                                     cell['full_group'], baseline['full_group'])),
             full_task_rows=[r for r in cell['full']['rows'] if r['condition'] == cell['full_group']],
             sources=cell['sources'])
     choice = algebra.choose_k(rows)
     required = choice['conditional_seed1_required_for_adoption']
     return dict(schema='S_E1_SEED0_DECISION_20261126_V1', authority=AUTHORITY,
-        status='WAITING_CONDITIONAL_SEED1' if required else 'COMPLETE',
+        status='WAITING_CONDITIONAL_SEED1' if required else 'COMPLETE',decision_authority=DECISION_AUTHORITY,
         k_star=None if required else choice['provisional_k_star'],
         provisional_k_star=choice['provisional_k_star'],
         conditional_seed1_required=required, conditional_seed1_complete=False,
@@ -141,7 +158,7 @@ def decide(configuration, cells, algebra):
 
 def markdown(result):
     lines = ['# S E1 构象数结果', '',
-        '独立3M、seed0，第6层H0；k=10复用S-R1原3M。Δ与CI由P既有函数读取原1000次配对抽样计算。', '',
+        '独立3M、seed0，第6层H0；k=10复用S-R1原3M。Δ与CI由P既有函数读取原1000次配对抽样计算；判定沿用S任务书4.4，CI上界<0即LOSS。', '',
         '| k | frozen R1 Δ / 95% CI / τ / 判定 | frozen R3 Δ / 95% CI / τ / 判定 | full FT Δ / 95% CI / τ / 判定 |',
         '| --- | --- | --- | --- |']
     def format_comparison(value):

@@ -83,7 +83,10 @@
       "bootstrap_draws_per_seed": 1000,
       "combined_bootstrap_draws": 1000,
       "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
-      "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md"
+      "authority": "docs/s_recipe/TASKBOOK.md section4.4 (frozen S rule)",
+      "retained_draw_provider_authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+      "original_provider_verdict": "loss",
+      "decision_authority": "docs/s_recipe/TASKBOOK.md section4.4 (frozen S rule)"
     },
     "R3": {
       "decision": {
@@ -109,7 +112,10 @@
       "bootstrap_draws_per_seed": 1000,
       "combined_bootstrap_draws": 1000,
       "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
-      "authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md"
+      "authority": "docs/s_recipe/TASKBOOK.md section4.4 (frozen S rule)",
+      "retained_draw_provider_authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+      "original_provider_verdict": "tie",
+      "decision_authority": "docs/s_recipe/TASKBOOK.md section4.4 (frozen S rule)"
     }
   },
   "final_VAL": {
@@ -387,5 +393,12 @@
   "full_finetuning_complete": false,
   "k_star": null,
   "seed1_triggered": false,
-  "interpretation": "Frozen component only. Wait for all registered cells and full FT before E1 selection; original recipe unchanged."
+  "interpretation": "Frozen component only. Wait for all registered cells and full FT before E1 selection; original recipe unchanged.",
+  "decision_metadata_correction": {
+    "authority": "docs/s_recipe/TASKBOOK.md section4.4 (frozen S rule)",
+    "original_delta_CI_and_verdict_unchanged": true,
+    "job_id": null,
+    "native_handle": "S_E1_S_rule_native_20261127_attempt0",
+    "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_E1_S_rule_native_20261127_attempt0/record.json"
+  }
 }

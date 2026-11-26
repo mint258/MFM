@@ -6,7 +6,7 @@ import unittest
 
 from e1_reporting_20261126 import (
     AUTHORITY, KS, TASKS, TIMEBOX, decide, markdown, original_p_algebra,
-    validate_missing, validate_source,
+    validate_missing, validate_source,apply_s_verdict,
 )
 
 
@@ -64,6 +64,22 @@ class Reporting(unittest.TestCase):
         cells = {k:cell(k) for k in KS}
         cells[1]['full'] = cell(1, .35)['full']
         self.assertEqual(self.report(cells)['k_star'], 2)
+
+    def test_subthreshold_negative_frozen_ci_is_s_loss_without_mutating_provider(self):
+        value=self.algebra.compare_frozen(cell(1,.399)['frozen'],cell(10,.4)['frozen'],'R3')
+        self.assertEqual(value['decision']['verdict'],'tie')
+        changed=apply_s_verdict(value)
+        self.assertEqual(changed['decision']['verdict'],'loss')
+        self.assertEqual(value['decision']['verdict'],'tie')
+        self.assertEqual(changed['decision']['ci_upper'],value['decision']['ci_upper'])
+
+    def test_subthreshold_negative_full_ci_excludes_a_cell_under_s_rule(self):
+        cells={k:cell(k) for k in KS}
+        cells[1]['full']=cell(1,.399)['full']
+        result=self.report(cells)
+        self.assertEqual(result['k_star'],2)
+        self.assertEqual(result['results'][0]['frozen_R3']['decision']['verdict'],'tie')
+        self.assertEqual(result['results'][0]['full']['decision']['verdict'],'loss')
 
     def test_missing_scientific_only_and_k10_required(self):
         timebox = dict(authority=TIMEBOX, failure_class='engineering', same_root_cause=True,

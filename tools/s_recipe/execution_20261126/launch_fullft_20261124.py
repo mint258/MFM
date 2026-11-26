@@ -82,17 +82,19 @@ with (C/'execution.lock').open('a') as lock:
             or scheduler.own_gpu_busy(uuid,node)):
         print(json.dumps(dict(status='WAITING_ACTUALLY_EMPTY_FULLFT_CARD',node=node,gpu_uuid=uuid)),flush=True)
         raise SystemExit(0)
-    # No second S heavy reader on a node, including a ready/pending fit whose
-    # allocator has not yet created a CUDA context.
+    # Bind ownership to the exact UUID, including a pending native fit whose
+    # allocator has not created a CUDA context. Whole-node RAM remains covered
+    # by prospective admission of all active writers below.
     for row in ledger['statistics'].values():
-        if row.get('node')==node and row.get('mode')=='finetune_native' and not row.get('resource_closed'):
+        if (row.get('node')==node and row.get('gpu_uuid')==uuid
+                and row.get('mode') in ('finetune_native','gpu_native') and not row.get('resource_closed')):
             print(json.dumps(dict(status='WAITING_OWN_NATIVE_FIT_CLOSURE',node=node)),flush=True)
             raise SystemExit(0)
-        if row.get('node')==node and row.get('job_id'):
+        if row.get('node')==node and row.get('gpu_uuid')==uuid and row.get('job_id'):
             states=call('/usr/bin/sacct','-X','-n','-P','-j',str(row['job_id']),'--format=State')
             if any(line.split('|')[0].strip() in ('RUNNING','PENDING','CONFIGURING','COMPLETING')
                    for line in states.splitlines()):
-                print(json.dumps(dict(status='WAITING_OWN_NODE_READER',node=node)),flush=True)
+                print(json.dumps(dict(status='WAITING_OWN_GPU_READER',node=node,gpu_uuid=uuid)),flush=True)
                 raise SystemExit(0)
     selected = None
     for cell in plan['cells']:
