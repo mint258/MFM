@@ -28,7 +28,8 @@ metadata:
 | 禁用 | compute-0-21 | 不提交新计算 |
 
 - 优先组没有合规空卡时，**直接用另一组的空卡**，不排队干等。
-- 不占 GPU 节点的 CPU 做纯 CPU 工作；GPU 任务在 GPU 节点上只申请自身数据加载需要的 CPU。CPU 节点满了就排队，不退到 GPU 节点；排队不是停止条件。
+- 不占 GPU 节点的 CPU 做纯 CPU 工作；GPU 任务在 GPU 节点上只申请自身数据加载需要的 CPU。
+- **短 CPU 任务直接 SSH**（2026-11-26，全文见 `docs/interfaces/SCHEDULING_RULE_20261126.md`）：CPU ≤ 16 且预计 ≤ 4 小时的任务，选 CPU 节点上实测空闲核足够的节点，`setsid nohup taskset -c … timeout …` 直接运行并记录 PID/退出码/CPU 时间，不 sbatch 排队；超 4 小时但能按游标切段的切成 ≤ 4 小时段。只有大批量数据集生成或 CPU > 16 才 sbatch 排队，不退到 GPU 节点；排队不是停止条件。
 - Alpha 集群同理，只用没有 GPU 的主机。
 - 节点实际属于哪个分区以现场 `sinfo` 为准（例：compute-0-2 曾只在 cpu 分区）。
 

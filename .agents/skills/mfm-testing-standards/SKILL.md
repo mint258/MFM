@@ -41,7 +41,7 @@ metadata:
 - 新代码一律放在默认关闭的开关后面，不改既有配置文件。
 - **完整回归只在合并前跑一次**（仓库默认测试 + `python tools/check_repository.py`），不是每次改动后都跑。
 - 回归里的历史失败（依赖服务器文件、真实 Slurm/cgroup、旧部署绑定）如实记录，不为了全绿去改检查器、删历史资产或反复重跑。
-- CPU 测试也走 CPU 节点（compute-0-8~19）的真实分配。
+- CPU 测试在 CPU 节点（compute-0-8~19）上运行；CPU ≤ 16 且 ≤ 4 小时的直接 SSH 到实测空闲核运行，不排队（见 `docs/interfaces/SCHEDULING_RULE_20261126.md`）。
 
 ## 5. 数值阈值的写法
 
