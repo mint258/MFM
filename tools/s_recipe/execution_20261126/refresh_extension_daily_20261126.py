@@ -94,7 +94,7 @@ for row in rows:
         format(hardware['first1000']['samples_per_second'],'.4f')+'；'+
         format(hardware['whole_card_power_sample_mean_watts'],'.2f')+'W/'+str(hardware['power_records'])+'点。')
 lines += ['', '工程恢复、原失败与成本保留，完成的科学结果不重算；来源见[执行说明](../EXECUTION_20261126.md)和[资源记录](../RESOURCE_CONCURRENCY_20261127.md)。', '',
-    '后续微调：同一已跟踪解释器QM9为8GiB，LogD/LogS经闭合任务峰值估算为6GiB；其它解释器16/64GiB，预训练仍64GiB。累计保留'+
+    '后续微调：同一已跟踪解释器QM9为8GiB，LogD/LogS经闭合任务峰值估算为6GiB；其它解释器16/64GiB，预训练仍64GiB；新微调运行期仅抵扣本进程已有不可回收匿名RAM。累计保留'+
     str(len(execution.get('retained_safe_pause_segments',[])))+
     '段实际75完整状态暂停，另计失败与成本，不计成功fit；结清后按实际资源准入续接，见[资源修订](../RESOURCE_CONCURRENCY_20261127.md)。', '',
     '下一步：完成剩余微调与C1/C2曲线，继续两条子集9M及其登记评测。'+subset_wait+'半小时监控和存储/退出保护继续。全部原任务及A/B/C完成后写最终报告，再一次完整回归/仓库检查、开PR不合并。', '',

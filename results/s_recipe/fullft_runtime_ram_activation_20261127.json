@@ -1,0 +1,29 @@
+{
+  "status": "FUTURE_FITS_ONLY",
+  "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+  "check": {
+    "status": "COMPLETE",
+    "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+    "new_tests": 9,
+    "actual_self_anon_observation": {
+      "credit_bytes": 15667200,
+      "reason": "OWN_PSS_ANON_ONLY",
+      "observed_time": 1795779728.726443,
+      "producer": {
+        "pid": 338232,
+        "uid": 1278,
+        "start_ticks": 2290075590
+      },
+      "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+    },
+    "job_id": null,
+    "native_handle": "S_fullft_runtime_ram_check_native_20261127_attempt1",
+    "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_fullft_runtime_ram_check_native_20261127_attempt1/record.json",
+    "scientific_inputs_read": false,
+    "old_results_or_tests_replayed": false,
+    "global_storage_or_pretraining_source_modified": false,
+    "scope": "Runtime own anonymous PSS, remaining-vs-peak arithmetic, true shortage, shrinking residency, default-off, exact owner and original disk refusal only"
+  },
+  "startup_full_peak_and_all_existing_reservations_unchanged": true,
+  "scientific_protocol_or_active_pretraining_changed": false
+}

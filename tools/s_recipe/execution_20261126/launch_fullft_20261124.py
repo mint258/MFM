@@ -163,6 +163,18 @@ with (C/'execution.lock').open('a') as lock:
     if native:c['execution_backend']='mixed_gpu_native_20261126'
     if ram_source:c['host_ram_envelope_source']=ram_source
     if ram_bytes in (6*GiB,8*GiB):c['host_ram_runtime_python']=python
+    runtime_ram_policy=metadata.get('future_fullft_runtime_ram_accounting')
+    if runtime_ram_policy is not None:
+        from fullft_runtime_ram_20261127 import POLICY
+        proof=read(C/'fullft_runtime_ram_check_20261127.json')
+        parent=read(proof['native_record'])
+        command=read(Path(proof['native_record']).with_name('command_exit.json'))
+        if (runtime_ram_policy!=POLICY or proof.get('policy')!=POLICY or proof.get('new_tests')!=9
+                or parent.get('exit_code')!=0 or command.get('exit_code')!=0
+                or not parent.get('owned_descendants_exited') or not parent.get('observer_joined')):
+            raise ValueError('Actual closed runtime remaining-RAM checks required')
+        c['runtime_ram_accounting']=POLICY
+        c['runtime_ram_reservation_id']=handle+'_node_ram'
     validate(c)
     if args.attempt>0:
         from fullft_resume_20261126 import require_resume

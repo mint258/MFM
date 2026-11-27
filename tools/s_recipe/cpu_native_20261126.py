@@ -107,6 +107,7 @@ def worker(c):
                'cost_slurm_check':'check_cost_slurm_20261127.py',
                'cost_summary':'summarize_closed_cost_20261127.py',
                'cost_export':'export_closed_cost_20261127.py',
+               'fullft_runtime_ram_check':'check_fullft_runtime_ram_20261127.py',
                'physical_fullft_integration_check':'check_physical_fullft_integration_20261127.py',
                'point_only_sequence_check':'check_point_only_sequence_20261127.py',
                'control_metadata_io_check':'check_control_metadata_io_20261127.py',

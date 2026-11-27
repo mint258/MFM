@@ -32,6 +32,11 @@ TASKS = ('qm9.U0_atom', 'qm9.homo', 'exp.LogD', 'exp.LogS')
 
 
 def validate(c):
+    from fullft_runtime_ram_20261127 import validate_policy
+    validate_policy(c)
+    if c.get('runtime_ram_accounting') and not re.fullmatch(
+            re.escape(c.get('run',''))+r'_attempt\d+_node_ram',c.get('runtime_ram_reservation_id','')):
+        raise ValueError('Bind runtime RAM accounting to this exact fit reservation')
     if (c.get('invoking_authority') != AUTHORITY or c.get('authority') != PROTOCOL
             or c.get('kind') != 'F' or c.get('mode') != 'full'
             or c.get('ready') is not True or c.get('task') not in TASKS
@@ -162,7 +167,13 @@ def _run(path,native_context=None):
     def observer():
         while not done.wait(30):
             try:
-                admit(c)
+                if c.get('runtime_ram_accounting'):
+                    from fullft_runtime_ram_20261127 import admit_runtime
+                    reports=admit_runtime(c,record['producer'])
+                    record['runtime_RAM_accounting']=dict(reports['runtime_RAM_accounting'],
+                        ram_guard_report=reports['ram'])
+                else:
+                    admit(c)
                 if native_context is not None:
                     from mixed_fullft_runtime_20261126 import observe_handoff
                     observe_handoff(native_context,c,guard)
