@@ -2,7 +2,7 @@ import copy
 import unittest
 from unittest.mock import patch
 from fullft_startup_failure_20261127 import (C,STATUS,validate_failure,require_pending,
-    retire_entries,verify_receipt)
+    retire_entries,verify_receipt,validate_wait_exit,standby_terminal_action)
 
 
 class StartupFailure(unittest.TestCase):
@@ -98,6 +98,48 @@ class StartupFailure(unittest.TestCase):
                 with self.subTest(key=key):
                     changed=dict(old);changed[key]='changed'
                     with self.assertRaises(ValueError):require_resume(previous,self.closure,old,changed)
+
+    def wait_record(self):
+        return dict(run=self.row['run'],job_id=self.row['standby_job_id'],node=self.row['node'],
+            status='WAITING_CONTINUATION_REQUIRED',producer=dict(pid=55,uid=1278,start_ticks=789),
+            started_at=1002.,ended_at=1100.,owned_descendants_exited=True)
+
+    def test_closed_unknown_native_exits_wait_without_replaying_fit(self):
+        self.assertEqual(standby_terminal_action(self.closure),'STOP_UNKNOWN_EXIT')
+        self.assertEqual(standby_terminal_action(dict(self.closure,status='COMPLETE',exit_code=0)),'NO_REPLAY')
+        self.assertEqual(standby_terminal_action(dict(self.closure,status='CONTINUATION_REQUIRED',exit_code=75)),'RESUME')
+        for key,value in (('ended_at',None),('owned_descendants_exited',False),('observer_joined',False)):
+            with self.assertRaises(ValueError):standby_terminal_action(dict(self.closure,**{key:value}))
+        with self.assertRaises(ValueError):standby_terminal_action(dict(self.closure,exit_code=1))
+
+    def test_wait_only_exit_requires_exact_task_owner_and_actual_code(self):
+        wait=self.wait_record()
+        validate_wait_exit(self.h,self.row,wait,'FAILED|75:0|100')
+        validate_wait_exit(self.h,self.row,dict(wait,status='NATIVE_UNKNOWN_EXIT_NO_FIT_REPLAY'),'FAILED|1:0|0')
+        for key,value in (('job_id',4540892),('run','S_other'),('node','compute-0-22'),
+                ('owned_descendants_exited',False),('ended_at',999.)):
+            with self.assertRaises(ValueError):validate_wait_exit(self.h,self.row,dict(wait,**{key:value}),'FAILED|75:0|100')
+        for key,value in (('uid',1283),('pid',None),('start_ticks',None)):
+            changed=copy.deepcopy(wait);changed['producer'][key]=value
+            with self.assertRaises(ValueError):validate_wait_exit(self.h,self.row,changed,'FAILED|75:0|100')
+
+    def test_wait_only_exit_rejects_running_success_or_fit_takeover(self):
+        wait=self.wait_record()
+        for actual in ('RUNNING|0:0|100','COMPLETED|0:0|100','FAILED|1:0|100','FAILED|75:0|bad'):
+            with self.assertRaises(ValueError):validate_wait_exit(self.h,self.row,wait,actual)
+        for status in ('NATIVE_CLOSED_READY_FOR_ACTUAL_SLURM_FIT','NATIVE_ALREADY_COMPLETE_NO_FIT_REPLAY'):
+            with self.assertRaises(ValueError):validate_wait_exit(self.h,self.row,dict(wait,status=status),'FAILED|75:0|100')
+
+    def test_wait_only_receipt_binds_closed_wait_and_verified_absence(self):
+        row=dict(self.row,status=STATUS,resource_closed=True)
+        proof=validate_wait_exit(self.h,row,self.wait_record(),'FAILED|75:0|100')
+        receipt=dict(self.valid(),**proof,status='FAILED_STARTUP_OWN_RESOURCES_CLOSED',
+            native_producer_verified_gone=True,standby_wait_producer_verified_gone=True)
+        self.assertTrue(verify_receipt(row,self.closure,self.cfg,self.task,self.files,receipt))
+        for key,value in (('standby_wait_digest','bad'),('standby_wait_producer_verified_gone',False)):
+            with self.assertRaises(ValueError):verify_receipt(row,self.closure,self.cfg,self.task,self.files,dict(receipt,**{key:value}))
+        changed=copy.deepcopy(receipt);changed['standby_wait_record']['producer']['start_ticks']=790
+        with self.assertRaises(ValueError):verify_receipt(row,self.closure,self.cfg,self.task,self.files,changed)
 
 
 if __name__=='__main__':unittest.main()

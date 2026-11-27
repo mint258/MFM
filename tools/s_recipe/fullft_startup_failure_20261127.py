@@ -7,6 +7,7 @@ import stat
 
 POLICY='S_FULLFT_STARTUP_FAILURE_SETTLEMENT_20261127_V1'
 STATUS='FAILED_STARTUP_SAFE_CONTINUATION'
+WAIT_POLICY='S_FULLFT_WAIT_ONLY_STARTUP_SETTLEMENT_20261128_V1'
 C=Path('/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120')
 
 
@@ -77,6 +78,35 @@ def require_pending(info,actual,handle,job,held=False):
         raise ValueError('Only the exact own zero-work pending standby may be cancelled')
 
 
+def standby_terminal_action(closure):
+    if (not closure.get('ended_at') or not closure.get('owned_descendants_exited')
+            or not closure.get('observer_joined')):
+        raise ValueError('Native owned exit is not closed')
+    if closure.get('exit_code') is None:
+        return 'STOP_UNKNOWN_EXIT'
+    if closure.get('status')=='COMPLETE' and closure.get('exit_code')==0:
+        return 'NO_REPLAY'
+    if closure.get('status')=='CONTINUATION_REQUIRED' and closure.get('exit_code')==75:
+        return 'RESUME'
+    raise ValueError('Native producer did not close at a safe continuation boundary')
+
+
+def validate_wait_exit(handle,row,wait,actual):
+    codes={'WAITING_CONTINUATION_REQUIRED':75,'NATIVE_UNKNOWN_EXIT_NO_FIT_REPLAY':1}
+    code=codes.get(wait.get('status'))
+    parts=actual.split('|')
+    identity=wait.get('producer',{})
+    if (code is None or len(parts)!=3 or parts[0]!='FAILED' or parts[1]!=str(code)+':0'
+            or not parts[2].isdigit() or wait.get('run')!=row.get('run')
+            or wait.get('job_id')!=row.get('standby_job_id') or wait.get('node')!=row.get('node')
+            or identity.get('uid')!=1278 or not identity.get('pid') or not identity.get('start_ticks')
+            or not wait.get('owned_descendants_exited') or not wait.get('started_at')
+            or not wait.get('ended_at') or wait['ended_at']<wait['started_at']):
+        raise ValueError('Exact closed wait-only standby and actual terminal status required')
+    return dict(standby_wait_policy=WAIT_POLICY,standby_actual=actual,
+        standby_wait_record=copy.deepcopy(wait),standby_wait_digest=digest(wait))
+
+
 def retire_entries(entries,expected,allow_absent=False):
     ids={row['id'] for row in expected}
     present=[row for row in entries if row['id'] in ids]
@@ -91,10 +121,16 @@ def retire_entries(entries,expected,allow_absent=False):
 def verify_receipt(previous,closure,old,task,files,receipt,control=C):
     handle=Path(previous['configuration']).name.removesuffix('_configuration.json')
     expected=validate_failure(handle,previous,closure,old,task,files,control)
+    settled=str(receipt.get('standby_actual','')).startswith('CANCELLED by 1278|0:0|0')
+    if not settled:
+        wait=receipt.get('standby_wait_record',{})
+        proof=validate_wait_exit(handle,previous,wait,receipt.get('standby_actual',''))
+        settled=(receipt.get('standby_wait_producer_verified_gone') is True
+            and all(receipt.get(k)==v for k,v in proof.items()))
     if (previous.get('status')!=STATUS or not previous.get('resource_closed')
             or receipt.get('status')!='FAILED_STARTUP_OWN_RESOURCES_CLOSED'
             or receipt.get('native_producer_verified_gone') is not True
-            or not str(receipt.get('standby_actual','')).startswith('CANCELLED by 1278|0:0|0')
+            or not settled
             or any(receipt.get(k)!=v for k,v in expected.items())):
         raise ValueError('Actual failed-startup settlement is missing or changed')
     return True

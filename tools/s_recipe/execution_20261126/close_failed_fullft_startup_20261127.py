@@ -13,7 +13,7 @@ C=ROOT/'runs/s_recipe_20261120'
 R=ROOT/'MFM_s_recipe'
 sys.path.insert(0,str(R/'tools/s_recipe'))
 from fullft_startup_failure_20261127 import (POLICY,STATUS,validate_failure,snapshots,
-    require_pending,retire_entries)
+    require_pending,retire_entries,validate_wait_exit)
 from storage_20261122 import claim_current
 from control_metadata_io_20261127 import write
 read=lambda p:json.loads(Path(p).read_text())
@@ -26,7 +26,7 @@ if os.getuid()!=1278 or not re.fullmatch(r'S_FT_[A-Za-z0-9_]+_attempt\d+',handle
 check=read(C/'fullft_startup_failure_check_20261127.json')
 parent=read(check['native_record'])
 command=read(Path(check['native_record']).with_name('command_exit.json'))
-if (check.get('policy')!=POLICY or check.get('new_tests')!=8
+if (check.get('policy')!=POLICY or check.get('new_tests')!=12
         or parent.get('status')!='COMPLETE' or parent.get('exit_code')!=0
         or command.get('exit_code')!=0 or not parent.get('owned_descendants_exited')
         or not parent.get('observer_joined')):
@@ -70,10 +70,29 @@ with (C/'execution.lock').open('a') as lock:
         write(progress_path,progress)
         call('/usr/bin/scancel',job)
         actual=call('/usr/bin/sacct','-X','-n','-P','-j',job,'--format=State,ExitCode,ElapsedRaw')
+    wait_proof={}
     if not actual.startswith('CANCELLED by 1278|0:0|0'):
-        print(json.dumps(dict(status='WAITING_ACTUAL_UNUSED_STANDBY_SETTLEMENT',handle=handle,
-            actual=actual)),flush=True)
-        raise SystemExit(0)
+        wait_path=C/(handle+'_standby_wait_'+str(job)+'.json')
+        if not actual.startswith(('FAILED|75:0|','FAILED|1:0|')) or not wait_path.is_file():
+            print(json.dumps(dict(status='WAITING_ACTUAL_UNUSED_STANDBY_SETTLEMENT',handle=handle,
+                actual=actual)),flush=True)
+            raise SystemExit(0)
+        info=fields(call('/usr/bin/scontrol','show','job',job,'-o'))
+        if (info.get('UserId')!='zixiao(1278)' or info.get('JobName')!=handle
+                or info.get('JobState')!='FAILED' or info.get('NodeList')!=row['node']):
+            raise ValueError('Exact own failed wait-only allocation required')
+        if (C/(row['run']+'_guarded_'+str(job)+'.json')).exists():
+            raise ValueError('Standby entered a fitting lifecycle; inspect it separately')
+        wait=read(wait_path)
+        wait_proof=validate_wait_exit(handle,row,wait,actual)
+        waiting=wait['producer']
+        code=('import sys,json;sys.path.insert(0,'+repr(str(R/'tools/s_recipe'))+
+            ');import lifecycle_20261122 as l;s=l.Identity(**'+repr(waiting)+
+            ');print(json.dumps(dict(same=l.same_process(s,l.identity(s.pid)))))')
+        gone=json.loads(call('ssh','-n','-o','BatchMode=yes','-o','ConnectTimeout=3',row['node'],
+            shlex.join([task['python'],'-B','-c',code])))
+        if gone.get('same') is not False:raise ValueError('Wait-only producer has not been verified gone')
+        wait_proof['standby_wait_producer_verified_gone']=True
     expected_entries=[dict(id=handle+'_node_ram',kind='node_ram',node=row['node'],
             bytes=configuration['peak_ram_bytes']),
         dict(id=handle+'_node_disk',kind='node_disk',node=row['node'],path='/',bytes=32*1024**2)]
@@ -82,8 +101,10 @@ with (C/'execution.lock').open('a') as lock:
     budget=read(C/'storage_additional_entries.json')
     updated=retire_entries(budget['entries'],expected_entries,
         allow_absent=progress.get('retirement_started') is True)
-    progress=dict(value,cancel_requested=True,native_producer_verified_gone=True,
-        retirement_started=True,standby_actual=actual,retired_ids=row['resource_ids'])
+    progress=dict(value,cancel_requested=actual.startswith('CANCELLED by 1278|0:0|0'),
+        native_producer_verified_gone=True,retirement_started=True,standby_actual=actual,
+        retired_ids=row['resource_ids'])
+    progress.update(wait_proof)
     write(progress_path,progress)
     budget['entries']=updated
     write(C/'storage_additional_entries.json',budget)

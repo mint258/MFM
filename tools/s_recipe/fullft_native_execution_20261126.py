@@ -12,6 +12,7 @@ from types import SimpleNamespace
 import lifecycle_20261122 as life
 from storage_20261122 import CONTROL as C,write
 from finetune_extension_20261124 import run as fit,query,validate
+from fullft_startup_failure_20261127 import standby_terminal_action
 
 read=lambda path:json.loads(Path(path).read_text())
 
@@ -70,18 +71,20 @@ def standby(path):
                 if (saved and not life.same_process(expected,life.Identity(**saved))):
                     raise ValueError('Native closure belongs to a different producer')
                 if (value.get('ended_at') and value.get('owned_descendants_exited')
-                        and value.get('observer_joined') and value.get('exit_code') is not None
+                        and value.get('observer_joined')
                         and not life.same_process(expected,life.identity(expected.pid))):
                     break
                 if guard.stopping():
                     state['status']='WAITING_CONTINUATION_REQUIRED'
                     return 75
                 time.sleep(.5)
-            if value['status']=='COMPLETE' and value['exit_code']==0:
+            action=standby_terminal_action(value)
+            if action=='STOP_UNKNOWN_EXIT':
+                state['status']='NATIVE_UNKNOWN_EXIT_NO_FIT_REPLAY'
+                return 1
+            if action=='NO_REPLAY':
                 state['status']='NATIVE_ALREADY_COMPLETE_NO_FIT_REPLAY'
                 return 0
-            if value['status']!='CONTINUATION_REQUIRED' or value['exit_code']!=75:
-                raise ValueError('Native producer did not close at a safe continuation boundary')
             state['status']='NATIVE_CLOSED_READY_FOR_ACTUAL_SLURM_FIT'
         finally:
             guard.phase='closing'
