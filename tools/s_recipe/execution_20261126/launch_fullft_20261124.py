@@ -123,7 +123,8 @@ with (C/'execution.lock').open('a') as lock:
             raise ValueError('Inspect an existing fit output; do not restart it as fresh')
         if args.attempt>0:
             previous=ledger['statistics'].get(cell['run']+'_attempt'+str(args.attempt-1),{})
-            if not previous.get('resource_closed') or previous.get('status')!='PAUSED_SAFE_CONTINUATION':
+            if (not previous.get('resource_closed') or previous.get('status') not in
+                    ('PAUSED_SAFE_CONTINUATION','FAILED_STARTUP_SAFE_CONTINUATION')):
                 raise ValueError('Close the exact preceding partial fit before continuation')
         source = cell['source']
         summary_path = C/'training'/source['run']/'summary.json'

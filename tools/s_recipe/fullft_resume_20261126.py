@@ -2,7 +2,11 @@
 
 
 def require_resume(previous,closure,old,new):
-    if (not previous.get('resource_closed') or previous.get('status')!='PAUSED_SAFE_CONTINUATION'
+    from fullft_startup_failure_20261127 import STATUS,require_retired_startup
+    startup_failure=previous.get('status')==STATUS
+    if startup_failure:
+        require_retired_startup(previous,closure,old)
+    elif (not previous.get('resource_closed') or previous.get('status')!='PAUSED_SAFE_CONTINUATION'
             or previous.get('run')!=new.get('run') or closure.get('status')!='CONTINUATION_REQUIRED'
             or closure.get('exit_code')!=75 or not closure.get('ended_at')
             or not closure.get('owned_descendants_exited') or not closure.get('observer_joined')):

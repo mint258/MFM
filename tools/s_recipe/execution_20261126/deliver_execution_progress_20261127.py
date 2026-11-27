@@ -28,7 +28,18 @@ ledger=read(C/'execution.json')
 fits=[]
 selected=[]
 paused=[]
+startup_failed=[]
 for handle,row in ledger['statistics'].items():
+    if (row.get('mode')=='finetune_native' and row.get('resource_closed')
+            and row.get('status')=='FAILED_STARTUP_SAFE_CONTINUATION'):
+        from fullft_startup_failure_20261127 import verify_receipt
+        closure=read(row['lifecycle_record'])
+        receipt=read(row['startup_failure_receipt'])
+        verify_receipt(row,closure,read(row['configuration']),read(row['native_task']),
+            receipt['files'],receipt)
+        startup_failed.append(dict(handle=handle,run=row['run'],actual_exit=closure,
+            resource_settlement=receipt,actual_native_exit_code=None,
+            interpretation='Startup RAM refusal before model execution; original exit unobserved, saved state unchanged at settlement; separate from actual75 pauses and successful fits'))
     if (row.get('mode') in ('finetune','finetune_native') and row.get('resource_closed')
             and row.get('status')=='PAUSED_SAFE_CONTINUATION'):
         paused.append(dict(handle=handle,run=row['run'],source_configuration=row['configuration'],
@@ -66,6 +77,7 @@ value=dict(status='PARTIAL_EXECUTION_PROGRESS_NOT_A_COMPLETE_EXPERIMENT',observe
     completed_full_fits=fits,completed_full_fit_count=len(fits),required_seed0_full_fits=192,
     selected_models=selected,selected_model_producer=read(source) if source.exists() else None,
     retained_safe_pause_segments=paused,
+    retained_startup_admission_failures=startup_failed,
     completed_original9M_prefix_statistics=budget,required_new_prefix_statistics=16,
     intermediate_VAL_reopened=False,
     primary_point_status_source='Separate actual fullFT statistics deliveries; this file counts individual fits only',
