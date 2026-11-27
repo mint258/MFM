@@ -1,0 +1,47 @@
+{
+  "run": "S_subset_T6_s0_9M",
+  "node": "compute-0-22",
+  "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+  "gpu_name": "NVIDIA GeForce RTX 5090",
+  "actual_training_job": null,
+  "standby_job_id": 4540495,
+  "actual_producer": {
+    "pid": 250870,
+    "uid": 1278,
+    "start_ticks": 86329730,
+    "ppid": 1,
+    "state": "R"
+  },
+  "ordered_readers": 14,
+  "requested_cpus": 16,
+  "allocated_cpus": 0,
+  "first1000": {
+    "samples": 32000,
+    "seconds": 484.6229852399556,
+    "samples_per_second": 66.03071041740945,
+    "window": "first1000 real optimizer updates; no separate benchmark"
+  },
+  "whole_card_power_sample_mean_watts": 475.47875000000005,
+  "power_records": 16,
+  "source_throughput": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_subset_T6_s0_9M/initial_throughput.json",
+  "source_telemetry": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_subset_T6_s0_9M/gpu_telemetry.csv",
+  "source_configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_subset_T6_s0_9M/configuration.json",
+  "finite_deadline_epoch": 1795917779.7497575,
+  "closing_reserve_seconds": 900,
+  "speed_switches": {
+    "activation_checkpointing": false,
+    "tf32": false,
+    "mixed_precision": false,
+    "gradient_accumulation": false
+  },
+  "fresh_random_initialization": true,
+  "accounting_execution": {
+    "job_id": null,
+    "native_handle": "S_T6_first1000_native_20261127_attempt0",
+    "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_T6_first1000_native_20261127_attempt0/record.json"
+  },
+  "actual_lifecycle_source": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_subset_T6_s0_9M_native_extension_20261123.json",
+  "original_native_lifecycle_source": null,
+  "first1000_may_span_complete_state_handoff": false,
+  "scope": "Original real-training first1000 updates; whole-card point mean only; no separate benchmark"
+}

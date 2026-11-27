@@ -52,11 +52,21 @@ if (C/'e1_s_rule_check_20261127.json').exists():
     runpy.run_path(str(C/'deliver_execution_progress_20261127.py'),run_name='__main__')
 execution=read(R/'results/s_recipe/execution_progress_20261127.json')
 completed_points=len(list((R/'results/s_recipe/full_finetune').glob('*.json')))
+ledger=read(C/'execution.json')
+active_fits=[row for row in ledger['statistics'].values()
+    if row.get('mode') in ('finetune','finetune_native') and not row.get('resource_closed')]
+fit_text='；'.join(row['point']+'/'+row['task']+'/seed'+str(row['seed'])+'@'+row['node']
+    for row in active_fits) or '无未结清拟合'
 from conformer_mean_reporting_20261127 import means
 actual_means=means()
+e1_path=R/'configs/s_recipe/E1_k_star.json'
+e1_decision=read(e1_path) if e1_path.exists() else {}
+e1_pending=('S本线k*='+str(e1_decision['k_star'])+'已闭合，未触发额外seed1；P/S共同值仍待用户确认。'
+    if e1_decision.get('status')=='COMPLETE' and not e1_decision.get('conditional_seed1_required') else
+    'P/S共同k*，待双方结果齐备后提交具体值；当前不选k*或触发额外种子。')
 active=[row for row in rows if row['summary_status']!='COMPLETE']
 subset_wait=('T5在节点20本次RAM准入未通过（两项预留128GiB＋余量16GiB，现场可用约107GiB），未启动、不降在跑预留；待合适资源。'
-    if 'S_subset_T5_s0_9M' not in read(C/'execution.json')['runs'] else '')
+    if 'S_subset_T5_s0_9M' not in ledger['runs'] else '')
 lines=['# S 配方研究 · '+stamp.date().isoformat()+' · '+stamp.strftime('%H:%M'), '',
     '已完成：原六条3M和指定诊断；S-final=S-R1。原9M的R3：B0=0.470412、final=0.449116，Δ='+format(point['delta'],'.6f')+
     '、95%CI['+format(point['ci_lower'],'.6f')+', '+format(point['ci_upper'],'.6f')+']，LOSS；原3M冻结不重开。', '',
@@ -64,7 +74,7 @@ lines=['# S 配方研究 · '+stamp.date().isoformat()+' · '+stamp.strftime('%H
     '/192个fit，选中模型'+str(len(execution['selected_models']))+'份；原9M新增前缀读出/CPU统计'+
     str(len(execution['completed_original9M_prefix_statistics']))+'/16点。详情见[微调](../FULL_FINETUNING_PROGRESS.md)及[执行进展](../../../results/s_recipe/execution_progress_20261127.json)。', '',
     '在跑与预计：'+'；'.join(progress(row) for row in active)+
-    '。微调在登记范围内按E1优先补位；训练结束估计取原首1000步速度，读出/统计另计。', '',
+    '。当前微调：'+fit_text+'。微调在登记范围内按E1优先补位；训练结束估计取原首1000步速度，读出/统计另计。', '',
     '人群：E1 TRAIN=1192951；实际平均PM7构象数（上限1/2/5/10）='+
     '/'.join(format(actual_means[str(k)],'.9f') for k in (1,2,5,10))+
     '；原P T5/T6与S交集249744/499456，不重抽。两条子集9M及其评测仍在登记范围内，E1争卡优先。', '',
@@ -83,7 +93,7 @@ lines += ['', '工程记账（原失败保留，完成的科学结果不重算�
     str(len(execution.get('retained_safe_pause_segments',[])))+
     '段实际75完整状态暂停，另计失败与成本，不计成功fit；结清后按实际资源准入续接，见[资源修订](../RESOURCE_CONCURRENCY_20261127.md)。', '',
     '下一步：完成剩余微调、曲线与k5读出，合规空卡推进子集。'+subset_wait+'半小时监控和存储/退出保护继续。全部原任务及A/B/C完成后写最终报告，再一次完整回归/仓库检查、开PR不合并。', '',
-    '待确认事项：P/S共同k*，待双方结果齐备后提交具体值；当前不选k*或触发额外种子。工程与来源见[执行说明](../EXECUTION_20261126.md)。', '']
+    '待确认事项：'+e1_pending+'工程与来源见[执行说明](../EXECUTION_20261126.md)。', '']
 
 daily=R/'docs/s_recipe/daily'/(stamp.date().isoformat()+'.md')
 daily.write_text('\n'.join(lines))
