@@ -180,7 +180,11 @@ with (C/'execution.lock').open('a') as lock:
     if args.attempt>0:
         from fullft_resume_20261126 import require_resume
         previous=ledger['statistics'][cell['run']+'_attempt'+str(args.attempt-1)]
-        require_resume(previous,read(previous['lifecycle_record']),read(previous['configuration']),c)
+        settlement=require_resume(previous,read(previous['lifecycle_record']),read(previous['configuration']),c)
+        if settlement and settlement.get('resume_kind')=='FRESH_AFTER_ZERO_SCIENCE_STARTUP':
+            from fullft_startup_failure_20261127 import digest
+            c['zero_science_retry_origin']=dict(receipt=previous['startup_failure_receipt'],
+                digest=digest(settlement))
     forecast_path = C/'storage_additional_entries.json'
     forecast = read(forecast_path)
     resource_ids=[]

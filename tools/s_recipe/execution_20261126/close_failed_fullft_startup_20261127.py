@@ -1,4 +1,4 @@
-"""Retire a proved unchanged partial fit's failed startup; preserve unknown exit."""
+"""Retire a proved pre-encoder startup; preserve unknown exit and scientific files."""
 import fcntl
 import json
 import os
@@ -13,7 +13,7 @@ C=ROOT/'runs/s_recipe_20261120'
 R=ROOT/'MFM_s_recipe'
 sys.path.insert(0,str(R/'tools/s_recipe'))
 from fullft_startup_failure_20261127 import (POLICY,STATUS,validate_failure,snapshots,
-    require_pending,retire_entries,validate_wait_exit)
+    require_pending,retire_entries,validate_wait_exit,require_wait_accounting)
 from storage_20261122 import claim_current
 from control_metadata_io_20261127 import write
 read=lambda p:json.loads(Path(p).read_text())
@@ -26,7 +26,7 @@ if os.getuid()!=1278 or not re.fullmatch(r'S_FT_[A-Za-z0-9_]+_attempt\d+',handle
 check=read(C/'fullft_startup_failure_check_20261127.json')
 parent=read(check['native_record'])
 command=read(Path(check['native_record']).with_name('command_exit.json'))
-if (check.get('policy')!=POLICY or check.get('new_tests')!=12
+if (check.get('policy')!=POLICY or check.get('new_tests')!=17
         or parent.get('status')!='COMPLETE' or parent.get('exit_code')!=0
         or command.get('exit_code')!=0 or not parent.get('owned_descendants_exited')
         or not parent.get('observer_joined')):
@@ -77,10 +77,14 @@ with (C/'execution.lock').open('a') as lock:
             print(json.dumps(dict(status='WAITING_ACTUAL_UNUSED_STANDBY_SETTLEMENT',handle=handle,
                 actual=actual)),flush=True)
             raise SystemExit(0)
-        info=fields(call('/usr/bin/scontrol','show','job',job,'-o'))
-        if (info.get('UserId')!='zixiao(1278)' or info.get('JobName')!=handle
-                or info.get('JobState')!='FAILED' or info.get('NodeList')!=row['node']):
-            raise ValueError('Exact own failed wait-only allocation required')
+        # Finished jobs can leave scontrol's live cache; sacct retains identity.
+        columns=('JobIDRaw','UID','JobName','NodeList','State','ExitCode','ElapsedRaw')
+        raw=call('/usr/bin/sacct','-X','-n','-P','-j',job,
+            '--format=JobIDRaw,UID,JobName%150,NodeList,State,ExitCode,ElapsedRaw')
+        values=[part.strip() for part in raw.split('|')]
+        if len(values)!=len(columns):raise ValueError('Ambiguous closed job accounting')
+        info=dict(zip(columns,values))
+        require_wait_accounting(info,actual,handle,job,row['node'])
         if (C/(row['run']+'_guarded_'+str(job)+'.json')).exists():
             raise ValueError('Standby entered a fitting lifecycle; inspect it separately')
         wait=read(wait_path)

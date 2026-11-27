@@ -1,8 +1,9 @@
-"""Prove an unchanged saved state after a closed native startup RAM refusal."""
+"""Prove unchanged saved state or absent output after a pre-encoder RAM refusal."""
 import copy
 import hashlib
 import json
 from pathlib import Path
+import re
 import stat
 
 POLICY='S_FULLFT_STARTUP_FAILURE_SETTLEMENT_20261127_V1'
@@ -24,8 +25,42 @@ def file_metadata(path):
 
 
 def snapshots(configuration):
+    output=Path(configuration['output'])
+    try:
+        output.lstat()
+    except FileNotFoundError:
+        parent=output.parent.lstat()
+        if parent.st_uid!=1278 or not stat.S_ISDIR(parent.st_mode):
+            raise ValueError('Exact owned output parent required for a zero-science startup')
+        return {'absent_output':dict(path=str(output),absent=True,parent=dict(
+            path=str(output.parent),uid=parent.st_uid,ino=parent.st_ino,dev=parent.st_dev,directory=True))}
     return {name:file_metadata(Path(configuration['output'])/name)
         for name in ('complete_state.pt','history.jsonl')}
+
+
+def require_cold_origin(handle,configuration,control=C):
+    matched=re.fullmatch(re.escape(configuration['run'])+r'_attempt(\d+)',handle)
+    if not matched:raise ValueError('Exact fit attempt required for a zero-science retry')
+    attempt=int(matched.group(1))
+    origin=configuration.get('zero_science_retry_origin')
+    if attempt==0:
+        if origin is not None:raise ValueError('First attempt cannot inherit a retry origin')
+        return True
+    previous=configuration['run']+'_attempt'+str(attempt-1)
+    path=Path(control)/(previous+'_startup_failure_settlement.json')
+    if not isinstance(origin,dict) or origin.get('receipt')!=str(path):
+        raise ValueError('Missing scientific state cannot be restarted as fresh')
+    receipt=json.loads(path.read_text())
+    if (origin.get('digest')!=digest(receipt) or receipt.get('handle')!=previous
+            or receipt.get('run')!=configuration['run'] or receipt.get('policy')!=POLICY
+            or receipt.get('status')!='FAILED_STARTUP_OWN_RESOURCES_CLOSED'
+            or receipt.get('resume_kind')!='FRESH_AFTER_ZERO_SCIENCE_STARTUP'
+            or receipt.get('native_producer_verified_gone') is not True
+            or receipt.get('actual_native_exit_code') is not None
+            or receipt.get('exit_code_observed') is not False
+            or receipt.get('files',{}).get('absent_output',{}).get('path')!=configuration['output']):
+        raise ValueError('Only a proved zero-science startup chain may restart without state')
+    return True
 
 
 def validate_failure(handle,row,closure,configuration,task,files,control=C):
@@ -57,18 +92,29 @@ def validate_failure(handle,row,closure,configuration,task,files,control=C):
             or closure['ended_at']<closure['started_at']
             or not 0<closure.get('peak_RSS_bytes',0)<=128*1024**2):
         raise ValueError('Closed pre-encoder RAM refusal with unobserved exit required')
-    if set(files)!= {'complete_state.pt','history.jsonl'}:
+    cold=set(files)=={'absent_output'}
+    if cold:
+        require_cold_origin(handle,configuration,control)
+        absent=files['absent_output'];parent=absent.get('parent',{})
+        if (absent.get('path')!=str(expected_output) or absent.get('absent') is not True
+                or parent.get('path')!=str(expected_output.parent) or parent.get('uid')!=1278
+                or parent.get('directory') is not True or not parent.get('ino')
+                or type(parent.get('dev')) is not int):
+            raise ValueError('Exact absent output and owned parent required; never discard partial state')
+    elif set(files)!= {'complete_state.pt','history.jsonl'}:
         raise ValueError('Existing saved state and training history required')
-    for name,value in files.items():
+    for name,value in (() if cold else files.items()):
         if (value.get('path')!=str(expected_output/name) or value.get('uid')!=1278
                 or value.get('regular') is not True or value.get('size',0)<=0
                 or value.get('mtime_ns',0)<=0
                 or value['mtime_ns']/1e9>=closure['started_at']):
             raise ValueError('Saved scientific state changed or is not the exact own regular file')
-    return dict(policy=POLICY,handle=handle,run=row['run'],producer={k:actual[k]
+    value=dict(policy=POLICY,handle=handle,run=row['run'],producer={k:actual[k]
         for k in ('pid','uid','start_ticks')},standby_job_id=row['standby_job_id'],
         configuration_digest=digest(configuration),closure_digest=digest(closure),
         files=copy.deepcopy(files),actual_native_exit_code=None,exit_code_observed=False)
+    if cold:value['resume_kind']='FRESH_AFTER_ZERO_SCIENCE_STARTUP'
+    return value
 
 
 def require_pending(info,actual,handle,job,held=False):
@@ -105,6 +151,14 @@ def validate_wait_exit(handle,row,wait,actual):
         raise ValueError('Exact closed wait-only standby and actual terminal status required')
     return dict(standby_wait_policy=WAIT_POLICY,standby_actual=actual,
         standby_wait_record=copy.deepcopy(wait),standby_wait_digest=digest(wait))
+
+
+def require_wait_accounting(info,actual,handle,job,node):
+    if (info.get('JobIDRaw')!=str(job) or info.get('UID')!='1278'
+            or info.get('JobName')!=handle or info.get('NodeList')!=node
+            or info.get('State')!='FAILED'
+            or '|'.join(info.get(k,'') for k in ('State','ExitCode','ElapsedRaw'))!=actual):
+        raise ValueError('Exact own closed wait-only allocation accounting required')
 
 
 def retire_entries(entries,expected,allow_absent=False):

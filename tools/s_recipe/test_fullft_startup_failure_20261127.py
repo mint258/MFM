@@ -1,8 +1,12 @@
 import copy
+import json
 import unittest
+import tempfile
+from pathlib import Path
 from unittest.mock import patch
 from fullft_startup_failure_20261127 import (C,STATUS,validate_failure,require_pending,
     retire_entries,verify_receipt,validate_wait_exit,standby_terminal_action)
+from fullft_startup_failure_20261127 import POLICY,digest,require_cold_origin,require_wait_accounting
 
 
 class StartupFailure(unittest.TestCase):
@@ -140,6 +144,78 @@ class StartupFailure(unittest.TestCase):
             with self.assertRaises(ValueError):verify_receipt(row,self.closure,self.cfg,self.task,self.files,dict(receipt,**{key:value}))
         changed=copy.deepcopy(receipt);changed['standby_wait_record']['producer']['start_ticks']=790
         with self.assertRaises(ValueError):verify_receipt(row,self.closure,self.cfg,self.task,self.files,changed)
+
+    def absent_output(self):
+        output=Path(self.cfg['output'])
+        return {'absent_output':dict(path=str(output),absent=True,parent=dict(
+            path=str(output.parent),uid=1278,ino=99,dev=2049,directory=True))}
+
+    def cold_first(self):
+        self.h=self.cfg['run']+'_attempt0'
+        self.row['configuration']=str(C/(self.h+'_configuration.json'))
+        self.task.update(native_handle=self.h,configuration=self.row['configuration'])
+        self.closure['native_handle']=self.h
+
+    def test_zero_science_absence_has_explicit_fresh_retry_not_fake_checkpoint(self):
+        self.cold_first()
+        absent=self.absent_output()
+        value=validate_failure(self.h,self.row,self.closure,self.cfg,self.task,absent)
+        self.assertEqual(value['resume_kind'],'FRESH_AFTER_ZERO_SCIENCE_STARTUP')
+        self.assertIsNone(value['actual_native_exit_code'])
+        self.assertEqual(value['files'],absent)
+        self.assertNotIn('complete_state.pt',value['files'])
+
+    def test_cold_receipt_rejects_changed_absence_owner_or_existing_partial(self):
+        self.cold_first()
+        absent=self.absent_output()
+        row=dict(self.row,status=STATUS,resource_closed=True)
+        value=validate_failure(self.h,row,self.closure,self.cfg,self.task,absent)
+        receipt=dict(value,status='FAILED_STARTUP_OWN_RESOURCES_CLOSED',
+            native_producer_verified_gone=True,standby_actual='CANCELLED by 1278|0:0|0')
+        self.assertTrue(verify_receipt(row,self.closure,self.cfg,self.task,absent,receipt))
+        with self.assertRaises(ValueError):verify_receipt(row,self.closure,self.cfg,self.task,self.files,receipt)
+        for key,wrong in (('path','/other/output'),('absent',False)):
+            bad=copy.deepcopy(absent);bad['absent_output'][key]=wrong
+            with self.assertRaises(ValueError):validate_failure(self.h,row,self.closure,self.cfg,self.task,bad)
+        bad=copy.deepcopy(absent);bad['absent_output']['parent']['uid']=1283
+        with self.assertRaises(ValueError):validate_failure(self.h,row,self.closure,self.cfg,self.task,bad)
+
+    def test_absence_snapshot_never_mistakes_partial_or_dangling_link_for_fresh(self):
+        from fullft_startup_failure_20261127 import snapshots
+        with tempfile.TemporaryDirectory(prefix='S_startup_absence_') as directory:
+            output=Path(directory)/'fit';cfg=dict(output=str(output))
+            self.assertEqual(snapshots(cfg)['absent_output']['path'],str(output))
+            output.mkdir();(output/'complete_state.pt').write_bytes(b'partial')
+            with self.assertRaises(FileNotFoundError):snapshots(cfg)
+            (output/'complete_state.pt').unlink();output.rmdir()
+            output.symlink_to(Path(directory)/'nonexistent_target',target_is_directory=True)
+            with self.assertRaises(FileNotFoundError):snapshots(cfg)
+
+    def test_missing_partial_cannot_be_reset_through_a_cold_retry_chain(self):
+        with self.assertRaises(ValueError):require_cold_origin(self.h,self.cfg)
+        with tempfile.TemporaryDirectory(prefix='S_startup_chain_') as directory:
+            control=Path(directory);previous=self.cfg['run']+'_attempt0'
+            path=control/(previous+'_startup_failure_settlement.json')
+            prior=dict(policy=POLICY,handle=previous,run=self.cfg['run'],
+                status='FAILED_STARTUP_OWN_RESOURCES_CLOSED',resume_kind='FRESH_AFTER_ZERO_SCIENCE_STARTUP',
+                native_producer_verified_gone=True,actual_native_exit_code=None,exit_code_observed=False,
+                files=self.absent_output())
+            path.write_text(json.dumps(prior))
+            cfg=dict(self.cfg,zero_science_retry_origin=dict(receipt=str(path),digest=digest(prior)))
+            self.assertTrue(require_cold_origin(self.h,cfg,control))
+            prior['resume_kind']='PARTIAL_STATE';path.write_text(json.dumps(prior))
+            cfg['zero_science_retry_origin']['digest']=digest(prior)
+            with self.assertRaises(ValueError):require_cold_origin(self.h,cfg,control)
+
+    def test_persistent_accounting_keeps_exact_owner_and_job_after_live_cache_expiry(self):
+        actual='FAILED|1:0|1'
+        info=dict(JobIDRaw='4540891',UID='1278',JobName=self.h,NodeList=self.row['node'],
+            State='FAILED',ExitCode='1:0',ElapsedRaw='1')
+        require_wait_accounting(info,actual,self.h,4540891,self.row['node'])
+        for key,value in (('JobIDRaw','4540892'),('UID','1283'),('JobName','S_other'),
+                ('NodeList','compute-0-22'),('State','RUNNING'),('ExitCode','75:0'),('ElapsedRaw','2')):
+            with self.assertRaises(ValueError):require_wait_accounting(dict(info,**{key:value}),
+                actual,self.h,4540891,self.row['node'])
 
 
 if __name__=='__main__':unittest.main()
