@@ -150,7 +150,7 @@ with (C/'execution.lock').open('a') as lock:
         producer_exit_evidence=str(closure))
     from fullft_ram_envelope_20261127 import future_ram
     python=NEW if '5090' in card['gpu_name'] else OLD
-    ram_bytes,ram_source=future_ram(ledger,plan['providers_sha256'],python=python)
+    ram_bytes,ram_source=future_ram(ledger,plan['providers_sha256'],python=python,task=cell['task'])
     c = dict(schema='S_REUSED_P_FULLFT_20261124_V1', invoking_authority=AUTHORITY,
         authority=PROTOCOL, kind='F', ready=True, mode='full', run=cell['run'],
         task=cell['task'], seed=cell['seed'], seed_role='finetuning', pretraining_seed=0,
@@ -162,7 +162,7 @@ with (C/'execution.lock').open('a') as lock:
         providers_sha256=plan['providers_sha256'], unchanged_scientific_provider=True)
     if native:c['execution_backend']='mixed_gpu_native_20261126'
     if ram_source:c['host_ram_envelope_source']=ram_source
-    if ram_bytes==8*GiB:c['host_ram_runtime_python']=python
+    if ram_bytes in (6*GiB,8*GiB):c['host_ram_runtime_python']=python
     validate(c)
     if args.attempt>0:
         from fullft_resume_20261126 import require_resume

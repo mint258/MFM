@@ -42,11 +42,14 @@ def require_closed_proof():
     return proof
 
 
-def future_ram(ledger,provider_pins,*,python=None):
+def future_ram(ledger,provider_pins,*,python=None,task=None):
     """Opt in only after root activates a closed estimate at a natural boundary."""
     state=read(C/'current_state.json')
     from fullft_physical_ram_20261127 import SCHEMA as PHYSICAL_SCHEMA,PROOF as PHYSICAL_PROOF
     if state.get('future_fullft_ram_policy') not in (SCHEMA,PHYSICAL_SCHEMA):return 64*GiB,None
+    from fullft_exp_ram_20261127 import future_exp_ram
+    experimental=future_exp_ram(ledger,provider_pins,python=python,task=task,state=state)
+    if experimental is not None:return experimental
     proof=require_closed_proof()
     if proof['providers_sha256']!=provider_pins:raise ValueError('Scientific provider topology changed')
     main=proof['estimate']['main_peak_bytes'];child=proof['estimate']['child_peak_bytes']
@@ -72,12 +75,16 @@ def future_ram(ledger,provider_pins,*,python=None):
 
 def validate_memory_contract(c):
     if c.get('peak_ram_bytes')==64*GiB:return
+    if c.get('peak_ram_bytes')==6*GiB:
+        from fullft_exp_ram_20261127 import validate_exp_contract
+        validate_exp_contract(c)
+        return
     if c.get('peak_ram_bytes')==8*GiB:
         from fullft_physical_ram_20261127 import validate_physical_contract
         validate_physical_contract(c)
         return
     if c.get('peak_ram_bytes')!=16*GiB or c.get('host_ram_envelope_source')!=str(PROOF):
-        raise ValueError('Only legacy64GiB or explicitly estimated future16GiB fullFT')
+        raise ValueError('Only legacy64GiB or the registered16/8/Exp6GiB fullFT contracts')
     proof=require_closed_proof()
     if proof['providers_sha256']!=c['providers_sha256']:
         raise ValueError('Actual pinned fullFT provider differs from estimated topology')

@@ -16,7 +16,8 @@ for filename in ('e1_s_rule_check_20261127.json','controller_sequence_check_2026
         'molecule_scaling_delivery_check_20261127.json','extension_spawn_clock_check_20261127.json',
         'fullft_ram_envelope_20261127.json','future_fullft_resources_check_20261127.json',
         'fullft_physical_ram_20261127.json','physical_fullft_integration_check_20261127.json',
-        'point_only_sequence_check_20261127.json','control_metadata_io_check_20261127.json'):
+        'point_only_sequence_check_20261127.json','control_metadata_io_check_20261127.json',
+        'fullft_exp_ram_20261127.json','fullft_exp_ram_check_20261127.json'):
     check=read(C/filename)
     parent=read(check['native_record'])
     command=read(Path(check['native_record']).with_name('command_exit.json'))
@@ -91,7 +92,8 @@ for name in ('launch_fullft_20261124.py','launch_cpu_native_20261126.py','seal_c
     'fullft_metadata_spawn_probe_20261127.py','check_physical_fullft_integration_20261127.py',
     'activate_physical_fullft_ram_20261127.py','report_extensions_startup_20261126.py',
     'check_point_only_sequence_20261127.py','check_control_metadata_io_20261127.py',
-    'correct_N1_statistics_sources_20261127.py'):
+    'correct_N1_statistics_sources_20261127.py','construct_fullft_exp_ram_20261127.py',
+    'check_fullft_exp_ram_20261127.py','activate_exp_fullft_ram_20261127.py'):
     compile((C/name).read_text(),str(C/name),'exec')
     shutil.copyfile(C/name,target/name)
 shutil.copyfile(C/'B0_8M_takeover_reconciliation_20261127.json',
