@@ -15,6 +15,8 @@ S本线k*=1。
 
 P/S共同k*仍待用户确认。本结果不改写原3M配方判定；3M下每分子平均约2.5次曝光。
 
+共同值候选为max(P=1,S=1)=1。已只读定位主线入口为`docs/research-mainline-20261107`分支的[RESEARCH_MAINLINE.md](https://github.com/mint258/MFM/blob/347e5a758eee0af43da3f58ac2684a90a43488ad/docs/RESEARCH_MAINLINE.md)，其中E1/D4及修订记录承接该共同值；按本指示第4节，待用户明确确认后才写入。此定位没有修改主线或启动E2。
+
 固定5000 VAL的3M终点损失如下。元素恢复目标在全部E1格中关闭，表中元素CE只作诊断，不是训练目标或k*门槛；其余损失沿原生产者定义。
 
 | k | s_noise | s_bond | s_element（诊断） | 位移误差/零位移误差 |
