@@ -1,0 +1,399 @@
+{
+  "schema": "S_E1_FROZEN_ENDPOINT_20261126_V1",
+  "status": "FROZEN_COMPLETE_FULL_FT_PENDING",
+  "run": "S_E1_k5_s0_3M",
+  "k": 5,
+  "seed": 0,
+  "samples": 3000000,
+  "source_training_budget": 3000000,
+  "independent_budget": true,
+  "layer": 6,
+  "formal_H": "encode_atoms output",
+  "readout_seed": 0,
+  "reference_run": "S_R1_s0_3M",
+  "source_scores": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_E1_k5_s0_3M/readout/scores.json",
+  "source_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_E1_k5_s0_3M/summary.json",
+  "source_configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_E1_k5_s0_3M/configuration.json",
+  "readouts": {
+    "R1": {
+      "complete": true,
+      "mean_normalized_improvement": 0.18051622961798433,
+      "bootstrap_ci": [
+        0.1638436121876417,
+        0.19505567177986216
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_defined": 1000,
+      "bootstrap_unit": "molecule",
+      "bootstrap_seed": 20261025,
+      "included_tasks": [
+        "exp.LogD",
+        "exp.Log_HLM_CLint",
+        "exp.LogS",
+        "qm9.U0_atom",
+        "qm9.homo",
+        "qm9.lumo",
+        "qm9.alpha"
+      ]
+    },
+    "R3": {
+      "complete": true,
+      "mean_normalized_improvement": 0.46340300571250265,
+      "bootstrap_ci": [
+        0.4496185939587715,
+        0.4754403537626667
+      ],
+      "bootstrap_samples": 1000,
+      "bootstrap_defined": 1000,
+      "bootstrap_unit": "molecule",
+      "bootstrap_seed": 20261025,
+      "included_tasks": [
+        "exp.LogD",
+        "exp.Log_HLM_CLint",
+        "exp.LogS",
+        "qm9.U0_atom",
+        "qm9.homo",
+        "qm9.lumo",
+        "qm9.alpha"
+      ]
+    }
+  },
+  "paired_frozen_vs_k10": {
+    "R1": {
+      "decision": {
+        "delta": -0.025227250943633428,
+        "ci_lower": -0.038091486084210084,
+        "ci_upper": -0.011485753610290627,
+        "verdict": "loss"
+      },
+      "seed_count": 1,
+      "seeds": [
+        0
+      ],
+      "seed0_borderline": false,
+      "seed0_win_requires_confirmation": false,
+      "seed1_required": false,
+      "per_seed_deltas": [
+        -0.025227250943633428
+      ],
+      "mean_score_A": 0.18051622961798433,
+      "mean_score_B": 0.20574348056161776,
+      "threshold": 0.010287174028080888,
+      "seed0_threshold": 0.010287174028080888,
+      "bootstrap_draws_per_seed": 1000,
+      "combined_bootstrap_draws": 1000,
+      "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+      "authority": "docs/s_recipe/TASKBOOK.md section4.4 (frozen S rule)",
+      "retained_draw_provider_authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+      "original_provider_verdict": "loss",
+      "decision_authority": "docs/s_recipe/TASKBOOK.md section4.4 (frozen S rule)"
+    },
+    "R3": {
+      "decision": {
+        "delta": 0.00825300973901183,
+        "ci_lower": -0.000967764913840434,
+        "ci_upper": 0.01801386728660238,
+        "verdict": "tie"
+      },
+      "seed_count": 1,
+      "seeds": [
+        0
+      ],
+      "seed0_borderline": false,
+      "seed0_win_requires_confirmation": false,
+      "seed1_required": false,
+      "per_seed_deltas": [
+        0.00825300973901183
+      ],
+      "mean_score_A": 0.46340300571250265,
+      "mean_score_B": 0.4551499959734908,
+      "threshold": 0.023170150285625135,
+      "seed0_threshold": 0.023170150285625135,
+      "bootstrap_draws_per_seed": 1000,
+      "combined_bootstrap_draws": 1000,
+      "CI_method": "equal-weight concatenation of original seed-wise molecular paired bootstrap differences",
+      "authority": "docs/s_recipe/TASKBOOK.md section4.4 (frozen S rule)",
+      "retained_draw_provider_authority": "docs/p_recipe/USER_DIRECTIVE_20261119.md",
+      "original_provider_verdict": "tie",
+      "decision_authority": "docs/s_recipe/TASKBOOK.md section4.4 (frozen S rule)"
+    }
+  },
+  "final_VAL": {
+    "samples": 3000000,
+    "losses": {
+      "s_element": 4.9789223507515885,
+      "s_noise": 0.17064498760789298,
+      "s_bond": 0.0006935187398336328
+    },
+    "counts": {
+      "s_element": 12545,
+      "s_noise": 266894,
+      "s_bond": 277104
+    },
+    "predicted_displacement_error_relative_to_zero": 0.17060653689909197,
+    "displacement_error_sums": {
+      "predicted_squared_error": 1366.323748588562,
+      "zero_squared_error": 8008.624835968018,
+      "atoms": 266894
+    },
+    "descriptive_denoising_groups": {}
+  },
+  "clip": {
+    "run": "S_E1_k5_s0_3M",
+    "source": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_E1_k5_s0_3M/clip_calibration.json",
+    "calibration": {
+      "calibration_samples": 150000,
+      "quantile": 0.99,
+      "initial_clip": 281.7,
+      "threshold": 37.455951538085955,
+      "observed_updates": 2813,
+      "fitted": true,
+      "window_start_samples": 60000,
+      "sample_axis": "optimizer_step_start",
+      "effective_freeze_samples": 150016
+    },
+    "role": "Original producer own p99; reported only, never tuned"
+  },
+  "training_exit": {
+    "run": "S_E1_k5_s0_3M",
+    "source_lifecycle": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_E1_k5_s0_3M_native_extension_20261123.json",
+    "producer": {
+      "pid": 230465,
+      "uid": 1278,
+      "start_ticks": 82244342,
+      "ppid": 1,
+      "state": "R"
+    },
+    "observed_at": 1795740814.7136285,
+    "actual_proc_identity": null,
+    "full_budget_samples": 3000000,
+    "owned_descendants_exited": true,
+    "standby_job_id": 4540342,
+    "standby_actual_terminal": "zixiao|S_E1_k5_s0_3M_extension|CANCELLED by 1278|0:0|0",
+    "pending_only_cancel_requested": true,
+    "retired_writer_futures": [
+      "S_E1_k5_s0_3M_node_disk",
+      "S_E1_k5_s0_3M_node_ram"
+    ]
+  },
+  "gpu_exit": {
+    "run": "S_E1_k5_s0_3M",
+    "role": "terminal",
+    "samples": 3000000,
+    "node": "compute-0-22",
+    "gpu_uuid": "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+    "job_id": null,
+    "resource_handle": "S_E1_k5_s0_3M_readout_terminal_3000000_attempt0",
+    "native_handle": "S_E1_k5_s0_3M_readout_terminal_3000000_attempt0",
+    "execution": "native_gpu",
+    "producer": {
+      "pid": 244698,
+      "uid": 1278,
+      "start_ticks": 85915016,
+      "ppid": 1,
+      "state": "R"
+    },
+    "started_at": 1795740836.2223477,
+    "status": "GPU_TERMINAL_COMPLETE_WAITING_CPU",
+    "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_E1_k5_s0_3M_readout_terminal_3000000_attempt0_native_record.json",
+    "actual_deadline_epoch": 1795748033.8416317,
+    "closing_reserve_seconds": 900,
+    "cpus_requested": 16,
+    "slurm_cpus_allocated": 0,
+    "gpu_metadata_at_start": [
+      "GPU-9b6008d0-35dd-4bff-f69a-0927b04b7eef",
+      " NVIDIA GeForce RTX 5090",
+      " 1107",
+      " 32607"
+    ],
+    "layer": 6,
+    "exit_code": 0,
+    "ended_at": 1795741362.203586,
+    "owned_descendants_exited": true,
+    "observer_joined": true,
+    "peak_RSS_bytes": 3941498880,
+    "cpu_user_seconds": 525.324875,
+    "cpu_system_seconds": 34.914731,
+    "peak_cuda_allocated_bytes": 426862080,
+    "peak_cuda_reserved_bytes": 658505728
+  },
+  "gpu_resource_close": {
+    "status": "OWN_RESOURCES_CLOSED",
+    "handle": "S_E1_k5_s0_3M_readout_terminal_3000000_attempt0",
+    "exit_code": 0,
+    "run": "S_E1_k5_s0_3M",
+    "samples": 3000000,
+    "role": "terminal",
+    "phase_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_E1_k5_s0_3M_readout_terminal_3000000_attempt0_native_record.json",
+    "retired_ids": [
+      "S_E1_k5_s0_3M_readout_terminal_3000000_attempt0_node_disk",
+      "S_E1_k5_s0_3M_readout_terminal_3000000_attempt0_node_ram"
+    ],
+    "actual": "CANCELLED by 1278|0:0|0",
+    "files_deleted": false,
+    "failed_standby_evidence": null
+  },
+  "failed_standby_exit": null,
+  "statistics_exit": {
+    "execution": "native_cpu",
+    "handle": "S_E1_k5_s0_3M_terminal_statistics_native_20261126_attempt0",
+    "stage": "terminal",
+    "job_id": null,
+    "node": "compute-0-11",
+    "cores": [
+      49
+    ],
+    "producer": {
+      "pid": 322196,
+      "uid": 1278,
+      "start_ticks": 2286247048,
+      "ppid": 322195,
+      "state": "R"
+    },
+    "started_at": 1795741448.268005,
+    "hard_end_epoch": 1795748643.0,
+    "cleanup_seconds": 900,
+    "status": "COMPLETE",
+    "owned_descendants_exited": true,
+    "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_E1_k5_s0_3M_terminal_statistics_native_20261126_attempt0/configuration.json",
+    "admission": {
+      "root": {
+        "line": "s-recipe",
+        "kind": "node_disk",
+        "node": "compute-0-11",
+        "path": "/",
+        "own": 150994944,
+        "peers": 67108864,
+        "reserve": 10737418240,
+        "available": 51287109632,
+        "probe_target": "/"
+      },
+      "shared": {
+        "line": "s-recipe",
+        "kind": "shared_fs",
+        "node": null,
+        "path": "/share",
+        "own": 47143919616,
+        "peers": 415834496,
+        "reserve": 108589934592,
+        "available": 5817309855744,
+        "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+      },
+      "ram": {
+        "line": "s-recipe",
+        "kind": "node_ram",
+        "node": "compute-0-11",
+        "path": "None",
+        "own": 51539607552,
+        "peers": 8589934592,
+        "reserve": 40446522572,
+        "available": 398222237696
+      }
+    },
+    "worker": {
+      "pid": 322201,
+      "uid": 1278,
+      "start_ticks": 2286247087,
+      "ppid": 322196,
+      "state": "R"
+    },
+    "exit_code": 0,
+    "ended_at": 1795741564.8117008,
+    "wall_seconds": 116.54369616508484,
+    "cpu_user_seconds": 99.308096,
+    "cpu_system_seconds": 14.711368,
+    "peak_child_RSS_bytes": 1560334336,
+    "observer_joined": true,
+    "run": "S_E1_k5_s0_3M",
+    "samples": 3000000,
+    "mode": "cpu",
+    "layer": 6,
+    "original_statistics": true
+  },
+  "statistics_parent_exit": {
+    "execution": "native_cpu",
+    "handle": "S_E1_k5_s0_3M_terminal_statistics_native_20261126_attempt0",
+    "stage": "terminal",
+    "job_id": null,
+    "node": "compute-0-11",
+    "cores": [
+      49
+    ],
+    "producer": {
+      "pid": 322196,
+      "uid": 1278,
+      "start_ticks": 2286247048,
+      "ppid": 322195,
+      "state": "R"
+    },
+    "started_at": 1795741448.268005,
+    "hard_end_epoch": 1795748643.0,
+    "cleanup_seconds": 900,
+    "status": "COMPLETE",
+    "owned_descendants_exited": true,
+    "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_E1_k5_s0_3M_terminal_statistics_native_20261126_attempt0/configuration.json",
+    "admission": {
+      "root": {
+        "line": "s-recipe",
+        "kind": "node_disk",
+        "node": "compute-0-11",
+        "path": "/",
+        "own": 150994944,
+        "peers": 67108864,
+        "reserve": 10737418240,
+        "available": 51287109632,
+        "probe_target": "/"
+      },
+      "shared": {
+        "line": "s-recipe",
+        "kind": "shared_fs",
+        "node": null,
+        "path": "/share",
+        "own": 47143919616,
+        "peers": 415834496,
+        "reserve": 108589934592,
+        "available": 5817309855744,
+        "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+      },
+      "ram": {
+        "line": "s-recipe",
+        "kind": "node_ram",
+        "node": "compute-0-11",
+        "path": "None",
+        "own": 51539607552,
+        "peers": 8589934592,
+        "reserve": 40446522572,
+        "available": 398222237696
+      }
+    },
+    "worker": {
+      "pid": 322201,
+      "uid": 1278,
+      "start_ticks": 2286247087,
+      "ppid": 322196,
+      "state": "R"
+    },
+    "exit_code": 0,
+    "ended_at": 1795741564.8117008,
+    "wall_seconds": 116.54369616508484,
+    "cpu_user_seconds": 99.308096,
+    "cpu_system_seconds": 14.711368,
+    "peak_child_RSS_bytes": 1560334336,
+    "observer_joined": true
+  },
+  "statistics_command_exit": {
+    "exit_code": 0,
+    "ended_at": 1795741564
+  },
+  "reporting_execution": {
+    "job_id": null,
+    "native_handle": "S_E1_k5_frozen_report_native_20261127_attempt0",
+    "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_E1_k5_frozen_report_native_20261127_attempt0/record.json"
+  },
+  "new_bootstrap_draws": 0,
+  "new_fits": 0,
+  "full_finetuning_complete": false,
+  "k_star": null,
+  "seed1_triggered": false,
+  "interpretation": "Frozen component only. Wait for all registered cells and full FT before E1 selection; original recipe unchanged."
+}
