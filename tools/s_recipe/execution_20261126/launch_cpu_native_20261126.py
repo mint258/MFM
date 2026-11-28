@@ -23,7 +23,7 @@ stage,handle,node,core_text=sys.argv[1:5]
 source=sys.argv[5] if len(sys.argv)>5 else None
 cores=[int(item) for item in core_text.split(',')]
 if (os.getuid()!=1278 or node not in {'compute-0-'+str(i) for i in (9,11,12,13,19)}
-        or stage not in ('terminal','budget_statistics','matrix','population','publish','import','fullft_statistics','fullft_delivery','fullft_contrasts','fullft_contrast_check','e1_local_decision','e1_cached_components_check','budget_curve_delivery','extension_progress','extension_daily','generic_publish','writer_admission_check','budget_adapter_check','native_output_check','fullft_provider_inspection','mixed_fullft_check','mixed_fullft_binding_check','fullft_resume_check','execution_delivery','readout_runtime_check','readout_delivery','budget_validation_curve','standby_settlement_check','e1_frozen_report','handoff_path_check','fullft_seal','controller_sequence_check','point_sequence_check','molecule_scaling_check','molecule_scaling_delivery','fullft_ram_envelope','extension_spawn_clock_check','future_fullft_resources_check','fullft_physical_ram','fullft_exp_ram','fullft_exp_ram_check','physical_fullft_integration_check','point_only_sequence_check','control_metadata_io_check','e1_s_rule_check','reporting_delivery_check','metadata_lock_check','native_clock_anchor_check','cost_accounting_check','cost_inventory_check','cost_inventory','cost_slurm_check','cost_summary','cost_export','fullft_runtime_ram_check','fullft_startup_failure_check')
+        or stage not in ('terminal','budget_statistics','matrix','population','publish','import','fullft_statistics','fullft_delivery','fullft_contrasts','fullft_contrast_check','e1_local_decision','e1_cached_components_check','budget_curve_delivery','extension_progress','extension_daily','generic_publish','writer_admission_check','budget_adapter_check','native_output_check','fullft_provider_inspection','mixed_fullft_check','mixed_fullft_binding_check','fullft_resume_check','execution_delivery','readout_runtime_check','readout_delivery','budget_validation_curve','standby_settlement_check','e1_frozen_report','handoff_path_check','fullft_seal','controller_sequence_check','point_sequence_check','molecule_scaling_check','molecule_scaling_delivery','fullft_ram_envelope','extension_spawn_clock_check','future_fullft_resources_check','fullft_physical_ram','fullft_exp_ram','fullft_exp_ram_check','physical_fullft_integration_check','point_only_sequence_check','control_metadata_io_check','e1_s_rule_check','reporting_delivery_check','metadata_lock_check','native_clock_anchor_check','cost_accounting_check','cost_inventory_check','cost_inventory','cost_slurm_check','cost_summary','cost_export','fullft_runtime_ram_check','fullft_startup_failure_check','final_regression')
         or not 1<=len(set(cores))==len(cores)<=16
         or not handle.replace('_','').isalnum() or not handle.startswith('S_')):
     raise ValueError('Explicit owned registered native CPU stage required')
@@ -54,10 +54,10 @@ with (C/'native_cpu_launch_20261126.lock').open('a') as lock:
         actual=call('/usr/bin/sacct','-X','-n','-P','-j',job,'--format=State,ElapsedRaw')
         if not actual.startswith('CANCELLED by 1278|0'):
             raise ValueError('Old zero-runtime queue must be actually cancelled before native entry')
-    peak=(16 if stage in ('terminal','budget_statistics') else 4)*1024**3
-    expected=3600 if stage in ('terminal','budget_statistics','fullft_statistics') else 1200 if stage=='population' else 60
+    peak=(16 if stage in ('terminal','budget_statistics','final_regression') else 4)*1024**3
+    expected=3600 if stage in ('terminal','budget_statistics','fullft_statistics','final_regression') else 1200 if stage=='population' else 60
     hard=max(2*expected,1800)
-    cleanup=900 if stage in ('terminal','budget_statistics','population','fullft_statistics') else 180
+    cleanup=900 if stage in ('terminal','budget_statistics','population','fullft_statistics','final_regression') else 180
     if stage in ('terminal','budget_statistics','fullft_statistics'):
         if source is None or Path(source).parent!=C:
             raise ValueError('Bind the existing owned terminal CPU configuration')
@@ -78,11 +78,11 @@ with (C/'native_cpu_launch_20261126.lock').open('a') as lock:
         if set(other['cores']) & set(cores):
             raise ValueError('A previous owned CPU handle still holds these cores; inspect before retry')
         active_peak+=other['peak_ram_bytes']
-    for kind,path,need in (('node_ram',None,max(48*1024**3,active_peak+peak)),('node_disk','/',128*1024**2)):
+    for kind,path,need in (('node_ram',None,max(48*1024**3,active_peak+peak)),('node_disk','/',(2*1024**3 if stage=='final_regression' else 128*1024**2))):
         existing=sum(e['bytes'] for e in forecast['entries'] if e['kind']==kind and
                      e.get('node')==node and e.get('path')==path)
         if existing<need:
-            entry=dict(id='S_native_CPU_20261126_'+node+'_'+kind,kind=kind,node=node,bytes=need-existing)
+            entry=dict(id=(handle if stage=='final_regression' else 'S_native_CPU_20261126_'+node)+'_'+kind,kind=kind,node=node,bytes=need-existing)
             if path is not None:entry['path']=path
             forecast['entries'].append(entry)
     write(budget,forecast)

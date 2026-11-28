@@ -78,7 +78,7 @@ subset_wait=('T5在节点20本次RAM准入未通过（两项预留128GiB＋余�
     if 'S_subset_T5_s0_9M' not in ledger['runs'] else '')
 curve_path=R/'results/s_recipe/budget_curve_status.json'
 curve_complete=curve_path.exists() and read(curve_path).get('status')=='READOUTS_COMPLETE_FULLFT_COMPLETE'
-next_work=('C1预算曲线已齐备（18个冻结点、5个完整微调点、36行VAL）；下一步：完成T5/T6子集9M及登记读出、24个终点微调和C2曲线。'
+next_work=('C1预算曲线已齐备；T6的9M训练、3M/6M/9M冻结统计及12个终点微调和配对比较已完成。下一步：完成T5的9M及登记评测，再交付完整C2分子数曲线。'
     if curve_complete else '下一步：完成剩余微调与C1/C2曲线，继续两条子集9M及其登记评测。')
 lines=['# S 配方研究 · '+stamp.date().isoformat()+' · '+stamp.strftime('%H:%M'), '',
     '已完成：原六条3M和指定诊断；S-final=S-R1。原9M的R3：B0=0.470412、final=0.449116，Δ='+format(point['delta'],'.6f')+

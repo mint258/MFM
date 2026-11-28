@@ -70,6 +70,66 @@ def csv_file(path,rows):
     pending.write_text(stream.getvalue());pending.replace(path)
 
 
+def plot_curves(rows, vals):
+    """Render only the closed delivered rows; no model or bootstrap access."""
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    matplotlib.rcParams['svg.fonttype'] = 'none'
+    directory = R/'results/s_recipe/figures'
+    directory.mkdir(parents=True, exist_ok=True)
+    endpoints = sorted((row for row in rows if row['samples'] == 9000000),
+        key=lambda row: row['TRAIN_molecules'])
+    x = [row['TRAIN_molecules']/1000000 for row in endpoints]
+    labels = [f"{row['TRAIN_molecules']:,}" for row in endpoints]
+    figure, axes = plt.subplots(2, 2, figsize=(11.6, 8.0), constrained_layout=True)
+    for samples, color in zip(SAMPLES, ('#276fbf', '#13846f', '#c65d21')):
+        series = sorted((row for row in rows if row['samples'] == samples),
+            key=lambda row: row['TRAIN_molecules'])
+        for axis, key in zip(axes[0], ('R1', 'R3')):
+            means = [row[key+'_mean'] for row in series]
+            errors = [[m-row[key+'_ci_lower'] for m, row in zip(means, series)],
+                [row[key+'_ci_upper']-m for m, row in zip(means, series)]]
+            axis.errorbar(x, means, yerr=errors, marker='o', color=color, capsize=3,
+                label=str(samples//1000000)+'M snapshot')
+            axis.set_ylabel('Frozen layer 6 '+key+' (95% molecular CI)')
+    axes[0, 0].legend(frameon=False, fontsize=9)
+    axes[1, 0].plot(x, [row['fullFT_seed_mean'] for row in endpoints],
+        'o-', color='#13846f')
+    axes[1, 0].set_ylabel('Full FT: mean of three seed scores')
+    means = [row['fullFT_ensemble_mean'] for row in endpoints]
+    errors = [[m-row['fullFT_ensemble_ci_lower'] for m, row in zip(means, endpoints)],
+        [row['fullFT_ensemble_ci_upper']-m for m, row in zip(means, endpoints)]]
+    axes[1, 1].errorbar(x, means, yerr=errors, marker='o', color='#75509c', capsize=4)
+    axes[1, 1].set_ylabel('Full FT: score of mean predictions\n95% molecular CI')
+    for axis in axes.flat:
+        axis.set_xticks(x, labels, fontsize=9)
+        axis.set_xlabel('TRAIN molecules (actual intersections)')
+        axis.grid(alpha=.2)
+    axes[1, 0].set_title('9M endpoint: normalized improvement relative to scratch', fontsize=10)
+    axes[1, 1].set_title('9M endpoint: distinct ensemble estimand', fontsize=10)
+    figure.suptitle('S molecule counts: original 9M cosine trajectories')
+    figure.savefig(directory/'molecule_scaling_curve.svg')
+    figure.savefig(C/'molecule_scaling_curve_20261128.png', dpi=160)
+    plt.close(figure)
+    figure, axes = plt.subplots(3, 1, figsize=(7.5, 7.6), sharex=True, constrained_layout=True)
+    for run, color in zip((*RUNS, FULL), ('#276fbf', '#13846f', '#c65d21')):
+        series = sorted((row for row in vals if row['run'] == run), key=lambda row: row['samples'])
+        count = series[0]['TRAIN_molecules']
+        for axis, family in zip(axes, ('s_bond', 's_element', 's_noise')):
+            valid = [row for row in series if row[family] not in ('', None)]
+            axis.plot([row['samples']/1000000 for row in valid],
+                [float(row[family]) for row in valid], '.-', color=color, label=f'{count:,} molecules')
+            axis.set_ylabel(family+' VAL loss')
+            axis.grid(alpha=.2)
+    axes[0].set_title('Existing fixed-VAL records: three molecule populations')
+    axes[0].legend(frameon=False, fontsize=9)
+    axes[1].set_title('Element recovery disabled in all runs; monitoring value only', fontsize=9, loc='left')
+    axes[-1].set_xlabel('Training samples (millions; 9M cosine runs)')
+    figure.savefig(directory/'molecule_scaling_VAL_curve.svg')
+    figure.savefig(C/'molecule_scaling_VAL_curve_20261128.png', dpi=160)
+    plt.close(figure)
+
 def collect():
     marker=C/'molecule_scaling_delivery_20261127_COMPLETE.json'
     if marker.exists():return read(marker)
@@ -183,6 +243,8 @@ def run():
     destination=R/'results/s_recipe'
     csv_file(destination/'molecule_scaling.csv',rows)
     csv_file(destination/'molecule_scaling_VAL.csv',value['VAL'])
+    if status=='COMPLETE':
+        plot_curves(rows,value['VAL'])
     write(destination/'molecule_scaling.json',dict(value,status=status,
         complete_fullFT_points=completed,fullFT_paired_contrasts=all_contrasts,table=rows,
         last_reporting_execution=execution_fields()))
@@ -197,6 +259,8 @@ def run():
     lines+=['', '状态：'+status+'。9M全量微调逐种子分数改善、平均预测改善/CI及其配对差分列在[molecule_scaling.csv](../../results/s_recipe/molecule_scaling.csv)；每任务差与CI引用原完整微调配对交付。', '',
         '三种子分数均值和平均预测的分子CI属于不同估计量。冻结差只用原1000次分子配对抽样做代数，不重抽；没有多重比较校正。只比较相同9M轨迹样本边界，3/6M不是独立预算训练；不触发seed1、配方或k*修改。', '',
         '原每500k的三家族VAL见[molecule_scaling_VAL.csv](../../results/s_recipe/molecule_scaling_VAL.csv)。s_element恢复目标在全部三条运行中关闭，其监测损失不能解释为被优化目标。原P实际MIDs及S交集产品继续保留供D后续使用。', '']
+    if status=='COMPLETE':
+        lines+=['', '图：[分子数与冻结/完整微调](../../results/s_recipe/figures/molecule_scaling_curve.svg)、[固定VAL曲线](../../results/s_recipe/figures/molecule_scaling_VAL_curve.svg)。只用本次已交付行出图；两个完整微调面板区分种子均分与平均预测分数/CI，冻结分与完整微调不作跨估计量的数值比较。', '']
     (R/'docs/s_recipe/MOLECULE_SCALING.md').write_text('\n'.join(lines))
     print(json.dumps(dict(status=status,points=len(rows),fullFT_points=completed,new_fits=0,new_bootstrap_draws=0)),flush=True)
     return 0

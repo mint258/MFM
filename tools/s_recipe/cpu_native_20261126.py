@@ -71,7 +71,8 @@ def worker(c):
                 guard.phase = 'closing'
                 life.close_children(180)
         return 0
-    scripts = {'matrix':'prepare_matrix_only_20261125.py',
+    scripts = {'final_regression':'run_final_regression_20261128.py',
+               'matrix':'prepare_matrix_only_20261125.py',
                'population':'prepare_extensions_and_register_20261125.py',
                'publish':'prepare_merge_publish_20261122.py',
                'import':'import_published_commit_20261122.py',
