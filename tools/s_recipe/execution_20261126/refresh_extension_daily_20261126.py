@@ -80,13 +80,34 @@ curve_path=R/'results/s_recipe/budget_curve_status.json'
 curve_complete=curve_path.exists() and read(curve_path).get('status')=='READOUTS_COMPLETE_FULLFT_COMPLETE'
 next_work=('C1预算曲线已齐备；T6的9M训练、3M/6M/9M冻结统计及12个终点微调和配对比较已完成。下一步：完成T5的9M及登记评测，再交付完整C2分子数曲线。'
     if curve_complete else '下一步：完成剩余微调与C1/C2曲线，继续两条子集9M及其登记评测。')
+science_complete=(execution['completed_full_fit_count']==192 and completed_points==16
+    and read(R/'results/s_recipe/full_finetune_contrasts_status.json').get('completed_pairs')==13
+    and read(R/'results/s_recipe/molecule_scaling.json').get('status')=='COMPLETE')
+validation_complete=False
+validation_path=R/'results/s_recipe/final_validation_20261128.json'
+if validation_path.exists():
+    validation=read(validation_path)
+    record_path=Path(validation['native_record'])
+    command_path=record_path.with_name('command_exit.json')
+    if record_path.exists() and command_path.exists():
+        actual=read(record_path); command=read(command_path)
+        validation_complete=(validation.get('status')=='COMPLETE' and len(validation.get('steps',[]))==4
+            and all(row.get('exit_code')==0 for row in validation['steps'])
+            and actual.get('status')=='COMPLETE' and actual.get('exit_code')==0
+            and command.get('exit_code')==0 and actual.get('owned_descendants_exited')
+            and actual.get('observer_joined'))
+if science_complete:
+    next_work=('全部登记科学工作、C1/C2曲线及一次完整默认CPU回归/仓库检查已完成；下一步：最终交付并开PR、不合并。'
+        if validation_complete else
+        '全部登记科学工作已闭合（192个fit、16个完整评测点、13项配对、C2九点/54行VAL）；固定截止成本已交付。下一步：一次完整默认CPU回归与仓库检查，登记实际结果后开PR、不合并。')
+
 lines=['# S 配方研究 · '+stamp.date().isoformat()+' · '+stamp.strftime('%H:%M'), '',
     '已完成：原六条3M和指定诊断；S-final=S-R1。原9M的R3：B0=0.470412、final=0.449116，Δ='+format(point['delta'],'.6f')+
     '、95%CI['+format(point['ci_lower'],'.6f')+', '+format(point['ci_upper'],'.6f')+']，LOSS；原3M冻结不重开。', '',
     '当前闭合：全量微调'+str(completed_points)+'/16点评测、'+str(execution['completed_full_fit_count'])+
     '/192个fit，选中模型'+str(len(execution['selected_models']))+'份；原9M新增前缀读出/CPU统计'+
     str(len(execution['completed_original9M_prefix_statistics']))+'/16点。详情见[微调](../FULL_FINETUNING_PROGRESS.md)及[执行进展](../../../results/s_recipe/execution_progress_20261127.json)。', '',
-    '在跑与预计：'+'；'.join(progress(row) for row in active)+
+    '在跑与预计：'+('；'.join(progress(row) for row in active) or '无活动预训练')+
     '。当前微调：'+fit_text+'。微调在登记范围内按E1优先补位；训练结束估计取原首1000步速度，读出/统计另计。', '',
     '人群：E1 TRAIN=1192951；实际平均PM7构象数（上限1/2/5/10）='+
     '/'.join(format(actual_means[str(k)],'.9f') for k in (1,2,5,10))+

@@ -36,7 +36,7 @@ value=dict(status='CLOSED_PHASE_COST_PREPARATION_NOT_FULL_EXPERIMENT_COST',obser
     excluded_open_execution_sources=inventory['open_execution_sources'],
     missing_bound_sources=inventory['missing_bound_sources'],
     unrecognized_bound_execution_sources=inventory['unrecognized_bound_execution_sources'],
-    scope='Only cached closed execution phases. Active T5/T6 and current accounting overhead are excluded; no full total-to-now, final report, CUDA busy-time, energy or currency claim. No scientific inputs.',
+    scope='Only cached closed execution phases at the explicit inventory/Slurm snapshot. Later phases and current accounting overhead are excluded; no total-to-now, CUDA busy-time, energy or currency claim. No scientific inputs.',
     models_predictions_labels_scores_VAL_read=False)
 write(C/'cost_closed_summary_20261127.json',value)
 shutil.copyfile(C/'summarize_closed_cost_20261127.py',
