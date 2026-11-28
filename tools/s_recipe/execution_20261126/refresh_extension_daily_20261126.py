@@ -76,6 +76,10 @@ e1_pending=('S本线k*='+str(e1_decision['k_star'])+'已闭合，未触发额外
 active=[row for row in rows if row['summary_status']!='COMPLETE']
 subset_wait=('T5在节点20本次RAM准入未通过（两项预留128GiB＋余量16GiB，现场可用约107GiB），未启动、不降在跑预留；待合适资源。'
     if 'S_subset_T5_s0_9M' not in ledger['runs'] else '')
+curve_path=R/'results/s_recipe/budget_curve_status.json'
+curve_complete=curve_path.exists() and read(curve_path).get('status')=='READOUTS_COMPLETE_FULLFT_COMPLETE'
+next_work=('C1预算曲线已齐备（18个冻结点、5个完整微调点、36行VAL）；下一步：完成T5/T6子集9M及登记读出、24个终点微调和C2曲线。'
+    if curve_complete else '下一步：完成剩余微调与C1/C2曲线，继续两条子集9M及其登记评测。')
 lines=['# S 配方研究 · '+stamp.date().isoformat()+' · '+stamp.strftime('%H:%M'), '',
     '已完成：原六条3M和指定诊断；S-final=S-R1。原9M的R3：B0=0.470412、final=0.449116，Δ='+format(point['delta'],'.6f')+
     '、95%CI['+format(point['ci_lower'],'.6f')+', '+format(point['ci_upper'],'.6f')+']，LOSS；原3M冻结不重开。', '',
@@ -99,7 +103,7 @@ lines += ['', '工程恢复、原失败与成本保留，完成的科学结果�
     str(len(execution.get('retained_safe_pause_segments',[])))+
     '段实际75完整状态暂停；另有'+str(len(execution.get('retained_startup_admission_failures',[])))+
     '段启动准入失败（原退出码未观测、原状态保留）。各段另计失败与成本，不计成功fit；结清后按实际资源准入续接，见[资源修订](../RESOURCE_CONCURRENCY_20261127.md)。', '',
-    '下一步：完成剩余微调与C1/C2曲线，继续两条子集9M及其登记评测。'+subset_wait+'半小时监控和存储/退出保护继续。全部原任务及A/B/C完成后写最终报告，再一次完整回归/仓库检查、开PR不合并。', '',
+    next_work+subset_wait+'半小时监控和存储/退出保护继续。全部原任务及A/B/C完成后写最终报告，再一次完整回归/仓库检查、开PR不合并。', '',
     '待确认事项：'+e1_pending+'工程与来源见[执行说明](../EXECUTION_20261126.md)。', '']
 
 daily=R/'docs/s_recipe/daily'/(stamp.date().isoformat()+'.md')

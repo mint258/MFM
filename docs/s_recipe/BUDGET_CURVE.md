@@ -1,9 +1,21 @@
-# 原9M轨迹的预算曲线（进行中）
+# 原9M轨迹的预算曲线（第一组C1已完成）
 
-[budget_curve.csv](../../results/s_recipe/budget_curve.csv)已对齐两条原9M运行每500k保存的固定VAL记录，共36行。34份中间VAL记录只转录一次；两份9M最终VAL与两组9M R1/R3均复用已公开的终点交付，没有重新评估模型或bootstrap。
+[budget_curve.csv](../../results/s_recipe/budget_curve.csv)已对齐两条原9M运行每500k保存的固定VAL，共36行。两条运行的1M–8M冻结读出/CPU统计16点，以及原有两份9M终点均已闭合，共18个正式第6层H0冻结评测点。登记的五个完整微调点也全部闭合，每点四任务、微调种子0–2。
 
-列名沿用P预算表的基本结构：`arm`、`samples`、`source_training_budget`、`source_run`、`readout_complete`、`R1_mean`/`R3_mean`及其CI、`VAL_loss_*`、`VAL_kind`。VAL保留原生产者的各头均值和观测计数，不从均值重造总损失；`disabled`注明未训练的头，S-final的`s_element`已停用，其原始VAL值仅保留记录。
+34份中间VAL只转录一次；两份9M最终VAL、两组9M R1/R3及所有后续表格均复用已交付产物。本次补齐微调列和出图没有新增拟合、bootstrap抽样或原始VAL回读。状态为[READOUTS_COMPLETE_FULLFT_COMPLETE](../../results/s_recipe/budget_curve_status.json)。
 
-两条原9M轨迹在1–8M的16个冻结读出及其CPU统计现已全部闭合；1–9M结果、既有9M配对差与固定VAL已填入表中。5个登记的全量微调点仍待完整结果，对应列留空；500k间隔中未登记读出的行明确标为`NOT_REGISTERED_AT_500K`。详见[状态](../../results/s_recipe/budget_curve_status.json)与[冻结读出曲线](../../results/s_recipe/figures/budget_frozen_curve.svg)、[固定VAL曲线](../../results/s_recipe/figures/budget_VAL_curve.svg)。后续复用已交付数组补齐微调列，不再打开原分数、预测或VAL文件，也不重新bootstrap。
+| 运行 | 同一9M轨迹边界 | R1 | R3 | 微调三种子均分 | 平均预测分数 | 平均预测95%CI |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| S-final | 1M | 0.151526 | 0.447482 | 0.388292 | 0.367156 | [0.350802, 0.384743] |
+| S-final | 3M | 0.158672 | 0.456062 | 0.388221 | 0.360356 | [0.341600, 0.379304] |
+| S-final | 6M | 0.186355 | 0.454477 | 0.392374 | 0.368173 | [0.350480, 0.385996] |
+| S-final | 9M | 0.203797 | 0.449116 | 0.398501 | 0.373476 | [0.355302, 0.391624] |
+| S-B0 | 9M | 0.209980 | 0.470412 | 0.419292 | 0.400932 | [0.383849, 0.418798] |
 
-全部模型点来自各自同一条9M cosine轨迹，固定第6层H0；中间快照不代表该预算下独立训完的模型，也不与原3M筛选运行作比较。完整微调尚未齐备，不据当前曲线改配方或补seed1。两个分子子集9M现已启动，另按原C2登记推进，不混入本页两条全量轨迹。
+表中微调分数为相对scratch改善。三种子分数均值和平均预测的分数是不同估计量，CI只对应后者；没有为三种子均分补造CI。七任务冻结分与四任务完整微调也不能直接比较数值。所有原精度、CI、条件与生产者路径见CSV及[完整微调](FULL_FINETUNING_PROGRESS.md)。本组没有登记的微调边界明确保留为未登记，不当成失败或缺失拟合。
+
+图：[冻结读出](../../results/s_recipe/figures/budget_frozen_curve.svg)、[完整微调](../../results/s_recipe/figures/budget_fullFT_curve.svg)、[固定VAL](../../results/s_recipe/figures/budget_VAL_curve.svg)。完整微调图分开显示种子均分和平均预测分数/CI。原冻结和VAL图直接复用，没有重新评估或抽样。
+
+S-final在所列快照上的冻结R3先升后降；9M完整微调均分高于1M/3M快照。这里只描述同一9M cosine运行内部的走势，不能解释为独立训练预算的效果，不与独立3M筛选运行混用，不作新的胜负判定或配方选择。原9M终点final−B0冻结R3为LOSS，完整微调的负差也另行报告，见[9M确认](9M_CONFIRMATION.md)与[配对微调](FULL_FINETUNING_CONTRASTS.md)。
+
+VAL保留各头原均值和观测计数，不从均值重造总损失；S-final的s_element训练目标关闭，监测值不当成被优化目标。两个分子子集9M及其C2评测继续单独推进，不混入本页两条全量轨迹。

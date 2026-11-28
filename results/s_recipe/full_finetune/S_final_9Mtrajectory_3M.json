@@ -1,0 +1,1502 @@
+{
+  "status": "COMPLETE_FULLFT_POINT",
+  "point": "S_final_9Mtrajectory_3M",
+  "source_binding": {
+    "point": "S_final_9Mtrajectory_3M",
+    "run": "S_final_s0_9M",
+    "samples": 3000000,
+    "source_training_budget": 9000000,
+    "configuration": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/configs/s_recipe/confirmation/S-final.json",
+    "checkpoint": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/training/S_final_s0_9M/samples_3000000.pt"
+  },
+  "rows": [
+    {
+      "condition": "S_final_9Mtrajectory_3M",
+      "task": "exp.LogD",
+      "seed_count": 3,
+      "seed_policy": "registered_finetuning_seeds_0_1_2",
+      "seed0_mae": 0.2757609624293798,
+      "seed1_mae": 0.2738816321147209,
+      "seed2_mae": 0.27612934583508225,
+      "mae_seed_mean": 0.27525731345972765,
+      "mae_seed_std": 0.0012055293259182643,
+      "seed0_scratch_improvement": 0.4231639869729325,
+      "seed1_scratch_improvement": 0.42709516488991695,
+      "seed2_scratch_improvement": 0.4223934035910836,
+      "scratch_improvement_seed_mean": 0.4242175184846444,
+      "scratch_improvement_seed_std": 0.0025217228857329055,
+      "frozen_reference_score_seed_mean": 0.5618393602350765,
+      "frozen_reference_score_seed_std": 0.0019189880699646226,
+      "scratch_baseline_mae_seed_mean": 0.4780578122753927,
+      "scratch_baseline_mae_seed_std": 0.023109190912142228,
+      "point_normalization": "shared_three_seed_scratch_mean_mae",
+      "frozen_training_disclosure": "F_50epochs_5percent_warmup_cosine",
+      "frozen_random_E_ref": 0.6282109538807623,
+      "ensemble_mae": 0.2666790904874135,
+      "ensemble_scratch_mae": 0.445678337559296,
+      "ensemble_scratch_improvement": 0.40163326773329483,
+      "ensemble_frozen_reference_score": 0.5754943640507889,
+      "bootstrap_seed": 20261025,
+      "bootstrap_unit": "molecule",
+      "ci_estimand": "score_of_mean_prediction_not_mean_of_seed_scores",
+      "mae_ensemble_ci_lower": 0.25114441200066884,
+      "mae_ensemble_ci_upper": 0.2836877792285335,
+      "mae_ensemble_bootstrap_defined": 1000,
+      "scratch_improvement_ensemble_ci_lower": 0.3593551123809422,
+      "scratch_improvement_ensemble_ci_upper": 0.4378166597807066,
+      "scratch_improvement_ensemble_bootstrap_defined": 1000,
+      "frozen_reference_score_ensemble_ci_lower": 0.547247985424889,
+      "frozen_reference_score_ensemble_ci_upper": 0.6021459933793076,
+      "frozen_reference_score_ensemble_bootstrap_defined": 1000
+    },
+    {
+      "condition": "S_final_9Mtrajectory_3M",
+      "task": "exp.LogS",
+      "seed_count": 3,
+      "seed_policy": "registered_finetuning_seeds_0_1_2",
+      "seed0_mae": 0.28288376156876727,
+      "seed1_mae": 0.2868795864756514,
+      "seed2_mae": 0.2859081014772741,
+      "mae_seed_mean": 0.2852238165072309,
+      "mae_seed_std": 0.002083947842866796,
+      "seed0_scratch_improvement": 0.2698373722584641,
+      "seed1_scratch_improvement": 0.2595235882581889,
+      "seed2_scratch_improvement": 0.26203112716849236,
+      "scratch_improvement_seed_mean": 0.2637973625617151,
+      "scratch_improvement_seed_std": 0.005378961395965565,
+      "frozen_reference_score_seed_mean": 0.36423902662404045,
+      "frozen_reference_score_seed_std": 0.00464509845380369,
+      "scratch_baseline_mae_seed_mean": 0.3874256923334385,
+      "scratch_baseline_mae_seed_std": 0.02009761024253894,
+      "point_normalization": "shared_three_seed_scratch_mean_mae",
+      "frozen_training_disclosure": "F_50epochs_5percent_warmup_cosine",
+      "frozen_random_E_ref": 0.4486337294229647,
+      "ensemble_mae": 0.2784447763024307,
+      "ensemble_scratch_mae": 0.3641489970199461,
+      "ensemble_scratch_improvement": 0.23535481744803755,
+      "ensemble_frozen_reference_score": 0.3793494379912808,
+      "bootstrap_seed": 20261025,
+      "bootstrap_unit": "molecule",
+      "ci_estimand": "score_of_mean_prediction_not_mean_of_seed_scores",
+      "mae_ensemble_ci_lower": 0.2607346590769549,
+      "mae_ensemble_ci_upper": 0.2971128241168575,
+      "mae_ensemble_bootstrap_defined": 1000,
+      "scratch_improvement_ensemble_ci_lower": 0.18972271191206413,
+      "scratch_improvement_ensemble_ci_upper": 0.2817463329259019,
+      "scratch_improvement_ensemble_bootstrap_defined": 1000,
+      "frozen_reference_score_ensemble_ci_lower": 0.34260796262205834,
+      "frozen_reference_score_ensemble_ci_upper": 0.4161919438212783,
+      "frozen_reference_score_ensemble_bootstrap_defined": 1000
+    },
+    {
+      "condition": "S_final_9Mtrajectory_3M",
+      "task": "qm9.U0_atom",
+      "seed_count": 3,
+      "seed_policy": "registered_finetuning_seeds_0_1_2",
+      "seed0_mae": 0.006290717915091288,
+      "seed1_mae": 0.006286802342745088,
+      "seed2_mae": 0.006482856097293473,
+      "mae_seed_mean": 0.006353458785043283,
+      "mae_seed_std": 0.00011207846019588023,
+      "seed0_scratch_improvement": 0.5268756248897297,
+      "seed1_scratch_improvement": 0.5271701147626663,
+      "seed2_scratch_improvement": 0.5124249280668517,
+      "scratch_improvement_seed_mean": 0.5221568892397492,
+      "scratch_improvement_seed_std": 0.008429411739522783,
+      "frozen_reference_score_seed_mean": 0.7817395828824826,
+      "frozen_reference_score_seed_std": 0.003850232180592502,
+      "scratch_baseline_mae_seed_mean": 0.013296118834767542,
+      "scratch_baseline_mae_seed_std": 0.0011080994000067777,
+      "point_normalization": "shared_three_seed_scratch_mean_mae",
+      "frozen_training_disclosure": "F_50epochs_5percent_warmup_cosine",
+      "frozen_random_E_ref": 0.029109532864231655,
+      "ensemble_mae": 0.00620848367617661,
+      "ensemble_scratch_mae": 0.012429628275021325,
+      "ensemble_scratch_improvement": 0.5005093041556821,
+      "ensemble_frozen_reference_score": 0.7867199138806763,
+      "bootstrap_seed": 20261025,
+      "bootstrap_unit": "molecule",
+      "ci_estimand": "score_of_mean_prediction_not_mean_of_seed_scores",
+      "mae_ensemble_ci_lower": 0.005888380704329898,
+      "mae_ensemble_ci_upper": 0.006602016315358679,
+      "mae_ensemble_bootstrap_defined": 1000,
+      "scratch_improvement_ensemble_ci_lower": 0.47706524314276755,
+      "scratch_improvement_ensemble_ci_upper": 0.520648197395118,
+      "scratch_improvement_ensemble_bootstrap_defined": 1000,
+      "frozen_reference_score_ensemble_ci_lower": 0.7742087822664637,
+      "frozen_reference_score_ensemble_ci_upper": 0.7969203990718189,
+      "frozen_reference_score_ensemble_bootstrap_defined": 1000
+    },
+    {
+      "condition": "S_final_9Mtrajectory_3M",
+      "task": "qm9.homo",
+      "seed_count": 3,
+      "seed_policy": "registered_finetuning_seeds_0_1_2",
+      "seed0_mae": 0.004435357679135565,
+      "seed1_mae": 0.004550602099708708,
+      "seed2_mae": 0.0044503529741639555,
+      "mae_seed_mean": 0.004478770917669409,
+      "mae_seed_std": 6.265783074061278e-05,
+      "seed0_scratch_improvement": 0.3490823624513162,
+      "seed1_scratch_improvement": 0.33216949286855063,
+      "seed2_scratch_improvement": 0.3468817052055339,
+      "scratch_improvement_seed_mean": 0.34271118684180024,
+      "scratch_improvement_seed_std": 0.009195444902101741,
+      "frozen_reference_score_seed_mean": 0.5450512096229643,
+      "frozen_reference_score_seed_std": 0.006364715862253651,
+      "scratch_baseline_mae_seed_mean": 0.0068140075230390925,
+      "scratch_baseline_mae_seed_std": 0.00017134422872571185,
+      "point_normalization": "shared_three_seed_scratch_mean_mae",
+      "frozen_training_disclosure": "F_50epochs_5percent_warmup_cosine",
+      "frozen_random_E_ref": 0.009844560558030407,
+      "ensemble_mae": 0.004421432123673801,
+      "ensemble_scratch_mae": 0.006351975744516906,
+      "ensemble_scratch_improvement": 0.30392805301713743,
+      "ensemble_frozen_reference_score": 0.5508756233850226,
+      "bootstrap_seed": 20261025,
+      "bootstrap_unit": "molecule",
+      "ci_estimand": "score_of_mean_prediction_not_mean_of_seed_scores",
+      "mae_ensemble_ci_lower": 0.0042629047343389435,
+      "mae_ensemble_ci_upper": 0.004595144411557157,
+      "mae_ensemble_bootstrap_defined": 1000,
+      "scratch_improvement_ensemble_ci_lower": 0.2805550887302293,
+      "scratch_improvement_ensemble_ci_upper": 0.3282527281777405,
+      "scratch_improvement_ensemble_bootstrap_defined": 1000,
+      "frozen_reference_score_ensemble_ci_lower": 0.5310437371499045,
+      "frozen_reference_score_ensemble_ci_upper": 0.56880535564144,
+      "frozen_reference_score_ensemble_bootstrap_defined": 1000
+    }
+  ],
+  "aggregate": {
+    "scratch_improvement_seed_mean": 0.38822073928197726,
+    "ensemble_scratch_improvement": 0.3603563605885379,
+    "ensemble_ci": [
+      0.34160024176442993,
+      0.37930444228468146
+    ],
+    "ensemble_ci_estimand": "four_task_mean_of_scores_of_three_seed_mean_predictions",
+    "point_estimand": "four_task_mean_of_three_seed_scores_with_shared_scratch_mean_MAE",
+    "point_and_ensemble_ci_are_distinct": true
+  },
+  "original_primary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_statistics_20261124/S_final_9Mtrajectory_3M/primary.json",
+  "retained_primary_delivery": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/fullft_delivery_20261127/S_final_9Mtrajectory_3M_primary.json",
+  "primary_complete": {
+    "status": "COMPLETE",
+    "run": "S_FT_statistics_S_final_9Mtrajectory_3M_attempt0",
+    "job_id": null,
+    "node": "compute-0-11",
+    "cpu_seconds_this_attempt": 2.2107338905334473,
+    "rows": 4,
+    "bootstrap_draws": 1000,
+    "bootstrap_seed": 20261025,
+    "estimator": "three_seed_point_mean_and_mean_prediction_molecular_CI_separate",
+    "frozen_reused_seed0": false,
+    "new_frozen_fits": 0,
+    "input_identity": {
+      "scratch": {
+        "qm9.U0_atom": [
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_U0_atom_s0/prediction.pt",
+            "bytes": 153788,
+            "mtime_ns": "1795349039000000000"
+          },
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_U0_atom_s1/prediction.pt",
+            "bytes": 153788,
+            "mtime_ns": "1795349832000000000"
+          },
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_U0_atom_s2/prediction.pt",
+            "bytes": 153788,
+            "mtime_ns": "1795350293000000000"
+          }
+        ],
+        "qm9.homo": [
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_homo_s0/prediction.pt",
+            "bytes": 153788,
+            "mtime_ns": "1795350749000000000"
+          },
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_homo_s1/prediction.pt",
+            "bytes": 153788,
+            "mtime_ns": "1795351209000000000"
+          },
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_qm9_homo_s2/prediction.pt",
+            "bytes": 153788,
+            "mtime_ns": "1795351660000000000"
+          }
+        ],
+        "exp.LogD": [
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_exp_LogD_s0/prediction.pt",
+            "bytes": 93244,
+            "mtime_ns": "1795351897000000000"
+          },
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_exp_LogD_s1/prediction.pt",
+            "bytes": 93244,
+            "mtime_ns": "1795353818000000000"
+          },
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_exp_LogD_s2/prediction.pt",
+            "bytes": 93244,
+            "mtime_ns": "1795354059000000000"
+          }
+        ],
+        "exp.LogS": [
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_exp_LogS_s0/prediction.pt",
+            "bytes": 93244,
+            "mtime_ns": "1795354301000000000"
+          },
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_exp_LogS_s1/prediction.pt",
+            "bytes": 93244,
+            "mtime_ns": "1795354539000000000"
+          },
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/fixed_20261115/analysis_20261122/F1_scratch_random_0M_exp_LogS_s2/prediction.pt",
+            "bytes": 93244,
+            "mtime_ns": "1795354778000000000"
+          }
+        ]
+      },
+      "random_reference": {
+        "qm9.U0_atom": [
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/qm9_U0_atom__R3.pt",
+            "bytes": 1475668,
+            "mtime_ns": "1794539443000000000"
+          }
+        ],
+        "qm9.homo": [
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/qm9_homo__R3.pt",
+            "bytes": 1475611,
+            "mtime_ns": "1794539516000000000"
+          }
+        ],
+        "exp.LogD": [
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/exp_LogD__R3.pt",
+            "bytes": 1415067,
+            "mtime_ns": "1794539272000000000"
+          }
+        ],
+        "exp.LogS": [
+          {
+            "path": "/lfshome/zixiao/model_v31_20261105/P_RECIPE_20261113/reference_C1_0/exp_LogS__R3.pt",
+            "bytes": 1415067,
+            "mtime_ns": "1794539339000000000"
+          }
+        ]
+      },
+      "conditions": {
+        "S_final_9Mtrajectory_3M": {
+          "qm9.U0_atom": [
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s0/prediction.pt",
+              "bytes": 153788,
+              "mtime_ns": "1795844647374593793"
+            },
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s1/prediction.pt",
+              "bytes": 153788,
+              "mtime_ns": "1795845009962760319"
+            },
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s2/prediction.pt",
+              "bytes": 153788,
+              "mtime_ns": "1795845413298148571"
+            }
+          ],
+          "qm9.homo": [
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s0/prediction.pt",
+              "bytes": 153788,
+              "mtime_ns": "1795845780037432712"
+            },
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s1/prediction.pt",
+              "bytes": 153788,
+              "mtime_ns": "1795846151976714492"
+            },
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s2/prediction.pt",
+              "bytes": 153788,
+              "mtime_ns": "1795846532633779866"
+            }
+          ],
+          "exp.LogD": [
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s0/prediction.pt",
+              "bytes": 93244,
+              "mtime_ns": "1795783852917149714"
+            },
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s1/prediction.pt",
+              "bytes": 93244,
+              "mtime_ns": "1795784126062653355"
+            },
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s2/prediction.pt",
+              "bytes": 93244,
+              "mtime_ns": "1795784421920895823"
+            }
+          ],
+          "exp.LogS": [
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s0/prediction.pt",
+              "bytes": 93244,
+              "mtime_ns": "1795784711739088665"
+            },
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s1/prediction.pt",
+              "bytes": 93244,
+              "mtime_ns": "1795784951662848761"
+            },
+            {
+              "path": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s2/prediction.pt",
+              "bytes": 93244,
+              "mtime_ns": "1795785194152585095"
+            }
+          ]
+        }
+      },
+      "frozen": {},
+      "scientific_protocol": "F_20261122B_fixed"
+    },
+    "native_execution": {
+      "handle": "S_FT_statistics_S_final_9Mtrajectory_3M_attempt0_native",
+      "record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_FT_statistics_S_final_9Mtrajectory_3M_attempt0_native/record.json",
+      "job_id": null
+    }
+  },
+  "primary_exit": {
+    "run": "S_FT_statistics_S_final_9Mtrajectory_3M_attempt0",
+    "job_id": null,
+    "node": "compute-0-11",
+    "started_at": 1795846602.7244306,
+    "actual_deadline_epoch": 1795853793.0,
+    "status": "COMPLETE",
+    "producer": {
+      "pid": 363071,
+      "uid": 1278,
+      "start_ticks": 2296763762,
+      "ppid": 363066,
+      "state": "R"
+    },
+    "native_handle": "S_FT_statistics_S_final_9Mtrajectory_3M_attempt0_native",
+    "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_FT_statistics_S_final_9Mtrajectory_3M_attempt0_native/record.json",
+    "exit_code": 0,
+    "ended_at": 1795846605.8975198,
+    "owned_descendants_exited": true,
+    "observer_joined": true
+  },
+  "parent_exit": {
+    "execution": "native_cpu",
+    "handle": "S_FT_statistics_S_final_9Mtrajectory_3M_attempt0_native",
+    "stage": "fullft_statistics",
+    "job_id": null,
+    "node": "compute-0-11",
+    "cores": [
+      49
+    ],
+    "producer": {
+      "pid": 363066,
+      "uid": 1278,
+      "start_ticks": 2296763713,
+      "ppid": 363065,
+      "state": "R"
+    },
+    "started_at": 1795846598.9094024,
+    "hard_end_epoch": 1795853793.0,
+    "cleanup_seconds": 900,
+    "status": "COMPLETE",
+    "owned_descendants_exited": true,
+    "configuration": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_FT_statistics_S_final_9Mtrajectory_3M_attempt0_native/configuration.json",
+    "admission": {
+      "root": {
+        "line": "s-recipe",
+        "kind": "node_disk",
+        "node": "compute-0-11",
+        "path": "/",
+        "own": 150994944,
+        "peers": 67108864,
+        "reserve": 10737418240,
+        "available": 51278139392,
+        "probe_target": "/"
+      },
+      "shared": {
+        "line": "s-recipe",
+        "kind": "shared_fs",
+        "node": null,
+        "path": "/share",
+        "own": 36005945344,
+        "peers": 265834496,
+        "reserve": 108589934592,
+        "available": 6026996744192,
+        "probe_target": "/share/home/zixiao/descriptor_analysis/MFM_s_recipe/tools"
+      },
+      "ram": {
+        "line": "s-recipe",
+        "kind": "node_ram",
+        "node": "compute-0-11",
+        "path": "None",
+        "own": 51539607552,
+        "peers": 8589934592,
+        "reserve": 40446522572,
+        "available": 397066702848
+      }
+    },
+    "worker": {
+      "pid": 363071,
+      "uid": 1278,
+      "start_ticks": 2296763762,
+      "ppid": 363066,
+      "state": "R"
+    },
+    "exit_code": 0,
+    "ended_at": 1795846606.4662113,
+    "wall_seconds": 7.556809186935425,
+    "cpu_user_seconds": 5.709216,
+    "cpu_system_seconds": 0.7336499999999999,
+    "peak_child_RSS_bytes": 734224384,
+    "observer_joined": true
+  },
+  "fits": [
+    {
+      "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s0",
+      "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s0_guarded_4540977.json",
+      "fit_exit": {
+        "run": "S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s0",
+        "job_id": 4540977,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "producer": {
+          "pid": 665600,
+          "uid": 1278,
+          "start_ticks": 102351108,
+          "ppid": 665596,
+          "state": "R"
+        },
+        "started_at": 1795844365.7160227,
+        "actual_deadline_epoch": 1795846463.0,
+        "closing_reserve_seconds": 900,
+        "protocol_provider": "P finetune_entry.py + finetune.py",
+        "invoking_authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+        "status": "COMPLETE",
+        "runtime_RAM_accounting": {
+          "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+          "registered_S_peak_bytes": 77309411328,
+          "this_fit_peak_bytes": 8589934592,
+          "committed_own_anon_bytes": 3211116544,
+          "remaining_S_bytes": 74098294784,
+          "observations": [
+            {
+              "credit_bytes": 3211116544,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795844644.6755023,
+              "producer": {
+                "pid": 665600,
+                "uid": 1278,
+                "start_ticks": 102351108
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            },
+            {
+              "credit_bytes": 3211116544,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795844644.7588744,
+              "producer": {
+                "pid": 665600,
+                "uid": 1278,
+                "start_ticks": 102351108
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            }
+          ],
+          "startup_and_peer_pretraining_reservations_unchanged": true,
+          "ram_guard_report": {
+            "line": "s-recipe",
+            "kind": "node_ram",
+            "node": "compute-0-20",
+            "path": "None",
+            "own": 74098294784,
+            "peers": 0,
+            "reserve": 17179869184,
+            "available": 101285261312
+          }
+        },
+        "exit_code": 0,
+        "peak_RSS_bytes": 3655766016,
+        "child_peak_RSS_bytes": 3655704576,
+        "peak_cuda_allocated_bytes": 1097303040,
+        "peak_cuda_reserved_bytes": 2516582400,
+        "ended_at": 1795844647.5336757,
+        "owned_descendants_exited": true,
+        "observer_joined": true
+      },
+      "selected_model_receipt": {
+        "status": "SELECTED_MODEL_DURABLE_CONTINUATION_RETIRED",
+        "selected_model": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s0/selected_model.pt",
+        "selected_bytes": 91051267,
+        "source_continuation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s0/complete_state.pt",
+        "source_bytes": 286308867,
+        "original_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s0/summary.json",
+        "owned_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s0_guarded_4540977.json",
+        "selected_epoch": 48,
+        "predictions_unchanged": true,
+        "reason": "completed producer cannot resume; selected best encoder/head and normalization retained"
+      }
+    },
+    {
+      "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s1",
+      "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s1_guarded_4540978.json",
+      "fit_exit": {
+        "run": "S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s1",
+        "job_id": 4540978,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "producer": {
+          "pid": 666339,
+          "uid": 1278,
+          "start_ticks": 102387418,
+          "ppid": 666335,
+          "state": "R"
+        },
+        "started_at": 1795844729.3091311,
+        "actual_deadline_epoch": 1795846826.0,
+        "closing_reserve_seconds": 900,
+        "protocol_provider": "P finetune_entry.py + finetune.py",
+        "invoking_authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+        "status": "COMPLETE",
+        "runtime_RAM_accounting": {
+          "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+          "registered_S_peak_bytes": 77309411328,
+          "this_fit_peak_bytes": 8589934592,
+          "committed_own_anon_bytes": 3043540992,
+          "remaining_S_bytes": 74265870336,
+          "observations": [
+            {
+              "credit_bytes": 3043540992,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795845008.2313914,
+              "producer": {
+                "pid": 666339,
+                "uid": 1278,
+                "start_ticks": 102387418
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            },
+            {
+              "credit_bytes": 3043540992,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795845008.313789,
+              "producer": {
+                "pid": 666339,
+                "uid": 1278,
+                "start_ticks": 102387418
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            }
+          ],
+          "startup_and_peer_pretraining_reservations_unchanged": true,
+          "ram_guard_report": {
+            "line": "s-recipe",
+            "kind": "node_ram",
+            "node": "compute-0-20",
+            "path": "None",
+            "own": 74265870336,
+            "peers": 0,
+            "reserve": 17179869184,
+            "available": 101333688320
+          }
+        },
+        "exit_code": 0,
+        "peak_RSS_bytes": 3552940032,
+        "child_peak_RSS_bytes": 3552940032,
+        "peak_cuda_allocated_bytes": 1098613248,
+        "peak_cuda_reserved_bytes": 2854223872,
+        "ended_at": 1795845010.118833,
+        "owned_descendants_exited": true,
+        "observer_joined": true
+      },
+      "selected_model_receipt": {
+        "status": "SELECTED_MODEL_DURABLE_CONTINUATION_RETIRED",
+        "selected_model": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s1/selected_model.pt",
+        "selected_bytes": 91051267,
+        "source_continuation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s1/complete_state.pt",
+        "source_bytes": 286308867,
+        "original_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s1/summary.json",
+        "owned_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s1_guarded_4540978.json",
+        "selected_epoch": 46,
+        "predictions_unchanged": true,
+        "reason": "completed producer cannot resume; selected best encoder/head and normalization retained"
+      }
+    },
+    {
+      "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s2",
+      "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s2_guarded_4540979.json",
+      "fit_exit": {
+        "run": "S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s2",
+        "job_id": 4540979,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "producer": {
+          "pid": 667085,
+          "uid": 1278,
+          "start_ticks": 102427729,
+          "ppid": 667081,
+          "state": "R"
+        },
+        "started_at": 1795845132.926727,
+        "actual_deadline_epoch": 1795847229.0,
+        "closing_reserve_seconds": 900,
+        "protocol_provider": "P finetune_entry.py + finetune.py",
+        "invoking_authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+        "status": "COMPLETE",
+        "runtime_RAM_accounting": {
+          "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+          "registered_S_peak_bytes": 77309411328,
+          "this_fit_peak_bytes": 8589934592,
+          "committed_own_anon_bytes": 2829688832,
+          "remaining_S_bytes": 74479722496,
+          "observations": [
+            {
+              "credit_bytes": 2829688832,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795845412.1518025,
+              "producer": {
+                "pid": 667085,
+                "uid": 1278,
+                "start_ticks": 102427729
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            },
+            {
+              "credit_bytes": 2829688832,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795845412.2316856,
+              "producer": {
+                "pid": 667085,
+                "uid": 1278,
+                "start_ticks": 102427729
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            }
+          ],
+          "startup_and_peer_pretraining_reservations_unchanged": true,
+          "ram_guard_report": {
+            "line": "s-recipe",
+            "kind": "node_ram",
+            "node": "compute-0-20",
+            "path": "None",
+            "own": 74479722496,
+            "peers": 0,
+            "reserve": 17179869184,
+            "available": 101442318336
+          }
+        },
+        "exit_code": 0,
+        "peak_RSS_bytes": 3575693312,
+        "child_peak_RSS_bytes": 3575693312,
+        "peak_cuda_allocated_bytes": 1098613248,
+        "peak_cuda_reserved_bytes": 2520776704,
+        "ended_at": 1795845413.4540384,
+        "owned_descendants_exited": true,
+        "observer_joined": true
+      },
+      "selected_model_receipt": {
+        "status": "SELECTED_MODEL_DURABLE_CONTINUATION_RETIRED",
+        "selected_model": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s2/selected_model.pt",
+        "selected_bytes": 91051267,
+        "source_continuation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s2/complete_state.pt",
+        "source_bytes": 286308867,
+        "original_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s2/summary.json",
+        "owned_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_qm9_U0_atom_s2_guarded_4540979.json",
+        "selected_epoch": 50,
+        "predictions_unchanged": true,
+        "reason": "completed producer cannot resume; selected best encoder/head and normalization retained"
+      }
+    },
+    {
+      "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s0",
+      "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s0_guarded_4540981.json",
+      "fit_exit": {
+        "run": "S_FT_S_final_9Mtrajectory_3M_qm9_homo_s0",
+        "job_id": 4540981,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "producer": {
+          "pid": 667787,
+          "uid": 1278,
+          "start_ticks": 102462438,
+          "ppid": 667783,
+          "state": "R"
+        },
+        "started_at": 1795845507.5135725,
+        "actual_deadline_epoch": 1795847576.0,
+        "closing_reserve_seconds": 900,
+        "protocol_provider": "P finetune_entry.py + finetune.py",
+        "invoking_authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+        "status": "COMPLETE",
+        "runtime_RAM_accounting": {
+          "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+          "registered_S_peak_bytes": 77309411328,
+          "this_fit_peak_bytes": 8589934592,
+          "committed_own_anon_bytes": 3433259008,
+          "remaining_S_bytes": 73876152320,
+          "observations": [
+            {
+              "credit_bytes": 3433259008,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795845755.7895997,
+              "producer": {
+                "pid": 667787,
+                "uid": 1278,
+                "start_ticks": 102462438
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            },
+            {
+              "credit_bytes": 3433259008,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795845755.8753762,
+              "producer": {
+                "pid": 667787,
+                "uid": 1278,
+                "start_ticks": 102462438
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            }
+          ],
+          "startup_and_peer_pretraining_reservations_unchanged": true,
+          "ram_guard_report": {
+            "line": "s-recipe",
+            "kind": "node_ram",
+            "node": "compute-0-20",
+            "path": "None",
+            "own": 73876152320,
+            "peers": 0,
+            "reserve": 17179869184,
+            "available": 100727758848
+          }
+        },
+        "exit_code": 0,
+        "peak_RSS_bytes": 3895046144,
+        "child_peak_RSS_bytes": 3895046144,
+        "peak_cuda_allocated_bytes": 1099923968,
+        "peak_cuda_reserved_bytes": 2688548864,
+        "ended_at": 1795845780.2102807,
+        "owned_descendants_exited": true,
+        "observer_joined": true
+      },
+      "selected_model_receipt": {
+        "status": "SELECTED_MODEL_DURABLE_CONTINUATION_RETIRED",
+        "selected_model": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s0/selected_model.pt",
+        "selected_bytes": 91051267,
+        "source_continuation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s0/complete_state.pt",
+        "source_bytes": 286308867,
+        "original_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s0/summary.json",
+        "owned_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s0_guarded_4540981.json",
+        "selected_epoch": 32,
+        "predictions_unchanged": true,
+        "reason": "completed producer cannot resume; selected best encoder/head and normalization retained"
+      }
+    },
+    {
+      "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s1",
+      "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s1_guarded_4540982.json",
+      "fit_exit": {
+        "run": "S_FT_S_final_9Mtrajectory_3M_qm9_homo_s1",
+        "job_id": 4540982,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "producer": {
+          "pid": 668575,
+          "uid": 1278,
+          "start_ticks": 102501551,
+          "ppid": 668571,
+          "state": "R"
+        },
+        "started_at": 1795845882.1527283,
+        "actual_deadline_epoch": 1795847967.0,
+        "closing_reserve_seconds": 900,
+        "protocol_provider": "P finetune_entry.py + finetune.py",
+        "invoking_authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+        "status": "COMPLETE",
+        "runtime_RAM_accounting": {
+          "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+          "registered_S_peak_bytes": 77309411328,
+          "this_fit_peak_bytes": 8589934592,
+          "committed_own_anon_bytes": 3579977728,
+          "remaining_S_bytes": 73729433600,
+          "observations": [
+            {
+              "credit_bytes": 3579977728,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795846130.5255046,
+              "producer": {
+                "pid": 668575,
+                "uid": 1278,
+                "start_ticks": 102501551
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            },
+            {
+              "credit_bytes": 3579977728,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795846130.6120493,
+              "producer": {
+                "pid": 668575,
+                "uid": 1278,
+                "start_ticks": 102501551
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            }
+          ],
+          "startup_and_peer_pretraining_reservations_unchanged": true,
+          "ram_guard_report": {
+            "line": "s-recipe",
+            "kind": "node_ram",
+            "node": "compute-0-20",
+            "path": "None",
+            "own": 73729433600,
+            "peers": 0,
+            "reserve": 17179869184,
+            "available": 100470771712
+          }
+        },
+        "exit_code": 0,
+        "peak_RSS_bytes": 4122570752,
+        "child_peak_RSS_bytes": 4122570752,
+        "peak_cuda_allocated_bytes": 1097696256,
+        "peak_cuda_reserved_bytes": 2873098240,
+        "ended_at": 1795846152.1303098,
+        "owned_descendants_exited": true,
+        "observer_joined": true
+      },
+      "selected_model_receipt": {
+        "status": "SELECTED_MODEL_DURABLE_CONTINUATION_RETIRED",
+        "selected_model": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s1/selected_model.pt",
+        "selected_bytes": 91051267,
+        "source_continuation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s1/complete_state.pt",
+        "source_bytes": 286308867,
+        "original_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s1/summary.json",
+        "owned_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s1_guarded_4540982.json",
+        "selected_epoch": 34,
+        "predictions_unchanged": true,
+        "reason": "completed producer cannot resume; selected best encoder/head and normalization retained"
+      }
+    },
+    {
+      "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s2",
+      "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s2_guarded_4540983.json",
+      "fit_exit": {
+        "run": "S_FT_S_final_9Mtrajectory_3M_qm9_homo_s2",
+        "job_id": 4540983,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "producer": {
+          "pid": 669320,
+          "uid": 1278,
+          "start_ticks": 102540461,
+          "ppid": 669316,
+          "state": "R"
+        },
+        "started_at": 1795846264.2539718,
+        "actual_deadline_epoch": 1795848356.0,
+        "closing_reserve_seconds": 900,
+        "protocol_provider": "P finetune_entry.py + finetune.py",
+        "invoking_authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+        "status": "COMPLETE",
+        "runtime_RAM_accounting": {
+          "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+          "registered_S_peak_bytes": 77309411328,
+          "this_fit_peak_bytes": 8589934592,
+          "committed_own_anon_bytes": 3442147328,
+          "remaining_S_bytes": 73867264000,
+          "observations": [
+            {
+              "credit_bytes": 3442147328,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795846512.5887868,
+              "producer": {
+                "pid": 669320,
+                "uid": 1278,
+                "start_ticks": 102540461
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            },
+            {
+              "credit_bytes": 3442147328,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795846512.6749456,
+              "producer": {
+                "pid": 669320,
+                "uid": 1278,
+                "start_ticks": 102540461
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            }
+          ],
+          "startup_and_peer_pretraining_reservations_unchanged": true,
+          "ram_guard_report": {
+            "line": "s-recipe",
+            "kind": "node_ram",
+            "node": "compute-0-20",
+            "path": "None",
+            "own": 73867264000,
+            "peers": 0,
+            "reserve": 17179869184,
+            "available": 100509241344
+          }
+        },
+        "exit_code": 0,
+        "peak_RSS_bytes": 3984183296,
+        "child_peak_RSS_bytes": 3984183296,
+        "peak_cuda_allocated_bytes": 1100579328,
+        "peak_cuda_reserved_bytes": 3223322624,
+        "ended_at": 1795846532.7891092,
+        "owned_descendants_exited": true,
+        "observer_joined": true
+      },
+      "selected_model_receipt": {
+        "status": "SELECTED_MODEL_DURABLE_CONTINUATION_RETIRED",
+        "selected_model": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s2/selected_model.pt",
+        "selected_bytes": 91051267,
+        "source_continuation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s2/complete_state.pt",
+        "source_bytes": 286308867,
+        "original_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s2/summary.json",
+        "owned_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_qm9_homo_s2_guarded_4540983.json",
+        "selected_epoch": 33,
+        "predictions_unchanged": true,
+        "reason": "completed producer cannot resume; selected best encoder/head and normalization retained"
+      }
+    },
+    {
+      "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s0",
+      "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s0_guarded_4540836.json",
+      "fit_exit": {
+        "run": "S_FT_S_final_9Mtrajectory_3M_exp_LogD_s0",
+        "job_id": 4540836,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "producer": {
+          "pid": 585134,
+          "uid": 1278,
+          "start_ticks": 96282489,
+          "ppid": 585130,
+          "state": "R"
+        },
+        "started_at": 1795783706.6324966,
+        "actual_deadline_epoch": 1795785791.0,
+        "closing_reserve_seconds": 900,
+        "protocol_provider": "P finetune_entry.py + finetune.py",
+        "invoking_authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+        "status": "COMPLETE",
+        "runtime_RAM_accounting": {
+          "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+          "registered_S_peak_bytes": 75161927680,
+          "this_fit_peak_bytes": 6442450944,
+          "committed_own_anon_bytes": 3141246976,
+          "remaining_S_bytes": 72020680704,
+          "observations": [
+            {
+              "credit_bytes": 3141246976,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795783829.9295003,
+              "producer": {
+                "pid": 585134,
+                "uid": 1278,
+                "start_ticks": 96282489
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            },
+            {
+              "credit_bytes": 3141246976,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795783830.0388741,
+              "producer": {
+                "pid": 585134,
+                "uid": 1278,
+                "start_ticks": 96282489
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            }
+          ],
+          "startup_and_peer_pretraining_reservations_unchanged": true,
+          "ram_guard_report": {
+            "line": "s-recipe",
+            "kind": "node_ram",
+            "node": "compute-0-20",
+            "path": "None",
+            "own": 72020680704,
+            "peers": 0,
+            "reserve": 17179869184,
+            "available": 91632734208
+          }
+        },
+        "exit_code": 0,
+        "peak_RSS_bytes": 3872456704,
+        "child_peak_RSS_bytes": 3715776512,
+        "peak_cuda_allocated_bytes": 1926749696,
+        "peak_cuda_reserved_bytes": 4756340736,
+        "ended_at": 1795783853.0492404,
+        "owned_descendants_exited": true,
+        "observer_joined": true
+      },
+      "selected_model_receipt": {
+        "status": "SELECTED_MODEL_DURABLE_CONTINUATION_RETIRED",
+        "selected_model": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s0/selected_model.pt",
+        "selected_bytes": 91018371,
+        "source_continuation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s0/complete_state.pt",
+        "source_bytes": 286275907,
+        "original_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s0/summary.json",
+        "owned_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s0_guarded_4540836.json",
+        "selected_epoch": 30,
+        "predictions_unchanged": true,
+        "reason": "completed producer cannot resume; selected best encoder/head and normalization retained"
+      }
+    },
+    {
+      "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s1",
+      "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s1_guarded_4540837.json",
+      "fit_exit": {
+        "run": "S_FT_S_final_9Mtrajectory_3M_exp_LogD_s1",
+        "job_id": 4540837,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "producer": {
+          "pid": 585782,
+          "uid": 1278,
+          "start_ticks": 96311100,
+          "ppid": 585778,
+          "state": "R"
+        },
+        "started_at": 1795783980.743561,
+        "actual_deadline_epoch": 1795786077.0,
+        "closing_reserve_seconds": 900,
+        "protocol_provider": "P finetune_entry.py + finetune.py",
+        "invoking_authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+        "status": "COMPLETE",
+        "runtime_RAM_accounting": {
+          "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+          "registered_S_peak_bytes": 75161927680,
+          "this_fit_peak_bytes": 6442450944,
+          "committed_own_anon_bytes": 3117338624,
+          "remaining_S_bytes": 72044589056,
+          "observations": [
+            {
+              "credit_bytes": 3117338624,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795784103.8704684,
+              "producer": {
+                "pid": 585782,
+                "uid": 1278,
+                "start_ticks": 96311100
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            },
+            {
+              "credit_bytes": 3117338624,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795784103.9809072,
+              "producer": {
+                "pid": 585782,
+                "uid": 1278,
+                "start_ticks": 96311100
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            }
+          ],
+          "startup_and_peer_pretraining_reservations_unchanged": true,
+          "ram_guard_report": {
+            "line": "s-recipe",
+            "kind": "node_ram",
+            "node": "compute-0-20",
+            "path": "None",
+            "own": 72044589056,
+            "peers": 0,
+            "reserve": 17179869184,
+            "available": 91042152448
+          }
+        },
+        "exit_code": 0,
+        "peak_RSS_bytes": 3607113728,
+        "child_peak_RSS_bytes": 3567214592,
+        "peak_cuda_allocated_bytes": 1926159872,
+        "peak_cuda_reserved_bytes": 6494879744,
+        "ended_at": 1795784126.1956925,
+        "owned_descendants_exited": true,
+        "observer_joined": true
+      },
+      "selected_model_receipt": {
+        "status": "SELECTED_MODEL_DURABLE_CONTINUATION_RETIRED",
+        "selected_model": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s1/selected_model.pt",
+        "selected_bytes": 91018371,
+        "source_continuation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s1/complete_state.pt",
+        "source_bytes": 286275907,
+        "original_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s1/summary.json",
+        "owned_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s1_guarded_4540837.json",
+        "selected_epoch": 20,
+        "predictions_unchanged": true,
+        "reason": "completed producer cannot resume; selected best encoder/head and normalization retained"
+      }
+    },
+    {
+      "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s2",
+      "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s2_guarded_4540838.json",
+      "fit_exit": {
+        "run": "S_FT_S_final_9Mtrajectory_3M_exp_LogD_s2",
+        "job_id": 4540838,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "producer": {
+          "pid": 586627,
+          "uid": 1278,
+          "start_ticks": 96339414,
+          "ppid": 586623,
+          "state": "R"
+        },
+        "started_at": 1795784276.385503,
+        "actual_deadline_epoch": 1795786360.0,
+        "closing_reserve_seconds": 900,
+        "protocol_provider": "P finetune_entry.py + finetune.py",
+        "invoking_authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+        "status": "COMPLETE",
+        "runtime_RAM_accounting": {
+          "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+          "registered_S_peak_bytes": 75161927680,
+          "this_fit_peak_bytes": 6442450944,
+          "committed_own_anon_bytes": 2574675968,
+          "remaining_S_bytes": 72587251712,
+          "observations": [
+            {
+              "credit_bytes": 2574675968,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795784399.6822312,
+              "producer": {
+                "pid": 586627,
+                "uid": 1278,
+                "start_ticks": 96339414
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            },
+            {
+              "credit_bytes": 2574675968,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795784399.7857804,
+              "producer": {
+                "pid": 586627,
+                "uid": 1278,
+                "start_ticks": 96339414
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            }
+          ],
+          "startup_and_peer_pretraining_reservations_unchanged": true,
+          "ram_guard_report": {
+            "line": "s-recipe",
+            "kind": "node_ram",
+            "node": "compute-0-20",
+            "path": "None",
+            "own": 72587251712,
+            "peers": 0,
+            "reserve": 17179869184,
+            "available": 93390082048
+          }
+        },
+        "exit_code": 0,
+        "peak_RSS_bytes": 3227340800,
+        "child_peak_RSS_bytes": 3023523840,
+        "peak_cuda_allocated_bytes": 1928322560,
+        "peak_cuda_reserved_bytes": 6780092416,
+        "ended_at": 1795784422.0655463,
+        "owned_descendants_exited": true,
+        "observer_joined": true
+      },
+      "selected_model_receipt": {
+        "status": "SELECTED_MODEL_DURABLE_CONTINUATION_RETIRED",
+        "selected_model": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s2/selected_model.pt",
+        "selected_bytes": 91018371,
+        "source_continuation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s2/complete_state.pt",
+        "source_bytes": 286275907,
+        "original_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s2/summary.json",
+        "owned_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_exp_LogD_s2_guarded_4540838.json",
+        "selected_epoch": 26,
+        "predictions_unchanged": true,
+        "reason": "completed producer cannot resume; selected best encoder/head and normalization retained"
+      }
+    },
+    {
+      "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s0",
+      "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s0_guarded_4540843.json",
+      "fit_exit": {
+        "run": "S_FT_S_final_9Mtrajectory_3M_exp_LogS_s0",
+        "job_id": 4540843,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "producer": {
+          "pid": 587806,
+          "uid": 1278,
+          "start_ticks": 96367826,
+          "ppid": 587802,
+          "state": "R"
+        },
+        "started_at": 1795784564.415867,
+        "actual_deadline_epoch": 1795786644.0,
+        "closing_reserve_seconds": 900,
+        "protocol_provider": "P finetune_entry.py + finetune.py",
+        "invoking_authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+        "status": "COMPLETE",
+        "runtime_RAM_accounting": {
+          "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+          "registered_S_peak_bytes": 75161927680,
+          "this_fit_peak_bytes": 6442450944,
+          "committed_own_anon_bytes": 2945409024,
+          "remaining_S_bytes": 72216518656,
+          "observations": [
+            {
+              "credit_bytes": 2945409024,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795784687.6788964,
+              "producer": {
+                "pid": 587806,
+                "uid": 1278,
+                "start_ticks": 96367826
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            },
+            {
+              "credit_bytes": 2945409024,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795784687.7893639,
+              "producer": {
+                "pid": 587806,
+                "uid": 1278,
+                "start_ticks": 96367826
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            }
+          ],
+          "startup_and_peer_pretraining_reservations_unchanged": true,
+          "ram_guard_report": {
+            "line": "s-recipe",
+            "kind": "node_ram",
+            "node": "compute-0-20",
+            "path": "None",
+            "own": 72216518656,
+            "peers": 0,
+            "reserve": 17179869184,
+            "available": 93284282368
+          }
+        },
+        "exit_code": 0,
+        "peak_RSS_bytes": 3602432000,
+        "child_peak_RSS_bytes": 3396460544,
+        "peak_cuda_allocated_bytes": 1927404032,
+        "peak_cuda_reserved_bytes": 6931087360,
+        "ended_at": 1795784711.8774917,
+        "owned_descendants_exited": true,
+        "observer_joined": true
+      },
+      "selected_model_receipt": {
+        "status": "SELECTED_MODEL_DURABLE_CONTINUATION_RETIRED",
+        "selected_model": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s0/selected_model.pt",
+        "selected_bytes": 91018371,
+        "source_continuation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s0/complete_state.pt",
+        "source_bytes": 286275907,
+        "original_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s0/summary.json",
+        "owned_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s0_guarded_4540843.json",
+        "selected_epoch": 22,
+        "predictions_unchanged": true,
+        "reason": "completed producer cannot resume; selected best encoder/head and normalization retained"
+      }
+    },
+    {
+      "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s1",
+      "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s1_guarded_4540850.json",
+      "fit_exit": {
+        "run": "S_FT_S_final_9Mtrajectory_3M_exp_LogS_s1",
+        "job_id": 4540850,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "producer": {
+          "pid": 588642,
+          "uid": 1278,
+          "start_ticks": 96391838,
+          "ppid": 588638,
+          "state": "R"
+        },
+        "started_at": 1795784800.6481729,
+        "actual_deadline_epoch": 1795786884.0,
+        "closing_reserve_seconds": 900,
+        "protocol_provider": "P finetune_entry.py + finetune.py",
+        "invoking_authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+        "status": "COMPLETE",
+        "runtime_RAM_accounting": {
+          "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+          "registered_S_peak_bytes": 75161927680,
+          "this_fit_peak_bytes": 6442450944,
+          "committed_own_anon_bytes": 2908729344,
+          "remaining_S_bytes": 72253198336,
+          "observations": [
+            {
+              "credit_bytes": 2908729344,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795784924.141325,
+              "producer": {
+                "pid": 588642,
+                "uid": 1278,
+                "start_ticks": 96391838
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            },
+            {
+              "credit_bytes": 2908729344,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795784924.2485254,
+              "producer": {
+                "pid": 588642,
+                "uid": 1278,
+                "start_ticks": 96391838
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            }
+          ],
+          "startup_and_peer_pretraining_reservations_unchanged": true,
+          "ram_guard_report": {
+            "line": "s-recipe",
+            "kind": "node_ram",
+            "node": "compute-0-20",
+            "path": "None",
+            "own": 72253198336,
+            "peers": 0,
+            "reserve": 17179869184,
+            "available": 93476335616
+          }
+        },
+        "exit_code": 0,
+        "peak_RSS_bytes": 3710730240,
+        "child_peak_RSS_bytes": 3512528896,
+        "peak_cuda_allocated_bytes": 1928134144,
+        "peak_cuda_reserved_bytes": 5452595200,
+        "ended_at": 1795784951.7991078,
+        "owned_descendants_exited": true,
+        "observer_joined": true
+      },
+      "selected_model_receipt": {
+        "status": "SELECTED_MODEL_DURABLE_CONTINUATION_RETIRED",
+        "selected_model": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s1/selected_model.pt",
+        "selected_bytes": 91018371,
+        "source_continuation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s1/complete_state.pt",
+        "source_bytes": 286275907,
+        "original_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s1/summary.json",
+        "owned_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s1_guarded_4540850.json",
+        "selected_epoch": 26,
+        "predictions_unchanged": true,
+        "reason": "completed producer cannot resume; selected best encoder/head and normalization retained"
+      }
+    },
+    {
+      "output": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s2",
+      "lifecycle_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s2_guarded_4540854.json",
+      "fit_exit": {
+        "run": "S_FT_S_final_9Mtrajectory_3M_exp_LogS_s2",
+        "job_id": 4540854,
+        "node": "compute-0-20",
+        "gpu_uuid": "GPU-ec788ed1-7da1-8f93-bb23-b4fdb2018b02",
+        "producer": {
+          "pid": 589268,
+          "uid": 1278,
+          "start_ticks": 96415851,
+          "ppid": 589264,
+          "state": "R"
+        },
+        "started_at": 1795785045.7599366,
+        "actual_deadline_epoch": 1795787124.0,
+        "closing_reserve_seconds": 900,
+        "protocol_provider": "P finetune_entry.py + finetune.py",
+        "invoking_authority": "docs/s_recipe/USER_DIRECTIVE_20261123B.md",
+        "status": "COMPLETE",
+        "runtime_RAM_accounting": {
+          "policy": "S_FULLFT_SELF_ANON_REMAINING_RAM_20261127_V1",
+          "registered_S_peak_bytes": 75161927680,
+          "this_fit_peak_bytes": 6442450944,
+          "committed_own_anon_bytes": 3118518272,
+          "remaining_S_bytes": 72043409408,
+          "observations": [
+            {
+              "credit_bytes": 3118518272,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795785169.6900318,
+              "producer": {
+                "pid": 589268,
+                "uid": 1278,
+                "start_ticks": 96415851
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            },
+            {
+              "credit_bytes": 3118518272,
+              "reason": "OWN_PSS_ANON_ONLY",
+              "observed_time": 1795785169.7960253,
+              "producer": {
+                "pid": 589268,
+                "uid": 1278,
+                "start_ticks": 96415851
+              },
+              "measurement": "Pss_Anon minus all LazyFree; file, shmem and other processes excluded"
+            }
+          ],
+          "startup_and_peer_pretraining_reservations_unchanged": true,
+          "ram_guard_report": {
+            "line": "s-recipe",
+            "kind": "node_ram",
+            "node": "compute-0-20",
+            "path": "None",
+            "own": 72043409408,
+            "peers": 0,
+            "reserve": 17179869184,
+            "available": 91877257216
+          }
+        },
+        "exit_code": 0,
+        "peak_RSS_bytes": 3773935616,
+        "child_peak_RSS_bytes": 3568807936,
+        "peak_cuda_allocated_bytes": 1927638528,
+        "peak_cuda_reserved_bytes": 6205472768,
+        "ended_at": 1795785194.28592,
+        "owned_descendants_exited": true,
+        "observer_joined": true
+      },
+      "selected_model_receipt": {
+        "status": "SELECTED_MODEL_DURABLE_CONTINUATION_RETIRED",
+        "selected_model": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s2/selected_model.pt",
+        "selected_bytes": 91018371,
+        "source_continuation": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s2/complete_state.pt",
+        "source_bytes": 286275907,
+        "original_summary": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/finetune_20261124/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s2/summary.json",
+        "owned_exit_evidence": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/S_FT_S_final_9Mtrajectory_3M_exp_LogS_s2_guarded_4540854.json",
+        "selected_epoch": 21,
+        "predictions_unchanged": true,
+        "reason": "completed producer cannot resume; selected best encoder/head and normalization retained"
+      }
+    }
+  ],
+  "reporting_execution": {
+    "job_id": null,
+    "native_handle": "S_prefix3M_fullft_delivery_native_20261128_attempt0",
+    "native_record": "/share/home/zixiao/descriptor_analysis/runs/s_recipe_20261120/native_cpu_20261126/S_prefix3M_fullft_delivery_native_20261128_attempt0/record.json"
+  },
+  "new_fits": 0,
+  "new_bootstrap_draws": 0,
+  "required_paired_contrasts_status": "Pending corresponding complete reference point deliveries",
+  "recipe_unchanged": true,
+  "ordinary_fullft_is_descriptive": true,
+  "E1_seed_mean_component_available": false
+}

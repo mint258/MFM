@@ -57,6 +57,42 @@ def plot(rows):
     plt.close(figure)
 
 
+def plot_fullft(rows):
+    """Plot only the five closed registered points; reuse delivered CSV values."""
+    selected = [row for row in rows if row.get('fullFT_status') == 'COMPLETE_DESCRIPTIVE']
+    expected = {'S_B0_9M', 'S_final_9M', 'S_final_9Mtrajectory_1M',
+        'S_final_9Mtrajectory_3M', 'S_final_9Mtrajectory_6M'}
+    if {row['fullFT_point'] for row in selected} != expected or len(selected) != 5:
+        return
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    matplotlib.rcParams['svg.fonttype'] = 'none'
+    figure, axes = plt.subplots(2, 1, figsize=(7.2, 6.4), sharex=True, constrained_layout=True)
+    for run, label, color, marker in zip(RUNS, ('S-B0', 'S-final'),
+            ('#276fbf', '#c65d21'), ('s', 'o')):
+        series = sorted((row for row in selected if row['source_run'] == run),
+            key=lambda row: int(row['samples']))
+        x = [int(row['samples']) / 1000000 for row in series]
+        axes[0].plot(x, [float(row['fullFT_mean']) for row in series],
+            marker=marker, color=color, label=label)
+        means = [float(row['fullFT_ensemble_mean']) for row in series]
+        lower = [m - float(row['fullFT_ci_lower']) for m, row in zip(means, series)]
+        upper = [float(row['fullFT_ci_upper']) - m for m, row in zip(means, series)]
+        axes[1].errorbar(x, means, yerr=[lower, upper], marker=marker,
+            color=color, capsize=4, label=label)
+    axes[0].set_title('Full finetuning: snapshots from original 9M cosine runs')
+    axes[0].set_ylabel('Mean of three seed scores')
+    axes[0].legend(frameon=False)
+    axes[1].set_ylabel('Score of mean predictions\n95% molecular CI')
+    for axis in axes:
+        axis.grid(alpha=.2)
+    axes[-1].set_xlabel('Pretraining samples (millions; within-run snapshots)')
+    axes[-1].set_xticks((1, 3, 6, 9))
+    figure.savefig(R/'results/s_recipe/figures/budget_fullFT_curve.svg')
+    figure.savefig(C/'budget_fullFT_curve_20261128.png', dpi=160)
+    plt.close(figure)
+
 def collect():
     marker = C/'budget_readout_delivery_20261127_COMPLETE.json'
     if marker.exists():
@@ -171,7 +207,10 @@ def run():
     temporary = destination.with_suffix('.csv.next')
     temporary.write_text(stream.getvalue())
     temporary.replace(destination)
-    plot(rows)
+    if not all((R/'results/s_recipe/figures'/name).is_file()
+            for name in ('budget_frozen_curve.svg', 'budget_VAL_curve.svg')):
+        plot(rows)
+    plot_fullft(rows)
     status = dict(status='READOUTS_COMPLETE_FULLFT_COMPLETE' if len(completed_ft)==5 else
         'READOUTS_COMPLETE_FULLFT_PENDING', reporting_execution=execution_fields(),
         rows=36, completed_readout_points=18, completed_fullFT_points=completed_ft,
